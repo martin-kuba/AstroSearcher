@@ -1,0 +1,72 @@
+<!-- TODO: edit whole document to match new search options....
+           -> search by id(name) and search by coords(ra, dec, radius) should be separated in form
+           -> fix whole form:
+              -> Fix search button
+              -> Fix upload button
+-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css" data-th-href="@{/css/style.css}">
+    <title>AstroSearcher</title>
+</head>
+
+<body>
+<header>
+    <nav class="nav-container">
+        <ul>
+            <li>
+                <a href="index.html" th:href="@{http://localhost:8088/index}">AstroSearcher</a>
+            </li>
+            <li>
+                <a href="about.html" th:href="@{http://localhost:8088/about}">About</a>
+            </li>
+            <li>
+                <div class="dropdown">
+                    <button class="dropbtn">Language</button>
+                    <div class="dropdown-languages">
+                        <div class="language-option">
+                            <img th:src="@{/images/gb.svg}" src="images/gb.svg" alt="">
+                            <a href="#">English</a>
+                        </div>
+                        <div class="language-option">
+                            <img th:src="@{/images/sk.svg}" src="images/sk.svg" alt="">
+                            <a href="#">Slovak</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+<!-- ************************************************************* -->
+<div id="container-bg">
+    <form class="search-form" action="testing" method="post">
+        <div class="content-wrapper">
+            <div>
+                <select class="select-search-option" name="searchBy">
+                    <option th:each="opt : ${searchOptions}" th:value="${opt}" th:text="${opt}"></option>
+                </select>
+            </div>
+            <div class="search-input-row">
+                <input class="search-input" type="text" name="searchInput"
+                       placeholder="Enter ID (name) or position (ra, dec, radius)">
+            </div>
+            <div class="upload-file-row">
+                <input id="upload-file" type="file" name="fileName">
+                <!-- <label for="upload-file">Choose a file</label> -->
+            </div>
+            <div class="submit-row">
+                <button class="search-btn" type="submit">Search</button>
+            </div>
+        <!-- <div>
+          <button class="search-btn" type="submit">Search</button>
+        </div> -->
+
+        </div>
+    </form>
+</div>
+</body>
+</html>

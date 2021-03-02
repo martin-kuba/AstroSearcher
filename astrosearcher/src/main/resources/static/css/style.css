@@ -1,0 +1,332 @@
+/*****************************
+ **       G L O B A L       **
+ *****************************/
+html {
+  width: 100%;
+  height: 100%;
+  font-family: sans-serif;
+}
+
+body {
+  width: inherit;   /* = 100% */
+  height: inherit;  /* = 100% */
+  margin: 0;
+}
+
+header {
+  position: -webkit-sticky;
+  position: sticky;
+  width: inherit;   /* =100% */
+  height: 4em;
+  /* background-color: #f0f0f0; */
+  background-color: #000000;
+}
+
+h1 {
+  margin: 0;
+  font-size: 3em;
+}
+
+h2 {
+  color: #000000;
+  font-size: 2em;
+}
+
+p {
+  color: #000000;
+  font-size: 1.25em;
+}
+
+/*****************************
+ **   N A V I G A T I O N   **
+ *****************************/
+.nav-container {
+  float: right;
+  margin: 0.75em 0em 0em 0em;
+}
+
+.nav-container ul {
+  margin: 0 5em 0em 0em;
+}
+
+.nav-container ul li {
+  display: inline-block;
+  margin: 0em 0em 0em 1.5em;
+}
+
+.nav-container ul li a {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #ffffff;
+  font-size: 2em;
+  position: relative;
+  margin: 1em 0em 0em 0em;
+}
+
+.nav-container ul li a:hover {
+  color: #d00000;
+  transition: 0.2s ease-in;
+}
+
+/* Dropdown Button */
+.dropbtn {
+  position: relative;
+  text-transform: uppercase;
+  /* background-color: #f0f0f0; */
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 2em;
+  font-family: sans-serif;
+  margin: 0;
+  border: none;
+  padding: 0.2em;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown .dropdown-languages {
+  display: none;
+  position: absolute;
+  width: 100%;
+  font-size: 1em;
+  background-color: #0f0f0f;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  margin: 0;
+}
+
+.dropdown .dropdown-languages .language-option {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 5%;
+}
+
+.dropdown .dropdown-languages .language-option img{
+  width: 30%;
+}
+
+.dropdown .dropdown-languages .language-option a{
+  text-transform: capitalize;
+  font-size: 1.5em;
+  color: #ffffff;
+  width: 70%;
+  margin: 0;
+  padding: 0.4em 0em 0.4em 0.5em;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown .dropdown-languages a:hover {
+  background-color: #d00000;
+  padding: 0.4em 0em 0.4em 0.5em;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-languages {
+  display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .dropbtn {
+  color: #d00000;
+  transition: 0.2s ease-in;
+}
+
+/*****************************
+ **     P A R A L L A X     **
+ *****************************/
+#container-bg {
+  width: 100%;
+  height: 100%;
+  background: url(../images/stars_bg.jpg) no-repeat center center fixed;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.search-form {
+  position: relative;
+  top: 40%;
+  margin: 0 auto;
+}
+
+#container-bg .content-wrapper {
+  width: 70%;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+  grid-column-gap: 1em;
+  grid-row-gap: 1.25em;
+  top: 40%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+#container-bg .content-wrapper form{
+}
+
+#container-bg .content-wrapper input{
+  width: 100%;
+  font-size: 1.5em;
+}
+
+.select-search-option {
+  width: 100%;
+  height: 1.5em;
+  font-size: 1.5em;
+}
+
+/*
+.search-input-row {
+  grid-column: 2 / 4;
+}
+*/
+.search-input {
+  box-sizing: border-box;
+}
+
+.upload-file-row {
+  grid-column: 2 / 3;
+}
+
+#upload-file {
+  color: white;
+}
+
+#upload-file:hover {
+  cursor: pointer;
+}
+
+.submit-row {
+  grid-column: 1 / 3;
+}
+
+.search-btn{
+  width: 35%;
+  height: 2em;
+  font-size: 1.5em;
+  margin-top: 2.5em;
+}
+
+.search-btn:hover {
+  background-color: #000000;
+  color: #ffffff;
+  transition: 0.15s ease-in;
+  cursor: pointer;
+}
+
+.test {
+  height: 1500px;
+}
+
+/*****************************
+ **      R E S U L T S      **
+ *****************************/
+/* Style the tab */
+.tab {
+  width: 95%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  overflow: hidden;
+  /*border: 1px solid #ccc;*/
+  background-color: transparent;
+  text-align: center;
+  margin: 0 auto;
+  padding-top: 2em;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  width: 100%;
+  background-color: inherit;
+  color: #ffffff;
+
+  float: left;
+  /*border: 1px solid #ffffff;*/
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 0.5em 1em;
+  transition: 0.3s;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  /*background-color: crimson;*/
+  background-color: firebrick;
+  color: gold;
+}
+
+/* Create an active/current datasource class */
+.tab button.active {
+  background-color: darkred;
+  color: gold;
+}
+
+/* Style the tab content */
+.tabcontent {
+  width: 95%;
+  height: 80%;
+  text-align: center;
+  display: none;
+  padding: 0;
+  border: none;
+  overflow: scroll;
+  margin: 0 auto;
+}
+
+.tabcontent table {
+  border: none;
+}
+
+.tabcontent table thead {
+  /*width: 100%;*/
+  /*border: 1px solid #000000;*/
+  border: none;
+  overflow-x: scroll;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.tabcontent table thead tr {
+  /*width: 100%;*/
+  overflow-x: scroll;
+}
+
+.tabcontent table tbody {
+  /*width: 100%;*/
+  overflow-x: scroll;
+}
+
+.tabcontent table tbody tr {
+  /*width: 100%;*/
+  overflow-x: scroll;
+}
+
+.tabcontent table tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.tabcontent table tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.tabcontent table tr th {
+  padding: 3px 6px;
+  text-align: left;
+}
+
+/*****************************
+ **        A B O U T        **
+ *****************************/
+.about-content {
+  height: 100%;
+  background-color: #d0d0d0;
+  text-align: center;
+  padding-top: 5em;
+}

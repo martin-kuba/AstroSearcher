@@ -1,0 +1,91 @@
+<!-- TODO: edit whole document to match new search options....
+           -> search by id(name) and search by coords(ra, dec, radius) should be separated in form
+           -> fix whole form:
+              -> Fix search button
+              -> Fix upload button
+-->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css" data-th-href="@{/css/style.css}">
+    <script src="js/showData.js"></script>
+    <title>AstroSearcher</title>
+</head>
+
+<body>
+<header>
+    <nav class="nav-container">
+        <ul>
+            <li>
+                <a href="index.html" th:href="@{http://localhost:8088/index}">AstroSearcher</a>
+            </li>
+            <li>
+                <a href="about.html" th:href="@{http://localhost:8088/about}">About</a>
+            </li>
+            <li>
+                <div class="dropdown">
+                    <button class="dropbtn">Language</button>
+                    <div class="dropdown-languages">
+                        <div class="language-option">
+                            <img th:src="@{/images/gb.svg}" src="images/gb.svg" alt="">
+                            <a href="#">English</a>
+                        </div>
+                        <div class="language-option">
+                            <img th:src="@{/images/sk.svg}" src="images/sk.svg" alt="">
+                            <a href="#">Slovak</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+<!-- ************************************************************* -->
+<div id="container-bg">
+    <div class="tab">
+        <div><button class="datasource" onclick="showData(event, 'data-MAST')">MAST</button></div>
+        <div><button class="datasource" onclick="showData(event, 'data-Vizier')">Vizier</button></div>
+        <div><button class="datasource" onclick="showData(event, 'data-Simbad')">Simbad</button></div>
+    </div>
+
+    <!-- Tab content -->
+    <div id="data-MAST" class="tabcontent">
+        <table>
+            <thead>
+            <tr>
+                <th:block th:each="field : ${fields}">
+                    <th th:text="${field.name}"></th>
+                </th:block>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="row : ${rows}">
+                <th:block th:each="value : ${row}">
+                    <th th:text="${value}"></th>
+                </th:block>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="data-Vizier" class="tabcontent">
+        <h3>Vizier</h3>
+        <p>results</p>
+    </div>
+
+    <div id="data-Simbad" class="tabcontent">
+        <h3>Simbad</h3>
+        <p>results</p>
+    </div>
+</div>
+<!--
+<div id="results-table">
+-->
+
+<!--
+</div>
+-->
+</body>
+</html>
