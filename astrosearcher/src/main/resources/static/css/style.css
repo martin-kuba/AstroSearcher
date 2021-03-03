@@ -289,7 +289,6 @@ p {
   /*border: 1px solid #000000;*/
   border: none;
   overflow-x: scroll;
-  background-color: #000000;
   color: #ffffff;
 }
 
@@ -313,12 +312,22 @@ p {
 }
 
 .tabcontent table tbody tr:nth-child(even) {
-  background-color: #f2f2f2;
+  background-color: #e2e2e2;
 }
 
-.tabcontent table tr th {
+.tabcontent table tbody tr td{
+  /*width: 100%;*/
+  text-align: left;
+  padding: 3px 12px 3px 12px;
+}
+
+
+.tabcontent table thead th {
+  position: sticky;
+  top: -1px;
   padding: 3px 6px;
   text-align: left;
+  background-color: #000000;
 }
 
 /*****************************

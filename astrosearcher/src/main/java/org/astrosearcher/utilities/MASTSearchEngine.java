@@ -50,11 +50,11 @@ public class MASTSearchEngine {
             os.close();
 
             int responseCode = connection.getResponseCode();
-            System.out.println("POST Response Code :: " + responseCode); // 200 ==> OK
+//            System.out.println("POST Response Code :: " + responseCode); // 200 ==> OK
 
             // TODO: check whether exception should be thrown here
             if (responseCode != HttpURLConnection.HTTP_OK) {
-                System.out.println("POST Request failed! Throwing exception...");
+//                System.out.println("POST Request failed! Throwing exception...");
                 return null;
             }
 
@@ -66,27 +66,27 @@ public class MASTSearchEngine {
                 response.append(inputLine);
             }
             in.close();
-            System.out.println("Server reponse :: " + response);
+//            System.out.println("Server reponse :: " + response);
 //            System.out.
 
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.println();
-            System.out.print("From JSON: ");
+//            System.out.println();
+//            System.out.println();
+//            System.out.println();
+//            System.out.println();
+//            System.out.println();
+//            System.out.println();
+//            System.out.println();
+//            System.out.println();
+//            System.out.print("From JSON: ");
 
             Gson gson = new Gson();
 
             resp = new Gson().fromJson(response.toString(), ResponseForReqByPos.class);
-            System.out.println("parsed!");
-            System.out.println("name:" + resp.getName());
-            System.out.println("tables:\n" + resp.getTables());
+//            System.out.println("parsed!");
+//            System.out.println("name:" + resp.getName());
+//            System.out.println("tables:\n" + resp.getTables());
 
-            System.out.println("columns:\n" + gson.toJson(resp.getTables().get(0).getColumns()));
+//            System.out.println("columns:\n" + gson.toJson(resp.getTables().get(0).getColumns()));
 //            System.out.println("rows:\n" + resp.getTables().get(0).getRows());
             //TODO: Extract data from response, store it into 'results'
             return resp.getTables().get(0);
@@ -106,7 +106,3 @@ public class MASTSearchEngine {
     }
 
 }
-
-//        System.out.println("JSON: " + new MastRequestObject(SERVICE_CONE_SEARCH, 254.28746, -4.09933)
-//                .toJson()
-//        );

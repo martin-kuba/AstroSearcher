@@ -49,7 +49,21 @@ public class TestingController {
         }
 
         if ( !res.isEmpty() ) {
-            model.addAttribute("fields", res.get(0).getFields());
+//            for (var row: res.get(0).getRows()) {
+//                System.out.println("\n\n" + row);
+//                for (int i = 0; i < row.size(); i++) {
+//                    if (res.get(0).getColumns().get(i).isString()) {
+//                        System.out.println("value [" + i + "]: " + row.get(i).getAsString());
+//                    } else {
+//                        System.out.println("value [" + i + "]: " + row.get(i));
+//                    }
+//                }
+//            }
+
+            System.out.println("VYPIS 1: " + res.get(0).getRows().get(0).get(0));
+            System.out.println("VYPIS 2: " + res.get(0).getRows().get(0).get(0).getAsString());
+
+            model.addAttribute("columns", res.get(0).getColumns());
             model.addAttribute("rows", res.get(0).getRows());
         }
 

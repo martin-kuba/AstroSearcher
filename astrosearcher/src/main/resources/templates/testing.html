@@ -55,15 +55,23 @@
         <table>
             <thead>
             <tr>
-                <th:block th:each="field : ${fields}">
-                    <th th:text="${field.name}"></th>
+                <th:block th:each="column : ${columns}">
+                    <th th:text="${column.getLabel()}"
+                        th:style="${column.isHidden()}? 'display:none;' : 'display:table-cell;'">
+<!--                        th:style="${column.getLabel() == null}? 'visibility:hidden;' : 'visibility:visible;'">-->
+                    </th>
                 </th:block>
             </tr>
             </thead>
             <tbody>
             <tr th:each="row : ${rows}">
-                <th:block th:each="value : ${row}">
-                    <th th:text="${value}"></th>
+                <th:block th:each="value, iterStat : ${row}">
+                    <td th:text="${columns.get(iterStat.index).isString()}
+                        ? ${value.getAsString()}
+                        : (${value == null}? '' : ${value})"
+                        th:style="${columns.get(iterStat.index).isHidden()}
+                            ? 'display:none;'
+                            : 'display:table-cell;'"></td>
                 </th:block>
             </tr>
             </tbody>

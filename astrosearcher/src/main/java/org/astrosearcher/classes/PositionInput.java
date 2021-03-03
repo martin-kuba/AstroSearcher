@@ -1,5 +1,6 @@
 package org.astrosearcher.classes;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 
 import java.util.regex.Matcher;
@@ -11,10 +12,14 @@ public class PositionInput {
 //    private final String INPUT_REGEX = "[\\s*(\\-?\\d+(?:.\\d+?:)?)\\s*]{2,3}";
 //    private final String INPUT_REGEX = "(?:\\s*(\\-?\\d+(?:.\\d+)?)\\s*){2,3}";
 
-    private final String FIGIT     = "(-?\\d+(?:\\.\\d+)?)";      // Fractional dIGIT
-    private final String SEP       = "(?:(?:\\s*,\\s*)|\\s+)";    // SEParator
-    private final String OPT_FIGIT = "(?:" + SEP + FIGIT + ")?";  // OPTional FIGIT
-    private final String INPUT_REGEX = "\\s*" + FIGIT + SEP + FIGIT + OPT_FIGIT + "\\s*";
+    @Getter(AccessLevel.NONE)
+    private final String FRUMBER     = "(-?\\d+(?:\\.\\d+)?)";        // FRactaional nUMBER
+    @Getter(AccessLevel.NONE)
+    private final String SEP         = "(?:(?:\\s*,\\s*)|\\s+)";      // SEParator
+    @Getter(AccessLevel.NONE)
+    private final String OPT_FRUMBER = "(?:" + SEP + FRUMBER + ")?";  // OPTional FRUMBER
+    @Getter(AccessLevel.NONE)
+    private final String INPUT_REGEX = "\\s*" + FRUMBER + SEP + FRUMBER + OPT_FRUMBER + "\\s*";
 
     private double ra     = 0;    // Right Ascension
     private double dec    = 0;    // Declination
