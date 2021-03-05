@@ -317,12 +317,14 @@ p {
 
 .tabcontent table tbody tr td{
   /*width: 100%;*/
+  width: auto;
   text-align: left;
   padding: 3px 12px 3px 12px;
 }
 
 
 .tabcontent table thead th {
+  width: auto;
   position: sticky;
   top: -1px;
   padding: 3px 6px;

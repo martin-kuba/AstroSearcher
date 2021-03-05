@@ -89,6 +89,8 @@ public class MASTSearchEngine {
 //            System.out.println("columns:\n" + gson.toJson(resp.getTables().get(0).getColumns()));
 //            System.out.println("rows:\n" + resp.getTables().get(0).getRows());
             //TODO: Extract data from response, store it into 'results'
+
+            connection.disconnect();
             return resp.getTables().get(0);
 
         } catch (MalformedURLException me) {
@@ -100,7 +102,6 @@ public class MASTSearchEngine {
         }
 
         // TODO: process response
-
 //        return resp.getTables().get(0);
         return null;
     }

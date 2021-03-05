@@ -63,6 +63,23 @@ public class TestingController {
             System.out.println("VYPIS 1: " + res.get(0).getRows().get(0).get(0));
             System.out.println("VYPIS 2: " + res.get(0).getRows().get(0).get(0).getAsString());
 
+            boolean dataUrlFound = false;
+            boolean jpegUrlFound = false;
+            for (int i = 0; i < res.get(0).getColumns().size(); i++) {
+
+                if (res.get(0).getColumns().get(i).getText().equals("dataURL")) {
+                    model.addAttribute("dataUrlIndex", i);
+                    dataUrlFound = true;
+                }
+                if (res.get(0).getColumns().get(i).getText().equals("jpegURL")) {
+                    model.addAttribute("jpegUrlIndex", i);
+                    jpegUrlFound = true;
+                }
+            }
+            model.addAttribute("dataUrlFound", dataUrlFound);
+            model.addAttribute("jpegUrlFound", jpegUrlFound);
+
+
             model.addAttribute("columns", res.get(0).getColumns());
             model.addAttribute("rows", res.get(0).getRows());
         }
