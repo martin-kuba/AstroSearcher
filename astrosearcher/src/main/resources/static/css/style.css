@@ -318,6 +318,7 @@ p {
 .tabcontent table tbody tr td{
   /*width: 100%;*/
   width: auto;
+  white-space: nowrap;
   text-align: left;
   padding: 3px 12px 3px 12px;
 }
@@ -325,6 +326,7 @@ p {
 
 .tabcontent table thead th {
   width: auto;
+  white-space: nowrap;
   position: sticky;
   top: -1px;
   padding: 3px 6px;

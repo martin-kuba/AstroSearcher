@@ -4,10 +4,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
+import lombok.Getter;
+import org.astrosearcher.classes.mast.caom.cone.CaomFields;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+@Getter
 public class TableFromReqByPos {
 
         private String name;
@@ -26,6 +31,8 @@ public class TableFromReqByPos {
     @SerializedName(value = "rows", alternate = "Rows")
     private List<JsonArray> rows = new ArrayList<>();
 
+    private Map<CaomFields, Integer> responseDataMapper;
+
 //    public TableFromReqByPos(String name, ExtPropertiesForTableFromReqByPos extendedProperties,
 //                             List<ColumnForTableFromReqByPos> columns,
 //                             List<FieldForTableFromReqByPos> fields,
@@ -42,45 +49,28 @@ public class TableFromReqByPos {
                              List<FieldForTableFromReqByPos> fields,
                              List<JsonArray> rows) {
 
-        System.out.println("ide parsovat!");
-        Gson gson = new Gson();
-//        for (int index = 0; index < fields.size(); index++) {
-//            fields.get(index)
-//                .setLabel(gson.fromJson(columns.get(index).getExtendedProperties().get(labelProperty), String.class));
-//            System.out.println("Field: " + fields.get(index).getLabel());
-//        }
-
         this.name = name;
         this.extendedProperties = extendedProperties;
         this.columns.addAll(columns);
         this.fields.addAll(fields);
         this.rows.addAll(rows);
-
-        System.out.println("VYPIS 1: " + rows.get(0).get(0) );
-        System.out.println("VYPIS 2: " + rows.get(0).get(0).getAsString() );
     }
 
-    public String getName() {
-        return name;
-    }
+    public void initMapper() {
+        responseDataMapper = new HashMap<>();
 
-//    public ExtPropertiesForTableFromReqByPos getExtendedProperties() {
-//        return extendedProperties;
-//    }
+        System.out.println("Current state of mapper: " + responseDataMapper);
+        System.out.println("values: " + responseDataMapper.values());
 
-    public JsonObject getExtendedProperties() {
-        return extendedProperties;
-    }
-
-    public List<ColumnForTableFromReqByPos> getColumns() {
-        return columns;
-    }
-
-    public List<FieldForTableFromReqByPos> getFields() {
-        return fields;
-    }
-
-    public List<JsonArray> getRows() {
-        return rows;
+        for (CaomFields caomField : CaomFields.values()) {
+            System.out.print("Field: " + caomField);
+            responseDataMapper.put(caomField, -1);
+            for (int index = 0; index < fields.size(); index++) {
+                if (caomField.equals(fields.get(index).getName())) {
+                    responseDataMapper.put(caomField, index);
+                }
+            }
+            System.out.println("[ " + responseDataMapper.get(caomField) + " ]");
+        }
     }
 }

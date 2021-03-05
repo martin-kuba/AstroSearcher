@@ -15,276 +15,244 @@ package org.astrosearcher.classes.mast.caom.cone;
     - transformed ... (indicates whether response data are transformed into icon)
  */
 public enum CaomFields {
+    DATA_URL(
+            "dataURL",
+            "Data",
+            "data URL",
+            "fas fa-box-open",
+            0,
+            true
+    ),
+    JPEG_URL(
+            "jpegURL",
+            "jpeg",
+            "Preview Image URL",
+            "far fa-file-image",
+            1,
+            true
+    ),
     INTENT_TYPE(
             "intentType",
             "Observation type",
             "Whether observation is for science or calibration",
             2,
-            true,
-            false
+            true
     ),
     OBS_COLLECTION (
             "obs_collection",
             "Mission",
             "Collection",
             3,
-            true,
-            false
+            true
     ),
     PROVENANCE_NAME(
             "provenance_name",
             "Provenance Name",
             "Provenance name, or source of data",
             4,
-            true,
-            false
+            true
     ),
     INSTRUMENT_NAME(
             "instrument_name",
             "Instrument",
             "Instrument Name",
             5,
-            true,
-            false
+            true
     ),
     PROJECT(
             "project",
             "Project",
             "Processing project",
             6,
-            true,
-            false
+            true
     ),
     FILTERS(
             "filters",
             "Filters",
             "Instrument filters",
             7,
-            true,
-            false
+            true
     ),
     WAVELENGTH_REGION(
             "wavelength_region",
             "Waveband",
             "Energy Band",
             8,
-            true,
-            false
+            true
     ),
     TARGET_NAME(
             "target_name",
             "Target Name",
             "Target Name",
             9,
-            true,
-            false
+            true
     ),
     TARGET_CLASSIFICATION(
             "target_classification",
             "Target Classification",
             "Type of target",
             10,
-            true,
-            false
+            true
     ),
     OBS_ID(
             "obs_id",
             "Observation ID",
             "Observation identifier, given by mission",
             11,
-            true,
-            false
+            true
     ),
     S_RA(
             "s_ra",
             "RA",
             "Observation Right Ascension",
             12,
-            true,
-            false
+            true
     ),
     S_DEC(
             "s_dec",
             "Dec",
             "Observation Declination",
             13,
-            true,
-            false
+            true
     ),
     DATAPRODUCT_TYPE(
             "dataproduct_type",
             "Product type",
             "Type of product",
             14,
-            true,
-            false
+            true
     ),
     PROPOSAL_PI(
             "proposal_pi",
             "Principal Investigator",
             "Principal investigator's last name",
             15,
-            true,
-            false
+            true
     ),
     CALIB_LEVEL(
             "calib_level",
             "Calibration Level",
             "Calibration level",
             16,
-            true,
-            false
+            true
     ),
     T_MIN(
             "t_min",
             "Start Time",
             "Observation start datetime",
             17,
-            true,
-            false
+            true
     ),
     T_MAX(
             "t_max",
             "End Time",
             "Observation end datetime",
             18,
-            true,
-            false
+            true
     ),
     T_EXPTIME(
             "t_exptime",
             "Exposure Length",
             "Exposure time",
             19,
-            true,
-            false
+            true
     ),
     EM_MIN(
             "em_min",
             "Min. Wavelength",
             "Minimum Wavelength",
             20,
-            true,
-            false
+            true
     ),
     EM_MAX(
             "em_max",
             "Max. Wavelength",
             "Maximum Wavelength",
             21,
-            true,
-            false
+            true
     ),
     OBS_TITLE(
             "obs_title",
             "Observation Title",
             "Observation description from proposal",
             22,
-            true,
-            false
+            true
     ),
     T_OBS_RELEASE(
             "t_obs_release",
             "Release Date",
             "Dataset release date",
             23,
-            true,
-            false
+            true
     ),
     PROPOSAL_ID(
             "proposal_id",
             "Proposal ID",
             "Proposal ID",
             24,
-            true,
-            false
+            true
     ),
     PROPOSAL_TYPE(
             "proposal_type",
             "Proposal Type",
             "Type of telescope proposal",
             25,
-            true,
-            false
+            true
     ),
     SEQUENCE_NUMBER(
             "sequence_number",
             "Sequence Number",
             "Sequence number, e.g. Kepler quarter or TESS sector",
             26,
-            true,
-            false
+            true
     ),
     S_REGION(
             "s_region",
             "s_region",
             "STC/S Footprint",
             27,
-            false,
             false
-    ),
-    JPEG_URL(
-            "jpegURL",
-            "JPEG URL",
-            "Preview Image URL",
-            1,
-            true,
-            true
-    ),
-    DATA_URL(
-            "dataURL",
-            "Data URL",
-            "data URL",
-            0,
-            true,
-            true
     ),
     DATA_RIGHTS(
             "dataRights",
             "Data Rights",
             "Data rights",
             28,
-            true,
-            false
+            true
     ),
     MT_FLAG(
             "mtFlag",
             "Moving Target",
             "Moving Target Flag",
             29,
-            true,
-            false
+            true
     ),
     SRC_DEN(
             "srcDen",
             "Number of Catalog Objects",
             "Number of cataloged objects found in observation",
             30,
-            true,
-            false
+            true
     ),
     OBSID(
             "obsid",
             "Product Group ID",
             "Database identifier for obs_id",
             31,
-            true,
-            false
+            true
     ),
     DISTANCE(
             "distance",
             "Distance (\")",
             "Angular separation between searched coordinates and center of obsevation",
             32,
-            true,
-            false
+            true
     ),
     SELECTED(
             "_selected_",
             "Selected",
             "Selected",
             33,
-            false,
             false
     ),
     OBJID(
@@ -292,28 +260,37 @@ public enum CaomFields {
             "Object ID",
             "Plane ID of observation at given calibration level",
             34,
-            false,
             false
     );
 
 
-    private final String  workName;
-    private final String  label;
-    private final String  description;
-    private final int     order;
-    private final boolean visible;
-    private final boolean transformed;
+    private String  workName;
+    private String  label;
+    private String  description;
+    private String  iconClass;
+    private int     order;
+    private boolean visible;
 
 
     CaomFields(String workName, String label, String description,
                int order,
-               boolean visible, boolean transformed) {
-        this.workName    = workName;
-        this.label       = label;
+               boolean visible) {
+        setAttributes(workName, label, description, null, order, visible);
+    }
+
+    CaomFields(String workName, String label, String description, String iconClass,
+               int order,
+               boolean visible) {
+        setAttributes(workName, label, description, iconClass, order, visible);
+    }
+
+    private void setAttributes(String workName, String label, String description, String iconClass, int order, boolean visible) {
+        this.workName = workName;
+        this.label = label;
         this.description = description;
-        this.order       = order;
-        this.visible     = visible;
-        this.transformed = transformed;
+        this.order = order;
+        this.visible = visible;
+        this.iconClass = iconClass;
     }
 
     @Override
@@ -325,5 +302,15 @@ public enum CaomFields {
         return description;
     }
 
+    public boolean equals(String workName) {
+        return this.workName.equals(workName);
+    }
 
+    public String getIconClass() {
+        return iconClass;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
 }

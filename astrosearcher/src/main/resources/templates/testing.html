@@ -56,36 +56,59 @@
         <table>
             <thead>
             <tr>
-                <th>Data</th>
-                <th>JPEG</th>
-                <th:block th:each="column : ${columns}">
-                    <th th:text="${column.getLabel()}"
-                        th:style="${column.isHidden()}? 'display:none;' : 'display:table-cell;'">
-<!--                        th:style="${column.getLabel() == null}? 'visibility:hidden;' : 'visibility:visible;'">-->
+                <th:block th:each="column : ${columns}" th:if="${mapper.get(column) != -1 && column.isVisible()}">
+                    <th th:text="${column}">
                     </th>
                 </th:block>
             </tr>
             </thead>
             <tbody>
             <tr th:each="row : ${rows}">
-                <td th:if="${dataUrlFound}">
-                    <a th:href="@{${row.get(dataUrlIndex).getAsString()}}">
-                        <i class="fas fa-box-open"></i>
-                    </a>
-                </td>
-                <td th:if="${jpegUrlFound}">
-                    <a th:href="@{${row.get(jpegUrlIndex).getAsString()}}">
-                        <i class="far fa-file-image"></i>
-                    </a>
-                </td>
-                <th:block th:each="value, iterStat : ${row}">
-                    <td th:text="${columns.get(iterStat.index).isString()}
-                        ? ${value.getAsString()}
-                        : (${value == null}? '' : ${value})"
-                        th:style="${columns.get(iterStat.index).isHidden()}
-                            ? 'display:none;'
-                            : 'display:table-cell;'"></td>
+<!--                <td th:if="${dataUrlFound}">-->
+<!--                    <a th:href="@{${row.get(dataUrlIndex).getAsString()}}">-->
+<!--                        <i class="fas fa-box-open"></i>-->
+<!--                    </a>-->
+<!--                </td>-->
+<!--                <td th:if="${jpegUrlFound}">-->
+<!--                    <a th:href="@{${row.get(jpegUrlIndex).getAsString()}}">-->
+<!--                        <i class="far fa-file-image"></i>-->
+<!--                    </a>-->
+<!--                </td>-->
+                <th:block th:each="column : ${columns}" th:if="${mapper.get(column) != -1 && column.isVisible()}">
+                    <td th:if="${row.get(mapper.get(column)).isJsonNull()}"></td>
+                    <td th:unless="${row.get(mapper.get(column)).isJsonNull()}">
+                        <th:block th:if="${row.get(mapper.get(column)).isJsonPrimitive()}">
+
+                            <span th:if="${column.getIconClass() == null}"
+                                  th:text="${row.get(mapper.get(column)).getAsJsonPrimitive().isString()}
+                                ? ${row.get(mapper.get(column)).getAsString()}
+                                : ${row.get(mapper.get(column))}">
+                            </span>
+
+                            <span th:unless="${column.getIconClass() == null ||
+                                               row.get(mapper.get(column)).getAsString().equals('')}">
+                                <a th:href="${row.get(mapper.get(column)).getAsString()}">
+                                    <i th:class="${column.getIconClass()}"></i>
+                                </a>
+                            </span>
+
+                        </th:block>
+                        <th:block th:unless="${row.get(mapper.get(column)).isJsonPrimitive()}">
+                            <span th:text="${row.get(mapper.get(column))}"></span>
+                        </th:block>
+
+
+                    </td>
                 </th:block>
+
+<!--                <th:block th:each="value, iterStat : ${row}">-->
+<!--                    <td th:text="${columns.get(iterStat.index).isString()}-->
+<!--                        ? ${value.getAsString()}-->
+<!--                        : (${value == null}? '' : ${value})"-->
+<!--                        th:style="${columns.get(iterStat.index).isHidden()}-->
+<!--                            ? 'display:none;'-->
+<!--                            : 'display:table-cell;'"></td>-->
+<!--                </th:block>-->
             </tr>
             </tbody>
         </table>

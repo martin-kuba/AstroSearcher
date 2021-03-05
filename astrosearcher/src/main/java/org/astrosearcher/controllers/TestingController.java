@@ -2,6 +2,7 @@ package org.astrosearcher.controllers;
 
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.mast.TableFromReqByPos;
+import org.astrosearcher.classes.mast.caom.cone.CaomFields;
 import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.utilities.SearchEngine;
 import org.springframework.stereotype.Controller;
@@ -60,8 +61,8 @@ public class TestingController {
 //                }
 //            }
 
-            System.out.println("VYPIS 1: " + res.get(0).getRows().get(0).get(0));
-            System.out.println("VYPIS 2: " + res.get(0).getRows().get(0).get(0).getAsString());
+//            System.out.println("VYPIS 1: " + res.get(0).getRows().get(0).get(0));
+//            System.out.println("VYPIS 2: " + res.get(0).getRows().get(0).get(0).getAsString());
 
             boolean dataUrlFound = false;
             boolean jpegUrlFound = false;
@@ -80,8 +81,14 @@ public class TestingController {
             model.addAttribute("jpegUrlFound", jpegUrlFound);
 
 
-            model.addAttribute("columns", res.get(0).getColumns());
+            // onyl for MAST
+            model.addAttribute("columns", CaomFields.values());
+            model.addAttribute("mapper", res.get(0).getResponseDataMapper());
             model.addAttribute("rows", res.get(0).getRows());
+        }
+
+        for (var row : res.get(0).getRows()) {
+            System.out.println(row);
         }
 
         return "testing";
