@@ -1,5 +1,8 @@
 package org.astrosearcher.classes.mast;
 
+import lombok.Getter;
+
+@Getter
 public class Paging {
     private int page;
     private int pageSize;
@@ -15,53 +18,5 @@ public class Paging {
         this.rows          = rows;
         this.rowsFiltered  = rowsFiltered;
         this.rowsTotal     = rowsTotal;
-    }
-
-    public int getPage() {
-        return page;
-    }
-
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    public int getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public int getPagesFiltered() {
-        return pagesFiltered;
-    }
-
-    public void setPagesFiltered(int pagesFiltered) {
-        this.pagesFiltered = pagesFiltered;
-    }
-
-    public int getRows() {
-        return rows;
-    }
-
-    public void setRows(int rows) {
-        this.rows = rows;
-    }
-
-    public int getRowsFiltered() {
-        return rowsFiltered;
-    }
-
-    public void setRowsFiltered(int rowsFiltered) {
-        this.rowsFiltered = rowsFiltered;
-    }
-
-    public int getRowsTotal() {
-        return rowsTotal;
-    }
-
-    public void setRowsTotal(int rowsTotal) {
-        this.rowsTotal = rowsTotal;
     }
 }

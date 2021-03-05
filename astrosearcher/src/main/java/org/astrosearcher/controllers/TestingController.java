@@ -15,22 +15,9 @@ import java.util.List;
 @Controller
 public class TestingController {
 
-//    @GetMapping("testing")
-//    public String test(@RequestParam String searchInput, Model model) {
-//        System.out.println("test METHOD has been called!!! input: " + searchInput);
-//        model.addAttribute("input", searchInput);
-//        model.addAttribute("inputis", "haha");
-//        return "testing";
-//    }
-
-//    @RequestMapping(value = "testing", method = {RequestMethod.GET, RequestMethod.POST})
     @PostMapping("testing")
     public String test(@RequestParam String searchBy, @RequestParam String searchInput, Model model) {
         model.addAttribute("searchOptions", SearchType.values());
-//        System.out.println("test METHOD has been called!!! input: " + searchInput);
-//        model.addAttribute("input", new MastMashupRequest(searchInput).create());
-//        model.addAttribute("input", SearchEngine.findAll(searchInput));
-//        model.addAttribute("inputis", "haha");
 
         List<TableFromReqByPos> res = new ArrayList<>();
 
@@ -42,53 +29,16 @@ public class TestingController {
             PositionInput input = new PositionInput(searchInput);
 
             if (input.isSuccessful()) {
-                System.out.println("Parsing of input was sucessful!");
                 res.addAll(SearchEngine.findAllByPosition(input.getRa(), input.getDec(), input.getRadius()));
-            } else {
-                System.out.println("Parsing of input was not sucessful!");
             }
         }
 
         if ( !res.isEmpty() ) {
-//            for (var row: res.get(0).getRows()) {
-//                System.out.println("\n\n" + row);
-//                for (int i = 0; i < row.size(); i++) {
-//                    if (res.get(0).getColumns().get(i).isString()) {
-//                        System.out.println("value [" + i + "]: " + row.get(i).getAsString());
-//                    } else {
-//                        System.out.println("value [" + i + "]: " + row.get(i));
-//                    }
-//                }
-//            }
 
-//            System.out.println("VYPIS 1: " + res.get(0).getRows().get(0).get(0));
-//            System.out.println("VYPIS 2: " + res.get(0).getRows().get(0).get(0).getAsString());
-
-            boolean dataUrlFound = false;
-            boolean jpegUrlFound = false;
-            for (int i = 0; i < res.get(0).getColumns().size(); i++) {
-
-                if (res.get(0).getColumns().get(i).getText().equals("dataURL")) {
-                    model.addAttribute("dataUrlIndex", i);
-                    dataUrlFound = true;
-                }
-                if (res.get(0).getColumns().get(i).getText().equals("jpegURL")) {
-                    model.addAttribute("jpegUrlIndex", i);
-                    jpegUrlFound = true;
-                }
-            }
-            model.addAttribute("dataUrlFound", dataUrlFound);
-            model.addAttribute("jpegUrlFound", jpegUrlFound);
-
-
-            // onyl for MAST
+            // only for MAST
             model.addAttribute("columns", CaomFields.values());
             model.addAttribute("mapper", res.get(0).getResponseDataMapper());
             model.addAttribute("rows", res.get(0).getRows());
-        }
-
-        for (var row : res.get(0).getRows()) {
-            System.out.println(row);
         }
 
         return "testing";

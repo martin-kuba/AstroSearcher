@@ -9,7 +9,6 @@ import lombok.Getter;
 
 @Getter
 public class ColumnForTableFromReqByPos {
-//    private final String labelProperty = "cc.text";
 
     private String text;
     private String dataIndex;
@@ -17,16 +16,6 @@ public class ColumnForTableFromReqByPos {
 
     @SerializedName(value = "extendedProperties", alternate = "ExtendedProperties")
     private JsonObject extendedProperties;
-//    private ExtPropertiesForColumnForTableFromReqByPos extendedProperties;
-
-//    public ColumnForTableFromReqByPos(String text, String dataIndex, String ignoreValue,
-//                                      ExtPropertiesForColumnForTableFromReqByPos extendedProperties) {
-//        this.text = text;
-//        this.dataIndex = dataIndex;
-//        this.ignoreValue = ignoreValue;
-//        this.extendedProperties = extendedProperties;
-//    }
-
 
     public ColumnForTableFromReqByPos(String text, String dataIndex, String ignoreValue, JsonObject extendedProperties) {
         this.text = text;
@@ -37,15 +26,11 @@ public class ColumnForTableFromReqByPos {
 
     public String getLabel() {
         Gson gson = new Gson();
-//        extendedProperties.get()
-//        System.out.println("Vyskusame: " + extendedProperties.get("cc.text"));
         String label = gson.fromJson(extendedProperties.get("cc.text"), String.class);
 
         if (label == null) {
             return null;
         }
-
-        // return string without quotes (")
         return label;
     }
 
@@ -76,13 +61,5 @@ public class ColumnForTableFromReqByPos {
         }
 
         return true;
-
-//        if (var1 == null && var2 == null) {
-//            return false;
-//        }
-//
-//
-//
-//        return var1.getAsBoolean() || !var2.getAsBoolean();
     }
 }

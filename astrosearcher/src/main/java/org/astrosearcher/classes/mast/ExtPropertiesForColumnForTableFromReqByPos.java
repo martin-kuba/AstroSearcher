@@ -1,7 +1,9 @@
 package org.astrosearcher.classes.mast;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
+@Getter
 public class ExtPropertiesForColumnForTableFromReqByPos {
 
     @JsonProperty("cc.order")

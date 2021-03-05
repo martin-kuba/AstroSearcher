@@ -64,16 +64,6 @@
             </thead>
             <tbody>
             <tr th:each="row : ${rows}">
-<!--                <td th:if="${dataUrlFound}">-->
-<!--                    <a th:href="@{${row.get(dataUrlIndex).getAsString()}}">-->
-<!--                        <i class="fas fa-box-open"></i>-->
-<!--                    </a>-->
-<!--                </td>-->
-<!--                <td th:if="${jpegUrlFound}">-->
-<!--                    <a th:href="@{${row.get(jpegUrlIndex).getAsString()}}">-->
-<!--                        <i class="far fa-file-image"></i>-->
-<!--                    </a>-->
-<!--                </td>-->
                 <th:block th:each="column : ${columns}" th:if="${mapper.get(column) != -1 && column.isVisible()}">
                     <td th:if="${row.get(mapper.get(column)).isJsonNull()}"></td>
                     <td th:unless="${row.get(mapper.get(column)).isJsonNull()}">
@@ -100,15 +90,6 @@
 
                     </td>
                 </th:block>
-
-<!--                <th:block th:each="value, iterStat : ${row}">-->
-<!--                    <td th:text="${columns.get(iterStat.index).isString()}-->
-<!--                        ? ${value.getAsString()}-->
-<!--                        : (${value == null}? '' : ${value})"-->
-<!--                        th:style="${columns.get(iterStat.index).isHidden()}-->
-<!--                            ? 'display:none;'-->
-<!--                            : 'display:table-cell;'"></td>-->
-<!--                </th:block>-->
             </tr>
             </tbody>
         </table>
