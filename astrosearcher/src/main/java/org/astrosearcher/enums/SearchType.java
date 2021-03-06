@@ -15,5 +15,8 @@ public enum SearchType {
         return name;
     }
 
+    public boolean equals(String type) {
+        return this.name.equals(type);
+    }
 
 }

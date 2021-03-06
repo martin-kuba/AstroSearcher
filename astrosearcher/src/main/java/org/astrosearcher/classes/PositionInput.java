@@ -27,6 +27,13 @@ public class PositionInput {
 
     private boolean successful = false;
 
+    public PositionInput(double ra, double dec, double radius) {
+        this.ra = ra;
+        this.dec = dec;
+        this.radius = radius;
+        successful = true;
+    }
+
     public PositionInput(String inputToParse) {
         Pattern pattern = Pattern.compile(INPUT_REGEX);
         Matcher matcher = pattern.matcher(inputToParse);
@@ -37,22 +44,18 @@ public class PositionInput {
             dec = Double.parseDouble(matcher.group(2));
 
             // if there is radius given as well...
-//            System.out.println("groups: " +  matcher.groupCount());
-//            System.out.println(matcher.group(0));
-//            System.out.println(matcher.group(1));
-//            System.out.println(matcher.group(2));
-//            System.out.println(matcher.group(3));
             if ( matcher.group(3) != null ) {
                 radius = Double.parseDouble(matcher.group(3));
             }
 
             successful = true;
-
-//            System.out.println("    RA:     " + ra);
-//            System.out.println("    Dec:    " + dec);
-//            System.out.println("    Radius: " + radius);
-        } else {
-//            System.out.println("    Groups count:     " + matcher.groupCount());
         }
+    }
+
+    @Override
+    public String toString() {
+        return "\n    RA     :" + ra +
+               "\n    Dec    :" + dec +
+               "\n    radius :" + radius;
     }
 }

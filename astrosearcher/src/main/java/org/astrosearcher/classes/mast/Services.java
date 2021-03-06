@@ -1,7 +1,8 @@
 package org.astrosearcher.classes.mast;
 
 public enum Services {
-    MAST_CAOM_CONE("Mast.Caom.Cone");
+    MAST_CAOM_CONE("Mast.Caom.Cone"),
+    MAST_NAME_LOOKUP("Mast.Name.Lookup");
 
     String name;
 

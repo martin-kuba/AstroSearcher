@@ -1,8 +1,10 @@
-package org.astrosearcher.classes.mast;
+package org.astrosearcher.classes.mast.services.caom.cone;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
+import org.astrosearcher.classes.mast.TableFromReqByPos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,6 @@ public class ResponseForReqByPos {
 
     public ResponseForReqByPos(String name, List<TableFromReqByPos> tables) {
         this.name = name;
-        this.tables.addAll(tables);
+        this.tables = tables;
     }
 }

@@ -1,7 +1,5 @@
 package org.astrosearcher.classes.mast;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import com.google.gson.Gson;
@@ -21,20 +19,20 @@ public class MastRequestObject {
     //private String page;
     //private int pageSize = 100;
 
-    public MastRequestObject(String service, String name) {
-        this.service = service;
+    public MastRequestObject(Services service, String name) {
+        this.service = service.toString();
         params.put("input", name);
         params.put("format", "json");
     }
 
-    public MastRequestObject(String service, double ra, double dec) {
-        this.service = service;
+    public MastRequestObject(Services service, double ra, double dec) {
+        this.service = service.toString();
         params.put("ra", ra);
         params.put("dec", dec);
     }
 
-    public MastRequestObject(String service, double ra, double dec, double radius) {
-        this.service = service;
+    public MastRequestObject(Services service, double ra, double dec, double radius) {
+        this.service = service.toString();
         params.put("ra", ra);
         params.put("dec", dec);
         params.put("radius", radius);

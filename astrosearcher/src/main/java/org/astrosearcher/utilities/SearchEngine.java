@@ -1,6 +1,7 @@
 package org.astrosearcher.utilities;
 
 import org.astrosearcher.classes.AstroObject;
+import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.mast.TableFromReqByPos;
 
 import java.util.ArrayList;
@@ -14,6 +15,14 @@ public class SearchEngine {
         AstroObject result = new AstroObject(0);
 
         return result;
+    }
+
+    public static List<PositionInput> resolvePositionByNameOrID(String input) {
+        List<PositionInput> resolved = new ArrayList<>();
+
+        resolved.addAll(MASTSearchEngine.resolvePositionByNameOrID(input));
+
+        return resolved;
     }
 
     /* TODO: Choose between MAST Search services

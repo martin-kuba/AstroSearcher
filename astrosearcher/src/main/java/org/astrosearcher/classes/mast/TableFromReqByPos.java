@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
-import org.astrosearcher.classes.mast.caom.cone.CaomFields;
+import org.astrosearcher.classes.mast.services.caom.cone.CaomFields;
 
 import java.util.ArrayList;
 import java.util.HashMap;

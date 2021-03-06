@@ -1,17 +1,17 @@
 package org.astrosearcher.utilities;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import org.astrosearcher.classes.AstroObject;
+import com.google.gson.JsonObject;
+import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.mast.*;
+import org.astrosearcher.classes.mast.MastRequestObject;
+import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByName;
+import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +23,9 @@ public class MASTSearchEngine {
 
     private static final String SERVICE_LOOKUP      = "Mast.Name.Lookup";
 
-    public static TableFromReqByPos findAllByPosition(double ra, double dec, double radius) {
-
-        ResponseForReqByPos resp;
+    public static String sendRequest(MastRequestObject obj) {
         HttpURLConnection connection;
+        StringBuilder response = new StringBuilder();
 
         try {
             connection = (HttpURLConnection) (new URL(NO_PARAMS_URL)).openConnection();
@@ -34,9 +33,7 @@ public class MASTSearchEngine {
             connection.setDoOutput(true);
 
             OutputStream os = connection.getOutputStream();
-            os.write(( REQUEST_STR +
-                        (new MastRequestObject(Services.MAST_CAOM_CONE.toString(), ra, dec, radius)).toJson() )
-                    .getBytes());
+            os.write((REQUEST_STR + obj.toJson()).getBytes());
             os.flush();
             os.close();
 
@@ -49,29 +46,76 @@ public class MASTSearchEngine {
 
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String inputLine;
-            StringBuilder response = new StringBuilder();
 
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
             in.close();
-
-            resp = new Gson().fromJson(response.toString(), ResponseForReqByPos.class);
-            TableFromReqByPos ret = resp.getTables().get(0);
-            ret.initMapper();
-
             connection.disconnect();
-            return ret;
+        } catch (Exception e) {
+        }
+        return response.toString();
+    }
 
-        } catch (MalformedURLException me) {
-            //something
-        } catch (ProtocolException pe) {
-            // protocol exception caught
-        } catch (IOException ioe) {
-            // IO exception caught
+    public static List<PositionInput> resolvePositionByNameOrID(String input) {
+
+        List<PositionInput> resolved = new ArrayList<>();
+        String response = sendRequest(new MastRequestObject(Services.MAST_NAME_LOOKUP, input));
+
+        if (response == null) {
+            return null;
         }
 
-        return null;
+        double radius;
+        // in case parsing would not be valid
+        try {
+            ResponseForReqByName resp = new Gson().fromJson(response, ResponseForReqByName.class);
+
+            for (JsonObject obj : resp.getResolvedCoordinate()) {
+
+                // TODO: create new general class for constants like this radius
+                radius = 0.2;  // default radius;
+                if ( obj.has("radius") && !obj.get("radius").isJsonNull() ) {
+                    radius = obj.get("radius").getAsDouble();
+                }
+
+                System.out.println("Radius set to: " + radius);
+                resolved.add(new PositionInput(
+                        obj.get("ra").getAsDouble(),
+                        obj.get("decl").getAsDouble(),
+                        radius
+                ));
+            }
+        } catch (Exception e) {
+            System.out.println("Exception caught:\n" + e);
+            System.out.println("");
+        }
+
+        return resolved;
+    }
+
+
+    public static TableFromReqByPos findAllByPosition(double ra, double dec, double radius) {
+
+        String response = sendRequest(new MastRequestObject(Services.MAST_CAOM_CONE, ra, dec, radius));
+
+        if (response == null) {
+            return null;
+        }
+
+        // TODO: determine exception for catching precisely, not general Exception...
+
+        TableFromReqByPos ret;
+        // in case parsing would not be valid
+        try {
+            ResponseForReqByPos resp = new Gson().fromJson(response, ResponseForReqByPos.class);
+            ret = resp.getTables().get(0);
+            ret.initMapper();
+        } catch (Exception e) {
+            return null;
+        }
+
+        return ret;
     }
 
 }
