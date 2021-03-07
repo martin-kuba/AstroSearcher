@@ -271,7 +271,8 @@ p {
 /* Style the tab content */
 .tabcontent {
   width: 95%;
-  height: 80%;
+  max-height: 80%;
+  /*height: 80%;*/
   text-align: center;
   display: none;
   padding: 0;

@@ -17,13 +17,19 @@ public class MastResponse {
     /* TODO: type willl probably have to be changed from JsonArray to List<JsonObject> for easier supporting
              of multiple responses data joining
     */
-    private List<JsonObject> data;
+    private List<JsonObject> data = new ArrayList<>();
+
+    public MastResponse() {}
 
     public MastResponse(ResponseForReqByPos response) {
         this(response.getFields(), response.getData());
     }
 
     public MastResponse(List<JsonObject> responseFields, List<JsonObject> data) {
+
+        if (responseFields == null) {
+            return;
+        }
 
         for (CaomFields caomField : CaomFields.values()) {
             for (JsonObject field : responseFields) {

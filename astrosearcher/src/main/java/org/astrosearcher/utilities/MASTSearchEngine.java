@@ -52,6 +52,10 @@ public class MASTSearchEngine {
             connection.disconnect();
         } catch (Exception e) {
         }
+
+        if (response.toString().equals("{}")) {
+            return null;
+        }
         return response.toString();
     }
 

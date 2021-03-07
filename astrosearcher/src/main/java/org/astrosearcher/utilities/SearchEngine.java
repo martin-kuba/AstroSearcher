@@ -4,6 +4,7 @@ import org.astrosearcher.classes.AstroObject;
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.ResponseData;
 import org.astrosearcher.classes.mast.MastResponse;
+import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +39,8 @@ public class SearchEngine {
     public static ResponseData findAllByPosition(double ra, double dec, double radius) {
         ResponseData responseData = new ResponseData();
 
-        responseData.setMastResponse(new MastResponse(MASTSearchEngine.findAllByPosition(ra, dec, radius)));
+        ResponseForReqByPos resp = MASTSearchEngine.findAllByPosition(ra, dec, radius);
+        responseData.setMastResponse(resp == null ? new MastResponse() : new MastResponse(resp));
 
         return responseData;
     }

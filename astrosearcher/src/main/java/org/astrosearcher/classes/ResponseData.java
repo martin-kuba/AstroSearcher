@@ -7,11 +7,9 @@ import org.astrosearcher.classes.mast.MastResponse;
 @Getter
 @Setter
 public class ResponseData {
-    private MastResponse mastResponse;
+    private MastResponse mastResponse = new MastResponse();
 
-    public ResponseData() {
-
-    }
+    public ResponseData() {}
 
     public ResponseData(MastResponse mastResponse) {
         this.mastResponse = mastResponse;
