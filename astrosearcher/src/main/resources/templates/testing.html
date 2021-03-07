@@ -30,42 +30,40 @@
     <div id="data-MAST" class="tabcontent">
         <table>
             <thead>
-            <tr>
-                <th:block th:each="column : ${columns}" th:if="${mapper.get(column) != -1 && column.isVisible()}">
-                    <th th:text="${column}">
-                    </th>
-                </th:block>
-            </tr>
+                <tr>
+                    <th:block th:each="field : ${mastFields}">
+                        <th th:text="${field}"></th>
+                    </th:block>
+<!--                <th:block th:each="field : ${mastFields}">-->
+<!--                    <th th:text="${column}">-->
+<!--                    </th>-->
+<!--                </th:block>-->
+                </tr>
             </thead>
             <tbody>
-            <tr th:each="row : ${rows}">
-                <th:block th:each="column : ${columns}" th:if="${mapper.get(column) != -1 && column.isVisible()}">
-                    <td th:if="${row.get(mapper.get(column)).isJsonNull()}"></td>
-                    <td th:unless="${row.get(mapper.get(column)).isJsonNull()}">
-                        <th:block th:if="${row.get(mapper.get(column)).isJsonPrimitive()}">
-
-                            <span th:if="${column.getIconClass() == null}"
-                                  th:text="${row.get(mapper.get(column)).getAsJsonPrimitive().isString()}
-                                ? ${row.get(mapper.get(column)).getAsString()}
-                                : ${row.get(mapper.get(column))}">
-                            </span>
-
-                            <span th:unless="${column.getIconClass() == null ||
-                                               row.get(mapper.get(column)).getAsString().equals('')}">
-                                <a th:href="${row.get(mapper.get(column)).getAsString()}">
-                                    <i th:class="${column.getIconClass()}"></i>
+                <tr th:each="row : ${mastData}">
+                    <th:block th:each="field : ${mastFields}"
+                              th:with="isEmpty=${row.get(field.getWorkName()) == null ||
+                                                 row.get(field.getWorkName()).isJsonNull() ||
+                                                 row.get(field.getWorkName()) == ''}">
+                        <td th:if="${isEmpty}"></td>
+                        <th:block th:unless="${isEmpty}">
+                            <td th:if="${field.isIcon()}">
+                                <a th:href="${row.get(field.getWorkName()).getAsString()}">
+                                    <i th:class="${field.getIconClass()}"></i>
                                 </a>
-                            </span>
-
+                            </td>
+                            <td th:unless="${field.isIcon()}">
+                                <span th:if="${row.get(field.getWorkName()).getAsJsonPrimitive().isString()}"
+                                      th:text="${row.get(field.getWorkName()).getAsString()}">
+                                </span>
+                                <span th:unless="${row.get(field.getWorkName()).getAsJsonPrimitive().isString()}"
+                                      th:text="${row.get(field.getWorkName())}">
+                                </span>
+                            </td>
                         </th:block>
-                        <th:block th:unless="${row.get(mapper.get(column)).isJsonPrimitive()}">
-                            <span th:text="${row.get(mapper.get(column))}"></span>
-                        </th:block>
-
-
-                    </td>
-                </th:block>
-            </tr>
+                    </th:block>
+                </tr>
             </tbody>
         </table>
     </div>

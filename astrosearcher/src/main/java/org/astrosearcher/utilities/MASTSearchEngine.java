@@ -21,8 +21,6 @@ public class MASTSearchEngine {
     private static final String NO_PARAMS_URL = "https://mast.stsci.edu/api/v0/invoke?";
     private static final String REQUEST_STR   = "request=";
 
-    private static final String SERVICE_LOOKUP      = "Mast.Name.Lookup";
-
     public static String sendRequest(MastRequestObject obj) {
         HttpURLConnection connection;
         StringBuilder response = new StringBuilder();
@@ -79,7 +77,6 @@ public class MASTSearchEngine {
                     radius = obj.get("radius").getAsDouble();
                 }
 
-                System.out.println("Radius set to: " + radius);
                 resolved.add(new PositionInput(
                         obj.get("ra").getAsDouble(),
                         obj.get("decl").getAsDouble(),
@@ -87,15 +84,14 @@ public class MASTSearchEngine {
                 ));
             }
         } catch (Exception e) {
-            System.out.println("Exception caught:\n" + e);
-            System.out.println("");
+//            System.out.println("Exception caught:\n" + e);
         }
 
         return resolved;
     }
 
 
-    public static TableFromReqByPos findAllByPosition(double ra, double dec, double radius) {
+    public static ResponseForReqByPos findAllByPosition(double ra, double dec, double radius) {
 
         String response = sendRequest(new MastRequestObject(Services.MAST_CAOM_CONE, ra, dec, radius));
 
@@ -105,17 +101,16 @@ public class MASTSearchEngine {
 
         // TODO: determine exception for catching precisely, not general Exception...
 
+        ResponseForReqByPos resp;
         TableFromReqByPos ret;
         // in case parsing would not be valid
         try {
-            ResponseForReqByPos resp = new Gson().fromJson(response, ResponseForReqByPos.class);
-            ret = resp.getTables().get(0);
-            ret.initMapper();
+            resp = new Gson().fromJson(response, ResponseForReqByPos.class);
         } catch (Exception e) {
             return null;
         }
 
-        return ret;
+        return resp;
     }
 
 }

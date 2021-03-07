@@ -1,8 +1,10 @@
 package org.astrosearcher.controllers;
 
 import org.astrosearcher.classes.PositionInput;
+import org.astrosearcher.classes.ResponseData;
 import org.astrosearcher.classes.mast.TableFromReqByPos;
 import org.astrosearcher.classes.mast.services.caom.cone.CaomFields;
+import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
 import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.utilities.SearchEngine;
 import org.springframework.stereotype.Controller;
@@ -17,9 +19,8 @@ public class TestingController {
 
     @PostMapping("testing")
     public String test(@RequestParam String searchBy, @RequestParam String searchInput, Model model) {
-        model.addAttribute("searchOptions", SearchType.values());
 
-        List<TableFromReqByPos> res = new ArrayList<>();
+        ResponseData responseData = null;
 
         // TODO: add logic to choose between searching by position or id/name
         // TODO: change List argument type, now its only for MAST tables...
@@ -28,7 +29,7 @@ public class TestingController {
         // search by id/name (resolve its position by name, then search by coordinates)
         if (SearchType.ID_NAME.equals(searchBy)) {
             List<PositionInput> resolved = SearchEngine.resolvePositionByNameOrID(searchInput);
-            System.out.println("Resolved: " + resolved);
+//            System.out.println("Resolved: " + resolved);
 //            searchBy = SearchType.POSITION.toString();
         }
 
@@ -37,16 +38,15 @@ public class TestingController {
             PositionInput input = new PositionInput(searchInput);
 
             if (input.isSuccessful()) {
-                res.addAll(SearchEngine.findAllByPosition(input.getRa(), input.getDec(), input.getRadius()));
+                responseData = SearchEngine.findAllByPosition(input.getRa(), input.getDec(), input.getRadius());
             }
         }
 
-        if ( !res.isEmpty() ) {
+        if ( responseData != null && responseData.isRetrieved() ) {
 
             // only for MAST
-            model.addAttribute("columns", CaomFields.values());
-            model.addAttribute("mapper", res.get(0).getResponseDataMapper());
-            model.addAttribute("rows", res.get(0).getRows());
+            model.addAttribute("mastFields", responseData.getMastResponse().getFields());
+            model.addAttribute("mastData", responseData.getMastResponse().getData());
         }
 
         return "testing";

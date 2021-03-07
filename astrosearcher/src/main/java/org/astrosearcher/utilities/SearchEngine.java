@@ -2,7 +2,8 @@ package org.astrosearcher.utilities;
 
 import org.astrosearcher.classes.AstroObject;
 import org.astrosearcher.classes.PositionInput;
-import org.astrosearcher.classes.mast.TableFromReqByPos;
+import org.astrosearcher.classes.ResponseData;
+import org.astrosearcher.classes.mast.MastResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,14 +35,11 @@ public class SearchEngine {
 
        TODO: change return type, now its only for MAST tables...
     */
-    public static List<TableFromReqByPos> findAllByPosition(double ra, double dec, double radius) {
-        List<TableFromReqByPos> results = new ArrayList<>();
+    public static ResponseData findAllByPosition(double ra, double dec, double radius) {
+        ResponseData responseData = new ResponseData();
 
-        TableFromReqByPos res = MASTSearchEngine.findAllByPosition(ra, dec, radius);
-        if (res != null) {
-            results.add(res);
-        }
+        responseData.setMastResponse(new MastResponse(MASTSearchEngine.findAllByPosition(ra, dec, radius)));
 
-        return results;
+        return responseData;
     }
 }

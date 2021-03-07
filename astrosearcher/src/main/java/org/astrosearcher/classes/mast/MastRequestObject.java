@@ -9,7 +9,7 @@ public class MastRequestObject {
     // TODO: finish implementation for the rest of object attributes
     private String service;
     private Map<String, Object> params = new HashMap<>();
-    //private String format = "json";
+    private String format = "json";
     //private Object data;
     //private String fileName;
     //private int timeout = 30;

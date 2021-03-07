@@ -2,22 +2,26 @@ package org.astrosearcher.classes.mast.services.caom.cone;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
-import org.astrosearcher.classes.mast.TableFromReqByPos;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 public class ResponseForReqByPos {
-    private String name;
+    private String           status;
+    private String           msg;
+    private List<JsonObject> data;
+    private List<JsonObject> fields;
+    private JsonObject       paging;
 
-    @SerializedName(value = "tables", alternate = "Tables")
-    private List<TableFromReqByPos> tables = new ArrayList<>();
-
-    public ResponseForReqByPos(String name, List<TableFromReqByPos> tables) {
-        this.name = name;
-        this.tables = tables;
+    public ResponseForReqByPos(String status, String msg,
+                               List<JsonObject> data,
+                               List<JsonObject> fields,
+                               JsonObject paging) {
+        this.status = status;
+        this.msg = msg;
+        this.data = data;
+        this.fields = fields;
+        this.paging = paging;
     }
 }

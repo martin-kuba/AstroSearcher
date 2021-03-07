@@ -313,4 +313,12 @@ public enum CaomFields {
     public boolean isVisible() {
         return visible;
     }
+
+    public boolean isIcon() {
+        return iconClass != null;
+    }
+
+    public String getWorkName() {
+        return workName;
+    }
 }
