@@ -31,6 +31,10 @@ public class TestingController {
             List<PositionInput> resolved = SearchEngine.resolvePositionByNameOrID(searchInput);
 //            System.out.println("Resolved: " + resolved);
 //            searchBy = SearchType.POSITION.toString();
+
+            // TODO: rework to use all the resolved positions, not just the first one
+            PositionInput input = resolved.get(0);
+            responseData = SearchEngine.findAllByPosition(input.getRa(), input.getDec(), input.getRadius());
         }
 
         // search by position...
