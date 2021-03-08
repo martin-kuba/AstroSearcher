@@ -6,6 +6,7 @@ import org.astrosearcher.classes.ResponseData;
 import org.astrosearcher.classes.mast.MastResponse;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,10 +37,10 @@ public class SearchEngine {
 
        TODO: change return type, now its only for MAST tables...
     */
-    public static ResponseData findAllByPosition(double ra, double dec, double radius) {
+    public static ResponseData findAllByPosition(@Valid PositionInput input) {
         ResponseData responseData = new ResponseData();
 
-        ResponseForReqByPos resp = MASTSearchEngine.findAllByPosition(ra, dec, radius);
+        ResponseForReqByPos resp = MASTSearchEngine.findAllByPosition(input.getRa(), input.getDec(), input.getRadius());
         responseData.setMastResponse(resp == null ? new MastResponse() : new MastResponse(resp));
 
         return responseData;

@@ -1,5 +1,6 @@
 package org.astrosearcher.controllers;
 
+import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.enums.SearchType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

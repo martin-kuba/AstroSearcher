@@ -1,12 +1,8 @@
-package org.astrosearcher.classes.mast.services.caom.cone;
+package org.astrosearcher.classes.mast.services.name.lookup;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
-import org.astrosearcher.classes.mast.TableFromReqByPos;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter

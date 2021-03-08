@@ -9,6 +9,7 @@ import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.utilities.SearchEngine;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -38,7 +39,8 @@ public class TestingController {
 
                 // TODO: rework to use all the resolved positions, not just the first one
                 PositionInput input = resolved.get(0);
-                responseData = SearchEngine.findAllByPosition(input.getRa(), input.getDec(), input.getRadius());
+
+                responseData = SearchEngine.findAllByPosition(input);
             }
         }
 
@@ -47,7 +49,11 @@ public class TestingController {
             PositionInput input = new PositionInput(searchInput);
 
             if (input.isSuccessful()) {
-                responseData = SearchEngine.findAllByPosition(input.getRa(), input.getDec(), input.getRadius());
+                responseData = SearchEngine.findAllByPosition(input);
+            } else {
+                model.addAttribute("errorMSG", input.getMessage());
+                model.addAttribute("searchOptions", SearchType.values());
+                return "index";
             }
         }
 

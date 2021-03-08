@@ -5,8 +5,8 @@ import com.google.gson.JsonObject;
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.mast.*;
 import org.astrosearcher.classes.mast.MastRequestObject;
-import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByName;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
+import org.astrosearcher.classes.mast.services.name.lookup.ResponseForReqByName;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
