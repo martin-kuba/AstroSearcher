@@ -10,6 +10,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/style.css" data-th-href="@{/css/style.css}">
+    <link rel="stylesheet" href="css/results.css" data-th-href="@{/css/results.css}">
     <script src="js/showData.js"></script>
     <script src="https://kit.fontawesome.com/254f57ca4f.js" crossorigin="anonymous"></script>
     <title>AstroSearcher</title>
@@ -28,16 +29,15 @@
 
     <!-- Tab content -->
     <div id="data-MAST" class="tabcontent">
+        <label class="data-MSG" th:unless="${containsMAST}" th:text="${mastDataMSG}"></label>
+        <th:block th:if="${containsMAST}">
+            <div class="data-table">
         <table>
             <thead>
                 <tr>
                     <th:block th:each="field : ${mastFields}">
                         <th th:text="${field}"></th>
                     </th:block>
-<!--                <th:block th:each="field : ${mastFields}">-->
-<!--                    <th th:text="${column}">-->
-<!--                    </th>-->
-<!--                </th:block>-->
                 </tr>
             </thead>
             <tbody>
@@ -66,24 +66,23 @@
                 </tr>
             </tbody>
         </table>
+            </div>
+        </th:block>
     </div>
 
     <div id="data-Vizier" class="tabcontent">
-        <h3>Vizier</h3>
-        <p>results</p>
+        <label class="data-MSG" th:unless="${containsVizier}" th:text="${vizierDataMSG}"></label>
+        <th:block th:if="${containsVizier}">
+            <div class="data-table"></div>
+        </th:block>
     </div>
 
     <div id="data-Simbad" class="tabcontent">
-        <h3>Simbad</h3>
-        <p>results</p>
+        <label class="data-MSG" th:unless="${containsSimbad}" th:text="${simbadDataMSG}"></label>
+        <th:block th:if="${containsSimbad}">
+            <div class="data-table"></div>
+        </th:block>
     </div>
 </div>
-<!--
-<div id="results-table">
--->
-
-<!--
-</div>
--->
 </body>
 </html>

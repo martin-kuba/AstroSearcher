@@ -24,16 +24,16 @@ header {
 
 h1 {
   margin: 0;
-  font-size: 3em;
+  font-size: 4em;
 }
 
 h2 {
-  color: #000000;
-  font-size: 2em;
+  color: gold;
+  font-size: 3em;
+  margin: 0;
 }
 
 p {
-  color: #000000;
   font-size: 1.25em;
 }
 
@@ -68,79 +68,14 @@ p {
   transition: 0.2s ease-in;
 }
 
-/* Dropdown Button */
-.dropbtn {
-  position: relative;
-  text-transform: uppercase;
-  /* background-color: #f0f0f0; */
-  background-color: #000000;
-  color: #ffffff;
-  font-size: 2em;
-  font-family: sans-serif;
-  margin: 0;
-  border: none;
-  padding: 0.2em;
-}
-
-/* The container <div> - needed to position the dropdown content */
-.dropdown {
-  position: relative;
-}
-
-/* Dropdown Content (Hidden by Default) */
-.dropdown .dropdown-languages {
-  display: none;
-  position: absolute;
-  width: 100%;
-  font-size: 1em;
-  background-color: #0f0f0f;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  margin: 0;
-}
-
-.dropdown .dropdown-languages .language-option {
-  display: flex;
-  justify-content: space-between;
-  margin-left: 5%;
-}
-
-.dropdown .dropdown-languages .language-option img{
-  width: 30%;
-}
-
-.dropdown .dropdown-languages .language-option a{
-  text-transform: capitalize;
-  font-size: 1.5em;
-  color: #ffffff;
-  width: 70%;
-  margin: 0;
-  padding: 0.4em 0em 0.4em 0.5em;
-}
-
-/* Change color of dropdown links on hover */
-.dropdown .dropdown-languages a:hover {
-  background-color: #d00000;
-  padding: 0.4em 0em 0.4em 0.5em;
-}
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-languages {
-  display: block;
-}
-
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
-  color: #d00000;
-  transition: 0.2s ease-in;
-}
 
 /*****************************
  **     P A R A L L A X     **
  *****************************/
 #container-bg {
   width: 100%;
-  height: 100%;
+  height: calc(100% - 4em);
+  /*height: 100%;*/
   background: url(../images/stars_bg.jpg) no-repeat center center fixed;
   background-size: cover;
   background-attachment: fixed;
@@ -157,11 +92,13 @@ p {
   position: relative;
   display: grid;
   grid-template-columns: 1fr 5fr;
-  grid-column-gap: 1em;
-  grid-row-gap: 1.25em;
+  grid-column-gap: 0.5em;
+  grid-row-gap: 0.75em;
   margin: 0 auto;
   text-align: center;
   font-size: 1.4em;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 1em;
 }
 
 #container-bg .content-wrapper input{
@@ -205,11 +142,15 @@ p {
   cursor: pointer;
 }
 
-.search-btn{
-  width: 35%;
-  height: 1.8em;
+#container-bg .content-wrapper .submit-row {
   font-size: 1.5em;
-  margin-top: 2.5em;
+  margin-top: 1em;
+}
+
+.search-btn{
+  height: 100%;
+  width: 35%;
+  font-size: inherit;
 }
 
 .search-btn:hover {
@@ -223,126 +164,20 @@ p {
   height: 1500px;
 }
 
-/*****************************
- **      R E S U L T S      **
- *****************************/
-/* Style the tab */
-.tab {
-  width: 95%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  overflow: hidden;
-  /*border: 1px solid #ccc;*/
-  background-color: transparent;
-  text-align: center;
-  margin: 0 auto;
-  padding-top: 2em;
-}
-
-/* Style the buttons that are used to open the tab content */
-.tab button {
-  width: 100%;
-  background-color: inherit;
-  color: #ffffff;
-
-  float: left;
-  /*border: 1px solid #ffffff;*/
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 0.5em 1em;
-  transition: 0.3s;
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-  /*background-color: crimson;*/
-  background-color: firebrick;
-  color: gold;
-}
-
-/* Create an active/current datasource class */
-.tab button.active {
-  background-color: darkred;
-  color: gold;
-}
-
-/* Style the tab content */
-.tabcontent {
-  width: 95%;
-  max-height: 80%;
-  /*height: 80%;*/
-  text-align: center;
-  display: none;
-  padding: 0;
-  border: none;
-  overflow: scroll;
-  margin: 0 auto;
-}
-
-.tabcontent table {
-  border: none;
-}
-
-.tabcontent table thead {
-  /*width: 100%;*/
-  /*border: 1px solid #000000;*/
-  border: none;
-  overflow-x: scroll;
-  color: #ffffff;
-}
-
-.tabcontent table thead tr {
-  /*width: 100%;*/
-  overflow-x: scroll;
-}
-
-.tabcontent table tbody {
-  /*width: 100%;*/
-  overflow-x: scroll;
-}
-
-.tabcontent table tbody tr {
-  /*width: 100%;*/
-  overflow-x: scroll;
-}
-
-.tabcontent table tbody tr:nth-child(odd) {
-  background-color: #ffffff;
-}
-
-.tabcontent table tbody tr:nth-child(even) {
-  background-color: #e2e2e2;
-}
-
-.tabcontent table tbody tr td{
-  /*width: 100%;*/
-  width: auto;
-  white-space: nowrap;
-  text-align: left;
-  padding: 3px 12px 3px 12px;
-}
-
-
-.tabcontent table thead th {
-  width: auto;
-  white-space: nowrap;
-  position: sticky;
-  top: -1px;
-  padding: 3px 6px;
-  text-align: left;
-  background-color: #000000;
-}
 
 /*****************************
  **        A B O U T        **
  *****************************/
-.about-content {
-  height: 100%;
-  background-color: #d0d0d0;
+
+.motivation {
+  width: fit-content;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: relative;
+  top: 10%;
   text-align: center;
-  padding-top: 5em;
+  color: #e5c100;
+  padding: 1em;
+  margin: 0 auto;
 }
+
+

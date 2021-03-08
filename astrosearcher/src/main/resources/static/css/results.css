@@ -1,0 +1,110 @@
+/*****************************
+ **      R E S U L T S      **
+ *****************************/
+/* Style the tab */
+.tab {
+    width: 95%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    overflow: hidden;
+    background-color: transparent;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 2em;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    width: 100%;
+    background-color: inherit;
+    color: #ffffff;
+
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0.5em 1em;
+    transition: 0.3s;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    /*background-color: crimson;*/
+    background-color: rgba(178, 34, 34, 0.7);
+    color: gold;
+}
+
+/* Create an active/current datasource class */
+.tab button.active {
+    background-color: rgba(139, 0, 0, 0.7);
+    color: gold;
+}
+
+/* Style the tab content */
+.tabcontent {
+    width: 95%;
+    height: 80%;
+    display: none;
+    padding: 0;
+    border: none;
+    margin: 0 auto;
+}
+
+.tabcontent table {
+    border-spacing: 1px;
+    text-align: left;
+}
+
+.tabcontent table thead th {
+    width: auto;
+    white-space: nowrap;
+    position: sticky;
+    top: -1px;
+    padding: 3px 6px;
+    color: #ffffff;
+    background-color: #000000;
+}
+
+.tabcontent table tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+.tabcontent table tbody tr:nth-child(even) {
+    background-color: #e2e2e2;
+}
+
+.tabcontent table tbody td{
+    width: auto;
+    white-space: nowrap;
+    padding: 3px 12px 3px 12px;
+}
+
+.data-MSG {
+    width: 80%;
+    position: relative;
+    top: 50%;
+    display: block;
+    text-align: center;
+    color: gold;
+    background-color: rgba(0, 0, 0, 0.2);
+    font-size: 2.5em;
+    margin: 0 auto;
+}
+
+.data-test {
+    height: 100%;
+    position: relative;
+    top: 40%;
+    margin: 0 auto 0 auto;
+}
+
+.data-table {
+    max-width: 100%;
+    max-height: 100%;
+    overflow: scroll;
+    border: none;
+    margin: 0 auto;
+}

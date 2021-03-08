@@ -57,11 +57,35 @@ public class TestingController {
             }
         }
 
-        if ( responseData != null && responseData.isRetrieved() ) {
+        if ( responseData != null && !responseData.isEmpty() ) {
 
-            // only for MAST
-            model.addAttribute("mastFields", responseData.getMastResponse().getFields());
-            model.addAttribute("mastData", responseData.getMastResponse().getData());
+            if (responseData.containsMastResponse()) {
+                // only for MAST
+                model.addAttribute("mastFields", responseData.getMastResponse().getFields());
+                model.addAttribute("mastData", responseData.getMastResponse().getData());
+            } else {
+                model.addAttribute("mastDataMSG", "Unfortunately, there were no data acquired from MAST.");
+            }
+            model.addAttribute("containsMAST", responseData.containsMastResponse());
+
+            if (responseData.containsVizierResponse()) {
+                // TODO: load Vizier response
+            } else {
+                model.addAttribute("vizierDataMSG", "Unfortunately, there were no data acquired from Vizier.");
+            }
+            model.addAttribute("containsVizier", responseData.containsVizierResponse());
+
+            if (responseData.containsSimbadResponse()) {
+                // TODO: load Simbad response
+            } else {
+                model.addAttribute("simbadDataMSG", "Unfortunately, there were no data acquired from Simbad.");
+            }
+            model.addAttribute("containsSimbad", responseData.containsSimbadResponse());
+
+        } else {
+            model.addAttribute("errorMSG", "Unfortunately, there were no data acquired for given input.");
+            model.addAttribute("searchOptions", SearchType.values());
+            return "index";
         }
 
         return "testing";
