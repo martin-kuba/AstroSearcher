@@ -4,12 +4,14 @@
 html {
   width: 100%;
   height: 100%;
+  background: url(../images/sky.jpg) no-repeat fixed center center;
+  background-size: cover;
   font-family: sans-serif;
 }
 
 body {
-  width: inherit;   /* = 100% */
-  height: inherit;  /* = 100% */
+  width: 100%;   /* = 100% */
+  height: 100%;  /* = 100% */
   margin: 0;
 }
 
@@ -19,7 +21,7 @@ header {
   width: inherit;   /* =100% */
   height: 4em;
   /* background-color: #f0f0f0; */
-  background-color: #000000;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 h1 {
@@ -28,13 +30,15 @@ h1 {
 }
 
 h2 {
-  color: gold;
+  /*color: gold;*/
+  color: skyblue;
   font-size: 3em;
   margin: 0;
 }
 
 p {
   font-size: 1.25em;
+  color: #ffffff;
 }
 
 /*****************************
@@ -64,7 +68,8 @@ p {
 }
 
 .nav-container ul li a:hover {
-  color: #d00000;
+  /*color: #d00000;*/
+  color: deepskyblue;
   transition: 0.2s ease-in;
 }
 
@@ -75,20 +80,25 @@ p {
 #container-bg {
   width: 100%;
   height: calc(100% - 4em);
+  position: relative;
   /*height: 100%;*/
-  background: url(../images/stars_bg.jpg) no-repeat center center fixed;
-  background-size: cover;
-  background-attachment: fixed;
+  /*background: url(../images/stars_bg.jpg) no-repeat center center fixed;*/
 }
 
 .search-form {
-  position: relative;
-  top: 35%;
+  width: fit-content;
+  min-width: 70%;
+  max-width: 80%;
+  position: absolute;
+  /*vertical-align: middle;*/
+  top: 50%;
+  left: 50%;
   margin: 0 auto;
+  transform: translate(-50%, -50%);
 }
 
 #container-bg .content-wrapper {
-  width: 70%;
+  width: 100%;
   position: relative;
   display: grid;
   grid-template-columns: 1fr 5fr;
@@ -97,7 +107,8 @@ p {
   margin: 0 auto;
   text-align: center;
   font-size: 1.4em;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
   padding: 1em;
 }
 
@@ -115,7 +126,9 @@ p {
   width: 100%;
   display: block;
   text-align: left;
-  color: gold;
+  /*color: gold;*/
+  color: deepskyblue;
+  /*padding: 1em;*/
 }
 
 .select-search-option {
@@ -154,8 +167,14 @@ p {
 }
 
 .search-btn:hover {
-  background-color: #000000;
-  color: #ffffff;
+  /*background-color: #000000;*/
+  /*background-color: midnightblue;*/
+  /*background-color: deepskyblue;*/
+  background-color: rgb(0, 95, 127);
+  border-color: rgb(0, 85, 114);
+  /*border-color: deepskyblue;*/
+  /*color: #ffffff;*/
+  /*color: deepskyblue;*/
   transition: 0.15s ease-in;
   cursor: pointer;
 }
@@ -171,11 +190,12 @@ p {
 
 .motivation {
   width: fit-content;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.3);
   position: relative;
   top: 10%;
   text-align: center;
-  color: #e5c100;
+  /*color: #e5c100;*/
+  /*color: lightskyblue;*/
   padding: 1em;
   margin: 0 auto;
 }
