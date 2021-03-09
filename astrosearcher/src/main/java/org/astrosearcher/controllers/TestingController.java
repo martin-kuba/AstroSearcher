@@ -2,17 +2,13 @@ package org.astrosearcher.controllers;
 
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.ResponseData;
-import org.astrosearcher.classes.mast.TableFromReqByPos;
-import org.astrosearcher.classes.mast.services.caom.cone.CaomFields;
-import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
 import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.utilities.SearchEngine;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
+
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller

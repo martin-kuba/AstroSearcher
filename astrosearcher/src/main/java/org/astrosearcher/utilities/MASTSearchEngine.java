@@ -3,66 +3,20 @@ package org.astrosearcher.utilities;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.astrosearcher.classes.PositionInput;
-import org.astrosearcher.classes.mast.*;
+import org.astrosearcher.classes.mast.MastServices;
 import org.astrosearcher.classes.mast.MastRequestObject;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
 import org.astrosearcher.classes.mast.services.name.lookup.ResponseForReqByName;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MASTSearchEngine {
 
-    private static final String NO_PARAMS_URL = "https://mast.stsci.edu/api/v0/invoke?";
-    private static final String REQUEST_STR   = "request=";
-
-    public static String sendRequest(MastRequestObject obj) {
-        HttpURLConnection connection;
-        StringBuilder response = new StringBuilder();
-
-        try {
-            connection = (HttpURLConnection) (new URL(NO_PARAMS_URL)).openConnection();
-            connection.setRequestMethod("POST");
-            connection.setDoOutput(true);
-
-            OutputStream os = connection.getOutputStream();
-            os.write((REQUEST_STR + obj.toJson()).getBytes());
-            os.flush();
-            os.close();
-
-            int responseCode = connection.getResponseCode();
-
-            // TODO: check whether exception should be thrown here
-            if (responseCode != HttpURLConnection.HTTP_OK) {
-                return null;
-            }
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            String inputLine;
-
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-            connection.disconnect();
-        } catch (Exception e) {
-        }
-
-        if (response.toString().equals("{}")) {
-            return null;
-        }
-        return response.toString();
-    }
-
     public static List<PositionInput> resolvePositionByNameOrID(String input) {
 
         List<PositionInput> resolved = new ArrayList<>();
-        String response = sendRequest(new MastRequestObject(Services.MAST_NAME_LOOKUP, input));
+        String response = new MastRequestObject(MastServices.MAST_NAME_LOOKUP, input).send();
 
         if (response == null) {
             return null;
@@ -97,24 +51,9 @@ public class MASTSearchEngine {
 
     public static ResponseForReqByPos findAllByPosition(double ra, double dec, double radius) {
 
-        String response = sendRequest(new MastRequestObject(Services.MAST_CAOM_CONE, ra, dec, radius));
+        String response = new MastRequestObject(MastServices.MAST_CAOM_CONE, ra, dec, radius).send();
 
-        if (response == null) {
-            return null;
-        }
-
-        // TODO: determine exception for catching precisely, not general Exception...
-
-        ResponseForReqByPos resp;
-        TableFromReqByPos ret;
-        // in case parsing would not be valid
-        try {
-            resp = new Gson().fromJson(response, ResponseForReqByPos.class);
-        } catch (Exception e) {
-            return null;
-        }
-
-        return resp;
+        return response == null ? null : new Gson().fromJson(response, ResponseForReqByPos.class);
     }
 
 }
