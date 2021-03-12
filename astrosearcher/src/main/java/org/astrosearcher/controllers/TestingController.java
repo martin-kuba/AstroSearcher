@@ -25,7 +25,16 @@ public class TestingController {
 
         // search by id/name (resolve its position by name, then search by coordinates)
         if (SearchType.ID_NAME.equals(searchBy)) {
+            if (PositionInput.isPositionInput(searchInput)) {
+                model.addAttribute("errorMSG",
+                        "Select POSITION option for querying by coordinates.");
+                model.addAttribute("searchOptions", SearchType.values());
+                return "index";
+            }
+
             List<PositionInput> resolved = SearchEngine.resolvePositionByNameOrID(searchInput);
+//            System.out.println("*********************************************");
+            SearchEngine.findAllByID(searchInput);
 //            System.out.println("Resolved: " + resolved);
 //            searchBy = SearchType.POSITION.toString();
 

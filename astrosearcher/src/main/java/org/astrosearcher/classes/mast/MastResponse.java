@@ -1,7 +1,5 @@
 package org.astrosearcher.classes.mast;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import lombok.Getter;
 import org.astrosearcher.classes.mast.services.caom.cone.CaomFields;
@@ -14,9 +12,6 @@ import java.util.List;
 public class MastResponse {
     private List<CaomFields> fields = new ArrayList<>();
 
-    /* TODO: type willl probably have to be changed from JsonArray to List<JsonObject> for easier supporting
-             of multiple responses data joining
-    */
     private List<JsonObject> data = new ArrayList<>();
 
     public MastResponse() {}

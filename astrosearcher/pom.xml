@@ -56,6 +56,36 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+
+		<dependency>
+			<groupId>cds.savot.model</groupId>
+			<artifactId>model</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/java/org/cds/cds.savot.model.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>cds.savot.pull</groupId>
+			<artifactId>pull</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/java/org/cds/cds.savot.pull.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>cds.savot.common</groupId>
+			<artifactId>common</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/java/org/cds/cds.savot.common.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>kxml2-min</groupId>
+			<artifactId>kxml2-min</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/java/org/cds/kxml2-min.jar</systemPath>
+		</dependency>
+
     </dependencies>
 
 	<build>
