@@ -11,6 +11,14 @@ import org.astrosearcher.classes.mast.services.name.lookup.ResponseForReqByName;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class serves as inter-level between general SearchEngine class and ConnectionUtils class.
+ *
+ * Class provides usage of RequestObject needed for constructing and sending of request as well as parsing of response
+ * acquired from MAST server.
+ *
+ * @author Ľuboslav Halama
+ */
 public class MASTSearchEngine {
 
     public static List<PositionInput> resolvePositionByNameOrID(String input) {

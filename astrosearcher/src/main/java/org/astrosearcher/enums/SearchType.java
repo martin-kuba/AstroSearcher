@@ -1,5 +1,10 @@
 package org.astrosearcher.enums;
 
+/**
+ * This enum class represents general search options to choose from while using web application (used in dropdown menu).
+ *
+ * @author Ľuboslav Halama
+ */
 public enum SearchType {
     ID_NAME("id/name"),
     POSITION("position");

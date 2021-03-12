@@ -7,6 +7,14 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class represents response from Mast server for query by position.
+ *
+ * Class provides all necessary properties for parsing JSON object which is returned by MAST server as a result
+ * of sending of request by this web application.
+ *
+ * @author Ľuboslav Halama
+ */
 @Getter
 public class ResponseForReqByPos {
     private String           status;

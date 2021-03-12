@@ -7,12 +7,15 @@ import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.simbad.SimbadRequestObject;
 
 import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringReader;
-import java.nio.charset.StandardCharsets;
 
-
+/**
+ * Class serves as inter-level between general SearchEngine class and ConnectionUtils class.
+ *
+ * Class provides usage of RequestObject needed for constructing and sending of request as well as parsing of response
+ * acquired from Simbad (cds) server.
+ *
+ * @author Ľuboslav Halama
+ */
 public class SimbadSearchEngine {
 
     private static final String SIMBAD_URL  = "http://simbad.u-strasbg.fr/simbad/";

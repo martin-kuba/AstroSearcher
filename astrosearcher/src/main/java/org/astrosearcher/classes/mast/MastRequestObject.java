@@ -10,6 +10,14 @@ import com.google.gson.Gson;
 import org.astrosearcher.classes.RequestObject;
 import org.astrosearcher.utilities.ConnectionUtils;
 
+/**
+ * Class represents request object which is used in URL request sent to Mast server.
+ *
+ * Class provides basic properties for sending request to MAST server as well as main functionality for sending
+ * given request by our web application (implementation of abstract methods from abstract class RequestObject).
+ *
+ * @author Ľuboslav Halama
+ */
 public class MastRequestObject extends RequestObject {
 
     @JsonIgnore

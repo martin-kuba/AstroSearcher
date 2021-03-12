@@ -7,6 +7,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 
+/**
+ * Class provides general functionality for sending requests and retrieving responses from servers.
+ *
+ * @author Ľuboslav Halama
+ */
 public class ConnectionUtils {
 
     public static String sendRequest(RequestObject obj) {
