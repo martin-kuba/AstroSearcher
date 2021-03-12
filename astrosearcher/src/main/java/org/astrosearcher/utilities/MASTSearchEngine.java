@@ -7,6 +7,7 @@ import org.astrosearcher.classes.mast.MastServices;
 import org.astrosearcher.classes.mast.MastRequestObject;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
 import org.astrosearcher.classes.mast.services.name.lookup.ResponseForReqByName;
+import org.astrosearcher.models.SearchFormInput;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
  */
 public class MASTSearchEngine {
 
-    public static List<PositionInput> resolvePositionByNameOrID(String input) {
+    private static List<PositionInput> resolvePositionByNameOrID(SearchFormInput input) {
 
         List<PositionInput> resolved = new ArrayList<>();
         String response = new MastRequestObject(MastServices.MAST_NAME_LOOKUP, input).send();
@@ -56,11 +57,18 @@ public class MASTSearchEngine {
         return resolved;
     }
 
+    public static ResponseForReqByPos findAllByID(SearchFormInput input) {
+        List<PositionInput> resolved = resolvePositionByNameOrID(input);
+        return resolved.isEmpty() ? null : findAllByPosition(resolved.get(0), input);
+    }
 
-    public static ResponseForReqByPos findAllByPosition(double ra, double dec, double radius) {
+    public static ResponseForReqByPos findAllByPosition(SearchFormInput input) {
+        String response = new MastRequestObject(MastServices.MAST_CAOM_CONE, input).send();
+        return response == null ? null : new Gson().fromJson(response, ResponseForReqByPos.class);
+    }
 
-        String response = new MastRequestObject(MastServices.MAST_CAOM_CONE, ra, dec, radius).send();
-
+    public static ResponseForReqByPos findAllByPosition(PositionInput position, SearchFormInput input) {
+        String response = new MastRequestObject(MastServices.MAST_CAOM_CONE, position, input).send();
         return response == null ? null : new Gson().fromJson(response, ResponseForReqByPos.class);
     }
 

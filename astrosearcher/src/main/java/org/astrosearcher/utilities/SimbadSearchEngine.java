@@ -4,7 +4,11 @@ import cds.savot.model.*;
 import cds.savot.pull.SavotPullEngine;
 import cds.savot.pull.SavotPullParser;
 import org.astrosearcher.classes.PositionInput;
+import org.astrosearcher.classes.mast.MastRequestObject;
+import org.astrosearcher.classes.mast.MastServices;
 import org.astrosearcher.classes.simbad.SimbadRequestObject;
+import org.astrosearcher.classes.simbad.SimbadServices;
+import org.astrosearcher.models.SearchFormInput;
 
 import java.io.ByteArrayInputStream;
 
@@ -18,15 +22,9 @@ import java.io.ByteArrayInputStream;
  */
 public class SimbadSearchEngine {
 
-    private static final String SIMBAD_URL  = "http://simbad.u-strasbg.fr/simbad/";
-
-    private static final String ID_REQUEST  = "sim-id?";
-    private static final String POS_REQUEST = "sim-coo?";
-
-
     // TODO: change return type, implement functionality
-    public static void findAllById(String input) {
-        String response = new SimbadRequestObject(input).send();
+    public static void findAllById(SearchFormInput input) {
+        String response = new SimbadRequestObject(SimbadServices.SIMBAD_ID, input).send();
 
 
 //        new ByteArrayInputStream(response.getBytes());
@@ -62,18 +60,10 @@ public class SimbadSearchEngine {
 //        System.out.println("Simbad response [By ID]: " + response);
     }
 
-    public static void findAllByPosition(PositionInput input) {
+    public static void findAllByPosition(SearchFormInput input) {
         // TODO: implement whole functionality - get response from Simbad
 
-        // code for testing of two methods only
-        SimbadRequestObject obj = new SimbadRequestObject(input);
-        try {
-            obj.getConnectionURL();
-            obj.getParamsAsBytes();
-        } catch (Exception e) {}
-
-        // lets test response
-        String response = obj.send();
+        String response = new SimbadRequestObject(SimbadServices.SIMBAD_COORDINATES, input).send();
     }
 
 }

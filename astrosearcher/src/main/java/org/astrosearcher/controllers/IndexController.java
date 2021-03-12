@@ -2,6 +2,7 @@ package org.astrosearcher.controllers;
 
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.enums.SearchType;
+import org.astrosearcher.models.SearchFormInput;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ public class IndexController {
     @GetMapping("index")
     public String index(Model model) {
         model.addAttribute("searchOptions", SearchType.values());
+        model.addAttribute(new SearchFormInput());
         return "index";
     }
 

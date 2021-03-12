@@ -5,6 +5,7 @@ import lombok.Getter;
 import org.astrosearcher.classes.mast.services.caom.cone.CaomFields;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class MastResponse {
 
     public MastResponse() {}
 
-    public MastResponse(ResponseForReqByPos response) {
+    public MastResponse(@NotNull ResponseForReqByPos response) {
         this(response.getFields(), response.getData());
     }
 

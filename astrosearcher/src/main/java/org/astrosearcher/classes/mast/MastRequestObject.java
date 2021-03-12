@@ -7,7 +7,10 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.Gson;
+import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
+import org.astrosearcher.enums.SearchType;
+import org.astrosearcher.models.SearchFormInput;
 import org.astrosearcher.utilities.ConnectionUtils;
 
 /**
@@ -26,6 +29,11 @@ public class MastRequestObject extends RequestObject {
     private static final String REQUEST_PARAMS_PREFIX = "request=";
 
     @JsonIgnore
+    private static final int DEFAULT_PAGE = 1;
+    @JsonIgnore
+    private static final int DEFAULT_PAGE_SIZE = 500;
+
+    @JsonIgnore
     private static final Gson gson = new Gson();
 
     // TODO: finish implementation for the rest of object attributes
@@ -38,31 +46,53 @@ public class MastRequestObject extends RequestObject {
     //private boolean clearCache = false;
     //private boolean removeCache = false;
     //private boolean removeNullColumns = true;
-    //private String page;
-    //private int pageSize = 100;
+    private int page = DEFAULT_PAGE;
+    private int pagesize = DEFAULT_PAGE_SIZE;
 
-    public MastRequestObject(MastServices service, String name) {
+    private MastRequestObject(MastServices service) {
         this.service = service.toString();
-        params.put("input", name);
         params.put("format", "json");
     }
 
-    public MastRequestObject(MastServices service, double ra, double dec) {
-        this.service = service.toString();
-        params.put("ra", ra);
-        params.put("dec", dec);
+    public MastRequestObject(MastServices service, SearchFormInput input) {
+        this(service);
+        switch (service) {
+            case MAST_NAME_LOOKUP:
+                params.put("input", input.getSearchInput());
+                break;
+            case MAST_CAOM_CONE:
+                params.putAll(new PositionInput(input.getSearchInput()).getAsMap());
+                break;
+            default:
+                throw new IllegalArgumentException("There is no service provided by MAST for searching by: "
+                        + input.getSearchBy());
+
+        }
+
+        // common parameters for all services
+        page = input.getPage();
+        pagesize = input.getPagesize();
     }
 
-    public MastRequestObject(MastServices service, double ra, double dec, double radius) {
-        this.service = service.toString();
-        params.put("ra", ra);
-        params.put("dec", dec);
-        params.put("radius", radius);
+    public MastRequestObject(MastServices service, PositionInput position, SearchFormInput input) {
+        this(service);
+        params.putAll(position.getAsMap());
+
+        // common parameters for all services
+        page = input.getPage();
+        pagesize = input.getPagesize();
     }
 
-    public String toJson() {
-        return new Gson().toJson(this);
-    }
+//    public MastRequestObject(MastServices service, double ra, double dec, double radius) {
+//        this.service = service.toString();
+//        params.put("ra", ra);
+//        params.put("dec", dec);
+//        params.put("radius", radius);
+//    }
+
+//    public String toJson() {
+//        return new Gson().toJson(this);
+//    }
 
     @Override
     public String send() {
@@ -76,6 +106,7 @@ public class MastRequestObject extends RequestObject {
 
     @Override
     public byte[] getParamsAsBytes() {
+        System.out.println("Params: " + REQUEST_PARAMS_PREFIX + gson.toJson(this));
         return (REQUEST_PARAMS_PREFIX + gson.toJson(this)).getBytes();
     }
 }

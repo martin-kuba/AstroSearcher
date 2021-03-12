@@ -2,6 +2,7 @@ package org.astrosearcher.classes.simbad;
 
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
+import org.astrosearcher.models.SearchFormInput;
 import org.astrosearcher.utilities.ConnectionUtils;
 
 import java.net.MalformedURLException;
@@ -28,16 +29,26 @@ public class SimbadRequestObject extends RequestObject {
     private SimbadServices service;
     private List<SimbadArg> args = new ArrayList<>();
 
-    public SimbadRequestObject(String id) {
-        this.service = SimbadServices.SIMBAD_ID;
-        args.add(new SimbadArg(SimbadArgType.ID, id));
+    private SimbadRequestObject(SimbadServices service) {
+        this.service = service;
     }
 
-    public SimbadRequestObject(PositionInput input) {
-        this.service = SimbadServices.SIMBAD_COORDINATES;
-        args.add(new SimbadArg(SimbadArgType.COORDINATES, input.getPosition()));
-        args.add(new SimbadArg(SimbadArgType.RADIUS, input.getRadius()));
-        args.add(new SimbadArg(SimbadArgType.RADIUS_UNIT, DEFAULT_RADIUS_UNIT));
+    public SimbadRequestObject(SimbadServices service, SearchFormInput input) {
+        this(service);
+        switch (service) {
+            case SIMBAD_ID:
+                args.add(new SimbadArg(SimbadArgType.ID, input.getSearchInput()));
+                break;
+            case SIMBAD_COORDINATES:
+                PositionInput position = new PositionInput(input.getSearchInput());
+                args.add(new SimbadArg(SimbadArgType.COORDINATES, position.getPosition()));
+                args.add(new SimbadArg(SimbadArgType.RADIUS, position.getRadius()));
+                args.add(new SimbadArg(SimbadArgType.RADIUS_UNIT, DEFAULT_RADIUS_UNIT));
+                break;
+            default:
+                throw new IllegalArgumentException("There is no service provided by MAST for searching by: "
+                        + input.getSearchBy());
+        }
     }
 
     @Override

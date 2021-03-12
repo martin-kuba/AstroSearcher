@@ -3,6 +3,8 @@ package org.astrosearcher.classes;
 import lombok.AccessLevel;
 import lombok.Getter;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -59,14 +61,16 @@ public class PositionInput {
 
             double ra = Double.parseDouble(matcher.group(1));
             if (ra < 0 || ra >= 360) {
-                message = "Right Ascension value must be between 0 and 360!";
-                return;
+                throw new IllegalArgumentException("Right Ascension value must be between 0 and 360!");
+//                message = "Right Ascension value must be between 0 and 360!";
+//                return;
             }
 
             double dec = Double.parseDouble(matcher.group(2));
             if (dec < -90 || dec > 90) {
-                message = "Declination value must be between -90 and 90!";
-                return;
+                throw new IllegalArgumentException("Declination value must be between -90 and 90!");
+//                message = "Declination value must be between -90 and 90!";
+//                return;
             }
 
             radius = matcher.group(3) != null ? Double.parseDouble(matcher.group(3)) : DEFAULT_RADIUS;
@@ -75,13 +79,24 @@ public class PositionInput {
 
             return;
         }
-        message = "Two or three integral/fractional numbers expected, separated by space or comma (like 1.0, 2.0)";
+        throw new IllegalArgumentException(
+                "Two or three integral/fractional numbers expected, separated by space or comma (like 1.0, 2.0)"
+        );
+//        message = "Two or three integral/fractional numbers expected, separated by space or comma (like 1.0, 2.0)";
 
     }
 
     public static boolean isPositionInput(String input) {
         Pattern pattern = Pattern.compile(INPUT_REGEX);
         return pattern.matcher(input).matches();
+    }
+
+    public Map<String, Double> getAsMap() {
+        Map<String, Double> converted = new HashMap<>();
+        converted.put("ra", position.getRa());
+        converted.put("dec", position.getDec());
+        converted.put("radius", radius);
+        return converted;
     }
 
     public double getRa() {

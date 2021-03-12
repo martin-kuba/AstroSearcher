@@ -1,5 +1,7 @@
 package org.astrosearcher.classes.mast;
 
+import org.astrosearcher.enums.SearchType;
+
 /**
  * This enum class represents subset of services ("queries by") provided by MAST server and listed in:
  * ->   https://mast.stsci.edu/api/v0/_services.html   <-
@@ -7,17 +9,23 @@ package org.astrosearcher.classes.mast;
  * @author Ľuboslav Halama
  */
 public enum MastServices {
-    MAST_CAOM_CONE("Mast.Caom.Cone"),
-    MAST_NAME_LOOKUP("Mast.Name.Lookup");
+    MAST_CAOM_CONE("Mast.Caom.Cone", SearchType.POSITION),
+    MAST_NAME_LOOKUP("Mast.Name.Lookup", SearchType.ID_NAME);
 
-    String name;
+    private String name;
+    private SearchType usedFor;
 
-    MastServices(String name) {
-        this.name = name;
+    MastServices(String name, SearchType usedFor) {
+        this.name    = name;
+        this.usedFor = usedFor;
     }
 
     @Override
     public String toString() {
         return name;
+    }
+
+    public boolean equals(SearchType searchType) {
+        return this.usedFor.equals(searchType);
     }
 }

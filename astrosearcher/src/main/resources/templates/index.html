@@ -20,22 +20,32 @@
     <div id="container-bg">
         <form class="search-form" action="testing" method="post">
             <div class="content-wrapper">
-                <div style="grid-row: 1/2; grid-column: 2/3;">
-                    <label th:text="${errorMSG}">&nbsp;</label>
+                <div style="grid-row: 1/2; grid-column: 2/5;">
+                    <label class="error-label" th:text="${errorMSG}">&nbsp;</label>
                 </div>
                 <div style="grid-row: 2/3; grid-column: 1/2;">
-                    <select class="select-search-option" name="searchBy">
+                    <select class="select-search-option" th:field="${searchFormInput.searchBy}">
                         <option th:each="opt : ${searchOptions}" th:value="${opt}" th:text="${opt}"></option>
                     </select>
                 </div>
-                <div style="grid-row: 2/3; grid-column: 2/3;">
-                    <input class="search-input" type="text" name="searchInput"
+                <div style="grid-row: 2/3; grid-column: 2/5;">
+                    <input class="search-input" th:field="${searchFormInput.searchInput}"
                            placeholder="Enter ID (name) or position (ra, dec, radius)">
                 </div>
-                <div style="grid-row: 3/4; grid-column: 2/3;">
+                <div style="grid-row: 3/4; grid-column: 2/5;">
                     <input id="upload-file" type="file" name="fileName">
                 </div>
-                <div class="submit-row" style="grid-row: 4/6; grid-column: 1/3;">
+                <div style="grid-row: 4/5; grid-column: 2/3;">
+                    <label class="info-label">Page size:</label>
+                    <input class="search-input" th:field="${searchFormInput.pagesize}" th:default="500"
+                           placeholder="page size">
+                </div>
+                <div style="grid-row: 4/5; grid-column: 3/4;">
+                    <label class="info-label">Page:</label>
+                    <input class="search-input" th:field="${searchFormInput.page}" th:default="1"
+                                               placeholder="page">
+                </div>
+                <div class="submit-row" style="grid-row: 5/7; grid-column: 1/5;">
                     <button class="search-btn" type="submit">Search</button>
                 </div>
             </div>
