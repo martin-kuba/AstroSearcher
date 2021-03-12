@@ -53,4 +53,8 @@ public class MastResponse {
 
         this.data = data;
     }
+
+    public boolean isEmpty() {
+        return data.isEmpty();
+    }
 }

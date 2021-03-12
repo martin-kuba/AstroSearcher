@@ -6,4 +6,8 @@ package org.astrosearcher.classes.simbad;
  * @author Ľuboslav Halama
  */
 public class SimbadResponse {
+    public boolean isEmpty() {
+        // TODO: implement this method
+        return false;
+    }
 }

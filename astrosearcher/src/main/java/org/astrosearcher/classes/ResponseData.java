@@ -42,6 +42,8 @@ public class ResponseData {
     }
 
     public boolean isEmpty() {
-        return mastResponse == null && vizierResponse == null && simbadResponse == null;
+        return ( mastResponse   == null || mastResponse.isEmpty()   ) &&
+               ( vizierResponse == null || vizierResponse.isEmpty() ) &&
+               ( simbadResponse == null || simbadResponse.isEmpty() );
     }
 }
