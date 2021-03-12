@@ -2,6 +2,8 @@ package org.astrosearcher.classes.simbad;
 
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
+import org.astrosearcher.classes.constants.ExceptionMSG;
+import org.astrosearcher.classes.constants.SimbadConstants;
 import org.astrosearcher.models.SearchFormInput;
 import org.astrosearcher.utilities.ConnectionUtils;
 
@@ -21,11 +23,6 @@ import java.util.List;
  */
 public class SimbadRequestObject extends RequestObject {
 
-    private static final String CONNECTION_URL = "http://simbad.u-strasbg.fr/simbad/";
-    private static final String FORMAT  = "output.format=votable";
-
-    private static final String DEFAULT_RADIUS_UNIT = "deg";
-
     private SimbadServices service;
     private List<SimbadArg> args = new ArrayList<>();
 
@@ -43,10 +40,10 @@ public class SimbadRequestObject extends RequestObject {
                 PositionInput position = new PositionInput(input.getSearchInput());
                 args.add(new SimbadArg(SimbadArgType.COORDINATES, position.getPosition()));
                 args.add(new SimbadArg(SimbadArgType.RADIUS, position.getRadius()));
-                args.add(new SimbadArg(SimbadArgType.RADIUS_UNIT, DEFAULT_RADIUS_UNIT));
+                args.add(new SimbadArg(SimbadArgType.RADIUS_UNIT, SimbadConstants.DEFAULT_RADIUS_UNIT));
                 break;
             default:
-                throw new IllegalArgumentException("There is no service provided by MAST for searching by: "
+                throw new IllegalArgumentException(ExceptionMSG.NO_SERVICE_PROVIDED_BY_SIMBAD_EXCEPTION
                         + input.getSearchBy());
         }
     }
@@ -59,7 +56,7 @@ public class SimbadRequestObject extends RequestObject {
     @Override
     public URL getConnectionURL() throws MalformedURLException {
 //        System.out.println("CONNECTION URL: " + CONNECTION_URL + service + "?");
-        return new URL(CONNECTION_URL + service + "?");
+        return new URL(SimbadConstants.CONNECTION_URL + service + "?");
     }
 
     @Override
@@ -71,6 +68,6 @@ public class SimbadRequestObject extends RequestObject {
         }
 
 //        System.out.println("CONNECTION PARAMETERS: " + FORMAT + params.toString());
-        return (FORMAT + params.toString()).getBytes();
+        return (SimbadConstants.DEFAULT_FORMAT + params.toString()).getBytes();
     }
 }

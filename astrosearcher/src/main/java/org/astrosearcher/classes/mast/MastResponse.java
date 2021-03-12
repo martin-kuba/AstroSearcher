@@ -2,6 +2,7 @@ package org.astrosearcher.classes.mast;
 
 import com.google.gson.JsonObject;
 import lombok.Getter;
+import org.astrosearcher.classes.constants.ExceptionMSG;
 import org.astrosearcher.classes.mast.services.caom.cone.CaomFields;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
 
@@ -40,11 +41,11 @@ public class MastResponse {
                     break;
                 } catch (NullPointerException npe) {
                     throw new NullPointerException(
-                            "Invalid field name in MAST response (null) or name has not been found at all." + npe
+                            ExceptionMSG.INVALID_FIELD_NAME_EXCEPTION + npe
                     );
                 } catch (IllegalArgumentException iae) {
                     throw new IllegalArgumentException(
-                            "Field name in MAST response was not found in pre-defined MAST-fields Enum class." + iae
+                            ExceptionMSG.FIELD_NAME_NOT_MATCHED_EXCEPTION + iae
                     );
                 }
             }

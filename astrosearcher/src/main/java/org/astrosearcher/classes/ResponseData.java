@@ -17,7 +17,6 @@ import org.astrosearcher.classes.vizier.VizierResponse;
 @Getter
 @Setter
 public class ResponseData {
-//    private MastResponse mastResponse = new MastResponse();
     private MastResponse mastResponse;
     private VizierResponse vizierResponse;
     private SimbadResponse simbadResponse;

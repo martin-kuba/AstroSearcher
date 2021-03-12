@@ -2,6 +2,7 @@ package org.astrosearcher.utilities;
 
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.ResponseData;
+import org.astrosearcher.classes.constants.ExceptionMSG;
 import org.astrosearcher.classes.mast.MastResponse;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
 import org.astrosearcher.enums.SearchType;
@@ -51,7 +52,7 @@ public class SearchEngine {
 
             // If user put coordinates into search bar but selected search by id/name...
             if (PositionInput.isPositionInput(input.getSearchInput())) {
-                throw new IllegalArgumentException("Select POSITION option for querying by coordinates.");
+                throw new IllegalArgumentException(ExceptionMSG.SELECT_POSITION_FOR_QUERY_BY_COORDS);
             }
             return findAllByID(input);
         }
@@ -59,6 +60,6 @@ public class SearchEngine {
         if (SearchType.POSITION.equals(input.getSearchBy())) {
             return findAllByPosition(input);
         }
-        throw new IllegalArgumentException("There is not defined search option for: " + input.getSearchInput());
+        throw new IllegalArgumentException(ExceptionMSG.NOT_DEFINED_SEARCH_OPTION + input.getSearchInput());
     }
 }

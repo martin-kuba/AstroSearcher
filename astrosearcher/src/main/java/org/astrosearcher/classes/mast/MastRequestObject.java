@@ -9,6 +9,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.Gson;
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
+import org.astrosearcher.classes.constants.ExceptionMSG;
+import org.astrosearcher.classes.constants.MASTConstants;
 import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.models.SearchFormInput;
 import org.astrosearcher.utilities.ConnectionUtils;
@@ -24,34 +26,24 @@ import org.astrosearcher.utilities.ConnectionUtils;
 public class MastRequestObject extends RequestObject {
 
     @JsonIgnore
-    private static final String CONNECTION_URL = "https://mast.stsci.edu/api/v0/invoke?";
-    @JsonIgnore
-    private static final String REQUEST_PARAMS_PREFIX = "request=";
-
-    @JsonIgnore
-    private static final int DEFAULT_PAGE = 1;
-    @JsonIgnore
-    private static final int DEFAULT_PAGE_SIZE = 500;
-
-    @JsonIgnore
     private static final Gson gson = new Gson();
 
     // TODO: finish implementation for the rest of object attributes
     private String service;
     private Map<String, Object> params = new HashMap<>();
-    private String format = "json";
+    private final String format = MASTConstants.DEFAULT_FORMAT;
     //private Object data;
     //private String fileName;
     //private int timeout = 30;
     //private boolean clearCache = false;
     //private boolean removeCache = false;
     //private boolean removeNullColumns = true;
-    private int page = DEFAULT_PAGE;
-    private int pagesize = DEFAULT_PAGE_SIZE;
+    private int page = MASTConstants.DEFAULT_PAGE;
+    private int pagesize = MASTConstants.DEFAULT_PAGE_SIZE;
 
     private MastRequestObject(MastServices service) {
         this.service = service.toString();
-        params.put("format", "json");
+        params.put("format", MASTConstants.DEFAULT_FORMAT);
     }
 
     public MastRequestObject(MastServices service, SearchFormInput input) {
@@ -64,7 +56,7 @@ public class MastRequestObject extends RequestObject {
                 params.putAll(new PositionInput(input.getSearchInput()).getAsMap());
                 break;
             default:
-                throw new IllegalArgumentException("There is no service provided by MAST for searching by: "
+                throw new IllegalArgumentException(ExceptionMSG.NO_SERVICE_PROVIDED_BY_MAST_EXCEPTION
                         + input.getSearchBy());
 
         }
@@ -83,17 +75,6 @@ public class MastRequestObject extends RequestObject {
         pagesize = input.getPagesize();
     }
 
-//    public MastRequestObject(MastServices service, double ra, double dec, double radius) {
-//        this.service = service.toString();
-//        params.put("ra", ra);
-//        params.put("dec", dec);
-//        params.put("radius", radius);
-//    }
-
-//    public String toJson() {
-//        return new Gson().toJson(this);
-//    }
-
     @Override
     public String send() {
         return ConnectionUtils.sendRequest(this);
@@ -101,12 +82,12 @@ public class MastRequestObject extends RequestObject {
 
     @Override
     public URL getConnectionURL() throws MalformedURLException {
-        return new URL(CONNECTION_URL);
+        return new URL(MASTConstants.CONNECTION_URL);
     }
 
     @Override
     public byte[] getParamsAsBytes() {
-        System.out.println("Params: " + REQUEST_PARAMS_PREFIX + gson.toJson(this));
-        return (REQUEST_PARAMS_PREFIX + gson.toJson(this)).getBytes();
+        System.out.println("Params: " + MASTConstants.REQUEST_PARAMS_PREFIX + gson.toJson(this));
+        return (MASTConstants.REQUEST_PARAMS_PREFIX + gson.toJson(this)).getBytes();
     }
 }
