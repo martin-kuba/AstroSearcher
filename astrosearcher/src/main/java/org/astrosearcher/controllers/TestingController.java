@@ -39,6 +39,8 @@ public class TestingController {
     private void processSimbadResponse(ResponseData responseData, Model model) {
         if (responseData.containsSimbadResponse()) {
             // TODO: load Simbad response
+            model.addAttribute("simbadFields", responseData.getSimbadResponse().getFields());
+            model.addAttribute("simbadData", responseData.getSimbadResponse().getData());
         } else {
             model.addAttribute("simbadDataMSG", "Unfortunately, there were no data acquired from Simbad.");
         }

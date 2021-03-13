@@ -7,10 +7,12 @@ import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.mast.MastRequestObject;
 import org.astrosearcher.classes.mast.MastServices;
 import org.astrosearcher.classes.simbad.SimbadRequestObject;
+import org.astrosearcher.classes.simbad.SimbadResponse;
 import org.astrosearcher.classes.simbad.SimbadServices;
 import org.astrosearcher.models.SearchFormInput;
 
 import java.io.ByteArrayInputStream;
+import java.util.List;
 
 /**
  * Class serves as inter-level between general SearchEngine class and ConnectionUtils class.
@@ -23,41 +25,39 @@ import java.io.ByteArrayInputStream;
 public class SimbadSearchEngine {
 
     // TODO: change return type, implement functionality
-    public static void findAllById(SearchFormInput input) {
+    public static SimbadResponse findAllById(SearchFormInput input) {
         String response = new SimbadRequestObject(SimbadServices.SIMBAD_ID, input).send();
 
-
-//        new ByteArrayInputStream(response.getBytes());
-//        new InputStream(response);
-        SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
-                SavotPullEngine.FULL,
-                "UTF-8");
-        SavotVOTable vot = parser.getVOTable();
-
-        for (int resourceIndex = 0; resourceIndex < parser.getResourceCount(); resourceIndex++) {
-            SavotResource currentResource = (SavotResource) vot.getResources().getItemAt(resourceIndex);
-
-//            for (int fieldIndex = 0; fieldIndex < currentResource.getFieldSet(0).getItemCount(); fieldIndex++) {
-//                System
-//            }
-            FieldSet fields = currentResource.getFieldSet(0);
-//            SavotField field = fields.getItemAt(0);
-//            System.out
-
-            for (int tableIndex = 0; tableIndex < currentResource.getTableCount(); tableIndex++ ) {
-                TRSet rows = currentResource.getTRSet(tableIndex);
-
-                for (int rowIndex = 0; rowIndex < rows.getItemCount(); rowIndex++ ) {
-                    TDSet columns = rows.getTDSet(rowIndex);
-
-                    for (int columnIndex = 0; columnIndex < columns.getItemCount(); columnIndex++) {
-                        System.out.println(((SavotField)fields.getItemAt(columnIndex)).getId() + ":   " + columns.getContent(columnIndex));
-                    }
-                }
-            }
+        if (response == null) {
+            System.out.println("no response acquired");
+            return new SimbadResponse();
         }
 
-//        System.out.println("Simbad response [By ID]: " + response);
+        // TODO: rework for proper exception catching
+        try {
+            SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
+                    SavotPullEngine.FULL,
+                    "UTF-8");
+            SavotVOTable vot = parser.getVOTable();
+
+            TRSet ts = ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0);
+//            for (Object row : ts.getItems())
+
+
+            System.out.println("Returning response...");
+//            System.out.println("    Fieldset size: " + ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItemCount());
+//            List<SavotField> test = ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems();
+//            System.out.println("    List of fields size: " + test.size());
+
+            return new SimbadResponse(
+                    ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems(),
+                    ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
+            );
+        } catch (Exception e) {
+            System.out.println("Exception caught");
+            return new SimbadResponse();
+        }
+
     }
 
     public static void findAllByPosition(SearchFormInput input) {

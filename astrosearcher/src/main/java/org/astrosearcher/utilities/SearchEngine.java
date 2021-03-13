@@ -41,7 +41,7 @@ public class SearchEngine {
         ResponseForReqByPos response = MASTSearchEngine.findAllByID(input);
         responseData.setMastResponse(response == null ? new MastResponse() : new MastResponse(response));
 
-        SimbadSearchEngine.findAllById(input);
+        responseData.setSimbadResponse(SimbadSearchEngine.findAllById(input));
 
         return responseData;
     }

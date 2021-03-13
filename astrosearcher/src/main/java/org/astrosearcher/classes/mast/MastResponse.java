@@ -41,11 +41,11 @@ public class MastResponse {
                     break;
                 } catch (NullPointerException npe) {
                     throw new NullPointerException(
-                            ExceptionMSG.INVALID_FIELD_NAME_EXCEPTION + npe
+                            ExceptionMSG.INVALID_MAST_FIELD_NAME_EXCEPTION + npe
                     );
                 } catch (IllegalArgumentException iae) {
                     throw new IllegalArgumentException(
-                            ExceptionMSG.FIELD_NAME_NOT_MATCHED_EXCEPTION + iae
+                            ExceptionMSG.MAST_FIELD_NAME_NOT_MATCHED_EXCEPTION + iae
                     );
                 }
             }

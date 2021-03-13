@@ -30,20 +30,18 @@ public class ResponseData {
     }
 
     public boolean containsMastResponse() {
-        return mastResponse != null;
+        return mastResponse != null && !mastResponse.isEmpty();
     }
 
     public boolean containsVizierResponse() {
-        return vizierResponse != null;
+        return vizierResponse != null && !vizierResponse.isEmpty();
     }
 
     public boolean containsSimbadResponse() {
-        return vizierResponse != null;
+        return simbadResponse != null && !simbadResponse.isEmpty();
     }
 
     public boolean isEmpty() {
-        return ( mastResponse   == null || mastResponse.isEmpty()   ) &&
-               ( vizierResponse == null || vizierResponse.isEmpty() ) &&
-               ( simbadResponse == null || simbadResponse.isEmpty() );
+        return !containsMastResponse() && !containsVizierResponse() && !containsSimbadResponse();
     }
 }
