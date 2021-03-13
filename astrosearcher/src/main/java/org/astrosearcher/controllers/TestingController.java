@@ -2,6 +2,7 @@ package org.astrosearcher.controllers;
 
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.ResponseData;
+import org.astrosearcher.classes.simbad.SimbadServices;
 import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.models.SearchFormInput;
 import org.astrosearcher.utilities.SearchEngine;
@@ -41,6 +42,7 @@ public class TestingController {
             // TODO: load Simbad response
             model.addAttribute("simbadFields", responseData.getSimbadResponse().getFields());
             model.addAttribute("simbadData", responseData.getSimbadResponse().getData());
+            model.addAttribute("simbadType", responseData.getSimbadResponse().getType().name());
         } else {
             model.addAttribute("simbadDataMSG", "Unfortunately, there were no data acquired from Simbad.");
         }

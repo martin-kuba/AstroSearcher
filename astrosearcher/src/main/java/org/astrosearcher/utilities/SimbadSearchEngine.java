@@ -50,6 +50,7 @@ public class SimbadSearchEngine {
 //            System.out.println("    List of fields size: " + test.size());
 
             return new SimbadResponse(
+                    SimbadServices.SIMBAD_ID,
                     ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems(),
                     ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
             );

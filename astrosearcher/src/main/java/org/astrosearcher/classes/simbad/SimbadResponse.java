@@ -21,10 +21,13 @@ import java.util.List;
 @Getter
 public class SimbadResponse {
 
+    private SimbadServices type;
     private List<SimbadFields> fields = new ArrayList<>();
     private List<List<String>> data = new ArrayList<>();;
 
-    public SimbadResponse(List<SavotField> responseFields, List<SavotTR> data) {
+    public SimbadResponse(SimbadServices type, List<SavotField> responseFields, List<SavotTR> data) {
+        this.type = type;
+
         if (responseFields == null) {
             return;
         }

@@ -9,6 +9,7 @@
 <body>
 
 <div th:fragment="Mast" id="data-MAST" class="tabcontent">
+
     <label class="data-MSG" th:unless="${containsMAST}" th:text="${mastDataMSG}"></label>
     <th:block th:if="${containsMAST}">
         <div class="data-table">
@@ -51,26 +52,28 @@
 </div>
 
 <div th:fragment="Simbad" id="data-Simbad" class="tabcontent">
-    <label class="data-MSG" th:unless="${containsSimbad}" th:text="${simbadDataMSG}"></label>
-    <th:block th:if="${containsSimbad}">
-        <div class="data-table">
-            <table>
-                <thead>
-                <tr>
-                    <th:block th:each="field : ${simbadFields}">
-                        <th th:text="${field.label}"></th>
-                    </th:block>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="row : ${simbadData}">
-                    <th:block th:each="column : ${row}">
-                        <td th:text="${column}"></td>
-                    </th:block>
-                </tr>
-                </tbody>
-            </table>
-        </div>
+    <th:block th:if="${#strings.equals(simbadType, 'SIMBAD_ID')}">
+        <label class="data-MSG" th:unless="${containsSimbad}" th:text="${simbadDataMSG}"></label>
+        <th:block th:if="${containsSimbad}">
+            <div class="data-table">
+                <table>
+                    <thead>
+                    <tr>
+                        <th:block th:each="field : ${simbadFields}">
+                            <th th:text="${field.label}"></th>
+                        </th:block>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="row : ${simbadData}">
+                        <th:block th:each="column : ${row}">
+                            <td th:text="${column}"></td>
+                        </th:block>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </th:block>
     </th:block>
 </div>
 
