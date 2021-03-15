@@ -131,7 +131,7 @@
 }
 
 .fluxes {
-    grid-template-columns: 1fr 1fr 2fr 1fr 1fr 2fr;
+    grid-template-columns: fit-content(70%) minmax(10px, 2fr) fit-content(15%) fit-content(20%);
 
     font-size: 1.25em;
 }

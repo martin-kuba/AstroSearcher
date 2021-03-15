@@ -38,6 +38,11 @@ public class SimbadResponseForId extends SimbadResponse {
     private String pmSystem;
     private String pmBibcode;
 
+    private String parallaxValue;
+    private String parallaxError;
+    private String parallaxObsCode;
+    private String parallaxBibcode;
+
     private List<SimbadFlux> fluxes = new ArrayList<>();
 
     private List<SimbadFields> unassignedFields = new ArrayList<>();
@@ -137,6 +142,20 @@ public class SimbadResponseForId extends SimbadResponse {
                     if ( !row.get(columnIndex).isEmpty()) { fluxes.add(new SimbadFlux(row, columnIndex)); }
                     columnIndex += 8;
                     break;
+
+                case PLX_plx:
+                    parallaxValue = row.get(columnIndex);
+                    break;
+                case PLX_me:
+                    parallaxError = row.get(columnIndex);
+                    break;
+                case PLX_R:
+                    parallaxObsCode = row.get(columnIndex);
+                    break;
+                case PLX_bibcode:
+                    parallaxBibcode = row.get(columnIndex);
+                    break;
+
                 default:
                     unassignedFields.add(fields.get(columnIndex));
                     unassignedData.add(row.get(columnIndex));
@@ -155,6 +174,11 @@ public class SimbadResponseForId extends SimbadResponse {
     public String getPMBibcodeUrl() {
         return SimbadConstants.CONNECTION_URL + SimbadServices.SIMBAD_REFERENCE
                 + "?bibcode=" + URLEncoder.encode(pmBibcode, StandardCharsets.UTF_8);
+    }
+
+    public String getParallaxBibcodeUrl() {
+        return SimbadConstants.CONNECTION_URL + SimbadServices.SIMBAD_REFERENCE
+                + "?bibcode=" + URLEncoder.encode(parallaxBibcode, StandardCharsets.UTF_8);
     }
 
     public String getReferencesUrl() {
