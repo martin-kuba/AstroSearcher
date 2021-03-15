@@ -1,8 +1,8 @@
 package org.astrosearcher.controllers;
 
-import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.ResponseData;
-import org.astrosearcher.classes.simbad.SimbadServices;
+import org.astrosearcher.classes.simbad.SimbadFlux;
+import org.astrosearcher.enums.simbad.SimbadServices;
 import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.models.SearchFormInput;
 import org.astrosearcher.utilities.SearchEngine;
@@ -13,7 +13,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 public class TestingController {
@@ -43,6 +42,11 @@ public class TestingController {
             model.addAttribute("simbadFields", responseData.getSimbadResponse().getFields());
             model.addAttribute("simbadData", responseData.getSimbadResponse().getData());
             model.addAttribute("simbadType", responseData.getSimbadResponse().getType().name());
+
+            if (responseData.getSimbadResponse().getType() == SimbadServices.SIMBAD_ID) {
+                model.addAttribute("simbadResponse", responseData.getSimbadResponse());
+                model.addAttribute("fluxFields", SimbadFlux.class.getFields());
+            }
         } else {
             model.addAttribute("simbadDataMSG", "Unfortunately, there were no data acquired from Simbad.");
         }

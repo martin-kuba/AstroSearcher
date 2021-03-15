@@ -7,9 +7,13 @@ import cds.savot.model.TDSet;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.astrosearcher.classes.constants.ExceptionMSG;
+import org.astrosearcher.enums.simbad.SimbadFields;
+import org.astrosearcher.enums.simbad.SimbadServices;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Class represents parsed response from Simbad server.
@@ -22,8 +26,9 @@ import java.util.List;
 public class SimbadResponse {
 
     private SimbadServices type;
-    private List<SimbadFields> fields = new ArrayList<>();
-    private List<List<String>> data = new ArrayList<>();;
+    List<SimbadFields> fields = new ArrayList<>();
+    private Map<SimbadFields, Integer> fieldMapper = new HashMap<>();
+    List<List<String>> data = new ArrayList<>();
 
     public SimbadResponse(SimbadServices type, List<SavotField> responseFields, List<SavotTR> data) {
         this.type = type;
@@ -32,9 +37,12 @@ public class SimbadResponse {
             return;
         }
 
+        int order = 0;
         for (SavotField field : responseFields) {
             try {
                 fields.add(SimbadFields.valueOf(field.getId()));
+                fieldMapper.put(SimbadFields.valueOf(field.getId()), order);
+                ++order;
             } catch (NullPointerException npe) {
                 throw new NullPointerException(
                         ExceptionMSG.INVALID_SIMBAD_FIELD_NAME_EXCEPTION + npe

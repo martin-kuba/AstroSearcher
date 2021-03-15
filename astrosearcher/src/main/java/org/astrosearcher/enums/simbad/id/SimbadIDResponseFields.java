@@ -1,6 +1,4 @@
-package org.astrosearcher.classes.simbad.id;
-
-import org.astrosearcher.classes.simbad.SimbadFields;
+package org.astrosearcher.enums.simbad.id;
 
 /**
  *

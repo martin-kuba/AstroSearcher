@@ -12,4 +12,10 @@ public final class Limits {
 
     // Radius
     public static final double DEFAULT_RADIUS = 0.2;
+
+    // Page
+    public static final int PAGE_MIN = 1;
+
+    // Pagesize
+    public static final int PAGESIZE_MIN = 1;
 }

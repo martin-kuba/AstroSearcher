@@ -1,4 +1,4 @@
-package org.astrosearcher.classes.simbad;
+package org.astrosearcher.enums.simbad;
 
 import lombok.Getter;
 

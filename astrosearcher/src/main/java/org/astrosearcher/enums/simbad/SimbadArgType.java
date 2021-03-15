@@ -1,4 +1,4 @@
-package org.astrosearcher.classes.simbad;
+package org.astrosearcher.enums.simbad;
 
 /**
  * This enum class represents several possible arguments in URL request for Simbad server (only subset of all
@@ -11,7 +11,8 @@ public enum SimbadArgType {
     ID("Ident"),
     COORDINATES("Coord"),
     RADIUS("Radius"),
-    RADIUS_UNIT("Radius.unit");
+    RADIUS_UNIT("Radius.unit"),
+    BIBCODE("bibcode");
 
     private String urlName;
 

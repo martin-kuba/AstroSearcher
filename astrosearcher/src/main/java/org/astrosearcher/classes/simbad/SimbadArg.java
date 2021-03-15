@@ -1,5 +1,7 @@
 package org.astrosearcher.classes.simbad;
 
+import org.astrosearcher.enums.simbad.SimbadArgType;
+
 /**
  * Class provides basic functionality for easier building of URL request for Simbad server - easier chaining
  * of arguments (parameters) in URL.

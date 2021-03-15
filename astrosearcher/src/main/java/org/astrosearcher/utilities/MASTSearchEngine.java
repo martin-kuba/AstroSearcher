@@ -3,7 +3,7 @@ package org.astrosearcher.utilities;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.astrosearcher.classes.PositionInput;
-import org.astrosearcher.classes.mast.MastServices;
+import org.astrosearcher.enums.mast.MastServices;
 import org.astrosearcher.classes.mast.MastRequestObject;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
 import org.astrosearcher.classes.mast.services.name.lookup.ResponseForReqByName;
@@ -28,7 +28,7 @@ public class MASTSearchEngine {
         String response = new MastRequestObject(MastServices.MAST_NAME_LOOKUP, input).send();
 
         if (response == null) {
-            return null;
+            return resolved;
         }
 
         double radius;

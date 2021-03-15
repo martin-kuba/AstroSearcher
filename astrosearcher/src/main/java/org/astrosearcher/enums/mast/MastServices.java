@@ -1,4 +1,4 @@
-package org.astrosearcher.classes.mast;
+package org.astrosearcher.enums.mast;
 
 import org.astrosearcher.enums.SearchType;
 

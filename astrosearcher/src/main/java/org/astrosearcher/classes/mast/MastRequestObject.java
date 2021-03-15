@@ -11,7 +11,7 @@ import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
 import org.astrosearcher.classes.constants.ExceptionMSG;
 import org.astrosearcher.classes.constants.MASTConstants;
-import org.astrosearcher.enums.SearchType;
+import org.astrosearcher.enums.mast.MastServices;
 import org.astrosearcher.models.SearchFormInput;
 import org.astrosearcher.utilities.ConnectionUtils;
 

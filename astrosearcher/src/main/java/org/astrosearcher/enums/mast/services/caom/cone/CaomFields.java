@@ -1,4 +1,4 @@
-package org.astrosearcher.classes.mast.services.caom.cone;
+package org.astrosearcher.enums.mast.services.caom.cone;
 
 /**
  Enum class mainly based on fields listed in: https://mast.stsci.edu/api/v0/_c_a_o_mfields.html

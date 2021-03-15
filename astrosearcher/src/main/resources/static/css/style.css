@@ -30,9 +30,20 @@ h1 {
 }
 
 h2 {
-  /*color: gold;*/
   color: skyblue;
   font-size: 3em;
+  margin: 0;
+}
+
+h3 {
+  color: skyblue;
+  font-size: 2em;
+  margin: 0 0 1em 0;
+}
+
+h4 {
+  color: #ffffff;
+  font-weight: bold;
   margin: 0;
 }
 
@@ -81,8 +92,6 @@ p {
   width: 100%;
   height: calc(100% - 4em);
   position: relative;
-  /*height: 100%;*/
-  /*background: url(../images/stars_bg.jpg) no-repeat center center fixed;*/
 }
 
 .search-form {
@@ -90,7 +99,6 @@ p {
   min-width: 70%;
   max-width: 80%;
   position: absolute;
-  /*vertical-align: middle;*/
   top: 50%;
   left: 50%;
   margin: 0 auto;
@@ -126,7 +134,6 @@ p {
   width: 100%;
   display: block;
   text-align: left;
-  /*padding: 1em;*/
 }
 
 .select-search-option {
@@ -166,14 +173,8 @@ p {
 }
 
 .search-btn:hover {
-  /*background-color: #000000;*/
-  /*background-color: midnightblue;*/
-  /*background-color: deepskyblue;*/
   background-color: rgb(0, 95, 127);
   border-color: rgb(0, 85, 114);
-  /*border-color: deepskyblue;*/
-  /*color: #ffffff;*/
-  /*color: deepskyblue;*/
   transition: 0.15s ease-in;
   cursor: pointer;
 }
@@ -183,8 +184,6 @@ p {
 }
 
 .error-label {
-  /*width: 100%;*/
-  /*color: firebrick;*/
   color: red;
 }
 
@@ -202,8 +201,6 @@ p {
   position: relative;
   top: 10%;
   text-align: center;
-  /*color: #e5c100;*/
-  /*color: lightskyblue;*/
   padding: 1em;
   margin: 0 auto;
 }
