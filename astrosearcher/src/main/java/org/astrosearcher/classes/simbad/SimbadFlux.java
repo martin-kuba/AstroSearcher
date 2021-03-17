@@ -1,5 +1,7 @@
 package org.astrosearcher.classes.simbad;
 
+import cds.savot.model.SavotTD;
+import cds.savot.model.TDSet;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.astrosearcher.classes.constants.SimbadConstants;
@@ -35,6 +37,23 @@ public class SimbadFlux {
         qualityFlag      = row.get(startIndex + 7);
 
         unit = row.get(startIndex + 8);
+    }
+
+    public SimbadFlux(TDSet columns, int startIndex) {
+        filter    = ((SavotTD)columns.getItemAt(startIndex)).getContent();
+        magnitude = Double.parseDouble(((SavotTD)columns.getItemAt(startIndex + 1)).getContent());
+        error     = ((SavotTD)columns.getItemAt(startIndex + 2)).getContent().isEmpty()
+                        ? 0
+                        : Double.parseDouble(((SavotTD)columns.getItemAt(startIndex + 2)).getContent());
+        system    = ((SavotTD)columns.getItemAt(startIndex+3)).getContent();
+        bibcode   = ((SavotTD)columns.getItemAt(startIndex + 4)).getContent();
+
+        variabilityFlag  = ((SavotTD)columns.getItemAt(startIndex + 5)).getContent();
+        multiplicityFlag = ((SavotTD)columns.getItemAt(startIndex + 6)).getContent();
+        qualityFlag      = ((SavotTD)columns.getItemAt(startIndex + 7)).getContent();
+
+        unit = ((SavotTD)columns.getItemAt(startIndex + 8)).getContent();
+
     }
 
     public String getBibcodeUrl() {

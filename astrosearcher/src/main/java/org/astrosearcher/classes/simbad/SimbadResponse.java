@@ -30,6 +30,8 @@ public class SimbadResponse {
     private Map<SimbadFields, Integer> fieldMapper = new HashMap<>();
     List<List<String>> data = new ArrayList<>();
 
+    List<SimbadData> assignedData = new ArrayList<>();
+
     public SimbadResponse(SimbadServices type, List<SavotField> responseFields, List<SavotTR> data) {
         this.type = type;
 
@@ -62,6 +64,8 @@ public class SimbadResponse {
                 columns.add(((SavotTD)responseColumns.getItemAt(columnIndex)).getContent());
             }
 
+            assignedData.add(new SimbadData(responseColumns, fields));
+
             this.data.add(columns);
         }
 
@@ -73,6 +77,8 @@ public class SimbadResponse {
 
 //        System.out.println("Data: " + this.data.get(0).getTDarray());
     }
+
+
 
     public boolean isEmpty() {
         // TODO: implement this method

@@ -35,6 +35,52 @@ public class SimbadSearchEngine {
             SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
                     SavotPullEngine.FULL,
                     "UTF-8");
+            System.out.println("    -> Parser successfuly initialized!");
+            SavotVOTable vot = parser.getVOTable();
+            System.out.println("    -> VOT obtained from parser!");
+
+            System.out.println("response: " + response);
+            TRSet ts = ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0);
+            System.out.println("    -> TRSET obtained!");
+//            for (Object row : ts.getItems())
+
+
+            System.out.println("Returning response...");
+//            System.out.println("    Fieldset size: " + ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItemCount());
+//            List<SavotField> test = ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems();
+//            System.out.println("    List of fields size: " + test.size());
+
+            return new SimbadResponse(
+                    SimbadServices.SIMBAD_ID,
+                    ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems(),
+                    ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
+            );
+        } catch (Exception e) {
+            System.out.println("..::!!!   Exception caught (Simbad - ID)  !!!::..");
+            System.out.println("Message: " + e.getMessage());
+            System.out.println();
+            System.out.println("Exception" + e);
+            System.out.println();
+            return new SimbadResponse();
+        }
+
+    }
+
+    public static SimbadResponse findAllByPosition(SearchFormInput input) {
+        // TODO: implement whole functionality - get response from Simbad
+
+        String response = new SimbadRequestObject(SimbadServices.SIMBAD_COORDINATES, input).send();
+
+        if (response == null) {
+            System.out.println("no response acquired");
+            return new SimbadResponse();
+        }
+
+        // TODO: rework for proper exception catching
+        try {
+            SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
+                    SavotPullEngine.FULL,
+                    "UTF-8");
             SavotVOTable vot = parser.getVOTable();
 
             TRSet ts = ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0);
@@ -46,8 +92,8 @@ public class SimbadSearchEngine {
 //            List<SavotField> test = ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems();
 //            System.out.println("    List of fields size: " + test.size());
 
-            return new SimbadResponseForId(
-                    SimbadServices.SIMBAD_ID,
+            return new SimbadResponse(
+                    SimbadServices.SIMBAD_COORDINATES,
                     ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems(),
                     ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
             );
@@ -59,13 +105,6 @@ public class SimbadSearchEngine {
             System.out.println();
             return new SimbadResponse();
         }
-
-    }
-
-    public static void findAllByPosition(SearchFormInput input) {
-        // TODO: implement whole functionality - get response from Simbad
-
-        String response = new SimbadRequestObject(SimbadServices.SIMBAD_COORDINATES, input).send();
     }
 
 }

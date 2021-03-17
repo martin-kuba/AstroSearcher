@@ -42,9 +42,9 @@ public class TestingController {
             model.addAttribute("simbadFields", responseData.getSimbadResponse().getFields());
             model.addAttribute("simbadData", responseData.getSimbadResponse().getData());
             model.addAttribute("simbadType", responseData.getSimbadResponse().getType().name());
+            model.addAttribute("simbadResponse", responseData.getSimbadResponse());
 
             if (responseData.getSimbadResponse().getType() == SimbadServices.SIMBAD_ID) {
-                model.addAttribute("simbadResponse", responseData.getSimbadResponse());
                 model.addAttribute("fluxFields", SimbadFlux.class.getFields());
             }
         } else {

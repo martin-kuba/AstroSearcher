@@ -48,6 +48,8 @@ public class SimbadResponseForId extends SimbadResponse {
     private List<SimbadFields> unassignedFields = new ArrayList<>();
     private List<String>       unassignedData   = new ArrayList<>();
 
+    private List<SimbadData> assignedData = new ArrayList<>();
+
     public SimbadResponseForId(SimbadServices type, List<SavotField> responseFields, List<SavotTR> data) {
         super(type, responseFields, data);
 
@@ -61,6 +63,9 @@ public class SimbadResponseForId extends SimbadResponse {
         System.out.println("**************");
         System.out.println();
         // There is only one row in response for query by ID
+
+
+
         List<String> row = this.data.get(0);
         int columnIndex = 0;
         while (columnIndex < row.size()) {

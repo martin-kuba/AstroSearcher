@@ -65,6 +65,9 @@ Simbad fragment => query by ID + query by coordinates
     <th:block th:if="${#strings.equals(simbadType, 'SIMBAD_ID')}">
         <div th:replace="results :: Simbad-id"></div>
     </th:block>
+    <th:block th:if="${#strings.equals(simbadType, 'SIMBAD_COORDINATES')}">
+        <div th:replace="results :: Simbad-coord"></div>
+    </th:block>
 </div>
 
 
@@ -83,68 +86,69 @@ Simbad fragment => query by ID
 -->
 <div th:fragment="Simbad-id">
     <label class="data-MSG" th:unless="${containsSimbad}" th:text="${simbadDataMSG}"></label>
-    <th:block th:if="${containsSimbad}">
+    <th:block th:if="${containsSimbad}" th:with="data = ${simbadResponse.assignedData.get(0)}">
         <div class="Simbad-general-info padded-grid">
             <div style="grid-row: 1/2; grid-column: 1/3;">  <h3>General information</h3></div>
             <div style="grid-row: 1/2; grid-column: 4/6;">  <h3>Coordinates (ICRS)</h3> </div>
             <div style="grid-row: 1/2; grid-column: 7/9;">
-                <h3 th:text="${'Proper Motion ' + simbadResponse.pmSystem}"></h3>
+                <h3 th:text="${'Proper Motion ' + data.pmSystem}"></h3>
             </div>
 
             <div style="grid-row: 2/3; grid-column: 1/2;"><h4>Queried:</h4></div>
-            <div style="grid-row: 2/3; grid-column: 2/3;" th:text="${simbadResponse.queried}"></div>
+            <div style="grid-row: 2/3; grid-column: 2/3;" th:text="${data.queried}"></div>
             <div style="grid-row: 2/3; grid-column: 4/5;"><h4>RA:</h4></div>
-            <div style="grid-row: 2/3; grid-column: 5/6;" th:text="${simbadResponse.ra}"></div>
+            <div style="grid-row: 2/3; grid-column: 5/6;" th:text="${data.ra}"></div>
             <div style="grid-row: 2/3; grid-column: 7/8;"><h4>RA:</h4></div>
-            <div style="grid-row: 2/3; grid-column: 8/9;" th:text="${simbadResponse.pmra}"></div>
+            <div style="grid-row: 2/3; grid-column: 8/9;" th:text="${data.pmra}"></div>
 
             <div style="grid-row: 3/4; grid-column: 1/2;"><h4>Main ID:</h4></div>
-            <div style="grid-row: 3/4; grid-column: 2/3;" th:text="${simbadResponse.mainID}"></div>
+            <div style="grid-row: 3/4; grid-column: 2/3;" th:text="${data.mainID}"></div>
             <div style="grid-row: 3/4; grid-column: 4/5;"><h4>Dec:</h4></div>
-            <div style="grid-row: 3/4; grid-column: 5/6;" th:text="${simbadResponse.dec}"></div>
+            <div style="grid-row: 3/4; grid-column: 5/6;" th:text="${data.dec}"></div>
             <div style="grid-row: 3/4; grid-column: 7/8;"><h4>Dec:</h4></div>
-            <div style="grid-row: 3/4; grid-column: 8/9;" th:text="${simbadResponse.pmdec}"></div>
+            <div style="grid-row: 3/4; grid-column: 8/9;" th:text="${data.pmdec}"></div>
 
             <div style="grid-row: 4/5; grid-column: 1/2;"><h4>Object type:</h4></div>
             <div style="grid-row: 4/5; grid-column: 2/3;">
-                <a th:href="@{${simbadResponse.getObjectTypeUrl()}}"
-                   th:text="${simbadResponse.objectType}" target="_blank"></a>
+                <a th:href="@{${data.getObjectTypeUrl()}}"
+                   th:text="${data.objectType}" target="_blank"></a>
             </div>
             <div style="grid-row: 4/5; grid-column: 4/5;"><h4>Coord. error (Major axis):</h4></div>
-            <div style="grid-row: 4/5; grid-column: 5/6;" th:text="${simbadResponse.coordErrorMajA}"></div>
+            <div style="grid-row: 4/5; grid-column: 5/6;" th:text="${data.coordErrorMajA}"></div>
             <div style="grid-row: 4/5; grid-column: 7/8;"><h4>Error (Major axis):</h4></div>
-            <div style="grid-row: 4/5; grid-column: 8/9;" th:text="${simbadResponse.pmErrorMajA}"></div>
+            <div style="grid-row: 4/5; grid-column: 8/9;" th:text="${data.pmErrorMajA}"></div>
 
             <div style="grid-row: 5/6; grid-column: 1/2;"><h4>References:</h4></div>
             <div style="grid-row: 5/6; grid-column: 2/3;">
-                <a th:href="@{${simbadResponse.getReferencesUrl()}}"
-                   th:text="${simbadResponse.references}" target="_blank"></a>
+                <a th:href="@{${data.getReferencesUrl()}}"
+                   th:text="${data.references}" target="_blank"></a>
             </div>
             <div style="grid-row: 5/6; grid-column: 4/5;"><h4>Coord. error (Minor axis):</h4></div>
-            <div style="grid-row: 5/6; grid-column: 5/6;" th:text="${simbadResponse.coordErrorMinA}"></div>
+            <div style="grid-row: 5/6; grid-column: 5/6;" th:text="${data.coordErrorMinA}"></div>
             <div style="grid-row: 5/6; grid-column: 7/8;"><h4>Error (Minor axis):</h4></div>
-            <div style="grid-row: 5/6; grid-column: 8/9;" th:text="${simbadResponse.pmErrorMinA}"></div>
+            <div style="grid-row: 5/6; grid-column: 8/9;" th:text="${data.pmErrorMinA}"></div>
 
             <div style="grid-row: 6/7; grid-column: 4/5;"><h4>Coord. error (Angle):</h4></div>
-            <div style="grid-row: 6/7; grid-column: 5/6;" th:text="${simbadResponse.coordErrorAng}"></div>
+            <div style="grid-row: 6/7; grid-column: 5/6;" th:text="${data.coordErrorAng}"></div>
             <div style="grid-row: 6/7; grid-column: 7/8;"><h4>Error (Angle):</h4></div>
-            <div style="grid-row: 6/7; grid-column: 8/9;" th:text="${simbadResponse.pmErrorAng}"></div>
+            <div style="grid-row: 6/7; grid-column: 8/9;" th:text="${data.pmErrorAng}"></div>
 
             <div style="grid-row: 7/8; grid-column: 1/2;"><h4>Spectral type:</h4></div>
-            <div style="grid-row: 7/8; grid-column: 2/3;" th:text="${simbadResponse.spectralType}"></div>
+            <div style="grid-row: 7/8; grid-column: 2/3;" th:text="${data.spectralType}"></div>
             <div style="grid-row: 7/8; grid-column: 7/8;"><h4>Bibcode:</h4></div>
             <div style="grid-row: 7/8; grid-column: 8/9;">
-                <a th:href="@{${simbadResponse.getPMBibcodeUrl()}}"
-                   th:text="${simbadResponse.pmBibcode}" target="_blank"></a>
+                <a th:href="@{${data.getPMBibcodeUrl()}}"
+                   th:text="${data.pmBibcode}" target="_blank"></a>
             </div>
 
             <div style="grid-row: 8/9; grid-column: 1/2;"><h4>Morphological type:</h4></div>
-            <div style="grid-row: 8/9; grid-column: 2/3;" th:text="${simbadResponse.morphologicalType}"></div>
+            <div style="grid-row: 8/9; grid-column: 2/3;" th:text="${data.morphologicalType}"></div>
 
         </div>
         <div class="fluxes padded-grid">
             <div style="grid-row: 1/2; grid-column: 1/2;">  <h3>Fluxes</h3></div>
             <div style="grid-row: 1/2; grid-column: 3/5;">  <h3>Parallax</h3></div>
+            <div style="grid-row: 1/2; grid-column: 6/8;">  <h3>Further Information</h3></div>
 
             <div style="grid-row: 2/16; grid-column: 1/2;">
                 <table>
@@ -155,14 +159,14 @@ Simbad fragment => query by ID
                         <th>Error</th>
                         <th>System</th>
                         <th>Bibcode</th>
-                        <th>Variability</th>
-                        <th>Multiplicity</th>
+<!--                        <th>Variability</th>-->
+<!--                        <th>Multiplicity</th>-->
                         <th>Quality</th>
-                        <th>Unit</th>
+<!--                        <th>Unit</th>-->
                     </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="flux : ${simbadResponse.fluxes}">
+                        <tr th:each="flux : ${data.fluxes.values()}">
                             <td th:text="${flux.filter}"></td>
                             <td th:text="${flux.magnitude}"></td>
                             <td th:text="${flux.error}"></td>
@@ -172,49 +176,192 @@ Simbad fragment => query by ID
                                    th:href="@{${flux.getBibcodeUrl()}}"
                                    th:text="${flux.bibcode}" target="_blank"></a>
                             </td>
-                            <td th:text="${flux.variabilityFlag}"></td>
-                            <td th:text="${flux.multiplicityFlag}"></td>
+<!--                            <td th:text="${flux.variabilityFlag}"></td>-->
+<!--                            <td th:text="${flux.multiplicityFlag}"></td>-->
                             <td th:text="${flux.qualityFlag}"></td>
-                            <td th:text="${flux.unit}"></td>
+<!--                            <td th:text="${flux.unit}"></td>-->
                         </tr>
                     </tbody>
                 </table>
             </div>
 
             <div style="grid-row: 2/3; grid-column: 3/4;">Value:</div>
-            <div style="grid-row: 2/3; grid-column: 4/5;" th:text="${simbadResponse.parallaxValue}"></div>
+            <div style="grid-row: 2/3; grid-column: 4/5;" th:text="${data.parallaxValue}"></div>
+            <div style="grid-row: 2/3; grid-column: 6/7;">Radial velocity:</div>
+            <div style="grid-row: 2/3; grid-column: 7/8;" th:text="${data.radialVelocity}"></div>
 
             <div style="grid-row: 3/4; grid-column: 3/4;">Error:</div>
-            <div style="grid-row: 3/4; grid-column: 4/5;" th:text="${simbadResponse.parallaxError}"></div>
+            <div style="grid-row: 3/4; grid-column: 4/5;" th:text="${data.parallaxError}"></div>
+            <div style="grid-row: 3/4; grid-column: 6/7;">Redshift:</div>
+            <div style="grid-row: 3/4; grid-column: 7/8;" th:text="${data.redshift}"></div>
 
             <div style="grid-row: 4/5; grid-column: 3/4;"></div>
 
             <div style="grid-row: 5/6; grid-column: 3/4;">Observatory code:</div>
-            <div style="grid-row: 5/6; grid-column: 4/5;" th:text="${simbadResponse.parallaxObsCode}"></div>
+            <div style="grid-row: 5/6; grid-column: 4/5;" th:text="${data.parallaxObsCode}"></div>
+            <div style="grid-row: 5/6; grid-column: 6/7;">Effective temperature:</div>
+            <div style="grid-row: 5/6; grid-column: 7/8;" th:text="${data.effectiveTemperature}"></div>
 
             <div style="grid-row: 6/7; grid-column: 3/4;">Bibcode:</div>
             <div style="grid-row: 6/7; grid-column: 4/5;">
-                <a th:href="@{${simbadResponse.getParallaxBibcodeUrl()}}"
-                   th:text="${simbadResponse.parallaxBibcode}" target="_blank"></a>
+                <a th:href="@{${data.getParallaxBibcodeUrl()}}"
+                   th:text="${data.parallaxBibcode}" target="_blank"></a>
             </div>
+
+            <div style="grid-row: 6/7; grid-column: 3/4;"></div>
+            <div style="grid-row: 7/8; grid-column: 3/4;"></div>
+
+            <div style="grid-row: 8/9; grid-column: 6/8;">
+                <div style="margin: 0 auto;">
+                    <div style="display: inline-block; margin-right: 0.5em; text-align: center;">
+                        <a th:href="@{${data.getCDSPortalUrl()}}" target="_blank">
+                            <img src="/images/cds_portal-icon.png" style="max-height: 50px;">
+                        </a>
+                        <br> <b>CDS Portal</b>
+                    </div>
+                    <div style="display: inline-block; margin-right: 0.5em; text-align: center;">
+                        <a th:href="@{${data.getQueryUrl()}}" target="_blank">
+                            <img src="/images/simbad_logo.jpg" style="max-height: 50px;">
+                        </a>
+                        <br> <b>Simbad</b>
+                    </div>
+                </div>
+            </div>
+<!--            <div style="grid-row: 7/8; grid-column: 7/8;">-->
+<!--                <a th:href="@{${data.getCDSPortalUrl()}}" target="_blank">-->
+<!--                    <img src="/images/cds_portal-icon.png">-->
+<!--                </a>-->
+<!--            </div>-->
 
 
         </div>
+    </th:block>
+</div>
 
+<!--
+***************************************
+Simbad fragment => query by Coordinates
+***************************************
+-->
+<div th:fragment="Simbad-coord">
         <div class="data-table">
             <table>
                 <thead>
                 <tr>
-                    <th:block th:each="field : ${simbadResponse.unassignedFields}">
-                        <th th:text="${field.label}"></th>
-                    </th:block>
+                    <th>#</th>
+                    <th>Identifier</th>
+                    <th>Dist [arcsec]</th>
+                    <th>Obj. type</th>
+                    <th>RA (ICRS, J2000)</th>
+                    <th>Dec (ICRS, J2000)</th>
+                    <th>PM - RA</th>
+                    <th>PM - Dec</th>
+                    <th>Parallax</th>
+                    <th>Rvel/Z</th>
+                    <th>Redshift</th>
+                    <th>Rad. vel.</th>
+                    <th>cz</th>
+                    <th>Mag U</th>
+                    <th>Mag B</th>
+                    <th>Mag V</th>
+                    <th>Mag R</th>
+                    <th>Mag G</th>
+                    <th>Mag I</th>
+                    <th>Mag H</th>
+                    <th>Mag J</th>
+                    <th>Mag K</th>
+                    <th>Mag u</th>
+                    <th>Mag g</th>
+                    <th>Mag r</th>
+                    <th>Mag i</th>
+                    <th>Mag z</th>
+                    <th>Sp. type.</th>
+                    <th>Mor. type</th>
+                    <th>Angular size</th>
+                    <th>#ref (1850 - now)</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th:block th:each="column : ${simbadResponse.unassignedData}">
-                        <td th:text="${column}"></td>
-                    </th:block>
+                <tr th:each="simbadData, iterStat : ${simbadResponse.assignedData}">
+                    <td th:text="${iterStat.index + 1}"></td>
+                    <td th:text="${simbadData.mainID}"></td>
+                    <td></td> <!-- DISTANCE (asec) -->
+                    <td>
+                        <a th:href="@{${simbadData.getObjectTypeUrl()}}"
+                           th:text="${simbadData.objectType}" target="_blank"></a>
+                    </td>
+                    <td th:text="${simbadData.ra}"></td>
+                    <td th:text="${simbadData.dec}"></td>
+                    <td th:text="${simbadData.pmra}"></td>
+                    <td th:text="${simbadData.pmdec}"></td>
+                    <td th:text="${simbadData.parallaxValue}"></td>
+                    <td></td> <!-- Rvel / Z -->
+                    <td th:text="${simbadData.redshift}"></td>
+                    <td th:text="${simbadData.radialVelocity}"></td>
+                    <td></td> <!-- cz -->
+                    <td>
+                        <span th:if="${simbadData.getFluxes().containsKey('U')}"
+                              th:text="${simbadData.getFluxes().get('U').magnitude}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${simbadData.fluxes.containsKey('B')}"
+                              th:text="${simbadData.fluxes.get('B').magnitude}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${simbadData.fluxes.containsKey('V')}"
+                              th:text="${simbadData.fluxes.get('V').magnitude}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${simbadData.fluxes.containsKey('R')}"
+                              th:text="${simbadData.fluxes.get('R').magnitude}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${simbadData.fluxes.containsKey('G')}"
+                              th:text="${simbadData.fluxes.get('G').magnitude}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${simbadData.fluxes.containsKey('I')}"
+                              th:text="${simbadData.fluxes.get('I').magnitude}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${simbadData.fluxes.containsKey('H')}"
+                              th:text="${simbadData.fluxes.get('H').magnitude}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${simbadData.fluxes.containsKey('J')}"
+                              th:text="${simbadData.fluxes.get('J').magnitude}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${simbadData.fluxes.containsKey('K')}"
+                              th:text="${simbadData.fluxes.get('K').magnitude}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${simbadData.fluxes.containsKey('u')}"
+                              th:text="${simbadData.fluxes.get('u').magnitude}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${simbadData.fluxes.containsKey('g')}"
+                              th:text="${simbadData.fluxes.get('g').magnitude}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${simbadData.fluxes.containsKey('r')}"
+                              th:text="${simbadData.fluxes.get('r').magnitude}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${simbadData.fluxes.containsKey('i')}"
+                              th:text="${simbadData.fluxes.get('i').magnitude}"></span>
+                    </td>
+                    <td>
+                        <span th:if="${simbadData.fluxes.containsKey('z')}"
+                              th:text="${simbadData.fluxes.get('z').magnitude}"></span>
+                    </td>
+                    <td th:text="${simbadData.spectralType}"></td>
+                    <td th:text="${simbadData.morphologicalType}"></td>
+                    <td></td> <!-- Angular size -->
+                    <td>
+                        <a th:href="@{${simbadData.getReferencesUrl()}}"
+                           th:text="${simbadData.references}" target="_blank"></a>
+                    </td>
                 </tr>
                 </tbody>
             </table>

@@ -30,7 +30,7 @@ public class SearchEngine {
         ResponseForReqByPos resp = MASTSearchEngine.findAllByPosition(input);
         responseData.setMastResponse(resp == null ? new MastResponse() : new MastResponse(resp));
 
-        SimbadSearchEngine.findAllByPosition(input);
+        responseData.setSimbadResponse(SimbadSearchEngine.findAllByPosition(input));
 
         return responseData;
     }

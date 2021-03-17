@@ -110,6 +110,12 @@
     margin: 0 auto;
 }
 
+.data-table a:link, .data-table a:visited, .data-table a:hover, .data-table a:active {
+    color: midnightblue;
+    font-weight: bold;
+    text-decoration: none;
+}
+
 .padded-grid {
     display: grid;
     grid-column-gap: 0.75em;
@@ -119,6 +125,10 @@
 
     padding: 2.5em 5em 2em 4em;
     margin-bottom: 1.5em;
+}
+
+.padded-grid img {
+
 }
 
 .Simbad-general-info {
@@ -131,7 +141,9 @@
 }
 
 .fluxes {
-    grid-template-columns: fit-content(70%) minmax(10px, 2fr) fit-content(15%) fit-content(20%);
+    grid-template-columns: fit-content(45%) minmax(10px, 2fr)
+                           fit-content(15%) fit-content(20%) minmax(10px, 2fr)
+                           fit-content(15%) fit-content(20%);
 
     font-size: 1.25em;
 }

@@ -1,6 +1,10 @@
 package org.astrosearcher.classes.simbad;
 
+import org.astrosearcher.classes.constants.SimbadConstants;
 import org.astrosearcher.enums.simbad.SimbadArgType;
+
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Class provides basic functionality for easier building of URL request for Simbad server - easier chaining
@@ -20,6 +24,6 @@ public class SimbadArg {
 
     @Override
     public String toString() {
-        return "&" + type.toString() + "=" + value;
+        return "&" + type.toString() + "=" + URLEncoder.encode(value.toString(), StandardCharsets.UTF_8);
     }
 }
