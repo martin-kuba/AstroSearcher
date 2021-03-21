@@ -5,7 +5,6 @@ import cds.savot.pull.SavotPullEngine;
 import cds.savot.pull.SavotPullParser;
 import org.astrosearcher.classes.simbad.SimbadRequestObject;
 import org.astrosearcher.classes.simbad.SimbadResponse;
-import org.astrosearcher.classes.simbad.SimbadResponseForId;
 import org.astrosearcher.enums.simbad.SimbadServices;
 import org.astrosearcher.models.SearchFormInput;
 

@@ -14,6 +14,9 @@ public final class ExceptionMSG {
             "Declination value must be between -90 and 90!";
 
     public static final String INVALID_POSITION_INPUT_EXCEPTION =
+            "Two integral/fractional numbers expected, separated by space or comma (like 1.0, 2.0)";
+
+    public static final String INVALID_POSITION_AND_RADIUS_INPUT_EXCEPTION =
             "Two or three integral/fractional numbers expected, separated by space or comma (like 1.0, 2.0)";
 
 

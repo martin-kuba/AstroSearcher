@@ -72,4 +72,12 @@ public class MASTSearchEngine {
         return response == null ? null : new Gson().fromJson(response, ResponseForReqByPos.class);
     }
 
+    public static ResponseForReqByPos findAllByPositionCrossmatch(SearchFormInput input) {
+        String response = new MastRequestObject(MastServices.MAST_CAOM_CROSSMATCH, input).send();
+        System.out.println("Response for Crossmatch request:\n " + response);
+
+        // TODO: check this return statement!!!
+        return response == null ? null : new Gson().fromJson(response, ResponseForReqByPos.class);
+    }
+
 }

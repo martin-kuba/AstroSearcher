@@ -25,7 +25,7 @@ public class PositionInputTest {
         Assertions.assertThrows(
                 IllegalArgumentException.class,
                 () -> new PositionInput(input),
-                ExceptionMSG.INVALID_POSITION_INPUT_EXCEPTION
+                ExceptionMSG.INVALID_POSITION_AND_RADIUS_INPUT_EXCEPTION
         );
     }
 

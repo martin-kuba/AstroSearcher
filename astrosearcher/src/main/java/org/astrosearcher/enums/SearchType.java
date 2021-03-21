@@ -7,7 +7,8 @@ package org.astrosearcher.enums;
  */
 public enum SearchType {
     ID_NAME("id/name"),
-    POSITION("position");
+    POSITION("position"),
+    POSITION_CROSSMATCH("file-position");
 
     private String name;
 

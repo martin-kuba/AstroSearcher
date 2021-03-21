@@ -9,4 +9,17 @@ public final class MASTConstants {
 
     public static final int DEFAULT_PAGE = 1;
     public static final int DEFAULT_PAGE_SIZE = 500;
+
+
+    // Crossmatch
+    public static final String DEC_COLUMN    = "decColumn";
+    public static final String RA_COLUMN     = "raColumn";
+    public static final String RADIUS_COLUMN = "radius";
+    public static final double DEFAULT_CROSSMATCH_RADIUS = 0.001;
+
+    public static final String DEFAULT_DEC_COLUMN_NAME = "dec";
+    public static final String DEFAULT_RA_COLUMN_NAME  = "ra";
+
+    public static final String DEC_TYPE = "float";
+    public static final String RA_TYPE = "float";
 }

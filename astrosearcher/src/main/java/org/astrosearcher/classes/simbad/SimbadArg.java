@@ -1,6 +1,5 @@
 package org.astrosearcher.classes.simbad;
 
-import org.astrosearcher.classes.constants.SimbadConstants;
 import org.astrosearcher.enums.simbad.SimbadArgType;
 
 import java.net.URLEncoder;

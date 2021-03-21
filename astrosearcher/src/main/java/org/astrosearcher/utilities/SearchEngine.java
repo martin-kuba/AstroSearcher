@@ -35,6 +35,18 @@ public class SearchEngine {
         return responseData;
     }
 
+    public static ResponseData findAllByPositionCrossmatch(SearchFormInput input) {
+        ResponseData responseData = new ResponseData();
+
+        System.out.println("File: " + input.getFile().getName());
+        ResponseForReqByPos resp = MASTSearchEngine.findAllByPositionCrossmatch(input);
+        responseData.setMastResponse(resp == null ? new MastResponse() : new MastResponse(resp));
+
+//        responseData.setSimbadResponse(SimbadSearchEngine.findAllByPosition(input));
+
+        return responseData;
+    }
+
     public static ResponseData findAllByID(SearchFormInput input) {
         ResponseData responseData = new ResponseData();
 
@@ -59,6 +71,10 @@ public class SearchEngine {
 
         if (SearchType.POSITION.equals(input.getSearchBy())) {
             return findAllByPosition(input);
+        }
+
+        if (SearchType.POSITION_CROSSMATCH.equals(input.getSearchBy())) {
+            return findAllByPositionCrossmatch(input);
         }
         throw new IllegalArgumentException(ExceptionMSG.NOT_DEFINED_SEARCH_OPTION + input.getSearchInput());
     }

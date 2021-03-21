@@ -18,7 +18,7 @@
         <nav th:replace="fragments :: navigation"></nav>
     </header>
     <div id="container-bg">
-        <form class="search-form" action="testing" method="post">
+        <form class="search-form" action="testing" method="post" enctype="multipart/form-data">
             <div class="content-wrapper">
                 <div style="grid-row: 1/2; grid-column: 2/5;">
                     <label class="error-label" th:text="${errorMSG}">&nbsp;</label>
@@ -33,7 +33,7 @@
                            placeholder="Enter ID (name) or position (ra, dec, radius)">
                 </div>
                 <div style="grid-row: 3/4; grid-column: 2/5;">
-                    <input id="upload-file" type="file" name="fileName">
+                    <input id="upload-file" type="file" th:field="${searchFormInput.file}">
                 </div>
                 <div style="grid-row: 4/5; grid-column: 2/3;">
                     <label class="info-label">Page size:</label>

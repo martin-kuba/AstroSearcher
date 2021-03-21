@@ -10,6 +10,7 @@ import org.astrosearcher.enums.SearchType;
  */
 public enum MastServices {
     MAST_CAOM_CONE("Mast.Caom.Cone", SearchType.POSITION),
+    MAST_CAOM_CROSSMATCH("Mast.Caom.Crossmatch", SearchType.POSITION_CROSSMATCH),
     MAST_NAME_LOOKUP("Mast.Name.Lookup", SearchType.ID_NAME);
 
     private String name;

@@ -72,6 +72,8 @@ public class TestingController {
                        Errors errors, Model model) {
 
         if (errors.hasErrors()) {
+            model.addAttribute("errorMSG", errors.getFieldError());
+            System.out.println("Error: " + errors.getFieldError());
             model.addAttribute("searchOptions", SearchType.values());
             return "index";
         }

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.constants.ValidationMSG;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Min;
 
@@ -24,7 +26,7 @@ public class SearchFormInput {
     @Min(value = Limits.PAGESIZE_MIN, message = ValidationMSG.PAGESIZE_MIN_VALIDATION_MSG)
     private int    pagesize = 500;
 
-
-
+//    private String filename;
+    private MultipartFile file;
 
 }

@@ -1,5 +1,8 @@
 package org.astrosearcher.classes.mast;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
@@ -11,6 +14,8 @@ import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
 import org.astrosearcher.classes.constants.ExceptionMSG;
 import org.astrosearcher.classes.constants.MASTConstants;
+import org.astrosearcher.classes.mast.services.caom.crossmatch.CaomCrossmatchInput;
+import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.enums.mast.MastServices;
 import org.astrosearcher.models.SearchFormInput;
 import org.astrosearcher.utilities.ConnectionUtils;
@@ -32,7 +37,7 @@ public class MastRequestObject extends RequestObject {
     private String service;
     private Map<String, Object> params = new HashMap<>();
     private final String format = MASTConstants.DEFAULT_FORMAT;
-    //private Object data;
+    private Object data;
     //private String fileName;
     //private int timeout = 30;
     //private boolean clearCache = false;
@@ -55,6 +60,15 @@ public class MastRequestObject extends RequestObject {
             case MAST_CAOM_CONE:
                 params.putAll(new PositionInput(input.getSearchInput()).getAsMap());
                 break;
+            case MAST_CAOM_CROSSMATCH:
+
+                this.data = new CaomCrossmatchInput(input.getFile());
+
+                params.put(MASTConstants.RA_COLUMN, ((CaomCrossmatchInput)data).getFields().get(0).getName());
+                params.put(MASTConstants.DEC_COLUMN, ((CaomCrossmatchInput)data).getFields().get(1).getName());
+                params.put(MASTConstants.RADIUS_COLUMN, MASTConstants.DEFAULT_CROSSMATCH_RADIUS);
+
+                break;
             default:
                 throw new IllegalArgumentException(ExceptionMSG.NO_SERVICE_PROVIDED_BY_MAST_EXCEPTION
                         + input.getSearchBy());
@@ -73,6 +87,10 @@ public class MastRequestObject extends RequestObject {
         // common parameters for all services
         page = input.getPage();
         pagesize = input.getPagesize();
+    }
+
+    private void loadCrossmatchInput(SearchFormInput input) {
+
     }
 
     @Override

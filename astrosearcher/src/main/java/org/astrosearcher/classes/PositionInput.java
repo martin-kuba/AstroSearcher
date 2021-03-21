@@ -1,6 +1,5 @@
 package org.astrosearcher.classes;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 import org.astrosearcher.classes.constants.ExceptionMSG;
 import org.astrosearcher.classes.constants.Limits;
@@ -14,23 +13,6 @@ import java.util.regex.Pattern;
 
 @Getter
 public class PositionInput {
-
-    @Getter
-    private class Position {
-        private double ra;
-        private double dec;
-
-        public Position(double ra, double dec) {
-            this.ra = ra;
-            this.dec = dec;
-        }
-
-        @Override
-        public String toString() {
-            return ra + " " + dec;
-        }
-
-    }
 
     private Position position;
     private double   radius;
@@ -61,7 +43,7 @@ public class PositionInput {
 
             return;
         }
-        throw new IllegalArgumentException(ExceptionMSG.INVALID_POSITION_INPUT_EXCEPTION);
+        throw new IllegalArgumentException(ExceptionMSG.INVALID_POSITION_AND_RADIUS_INPUT_EXCEPTION);
 
     }
 
