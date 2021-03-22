@@ -16,7 +16,77 @@
 	<properties>
 		<java.version>11</java.version>
 	</properties>
+
+	<repositories>
+<!--		<repository>-->
+<!--			<id>aschaff.savot</id>-->
+<!--			<url>https://gitlab.fi.muni.cz/xhalama/bp-astrosearcher/-/tree/master/astrosearcher/src/main/java/org/cds</url>-->
+<!--&lt;!&ndash;			<url>https://gitlab.fi.muni.cz/xhalama/bp-astrosearcher/-/tree/master/astrosearcher</url>&ndash;&gt;-->
+<!--		</repository>-->
+
+		<!-- local repository for libraries that are not Mavenized -->
+		<repository>
+			<id>my-local-repo</id>
+			<url>file://${basedir}/local-repo</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
+		<dependency>
+			<groupId>cds.savot.common</groupId>
+			<artifactId>common</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>cds.savot.model</groupId>
+			<artifactId>model</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>cds.savot.pull</groupId>
+			<artifactId>pull</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>kxml2-min</groupId>
+			<artifactId>kxml2-min</artifactId>
+			<version>1.0</version>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>cds.savot.model</groupId>-->
+<!--			<artifactId>model</artifactId>-->
+<!--			<version>1.0</version>-->
+<!--&lt;!&ndash;			<scope>system</scope>&ndash;&gt;-->
+<!--&lt;!&ndash;			<systemPath>/src/main/java/org/astrosearcher/cds/cds.savot.model.jar</systemPath>&ndash;&gt;-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>cds.savot.pull</groupId>-->
+<!--			<artifactId>pull</artifactId>-->
+<!--			<version>1.0</version>-->
+<!--			&lt;!&ndash;			<scope>system</scope>&ndash;&gt;-->
+<!--			&lt;!&ndash;			<systemPath>/src/main/java/org/astrosearcher/cds/cds.savot.model.jar</systemPath>&ndash;&gt;-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>cds.savot.common</groupId>-->
+<!--			<artifactId>common</artifactId>-->
+<!--			<version>1.0</version>-->
+<!--&lt;!&ndash;			<scope>system</scope>&ndash;&gt;-->
+<!--&lt;!&ndash;			<systemPath>${project.basedir}/src/main/java/org/astrosearcher/cds/cds.savot.common.jar</systemPath>&ndash;&gt;-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>kxml2-min</groupId>-->
+<!--			<artifactId>kxml2-min</artifactId>-->
+<!--			<version>1.0</version>-->
+<!--&lt;!&ndash;			<scope>system</scope>&ndash;&gt;-->
+<!--&lt;!&ndash;			<systemPath>${project.basedir}/src/main/java/org/astrosearcher/cds/kxml2-min.jar</systemPath>&ndash;&gt;-->
+<!--		</dependency>-->
+
+<!--		<dependency>-->
+<!--			<groupId>xmlpull</groupId>-->
+<!--			<artifactId>xmlpull</artifactId>-->
+<!--			<version>1.1.3.1</version>-->
+<!--		</dependency>-->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -56,35 +126,40 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+		<dependency>
+			<groupId>com.mks.api</groupId>
+			<artifactId>mksapi-jar</artifactId>
+			<version>4.10.9049</version>
+		</dependency>
 
-		<dependency>
-			<groupId>cds.savot.model</groupId>
-			<artifactId>model</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/java/org/cds/cds.savot.model.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>cds.savot.pull</groupId>
-			<artifactId>pull</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/java/org/cds/cds.savot.pull.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>cds.savot.common</groupId>
-			<artifactId>common</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/java/org/cds/cds.savot.common.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>kxml2-min</groupId>
-			<artifactId>kxml2-min</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/java/org/cds/kxml2-min.jar</systemPath>
-		</dependency>
+		<!--		<dependency>-->
+<!--			<groupId>cds.savot.model</groupId>-->
+<!--			<artifactId>model</artifactId>-->
+<!--			<version>1.0</version>-->
+<!--			<scope>system</scope>-->
+<!--			<systemPath>${project.basedir}/src/main/java/org/astrosearcher/cds/cds.savot.model.jar</systemPath>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>cds.savot.pull</groupId>-->
+<!--			<artifactId>pull</artifactId>-->
+<!--			<version>1.0</version>-->
+<!--			<scope>system</scope>-->
+<!--			<systemPath>${project.basedir}/src/main/java/org/astrosearcher/cds/cds.savot.pull.jar</systemPath>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>cds.savot.common</groupId>-->
+<!--			<artifactId>common</artifactId>-->
+<!--			<version>1.0</version>-->
+<!--			<scope>system</scope>-->
+<!--			<systemPath>${project.basedir}/src/main/java/org/astrosearcher/cds/cds.savot.common.jar</systemPath>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>kxml2-min</groupId>-->
+<!--			<artifactId>kxml2-min</artifactId>-->
+<!--			<version>1.0</version>-->
+<!--			<scope>system</scope>-->
+<!--			<systemPath>${project.basedir}/src/main/java/org/astrosearcher/cds/kxml2-min.jar</systemPath>-->
+<!--		</dependency>-->
 
     </dependencies>
 
