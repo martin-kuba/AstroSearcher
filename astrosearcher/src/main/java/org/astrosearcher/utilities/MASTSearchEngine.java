@@ -58,7 +58,9 @@ public class MASTSearchEngine {
     }
 
     public static ResponseForReqByPos findAllByID(SearchFormInput input) {
+//        System.out.print("    resolving name into position... ");
         List<PositionInput> resolved = resolvePositionByNameOrID(input);
+//        System.out.println("done.");
         return resolved.isEmpty() ? null : findAllByPosition(resolved.get(0), input);
     }
 
@@ -68,13 +70,15 @@ public class MASTSearchEngine {
     }
 
     public static ResponseForReqByPos findAllByPosition(PositionInput position, SearchFormInput input) {
+//        System.out.println("    querying by position...");
         String response = new MastRequestObject(MastServices.MAST_CAOM_CONE, position, input).send();
+//        System.out.println("    parsing response from JSON");
         return response == null ? null : new Gson().fromJson(response, ResponseForReqByPos.class);
     }
 
     public static ResponseForReqByPos findAllByPositionCrossmatch(SearchFormInput input) {
         String response = new MastRequestObject(MastServices.MAST_CAOM_CROSSMATCH, input).send();
-        System.out.println("Response for Crossmatch request:\n " + response);
+//        System.out.println("Response for Crossmatch request:\n " + response);
 
         // TODO: check this return statement!!!
         return response == null ? null : new Gson().fromJson(response, ResponseForReqByPos.class);

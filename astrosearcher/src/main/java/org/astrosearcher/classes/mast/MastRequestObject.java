@@ -105,7 +105,7 @@ public class MastRequestObject extends RequestObject {
 
     @Override
     public byte[] getParamsAsBytes() {
-        System.out.println("Params: " + MASTConstants.REQUEST_PARAMS_PREFIX + gson.toJson(this));
+//        System.out.println("Params: " + MASTConstants.REQUEST_PARAMS_PREFIX + gson.toJson(this));
         return (MASTConstants.REQUEST_PARAMS_PREFIX + gson.toJson(this)).getBytes();
     }
 }

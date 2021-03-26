@@ -62,8 +62,8 @@ public class SimbadData {
         int columnIndex = 0;
         while (columnIndex < columns.getItemCount()) {
 
-            System.out.println(fields.get(columnIndex) + " [" + columnIndex + "]: " +
-                    ((SavotTD)columns.getItemAt(columnIndex)).getContent());
+//            System.out.println(fields.get(columnIndex) + " [" + columnIndex + "]: " +
+//                    ((SavotTD)columns.getItemAt(columnIndex)).getContent());
 
             switch (fields.get(columnIndex)) {
                 case TYPED_ID:
@@ -190,8 +190,12 @@ public class SimbadData {
 
     }
 
+    public String getMainIdUrlEncoded() {
+        return URLEncoder.encode(mainID, StandardCharsets.UTF_8);
+    }
+
     public String getCDSPortalUrl() {
-        return SimbadConstants.CDS_PORTAL_UrL + "?target=" + URLEncoder.encode(mainID, StandardCharsets.UTF_8);
+        return SimbadConstants.CDS_PORTAL_UrL + "?target=" + getMainIdUrlEncoded();
     }
 
     public String getReferencesUrl() {

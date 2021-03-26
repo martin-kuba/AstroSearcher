@@ -23,6 +23,7 @@ public class SimbadSearchEngine {
     // TODO: change return type, implement functionality
     public static SimbadResponse findAllById(SearchFormInput input) {
         String response = new SimbadRequestObject(SimbadServices.SIMBAD_ID, input).send();
+//        System.out.println("    response acquired...");
 
         if (response == null) {
             System.out.println("no response acquired");
@@ -34,20 +35,22 @@ public class SimbadSearchEngine {
             SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
                     SavotPullEngine.FULL,
                     "UTF-8");
-            System.out.println("    -> Parser successfuly initialized!");
+//            System.out.println("    -> Parser successfuly initialized!");
             SavotVOTable vot = parser.getVOTable();
-            System.out.println("    -> VOT obtained from parser!");
+//            System.out.println("    -> VOT obtained from parser!");
 
-            System.out.println("response: " + response);
+//            System.out.println("response: " + response);
             TRSet ts = ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0);
-            System.out.println("    -> TRSET obtained!");
+//            System.out.println("    -> TRSET obtained!");
 //            for (Object row : ts.getItems())
 
 
-            System.out.println("Returning response...");
+//            System.out.println("Returning response...");
 //            System.out.println("    Fieldset size: " + ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItemCount());
 //            List<SavotField> test = ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems();
 //            System.out.println("    List of fields size: " + test.size());
+
+//            System.out.println("    parsing the response...");
 
             return new SimbadResponse(
                     SimbadServices.SIMBAD_ID,
@@ -86,7 +89,7 @@ public class SimbadSearchEngine {
 //            for (Object row : ts.getItems())
 
 
-            System.out.println("Returning response...");
+//            System.out.println("Returning response...");
 //            System.out.println("    Fieldset size: " + ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItemCount());
 //            List<SavotField> test = ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems();
 //            System.out.println("    List of fields size: " + test.size());

@@ -35,7 +35,7 @@ MAST fragment => query by ID + query by coordinates
                         <td th:if="${isEmpty}"></td>
                         <th:block th:unless="${isEmpty}">
                             <td th:if="${field.isIcon()}">
-                                <a th:href="${row.get(field.getWorkName()).getAsString()}">
+                                <a th:href="${row.get(field.getWorkName()).getAsString()}" target="_blank">
                                     <i th:class="${field.getIconClass()}"></i>
                                 </a>
                             </td>
@@ -284,7 +284,10 @@ Simbad fragment => query by Coordinates
                 <tbody>
                 <tr th:each="simbadData, iterStat : ${simbadResponse.assignedData}">
                     <td th:text="${iterStat.index + 1}"></td>
-                    <td th:text="${simbadData.mainID}"></td>
+                    <td>
+                        <a th:href="@{'/testing?id=' + ${simbadData.getMainIdUrlEncoded()}}" target="_blank"
+                           th:text="${simbadData.mainID}"></a>
+                    </td>
                     <td></td> <!-- DISTANCE (asec) -->
                     <td>
                         <a th:href="@{${simbadData.getObjectTypeUrl()}}"

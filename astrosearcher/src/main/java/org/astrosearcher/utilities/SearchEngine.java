@@ -38,7 +38,7 @@ public class SearchEngine {
     public static ResponseData findAllByPositionCrossmatch(SearchFormInput input) {
         ResponseData responseData = new ResponseData();
 
-        System.out.println("File: " + input.getFile().getName());
+//        System.out.println("File: " + input.getFile().getName());
         ResponseForReqByPos resp = MASTSearchEngine.findAllByPositionCrossmatch(input);
         responseData.setMastResponse(resp == null ? new MastResponse() : new MastResponse(resp));
 
@@ -50,10 +50,14 @@ public class SearchEngine {
     public static ResponseData findAllByID(SearchFormInput input) {
         ResponseData responseData = new ResponseData();
 
+//        System.out.println("Starting to query MAST... ");
         ResponseForReqByPos response = MASTSearchEngine.findAllByID(input);
         responseData.setMastResponse(response == null ? new MastResponse() : new MastResponse(response));
+//        System.out.println("Mast response acquired and parsed.\n");
 
+//        System.out.println("Starting to query Simbad...");
         responseData.setSimbadResponse(SimbadSearchEngine.findAllById(input));
+//        System.out.println("Simbad response acquired and parsed.\n");
 
         return responseData;
     }

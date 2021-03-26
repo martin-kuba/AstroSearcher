@@ -40,6 +40,8 @@ public class SimbadResponse {
         }
 
         int order = 0;
+//        System.out.println("        Creating fields...");
+
         for (SavotField field : responseFields) {
             try {
                 fields.add(SimbadFields.valueOf(field.getId()));
@@ -56,7 +58,12 @@ public class SimbadResponse {
             }
         }
 
+//        System.out.println("        Fields (table columns) created.");
+//        System.out.println("        Parsing data itself...");
+
         for (SavotTR row : data) {
+//            System.out.println("            New row... ");
+
             List<String> columns = new ArrayList<>();
             TDSet responseColumns = row.getTDSet();
 
@@ -64,13 +71,17 @@ public class SimbadResponse {
                 columns.add(((SavotTD)responseColumns.getItemAt(columnIndex)).getContent());
             }
 
+//            System.out.print("                 Storing row data... ");
             assignedData.add(new SimbadData(responseColumns, fields));
+//            System.out.println("success.");
 
             this.data.add(columns);
         }
 
+//        System.out.println("        Data parsed successfully.");
+
 //        this.data = data;
-        System.out.println("Data size: " + this.data.size());
+//        System.out.println("Data size: " + this.data.size());
 //        for (var stg : this.data.get(0).) {
 //            System.out.println("    line: " + stg);
 //        }

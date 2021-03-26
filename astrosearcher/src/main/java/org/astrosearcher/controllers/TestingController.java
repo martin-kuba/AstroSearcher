@@ -1,6 +1,7 @@
 package org.astrosearcher.controllers;
 
 import org.astrosearcher.classes.ResponseData;
+import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.simbad.SimbadFlux;
 import org.astrosearcher.enums.simbad.SimbadServices;
 import org.astrosearcher.enums.SearchType;
@@ -81,6 +82,22 @@ public class TestingController {
         ResponseData responseData;
         try {
             responseData = SearchEngine.process(input);
+        } catch (IllegalArgumentException iae) {
+            model.addAttribute("errorMSG", iae.getMessage());
+            model.addAttribute("searchOptions", SearchType.values());
+            return "index";
+        }
+
+        return processResponse(responseData, model);
+    }
+
+    @GetMapping("testing")
+    public String getSearch(@RequestParam String id, Model model) {
+
+        ResponseData responseData;
+        try {
+            responseData = SearchEngine.process(new SearchFormInput(
+                    SearchType.ID_NAME.toString(), id, Limits.DEFAULT_PAGE, Limits.DEFAULT_PAGESIZE, null));
         } catch (IllegalArgumentException iae) {
             model.addAttribute("errorMSG", iae.getMessage());
             model.addAttribute("searchOptions", SearchType.values());

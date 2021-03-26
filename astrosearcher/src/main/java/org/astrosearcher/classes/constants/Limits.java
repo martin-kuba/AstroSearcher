@@ -15,7 +15,9 @@ public final class Limits {
 
     // Page
     public static final int PAGE_MIN = 1;
+    public static final int DEFAULT_PAGE = 1;
 
     // Pagesize
     public static final int PAGESIZE_MIN = 1;
+    public static final int DEFAULT_PAGESIZE = 500;
 }
