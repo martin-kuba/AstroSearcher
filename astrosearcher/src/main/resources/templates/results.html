@@ -133,16 +133,31 @@ Simbad fragment => query by ID
             <div style="grid-row: 6/7; grid-column: 7/8;"><h4>Error (Angle):</h4></div>
             <div style="grid-row: 6/7; grid-column: 8/9;" th:text="${data.pmErrorAng}"></div>
 
-            <div style="grid-row: 7/8; grid-column: 1/2;"><h4>Spectral type:</h4></div>
-            <div style="grid-row: 7/8; grid-column: 2/3;" th:text="${data.spectralType}"></div>
+            <div style="grid-row: 7/8; grid-column: 1/2;"><h4>Ang. dist:</h4></div>
+            <div style="grid-row: 7/8; grid-column: 2/3;" th:text="${data.angularDistance}"></div>
             <div style="grid-row: 7/8; grid-column: 7/8;"><h4>Bibcode:</h4></div>
             <div style="grid-row: 7/8; grid-column: 8/9;">
                 <a th:href="@{${data.getPMBibcodeUrl()}}"
                    th:text="${data.pmBibcode}" target="_blank"></a>
             </div>
 
-            <div style="grid-row: 8/9; grid-column: 1/2;"><h4>Morphological type:</h4></div>
-            <div style="grid-row: 8/9; grid-column: 2/3;" th:text="${data.morphologicalType}"></div>
+            <th:block th:if="${!#strings.isEmpty(data.angularSizeMajor) || !#strings.isEmpty(data.angularSizeMinor)} ">
+                <div style="grid-row: 8/9; grid-column: 1/2;"><h4>Ang. size (major, minor):</h4></div>
+                <div style="grid-row: 8/9; grid-column: 2/3;"
+                     th:text="${data.angularSizeMajor} + ' | ' +  ${data.angularSizeMinor}"></div>
+
+                <div style="grid-row: 9/10; grid-column: 1/2;"><h4>Ang. size (angle):</h4></div>
+                <div style="grid-row: 9/10; grid-column: 2/3;" th:text="${data.angularSizeAngle}"></div>
+            </th:block>
+
+            <div style="grid-row: 10/11; grid-column: 1/2;"><h4></h4>&nbsp;</div>
+            <div style="grid-row: 10/11; grid-column: 2/3;">&nbsp;</div>
+
+            <div style="grid-row: 11/12; grid-column: 1/2;"><h4>Spectral type:</h4></div>
+            <div style="grid-row: 11/12; grid-column: 2/3;" th:text="${data.spectralType}"></div>
+
+            <div style="grid-row: 12/13; grid-column: 1/2;"><h4>Morphological type:</h4></div>
+            <div style="grid-row: 12/13; grid-column: 2/3;" th:text="${data.morphologicalType}"></div>
 
         </div>
         <div class="fluxes padded-grid">
@@ -250,17 +265,17 @@ Simbad fragment => query by Coordinates
                 <tr>
                     <th>#</th>
                     <th>Identifier</th>
-                    <th>Dist [arcsec]</th>
+                    <th>Dist</th>
                     <th>Obj. type</th>
                     <th>RA (ICRS, J2000)</th>
                     <th>Dec (ICRS, J2000)</th>
                     <th>PM - RA</th>
                     <th>PM - Dec</th>
                     <th>Parallax</th>
-                    <th>Rvel/Z</th>
+<!--                    <th>Rvel/Z</th>-->
                     <th>Redshift</th>
                     <th>Rad. vel.</th>
-                    <th>cz</th>
+<!--                    <th>cz</th>-->
                     <th>Mag U</th>
                     <th>Mag B</th>
                     <th>Mag V</th>
@@ -288,7 +303,7 @@ Simbad fragment => query by Coordinates
                         <a th:href="@{'/testing?id=' + ${simbadData.getMainIdUrlEncoded()}}" target="_blank"
                            th:text="${simbadData.mainID}"></a>
                     </td>
-                    <td></td> <!-- DISTANCE (asec) -->
+                    <td th:text="${simbadData.angularDistance}"></td> <!-- DISTANCE (asec) -->
                     <td>
                         <a th:href="@{${simbadData.getObjectTypeUrl()}}"
                            th:text="${simbadData.objectType}" target="_blank"></a>
@@ -298,10 +313,10 @@ Simbad fragment => query by Coordinates
                     <td th:text="${simbadData.pmra}"></td>
                     <td th:text="${simbadData.pmdec}"></td>
                     <td th:text="${simbadData.parallaxValue}"></td>
-                    <td></td> <!-- Rvel / Z -->
+<!--                    <td></td> &lt;!&ndash; Rvel / Z &ndash;&gt;-->
                     <td th:text="${simbadData.redshift}"></td>
                     <td th:text="${simbadData.radialVelocity}"></td>
-                    <td></td> <!-- cz -->
+<!--                    <td></td> &lt;!&ndash; cz &ndash;&gt;-->
                     <td>
                         <span th:if="${simbadData.getFluxes().containsKey('U')}"
                               th:text="${simbadData.getFluxes().get('U').magnitude}"></span>
@@ -360,7 +375,9 @@ Simbad fragment => query by Coordinates
                     </td>
                     <td th:text="${simbadData.spectralType}"></td>
                     <td th:text="${simbadData.morphologicalType}"></td>
-                    <td></td> <!-- Angular size -->
+                    <td th:text="${simbadData.angularSizeMajor + ' | ' +
+                                   simbadData.angularSizeMinor + ' | ' +
+                                   simbadData.angularSizeAngle}"></td>
                     <td>
                         <a th:href="@{${simbadData.getReferencesUrl()}}"
                            th:text="${simbadData.references}" target="_blank"></a>

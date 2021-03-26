@@ -30,6 +30,11 @@ public class SimbadData {
     private String spectralType;
     private String morphologicalType;
 
+    private String angularDistance;
+    private String angularSizeMajor;
+    private String angularSizeMinor;
+    private String angularSizeAngle;
+
     private String radialVelocity;
     private String redshift;
     private String effectiveTemperature;
@@ -86,6 +91,21 @@ public class SimbadData {
                     break;
                 case MORPH_TYPE:
                     morphologicalType = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    break;
+
+                case ANG_DIST:
+                    angularDistance = ((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()
+                            ? ((SavotTD)columns.getItemAt(columnIndex)).getContent()
+                            : ((SavotTD)columns.getItemAt(columnIndex)).getContent() + " [ arcsec ]";
+                    break;
+                case GALDIM_MAJAXIS:
+                    angularSizeMajor = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    break;
+                case GALDIM_MINAXIS:
+                    angularSizeMinor = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    break;
+                case GALDIM_ANGLE:
+                    angularSizeAngle = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
                     break;
 
                 case RV_VALUE:
