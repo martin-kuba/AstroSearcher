@@ -4,6 +4,9 @@ public final class ExceptionMSG {
     public static final String SELECT_POSITION_FOR_QUERY_BY_COORDS =
             "Select POSITION option for querying by coordinates.";
 
+    public static final String EMPTY_SEARCH_INPUT =
+            "Search input cannot be empty if you are trying to search by ID/coordinates!";
+
     public static final String NOT_DEFINED_SEARCH_OPTION =
             "There is not defined search option for: ";
 

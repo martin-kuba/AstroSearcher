@@ -45,6 +45,7 @@ public class SimbadRequestObject extends RequestObject {
                 args.add(new SimbadArg(SimbadArgType.COORDINATES, position.getPosition()));
                 args.add(new SimbadArg(SimbadArgType.RADIUS, position.getRadius()));
                 args.add(new SimbadArg(SimbadArgType.RADIUS_UNIT, SimbadConstants.DEFAULT_RADIUS_UNIT));
+                args.add(new SimbadArg(SimbadArgType.OUTPUT_LIMIT, input.getPagesize()));
                 break;
             default:
                 throw new IllegalArgumentException(ExceptionMSG.NO_SERVICE_PROVIDED_BY_SIMBAD_EXCEPTION

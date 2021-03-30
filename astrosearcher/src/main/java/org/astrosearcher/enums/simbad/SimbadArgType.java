@@ -10,6 +10,7 @@ public enum SimbadArgType {
 
     ID("Ident"),
     COORDINATES("Coord"),
+    OUTPUT_LIMIT("output.max"),
     RADIUS("Radius"),
     RADIUS_UNIT("Radius.unit"),
     BIBCODE("bibcode");

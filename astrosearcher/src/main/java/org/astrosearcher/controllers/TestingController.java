@@ -62,6 +62,7 @@ public class TestingController {
 
         if (responseData.isEmpty()) {
             model.addAttribute("errorMSG", "Unfortunately, there were no data acquired for given input.");
+            model.addAttribute("limits", Limits.class);
             model.addAttribute("searchOptions", SearchType.values());
             return "index";
         }
@@ -78,7 +79,8 @@ public class TestingController {
 
         if (errors.hasErrors()) {
             model.addAttribute("errorMSG", errors.getFieldError());
-            System.out.println("Error: " + errors.getFieldError());
+            model.addAttribute("limits", Limits.class);
+//            System.out.println("Error: " + errors.getFieldError());
             model.addAttribute("searchOptions", SearchType.values());
             return "index";
         }
@@ -88,6 +90,7 @@ public class TestingController {
             responseData = SearchEngine.process(input);
         } catch (IllegalArgumentException iae) {
             model.addAttribute("errorMSG", iae.getMessage());
+            model.addAttribute("limits", Limits.class);
             model.addAttribute("searchOptions", SearchType.values());
             return "index";
         }
@@ -104,6 +107,7 @@ public class TestingController {
                     SearchType.ID_NAME.toString(), id, Limits.DEFAULT_PAGE, Limits.DEFAULT_PAGESIZE, null));
         } catch (IllegalArgumentException iae) {
             model.addAttribute("errorMSG", iae.getMessage());
+            model.addAttribute("limits", Limits.class);
             model.addAttribute("searchOptions", SearchType.values());
             return "index";
         }

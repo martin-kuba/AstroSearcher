@@ -21,13 +21,15 @@ MAST fragment => query by ID + query by coordinates
             <table>
                 <thead>
                 <tr>
+                    <th>#</th>
                     <th:block th:each="field : ${mastFields}">
                         <th th:text="${field}"></th>
                     </th:block>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="row : ${mastData}">
+                <tr th:each="row, iterStat : ${mastData}">
+                    <td th:text="${iterStat.index + 1}"></td>
                     <th:block th:each="field : ${mastFields}"
                               th:with="isEmpty=${row.get(field.getWorkName()) == null ||
                                                  row.get(field.getWorkName()).isJsonNull() ||
@@ -79,13 +81,15 @@ Simbad fragment => query by ID + query by coordinates
             <table>
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th:block th:each="field : ${vizierFields}">
                             <th th:text="${field}"></th>
                         </th:block>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="row : ${vizierData}">
+                    <tr th:each="row, iterStat : ${vizierData}">
+                        <td th:text="${iterStat.index + 1}"></td>
                         <th:block th:each="column : ${row}">
                             <td th:text="${column}"></td>
                         </th:block>

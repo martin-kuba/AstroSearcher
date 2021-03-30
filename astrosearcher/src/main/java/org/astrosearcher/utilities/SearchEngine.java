@@ -76,6 +76,10 @@ public class SearchEngine {
             if (PositionInput.isPositionInput(input.getSearchInput())) {
                 throw new IllegalArgumentException(ExceptionMSG.SELECT_POSITION_FOR_QUERY_BY_COORDS);
             }
+
+            if (input.getSearchInput() == null || input.getSearchInput().isEmpty()) {
+                throw new IllegalArgumentException(ExceptionMSG.EMPTY_SEARCH_INPUT);
+            }
             return findAllByID(input);
         }
 
