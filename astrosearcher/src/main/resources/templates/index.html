@@ -38,12 +38,17 @@
                 <div style="grid-row: 4/5; grid-column: 2/3;">
                     <label class="info-label">Page size:</label>
                     <input class="search-input" th:field="${searchFormInput.pagesize}"
-                           th:default="${limits.getField('DEFAULT_PAGESIZE')}" placeholder="page size">
+                           placeholder="page size">
                 </div>
                 <div style="grid-row: 4/5; grid-column: 3/4;">
                     <label class="info-label">Page:</label>
                     <input class="search-input" th:field="${searchFormInput.page}"
-                           th:default="${limits.getField('DEFAULT_PAGE')}" placeholder="page">
+                           placeholder="page">
+                </div>
+                <div style="grid-row: 4/5; grid-column: 4/7;">
+                    <label class="info-label">Vizier Catalogue (shortcut / words to search by):</label>
+                    <input class="search-input" th:field="${searchFormInput.vizierCat}"
+                           placeholder="V/139/sdss9 or description">
                 </div>
                 <div class="submit-row" style="grid-row: 5/7; grid-column: 1/5;">
                     <button class="search-btn" type="submit">Search</button>

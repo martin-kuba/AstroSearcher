@@ -2,6 +2,7 @@ package org.astrosearcher.controllers;
 
 import org.astrosearcher.classes.ResponseData;
 import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.VizierConstants;
 import org.astrosearcher.classes.simbad.SimbadFlux;
 import org.astrosearcher.enums.simbad.SimbadServices;
 import org.astrosearcher.enums.SearchType;
@@ -62,7 +63,6 @@ public class TestingController {
 
         if (responseData.isEmpty()) {
             model.addAttribute("errorMSG", "Unfortunately, there were no data acquired for given input.");
-            model.addAttribute("limits", Limits.class);
             model.addAttribute("searchOptions", SearchType.values());
             return "index";
         }
@@ -77,20 +77,26 @@ public class TestingController {
     public String test(@ModelAttribute @Valid SearchFormInput input,
                        Errors errors, Model model) {
 
-        if (errors.hasErrors()) {
-            model.addAttribute("errorMSG", errors.getFieldError());
-            model.addAttribute("limits", Limits.class);
+        if (errors.hasFieldErrors()) {
+//            System.out.println("test\n");
+            model.addAttribute("errorMSG", errors.getFieldError().getDefaultMessage());
+//            System.out.println("Error: " + errors.getFieldError());
+            model.addAttribute("searchOptions", SearchType.values());
+            return "index";
+        } else if (errors.hasGlobalErrors()) {
+            model.addAttribute("errorMSG", errors.getGlobalError().getObjectName());
 //            System.out.println("Error: " + errors.getFieldError());
             model.addAttribute("searchOptions", SearchType.values());
             return "index";
         }
+
+
 
         ResponseData responseData;
         try {
             responseData = SearchEngine.process(input);
         } catch (IllegalArgumentException iae) {
             model.addAttribute("errorMSG", iae.getMessage());
-            model.addAttribute("limits", Limits.class);
             model.addAttribute("searchOptions", SearchType.values());
             return "index";
         }
@@ -104,10 +110,13 @@ public class TestingController {
         ResponseData responseData;
         try {
             responseData = SearchEngine.process(new SearchFormInput(
-                    SearchType.ID_NAME.toString(), id, Limits.DEFAULT_PAGE, Limits.DEFAULT_PAGESIZE, null));
+                    SearchType.ID_NAME.toString(),
+                    id,
+                    Limits.DEFAULT_PAGE, Limits.DEFAULT_PAGESIZE,
+                    VizierConstants.DEFAULT_CATALOG,
+                    null));
         } catch (IllegalArgumentException iae) {
             model.addAttribute("errorMSG", iae.getMessage());
-            model.addAttribute("limits", Limits.class);
             model.addAttribute("searchOptions", SearchType.values());
             return "index";
         }

@@ -30,7 +30,7 @@ public class VizierRequestObject extends RequestObject {
             case VIZIER_COORDINATES:
                 PositionInput position = new PositionInput(input.getSearchInput());
 
-                args.add(new VizierArg(VizierArgType.SOURCE, VizierConstants.DEFAULT_CATALOG));
+                args.add(new VizierArg(VizierArgType.SOURCE, input.getVizierCat()));
                 args.add(new VizierArg(VizierArgType.POSITION, position.getPosition()));
                 args.add(new VizierArg(VizierArgType.RADIUS, position.getRadius()));
                 args.add(new VizierArg(VizierArgType.RADIUS_UNIT, VizierConstants.DEFAULT_RADIUS_UNIT));
