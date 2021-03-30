@@ -1,5 +1,6 @@
 package org.astrosearcher.classes.simbad;
 
+import lombok.AllArgsConstructor;
 import org.astrosearcher.enums.simbad.SimbadArgType;
 
 import java.net.URLEncoder;
@@ -11,15 +12,11 @@ import java.nio.charset.StandardCharsets;
  *
  * @author Ľuboslav Halama
  */
+@AllArgsConstructor
 public class SimbadArg {
 
     private SimbadArgType type;
     private Object value;
-
-    public SimbadArg(SimbadArgType type, Object value) {
-        this.type  = type;
-        this.value = value;
-    }
 
     @Override
     public String toString() {

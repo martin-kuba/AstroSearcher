@@ -44,5 +44,11 @@ public final class ExceptionMSG {
             "Field name in Simbad response was not found in pre-defined Simbad-fields Enum class.";
 
     public static final String NO_SERVICE_PROVIDED_BY_SIMBAD_EXCEPTION =
-            "There is no service provided by MAST for searching by: ";
+            "There is no service provided by Simbad for searching by: ";
+
+    /* ************************************* *
+     *   V I Z I E R   E X C E P T I O N S   *
+     * ************************************* */
+    public static final String NO_SERVICE_PROVIDED_BY_VIZIER_EXCEPTION =
+            "There is no service provided by Vizier for searching by: ";
 }

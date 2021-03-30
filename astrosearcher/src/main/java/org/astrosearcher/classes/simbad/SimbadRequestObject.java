@@ -71,10 +71,6 @@ public class SimbadRequestObject extends RequestObject {
             params.append(arg.toString());
         }
 
-
-//        System.out.println("test:  " + URLEncoder.encode("+", StandardCharsets.UTF_8));
-//        System.out.println("params: " + SimbadConstants.DEFAULT_FORMAT + params.toString());
-//        System.out.println("CONNECTION PARAMETERS: " + FORMAT + params.toString());
         return (SimbadConstants.DEFAULT_FORMAT + params.toString()).getBytes();
 //                (SimbadConstants.DEFAULT_FORMAT + params.toString()).getBytes();
     }

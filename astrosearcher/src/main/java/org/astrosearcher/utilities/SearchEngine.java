@@ -5,6 +5,7 @@ import org.astrosearcher.classes.ResponseData;
 import org.astrosearcher.classes.constants.ExceptionMSG;
 import org.astrosearcher.classes.mast.MastResponse;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
+import org.astrosearcher.classes.vizier.VizierResponse;
 import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.models.SearchFormInput;
 
@@ -27,10 +28,15 @@ public class SearchEngine {
     public static ResponseData findAllByPosition(SearchFormInput input) {
         ResponseData responseData = new ResponseData();
 
+        // MAST
         ResponseForReqByPos resp = MASTSearchEngine.findAllByPosition(input);
         responseData.setMastResponse(resp == null ? new MastResponse() : new MastResponse(resp));
 
+        // SIMBAD
         responseData.setSimbadResponse(SimbadSearchEngine.findAllByPosition(input));
+
+        // Vizier
+        responseData.setVizierResponse(VizierSearchEngine.findAllByPosition(input));
 
         return responseData;
     }

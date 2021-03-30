@@ -31,6 +31,10 @@ public class TestingController {
     private void processVizierResponse(ResponseData responseData, Model model) {
         if (responseData.containsVizierResponse()) {
             // TODO: load Vizier response
+
+            model.addAttribute("vizierType", responseData.getVizierResponse().getType());
+            model.addAttribute("vizierFields", responseData.getVizierResponse().getFields());
+            model.addAttribute("vizierData", responseData.getVizierResponse().getData());
         } else {
             model.addAttribute("vizierDataMSG", "Unfortunately, there were no data acquired from Vizier.");
         }
