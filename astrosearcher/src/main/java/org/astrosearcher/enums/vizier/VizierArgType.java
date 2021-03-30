@@ -1,10 +1,12 @@
 package org.astrosearcher.enums.vizier;
 
 public enum VizierArgType {
-    SOURCE("-source="),
+    OBJECT_ID("-objID="),
+    OUTPUT_LIMIT("-out.max="),
     POSITION("-c="),
-    RADIUS("-c.radius="),
-    OBJECT_ID("-objID=");
+    RADIUS("-c.r="),
+    RADIUS_UNIT("-c.unit="),
+    SOURCE("-source=");
 
     private String urlFormat;
 

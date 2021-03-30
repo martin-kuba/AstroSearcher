@@ -6,5 +6,6 @@ public class VizierConstants {
 
     public static final String FORMAT_VOTABLE  = "votable";
 
-    public static final String DEFAULT_CATALOG = "V/139/sdss9";
+    public static final String DEFAULT_CATALOG     = "V/139/sdss9";
+    public static final String DEFAULT_RADIUS_UNIT = "deg";
 }
