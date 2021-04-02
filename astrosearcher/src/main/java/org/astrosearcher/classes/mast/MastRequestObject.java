@@ -1,8 +1,5 @@
 package org.astrosearcher.classes.mast;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
@@ -12,10 +9,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.Gson;
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.classes.constants.ExceptionMSG;
+import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.constants.MASTConstants;
 import org.astrosearcher.classes.mast.services.caom.crossmatch.CaomCrossmatchInput;
-import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.enums.mast.MastServices;
 import org.astrosearcher.models.SearchFormInput;
 import org.astrosearcher.utilities.ConnectionUtils;

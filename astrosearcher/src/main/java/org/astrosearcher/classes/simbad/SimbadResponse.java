@@ -6,7 +6,7 @@ import cds.savot.model.SavotTR;
 import cds.savot.model.TDSet;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.astrosearcher.classes.constants.ExceptionMSG;
+import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.enums.simbad.SimbadFields;
 import org.astrosearcher.enums.simbad.SimbadServices;
 
@@ -79,6 +79,11 @@ public class SimbadResponse {
         }
 
 //        System.out.println("        Data parsed successfully.");
+
+        for (int i = 0; i < fields.size(); i++ ) {
+            System.out.println("[ " + fields.get(i) + " ]: " + data.get(0).getTDSet().getContent(i));
+        }
+
 
 //        this.data = data;
 //        System.out.println("Data size: " + this.data.size());

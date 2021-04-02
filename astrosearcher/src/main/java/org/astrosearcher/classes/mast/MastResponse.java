@@ -2,7 +2,7 @@ package org.astrosearcher.classes.mast;
 
 import com.google.gson.JsonObject;
 import lombok.Getter;
-import org.astrosearcher.classes.constants.ExceptionMSG;
+import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.enums.mast.services.caom.cone.CaomFields;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
 

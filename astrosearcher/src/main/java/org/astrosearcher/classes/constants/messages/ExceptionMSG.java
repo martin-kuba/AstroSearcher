@@ -1,4 +1,4 @@
-package org.astrosearcher.classes.constants;
+package org.astrosearcher.classes.constants.messages;
 
 public final class ExceptionMSG {
     public static final String SELECT_POSITION_FOR_QUERY_BY_COORDS =

@@ -1,7 +1,7 @@
 package org.astrosearcher.classes;
 
 import lombok.Getter;
-import org.astrosearcher.classes.constants.ExceptionMSG;
+import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.constants.RegularExpressions;
 

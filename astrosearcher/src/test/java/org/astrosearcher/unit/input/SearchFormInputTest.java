@@ -1,6 +1,6 @@
 package org.astrosearcher.unit.input;
 
-import org.astrosearcher.classes.constants.ValidationMSG;
+import org.astrosearcher.classes.constants.messages.ValidationMSG;
 import org.astrosearcher.models.SearchFormInput;
 
 import org.junit.jupiter.api.Assertions;
@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
-import java.io.File;
 import java.util.Set;
 
 public class SearchFormInputTest {
@@ -28,14 +27,14 @@ public class SearchFormInputTest {
     public void notPositivePageShouldNotPass() {
         Set<ConstraintViolation<SearchFormInput>> violations;
 
-        violations = validator.validate(new SearchFormInput("", "", NEGATIVE_PAGE, VALID_PAGESIZE, "", null));
+        violations = validator.validate(new SearchFormInput("", "", NEGATIVE_PAGE, VALID_PAGESIZE, "V/139", null));
 
         if ( violations.size() != 1) Assertions.fail();
         if ( !violations.iterator().next().getMessage().equals(ValidationMSG.PAGE_MIN_VALIDATION_MSG) ) {
             Assertions.fail();
         }
 
-        violations = validator.validate(new SearchFormInput("", "", ZERO_PAGE, VALID_PAGESIZE, "", null));
+        violations = validator.validate(new SearchFormInput("", "", ZERO_PAGE, VALID_PAGESIZE, "V/139", null));
 
         if ( violations.size() != 1) Assertions.fail();
         if ( !violations.iterator().next().getMessage().equals(ValidationMSG.PAGE_MIN_VALIDATION_MSG) ) {
@@ -47,14 +46,14 @@ public class SearchFormInputTest {
     public void notPositivePagesizeShouldNotPass() {
         Set<ConstraintViolation<SearchFormInput>> violations;
 
-        violations = validator.validate(new SearchFormInput("", "", VALID_PAGE, NEGATIVE_PAGESIZE, "", null));
+        violations = validator.validate(new SearchFormInput("", "", VALID_PAGE, NEGATIVE_PAGESIZE, "V/139", null));
 
         if ( violations.size() != 1) Assertions.fail();
         if ( !violations.iterator().next().getMessage().equals(ValidationMSG.PAGESIZE_MIN_VALIDATION_MSG) ) {
             Assertions.fail();
         }
 
-        violations = validator.validate(new SearchFormInput("", "", VALID_PAGE, ZERO_PAGESIZE, "", null));
+        violations = validator.validate(new SearchFormInput("", "", VALID_PAGE, ZERO_PAGESIZE, "V/139", null));
 
         if ( violations.size() != 1) Assertions.fail();
         if ( !violations.iterator().next().getMessage().equals(ValidationMSG.PAGESIZE_MIN_VALIDATION_MSG) ) {

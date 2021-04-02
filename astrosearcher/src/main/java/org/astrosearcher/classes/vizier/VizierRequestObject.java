@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.classes.constants.ExceptionMSG;
+import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.constants.VizierConstants;
 import org.astrosearcher.enums.vizier.VizierArgType;
 import org.astrosearcher.enums.vizier.VizierServices;

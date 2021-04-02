@@ -3,6 +3,7 @@ package org.astrosearcher.controllers;
 import org.astrosearcher.classes.ResponseData;
 import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.constants.VizierConstants;
+import org.astrosearcher.classes.constants.messages.InformationMSG;
 import org.astrosearcher.classes.simbad.SimbadFlux;
 import org.astrosearcher.enums.simbad.SimbadServices;
 import org.astrosearcher.enums.SearchType;
@@ -24,7 +25,7 @@ public class TestingController {
             model.addAttribute("mastFields", responseData.getMastResponse().getFields());
             model.addAttribute("mastData", responseData.getMastResponse().getData());
         } else {
-            model.addAttribute("mastDataMSG", "Unfortunately, there were no data acquired from MAST.");
+            model.addAttribute("mastDataMSG", InformationMSG.NO_MAST_DATA);
         }
         model.addAttribute("containsMAST", responseData.containsMastResponse());
     }
@@ -37,7 +38,7 @@ public class TestingController {
             model.addAttribute("vizierFields", responseData.getVizierResponse().getFields());
             model.addAttribute("vizierData", responseData.getVizierResponse().getData());
         } else {
-            model.addAttribute("vizierDataMSG", "Unfortunately, there were no data acquired from Vizier.");
+            model.addAttribute("vizierDataMSG", InformationMSG.NO_VIZIER_DATA);
         }
         model.addAttribute("containsVizier", responseData.containsVizierResponse());
     }
@@ -54,7 +55,7 @@ public class TestingController {
                 model.addAttribute("fluxFields", SimbadFlux.class.getFields());
             }
         } else {
-            model.addAttribute("simbadDataMSG", "Unfortunately, there were no data acquired from Simbad.");
+            model.addAttribute("simbadDataMSG", InformationMSG.NO_SIMBAD_DATA);
         }
         model.addAttribute("containsSimbad", responseData.containsSimbadResponse());
     }
@@ -62,7 +63,7 @@ public class TestingController {
     private String processResponse(ResponseData responseData, Model model) {
 
         if (responseData.isEmpty()) {
-            model.addAttribute("errorMSG", "Unfortunately, there were no data acquired for given input.");
+            model.addAttribute("errorMSG", InformationMSG.NO_DATA_AT_ALL);
             model.addAttribute("searchOptions", SearchType.values());
             return "index";
         }
@@ -84,7 +85,7 @@ public class TestingController {
             model.addAttribute("searchOptions", SearchType.values());
             return "index";
         } else if (errors.hasGlobalErrors()) {
-            model.addAttribute("errorMSG", errors.getGlobalError().getObjectName());
+            model.addAttribute("errorMSG", errors.getGlobalError().getDefaultMessage());
 //            System.out.println("Error: " + errors.getFieldError());
             model.addAttribute("searchOptions", SearchType.values());
             return "index";

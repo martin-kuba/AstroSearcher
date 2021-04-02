@@ -2,7 +2,7 @@ package org.astrosearcher.classes.simbad;
 
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.classes.constants.ExceptionMSG;
+import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.constants.SimbadConstants;
 import org.astrosearcher.enums.simbad.SimbadArgType;
 import org.astrosearcher.enums.simbad.SimbadServices;
@@ -11,8 +11,6 @@ import org.astrosearcher.utilities.ConnectionUtils;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 

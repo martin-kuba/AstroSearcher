@@ -20,7 +20,7 @@
     <div id="container-bg">
         <form class="search-form" action="testing" method="post" enctype="multipart/form-data">
             <div class="content-wrapper">
-                <div style="grid-row: 1/2; grid-column: 2/5;">
+                <div style="grid-row: 1/2; grid-column: 2/7;">
                     <label class="error-label" th:text="${errorMSG}">&nbsp;</label>
                 </div>
                 <div style="grid-row: 2/3; grid-column: 1/2;">
@@ -28,29 +28,36 @@
                         <option th:each="opt : ${searchOptions}" th:value="${opt}" th:text="${opt}"></option>
                     </select>
                 </div>
-                <div style="grid-row: 2/3; grid-column: 2/5;">
+                <div style="grid-row: 2/3; grid-column: 2/7;">
                     <input class="search-input" th:field="${searchFormInput.searchInput}"
                            placeholder="Enter ID (name) or position (ra, dec, radius)">
                 </div>
                 <div style="grid-row: 3/4; grid-column: 2/5;">
                     <input id="upload-file" type="file" th:field="${searchFormInput.file}">
                 </div>
+
                 <div style="grid-row: 4/5; grid-column: 2/3;">
                     <label class="info-label">Page size:</label>
-                    <input class="search-input" th:field="${searchFormInput.pagesize}"
-                           placeholder="page size">
                 </div>
                 <div style="grid-row: 4/5; grid-column: 3/4;">
                     <label class="info-label">Page:</label>
-                    <input class="search-input" th:field="${searchFormInput.page}"
-                           placeholder="page">
                 </div>
                 <div style="grid-row: 4/5; grid-column: 4/7;">
                     <label class="info-label">Vizier Catalogue (shortcut / words to search by):</label>
+                </div>
+
+                <div style="grid-row: 5/6; grid-column: 2/3;">
+                    <input class="search-input" th:field="${searchFormInput.pagesize}" placeholder="page size">
+                </div>
+                <div style="grid-row: 5/6; grid-column: 3/4;">
+                    <input class="search-input" th:field="${searchFormInput.page}" placeholder="page">
+                </div>
+                <div style="grid-row: 5/6; grid-column: 4/7;">
                     <input class="search-input" th:field="${searchFormInput.vizierCat}"
                            placeholder="V/139/sdss9 or description">
                 </div>
-                <div class="submit-row" style="grid-row: 5/7; grid-column: 1/5;">
+
+                <div class="submit-row" style="grid-row: 6/8; grid-column: 1/5;">
                     <button class="search-btn" type="submit">Search</button>
                 </div>
             </div>

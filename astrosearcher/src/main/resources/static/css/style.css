@@ -111,7 +111,8 @@ p {
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 5fr;
   grid-column-gap: 0.5em;
-  grid-row-gap: 0.75em;
+  grid-row-gap: 0.25em;
+
   margin: 0 auto;
   text-align: center;
   font-size: 1.4em;
@@ -126,8 +127,9 @@ p {
 }
 
 #container-bg .content-wrapper div {
-  height: 1.4em;
+  min-height: 1.4em;
   font-size: inherit;
+
 }
 
 .content-wrapper div label {
@@ -155,6 +157,7 @@ p {
 
 #upload-file {
   color: white;
+  padding-top: 0.25em;
 }
 
 #upload-file:hover {
@@ -163,7 +166,7 @@ p {
 
 #container-bg .content-wrapper .submit-row {
   font-size: 1.5em;
-  margin-top: 1em;
+  padding-top: 1em;
 }
 
 .search-btn{
@@ -189,6 +192,8 @@ p {
 
 .info-label {
   color: #ffffff;
+  padding-top: 1em;
+  box-sizing: border-box;
 }
 
 /*****************************

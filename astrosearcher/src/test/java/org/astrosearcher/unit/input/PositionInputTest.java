@@ -1,7 +1,7 @@
 package org.astrosearcher.unit.input;
 
 import org.astrosearcher.classes.PositionInput;
-import org.astrosearcher.classes.constants.ExceptionMSG;
+import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

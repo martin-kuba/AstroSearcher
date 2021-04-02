@@ -3,6 +3,7 @@ package org.astrosearcher.utilities;
 import cds.savot.model.*;
 import cds.savot.pull.SavotPullEngine;
 import cds.savot.pull.SavotPullParser;
+
 import org.astrosearcher.classes.simbad.SimbadRequestObject;
 import org.astrosearcher.classes.simbad.SimbadResponse;
 import org.astrosearcher.enums.simbad.SimbadServices;
