@@ -7,6 +7,7 @@ import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.constants.VizierConstants;
+import org.astrosearcher.enums.VizierCatalogueSearch;
 import org.astrosearcher.enums.vizier.VizierArgType;
 import org.astrosearcher.enums.vizier.VizierServices;
 import org.astrosearcher.models.SearchFormInput;
@@ -26,20 +27,29 @@ public class VizierRequestObject extends RequestObject {
     private List<VizierArg> args = new ArrayList<>();
 
     public VizierRequestObject(VizierServices service, SearchFormInput input) {
+
         switch (service) {
+            case VIZIER_ID:
+                args.add(new VizierArg(VizierArgType.TARGET, input.getSearchInput()));
+                break;
             case VIZIER_COORDINATES:
                 PositionInput position = new PositionInput(input.getSearchInput());
 
-                args.add(new VizierArg(VizierArgType.SOURCE, input.getVizierCat()));
-                args.add(new VizierArg(VizierArgType.POSITION, position.getPosition()));
+                args.add(new VizierArg(VizierArgType.TARGET, position.getPosition()));
                 args.add(new VizierArg(VizierArgType.RADIUS, position.getRadius()));
                 args.add(new VizierArg(VizierArgType.RADIUS_UNIT, VizierConstants.DEFAULT_RADIUS_UNIT));
-                args.add(new VizierArg(VizierArgType.OUTPUT_LIMIT, input.getPagesize()));
                 break;
             default:
                 throw new IllegalArgumentException(ExceptionMSG.NO_SERVICE_PROVIDED_BY_VIZIER_EXCEPTION
                         + input.getSearchBy());
         }
+
+        args.add(new VizierArg(
+                VizierCatalogueSearch.valueOf(input.getVizierCatalogueSearchBy()).getArgType(),
+                input.getVizierCat())
+        );
+        args.add(new VizierArg(VizierArgType.OUTPUT_LIMIT, input.getPagesize()));
+
 
         // TODO: edit to work for all search types, now works only for position
 

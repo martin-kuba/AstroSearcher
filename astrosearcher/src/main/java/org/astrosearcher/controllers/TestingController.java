@@ -5,6 +5,7 @@ import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.constants.VizierConstants;
 import org.astrosearcher.classes.constants.messages.InformationMSG;
 import org.astrosearcher.classes.simbad.SimbadFlux;
+import org.astrosearcher.enums.VizierCatalogueSearch;
 import org.astrosearcher.enums.simbad.SimbadServices;
 import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.models.SearchFormInput;
@@ -65,6 +66,7 @@ public class TestingController {
         if (responseData.isEmpty()) {
             model.addAttribute("errorMSG", InformationMSG.NO_DATA_AT_ALL);
             model.addAttribute("searchOptions", SearchType.values());
+            model.addAttribute("vizierOptions", VizierCatalogueSearch.values());
             return "index";
         }
 
@@ -83,11 +85,13 @@ public class TestingController {
             model.addAttribute("errorMSG", errors.getFieldError().getDefaultMessage());
 //            System.out.println("Error: " + errors.getFieldError());
             model.addAttribute("searchOptions", SearchType.values());
+            model.addAttribute("vizierOptions", VizierCatalogueSearch.values());
             return "index";
         } else if (errors.hasGlobalErrors()) {
             model.addAttribute("errorMSG", errors.getGlobalError().getDefaultMessage());
 //            System.out.println("Error: " + errors.getFieldError());
             model.addAttribute("searchOptions", SearchType.values());
+            model.addAttribute("vizierOptions", VizierCatalogueSearch.values());
             return "index";
         }
 
@@ -99,6 +103,7 @@ public class TestingController {
         } catch (IllegalArgumentException iae) {
             model.addAttribute("errorMSG", iae.getMessage());
             model.addAttribute("searchOptions", SearchType.values());
+            model.addAttribute("vizierOptions", VizierCatalogueSearch.values());
             return "index";
         }
 
@@ -114,11 +119,13 @@ public class TestingController {
                     SearchType.ID_NAME.toString(),
                     id,
                     Limits.DEFAULT_PAGE, Limits.DEFAULT_PAGESIZE,
+                    VizierCatalogueSearch.code.toString(),
                     VizierConstants.DEFAULT_CATALOG,
                     null));
         } catch (IllegalArgumentException iae) {
             model.addAttribute("errorMSG", iae.getMessage());
             model.addAttribute("searchOptions", SearchType.values());
+            model.addAttribute("vizierOptions", VizierCatalogueSearch.values());
             return "index";
         }
 

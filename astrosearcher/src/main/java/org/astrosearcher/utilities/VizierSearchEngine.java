@@ -21,6 +21,30 @@ import java.io.ByteArrayInputStream;
  */
 public class VizierSearchEngine {
 
+    public static VizierResponse findAllById(SearchFormInput input) {
+        String response = new VizierRequestObject(VizierServices.VIZIER_ID, input).send();
+//        System.out.println("\n\n\n" + response + "\n\n\n\n\n");
+
+        SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
+                SavotPullEngine.FULL,
+                "UTF-8");
+//        System.out.println("done");
+
+        SavotVOTable vot = parser.getVOTable();
+
+
+        if (vot.getResources().getItemCount() == 0
+                || ((SavotResource)vot.getResources().getItemAt(0)).getTableCount() == 0
+                || ((SavotResource)vot.getResources().getItemAt(0)).getData(0) == null) {
+            return new VizierResponse();
+        }
+
+        return new VizierResponse(VizierServices.VIZIER_ID,
+                ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems(),
+                ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
+        );
+    }
+
     public static VizierResponse findAllByPosition(SearchFormInput input) {
 
 //        System.out.print("\n\n    Sending Vizier request ... ");

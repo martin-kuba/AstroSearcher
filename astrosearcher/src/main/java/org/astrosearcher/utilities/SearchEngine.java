@@ -64,6 +64,8 @@ public class SearchEngine {
         responseData.setSimbadResponse(SimbadSearchEngine.findAllById(input));
 //        System.out.println("Simbad response acquired and parsed.\n");
 
+        responseData.setVizierResponse(VizierSearchEngine.findAllById(input));
+
         return responseData;
     }
 

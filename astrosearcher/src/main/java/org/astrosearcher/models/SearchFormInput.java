@@ -25,6 +25,8 @@ public class SearchFormInput {
     @Min(value = Limits.PAGESIZE_MIN, message = ValidationMSG.PAGESIZE_MIN_VALIDATION_MSG)
     private int    pagesize = Limits.DEFAULT_PAGESIZE;
 
+    private String vizierCatalogueSearchBy;
+
     @NotNull(message = ValidationMSG.EMPTY_VIZIER_CAT_VALIDATION_MSG)
     @NotBlank(message = ValidationMSG.EMPTY_VIZIER_CAT_VALIDATION_MSG)
     private String vizierCat = VizierConstants.DEFAULT_CATALOG;

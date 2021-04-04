@@ -27,14 +27,14 @@ public class SearchFormInputTest {
     public void notPositivePageShouldNotPass() {
         Set<ConstraintViolation<SearchFormInput>> violations;
 
-        violations = validator.validate(new SearchFormInput("", "", NEGATIVE_PAGE, VALID_PAGESIZE, "V/139", null));
+        violations = validator.validate(new SearchFormInput("", "", NEGATIVE_PAGE, VALID_PAGESIZE, "code", "V/139", null));
 
         if ( violations.size() != 1) Assertions.fail();
         if ( !violations.iterator().next().getMessage().equals(ValidationMSG.PAGE_MIN_VALIDATION_MSG) ) {
             Assertions.fail();
         }
 
-        violations = validator.validate(new SearchFormInput("", "", ZERO_PAGE, VALID_PAGESIZE, "V/139", null));
+        violations = validator.validate(new SearchFormInput("", "", ZERO_PAGE, VALID_PAGESIZE,"code",  "V/139", null));
 
         if ( violations.size() != 1) Assertions.fail();
         if ( !violations.iterator().next().getMessage().equals(ValidationMSG.PAGE_MIN_VALIDATION_MSG) ) {
@@ -46,14 +46,14 @@ public class SearchFormInputTest {
     public void notPositivePagesizeShouldNotPass() {
         Set<ConstraintViolation<SearchFormInput>> violations;
 
-        violations = validator.validate(new SearchFormInput("", "", VALID_PAGE, NEGATIVE_PAGESIZE, "V/139", null));
+        violations = validator.validate(new SearchFormInput("", "", VALID_PAGE, NEGATIVE_PAGESIZE,"code",  "V/139", null));
 
         if ( violations.size() != 1) Assertions.fail();
         if ( !violations.iterator().next().getMessage().equals(ValidationMSG.PAGESIZE_MIN_VALIDATION_MSG) ) {
             Assertions.fail();
         }
 
-        violations = validator.validate(new SearchFormInput("", "", VALID_PAGE, ZERO_PAGESIZE, "V/139", null));
+        violations = validator.validate(new SearchFormInput("", "", VALID_PAGE, ZERO_PAGESIZE, "code", "V/139", null));
 
         if ( violations.size() != 1) Assertions.fail();
         if ( !violations.iterator().next().getMessage().equals(ValidationMSG.PAGESIZE_MIN_VALIDATION_MSG) ) {
