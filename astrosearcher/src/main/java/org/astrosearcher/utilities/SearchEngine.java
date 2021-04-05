@@ -5,6 +5,8 @@ import org.astrosearcher.classes.ResponseData;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.mast.MastResponse;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
+import org.astrosearcher.classes.simbad.SimbadResponse;
+import org.astrosearcher.classes.vizier.VizierResponse;
 import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.models.SearchFormInput;
 
@@ -28,14 +30,28 @@ public class SearchEngine {
         ResponseData responseData = new ResponseData();
 
         // MAST
-        ResponseForReqByPos resp = MASTSearchEngine.findAllByPosition(input);
-        responseData.setMastResponse(resp == null ? new MastResponse() : new MastResponse(resp));
+        if (input.isQueryMast()) {
+            ResponseForReqByPos resp = MASTSearchEngine.findAllByPosition(input);
+            responseData.setMastResponse(resp == null ? new MastResponse() : new MastResponse(resp));
+        } else {
+            responseData.setMastResponse(new MastResponse());
+        }
 
         // SIMBAD
-        responseData.setSimbadResponse(SimbadSearchEngine.findAllByPosition(input));
+        if (input.isQuerySimbad()) {
+            responseData.setSimbadResponse(SimbadSearchEngine.findAllByPosition(input));
+        } else {
+            responseData.setSimbadResponse(new SimbadResponse());
+        }
+
 
         // Vizier
-        responseData.setVizierResponse(VizierSearchEngine.findAllByPosition(input));
+        if (input.isQueryVizier()) {
+            responseData.setVizierResponse(VizierSearchEngine.findAllByPosition(input));
+        } else {
+            responseData.setVizierResponse(new VizierResponse());
+        }
+
 
         return responseData;
     }
@@ -44,8 +60,14 @@ public class SearchEngine {
         ResponseData responseData = new ResponseData();
 
 //        System.out.println("File: " + input.getFile().getName());
-        ResponseForReqByPos resp = MASTSearchEngine.findAllByPositionCrossmatch(input);
-        responseData.setMastResponse(resp == null ? new MastResponse() : new MastResponse(resp));
+
+        // MAST
+        if (input.isQueryMast()) {
+            ResponseForReqByPos resp = MASTSearchEngine.findAllByPositionCrossmatch(input);
+            responseData.setMastResponse(resp == null ? new MastResponse() : new MastResponse(resp));
+        } else {
+            responseData.setMastResponse(new MastResponse());
+        }
 
 //        responseData.setSimbadResponse(SimbadSearchEngine.findAllByPosition(input));
 
@@ -56,15 +78,36 @@ public class SearchEngine {
         ResponseData responseData = new ResponseData();
 
 //        System.out.println("Starting to query MAST... ");
-        ResponseForReqByPos response = MASTSearchEngine.findAllByID(input);
-        responseData.setMastResponse(response == null ? new MastResponse() : new MastResponse(response));
+
+        // MAST
+        if (input.isQueryMast()) {
+            ResponseForReqByPos response = MASTSearchEngine.findAllByID(input);
+            responseData.setMastResponse(response == null ? new MastResponse() : new MastResponse(response));
+        } else {
+            responseData.setMastResponse(new MastResponse());
+        }
+
 //        System.out.println("Mast response acquired and parsed.\n");
 
+
 //        System.out.println("Starting to query Simbad...");
-        responseData.setSimbadResponse(SimbadSearchEngine.findAllById(input));
+
+        // Simbad
+        if (input.isQuerySimbad()) {
+            responseData.setSimbadResponse(SimbadSearchEngine.findAllById(input));
+        } else {
+            responseData.setSimbadResponse(new SimbadResponse());
+        }
+
 //        System.out.println("Simbad response acquired and parsed.\n");
 
-        responseData.setVizierResponse(VizierSearchEngine.findAllById(input));
+        // Vizier
+        if (input.isQueryVizier()) {
+            responseData.setVizierResponse(VizierSearchEngine.findAllById(input));
+        } else {
+            responseData.setVizierResponse(new VizierResponse());
+        }
+
 
         return responseData;
     }

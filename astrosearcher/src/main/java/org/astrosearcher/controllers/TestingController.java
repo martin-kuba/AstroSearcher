@@ -121,7 +121,8 @@ public class TestingController {
                     Limits.DEFAULT_PAGE, Limits.DEFAULT_PAGESIZE,
                     VizierCatalogueSearch.code.toString(),
                     VizierConstants.DEFAULT_CATALOG,
-                    null));
+                    null,
+                    true, true, true));
         } catch (IllegalArgumentException iae) {
             model.addAttribute("errorMSG", iae.getMessage());
             model.addAttribute("searchOptions", SearchType.values());

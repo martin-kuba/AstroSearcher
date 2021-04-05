@@ -64,7 +64,20 @@
                            placeholder="V/139/sdss9 or description">
                 </div>
 
-                <div class="submit-row" style="grid-row: 8/10; grid-column: 1/5;">
+                <div style="grid-row: 8/9; grid-column: 2/4; margin-top: 1em">
+                    <input style="width: auto" th:field="${searchFormInput.queryMast}" type="checkbox">
+                    <label style="color: #ffffff; box-sizing: border-box">MAST</label>
+                </div>
+                <div style="grid-row: 8/9; grid-column: 4/5; margin-top: 1em">
+                    <input style="width: auto" th:field="${searchFormInput.queryVizier}" type="checkbox">
+                    <label style="color: #ffffff; box-sizing: border-box">Vizier</label>
+                </div>
+                <div style="grid-row: 8/9; grid-column: 5/6; margin-top: 1em">
+                    <input style="width: auto" th:field="${searchFormInput.querySimbad}" type="checkbox">
+                    <label style="color: #ffffff; box-sizing: border-box">Simbad</label>
+                </div>
+
+                <div class="submit-row" style="grid-row: 9/11; grid-column: 1/7;">
                     <button class="search-btn" type="submit">Search</button>
                 </div>
             </div>

@@ -34,4 +34,8 @@ public class SearchFormInput {
 //    private String filename;
     private MultipartFile file;
 
+    private boolean queryMast = true;
+    private boolean queryVizier = true;
+    private boolean querySimbad = true;
+
 }
