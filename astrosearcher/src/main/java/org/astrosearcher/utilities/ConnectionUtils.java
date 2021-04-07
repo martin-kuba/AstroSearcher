@@ -1,6 +1,7 @@
 package org.astrosearcher.utilities;
 
 import org.astrosearcher.classes.RequestObject;
+import org.astrosearcher.classes.constants.Limits;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -19,8 +20,16 @@ public class ConnectionUtils {
         StringBuilder responseData = new StringBuilder();
 
         try {
+            if ( Limits.DEBUG ) {
+                System.out.println("        Opening connection...");
+            }
+
             HttpURLConnection connection = (HttpURLConnection) obj.getConnectionURL().openConnection();
             connection.setRequestMethod("POST");
+
+            if ( Limits.DEBUG ) {
+                System.out.println("        sending arguments...");
+            }
 
             // set request parameters
             connection.setDoOutput(true);
@@ -37,6 +46,10 @@ public class ConnectionUtils {
             // read response data and store them into 'responseData'
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String inputLine;
+
+            if ( Limits.DEBUG ) {
+                System.out.println("        Reading response...");
+            }
 
             while ((inputLine = in.readLine()) != null) {
                 responseData.append(inputLine);

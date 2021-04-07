@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.Gson;
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
+import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.constants.MASTConstants;
 import org.astrosearcher.classes.mast.services.caom.crossmatch.CaomCrossmatchInput;
@@ -91,6 +92,10 @@ public class MastRequestObject extends RequestObject {
 
     @Override
     public String send() {
+        if ( Limits.DEBUG ) {
+            System.out.println("    Starting to query MAST...");
+        }
+
         return ConnectionUtils.sendRequest(this);
     }
 

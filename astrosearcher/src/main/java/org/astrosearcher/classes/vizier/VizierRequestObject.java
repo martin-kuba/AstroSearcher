@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
+import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.constants.VizierConstants;
 import org.astrosearcher.enums.VizierCatalogueSearch;
@@ -50,22 +51,16 @@ public class VizierRequestObject extends RequestObject {
         );
         args.add(new VizierArg(VizierArgType.OUTPUT_LIMIT, input.getPagesize()));
 
-
         // TODO: edit to work for all search types, now works only for position
 
     }
 
     @Override
     public String send() {
-//        StringBuilder params = new StringBuilder();
-//        for (VizierArg arg : args) {
-//            params.append(arg.toString());
-//        }
-//
-//        System.out.println("URL: "
-//                + VizierConstants.CONNECTION_URL + format
-//                + "?" + params.toString()
-//        );
+        if ( Limits.DEBUG ) {
+            System.out.println("    Starting to query VIZIER...");
+        }
+
         return ConnectionUtils.sendRequest(this);
     }
 

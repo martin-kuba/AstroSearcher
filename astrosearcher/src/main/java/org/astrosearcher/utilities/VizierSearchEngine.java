@@ -22,16 +22,26 @@ import java.io.ByteArrayInputStream;
 public class VizierSearchEngine {
 
     public static VizierResponse findAllById(SearchFormInput input) {
+//        System.out.println("starting to query Vizier...");
         String response = new VizierRequestObject(VizierServices.VIZIER_ID, input).send();
 //        System.out.println("\n\n\n" + response + "\n\n\n\n\n");
+//        System.out.println("Response acquired...");
 
-        SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
-                SavotPullEngine.FULL,
-                "UTF-8");
+        SavotPullParser parser;
+        try {
+            parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
+                    SavotPullEngine.FULL,
+                    "UTF-8");
 //        System.out.println("done");
+        } catch (Exception e) {
+            System.out.println("    Exception caught while initalizigin vot parser");
+            return new VizierResponse();
+        }
 
+//        System.out.println("parser initialized");
         SavotVOTable vot = parser.getVOTable();
-
+//        System.out.println("getting votable...");
+//        System.err.println("testing output");
 
         if (vot.getResources().getItemCount() == 0
                 || ((SavotResource)vot.getResources().getItemAt(0)).getTableCount() == 0

@@ -2,6 +2,9 @@ package org.astrosearcher.classes.constants;
 
 public final class Limits {
 
+    // Application parameters
+    public static final boolean DEBUG = false;
+
     // Right Ascension
     public static final int RA_MIN = 0;
     public static final int RA_MAX = 360;

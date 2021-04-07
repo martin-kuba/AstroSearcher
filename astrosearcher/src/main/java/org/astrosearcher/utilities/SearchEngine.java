@@ -2,6 +2,7 @@ package org.astrosearcher.utilities;
 
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.ResponseData;
+import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.mast.MastResponse;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
@@ -77,8 +78,6 @@ public class SearchEngine {
     public static ResponseData findAllByID(SearchFormInput input) {
         ResponseData responseData = new ResponseData();
 
-//        System.out.println("Starting to query MAST... ");
-
         // MAST
         if (input.isQueryMast()) {
             ResponseForReqByPos response = MASTSearchEngine.findAllByID(input);
@@ -86,11 +85,6 @@ public class SearchEngine {
         } else {
             responseData.setMastResponse(new MastResponse());
         }
-
-//        System.out.println("Mast response acquired and parsed.\n");
-
-
-//        System.out.println("Starting to query Simbad...");
 
         // Simbad
         if (input.isQuerySimbad()) {
@@ -114,7 +108,14 @@ public class SearchEngine {
 
     public static ResponseData process (SearchFormInput input) {
 
+        if ( Limits.DEBUG ) {
+            System.out.print("Resolving which type of query has been selected by user... ");
+        }
+
         if (SearchType.ID_NAME.equals(input.getSearchBy())) {
+            if ( Limits.DEBUG ) {
+                System.out.println("query by ID");
+            }
 
             // If user put coordinates into search bar but selected search by id/name...
             if (PositionInput.isPositionInput(input.getSearchInput())) {
@@ -128,10 +129,18 @@ public class SearchEngine {
         }
 
         if (SearchType.POSITION.equals(input.getSearchBy())) {
+            if ( Limits.DEBUG ) {
+                System.out.println("query by POSITION");
+            }
+
             return findAllByPosition(input);
         }
 
         if (SearchType.POSITION_CROSSMATCH.equals(input.getSearchBy())) {
+            if ( Limits.DEBUG ) {
+                System.out.println("CROSSMATCH query");
+            }
+
             return findAllByPositionCrossmatch(input);
         }
         throw new IllegalArgumentException(ExceptionMSG.NOT_DEFINED_SEARCH_OPTION + input.getSearchInput());

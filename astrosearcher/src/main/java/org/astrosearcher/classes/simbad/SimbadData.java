@@ -220,22 +220,32 @@ public class SimbadData {
 
     private void calculate_galactic_coords() {
 
-        System.out.println("Calculating galactic coordinates from equatorial (ICRS)...");
+        if (Limits.DEBUG) {
+            System.out.println("        Starting the calculation of galactic coordinates.");
+        }
+
         double ra_double;
         double dec_double;
-        double pmra_double;
-        double pmdec_double;
+        double pmra_double = 0;
+        double pmdec_double = 0;
+        boolean usePM = true;
 
         try {
             ra_double  = Double.parseDouble(this.ra);
             dec_double = Double.parseDouble(this.dec);
+        } catch (NumberFormatException nfe) {
+            System.err.println("Exception caught while calculating galactic coordinates (NumberFormatException):\n"
+                    + nfe.getMessage());
+            return;
+        }
+        try {
             pmra_double  = Double.parseDouble(this.pmra);
             pmdec_double = Double.parseDouble(this.pmdec);
         } catch (NumberFormatException nfe) {
-            return;
+            usePM = false;
         }
 
-        double[] results = SkyAlgorithms.J2000toGal(ra_double / 15, dec_double, pmra_double, pmdec_double, false);
+        double[] results = SkyAlgorithms.J2000toGal(ra_double / 15, dec_double, pmra_double, pmdec_double, usePM);
         galacticLongitude = results[0];
         galacticLatitude  = results[1];
 

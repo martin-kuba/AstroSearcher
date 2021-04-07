@@ -58,9 +58,7 @@ public class MASTSearchEngine {
     }
 
     public static ResponseForReqByPos findAllByID(SearchFormInput input) {
-//        System.out.print("    resolving name into position... ");
         List<PositionInput> resolved = resolvePositionByNameOrID(input);
-//        System.out.println("done.");
         return resolved.isEmpty() ? null : findAllByPosition(resolved.get(0), input);
     }
 

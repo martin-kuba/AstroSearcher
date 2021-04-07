@@ -2,6 +2,7 @@ package org.astrosearcher.classes.simbad;
 
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
+import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.constants.SimbadConstants;
 import org.astrosearcher.enums.simbad.SimbadArgType;
@@ -53,6 +54,10 @@ public class SimbadRequestObject extends RequestObject {
 
     @Override
     public String send() {
+        if ( Limits.DEBUG ) {
+            System.out.println("    Starting to query SIMBAD...");
+        }
+
         return ConnectionUtils.sendRequest(this);
     }
 
