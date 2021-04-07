@@ -138,8 +138,8 @@
 
 .Simbad-general-info {
     grid-template-columns: fit-content(15%) fit-content(20%) minmax(10px, 2fr)
-                           fit-content(25%) fit-content(25%) minmax(10px, 2fr)
-                           fit-content(20%) fit-content(20%);
+                           fit-content(25%) fit-content(25%) fit-content(7%)   minmax(10px, 2fr)
+                           fit-content(20%) fit-content(20%) fit-content(8%);
     /*grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );*/
 
     font-size: 1.25em;

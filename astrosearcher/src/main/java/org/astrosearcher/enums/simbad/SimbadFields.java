@@ -9,8 +9,8 @@ public enum SimbadFields {
     MAIN_ID("Main ID"),
     OTYPE_S("Object type"),
 
-    RA_d("RA [deg]"),
-    DEC_d("Dec [deg]"),
+    RA_d("RA"),
+    DEC_d("Dec"),
 
     COO_ERR_MAJA_d("Coord. error (major) [mas]"),
     COO_ERR_MINA_d("Coord. error (minor) [mas]"),

@@ -31,6 +31,18 @@ public class SimbadResponse {
     private Map<SimbadFields, Integer> fieldMapper = new HashMap<>();
     List<List<String>> data = new ArrayList<>();
 
+    private String raUnit = "";
+    private String decUnit = "";
+    private String coordErrorMajAUnit = "";
+    private String coordErrorMinAUnit = "";
+    private String coordErrorAngUnit = "";
+
+    private String pmraUnit = "";
+    private String pmdecUnit = "";
+
+    private String galLongitudeUnit = "[ deg ]";
+    private String galLatitudeUnit = "[ deg ]";
+
     List<SimbadData> assignedData = new ArrayList<>();
 
     public SimbadResponse(SimbadServices type, List<SavotField> responseFields, List<SavotTR> data) {
@@ -41,11 +53,11 @@ public class SimbadResponse {
         }
 
         int order = 0;
-//        System.out.println("        Creating fields...");
 
         for (SavotField field : responseFields) {
             try {
                 fields.add(SimbadFields.valueOf(field.getId()));
+                assignUnitIfRequired(field);
                 fieldMapper.put(SimbadFields.valueOf(field.getId()), order);
                 ++order;
             } catch (NullPointerException npe) {
@@ -59,11 +71,7 @@ public class SimbadResponse {
             }
         }
 
-//        System.out.println("        Fields (table columns) created.");
-//        System.out.println("        Parsing data itself...");
-
         for (SavotTR row : data) {
-//            System.out.println("            New row... ");
 
             List<String> columns = new ArrayList<>();
             TDSet responseColumns = row.getTDSet();
@@ -72,14 +80,9 @@ public class SimbadResponse {
                 columns.add(((SavotTD)responseColumns.getItemAt(columnIndex)).getContent());
             }
 
-//            System.out.print("                 Storing row data... ");
             assignedData.add(new SimbadData(responseColumns, fields));
-//            System.out.println("success.");
-
             this.data.add(columns);
         }
-
-//        System.out.println("        Data parsed successfully.");
 
         if (Limits.DEBUG) {
             System.out.println("        Simbad response:");
@@ -89,7 +92,36 @@ public class SimbadResponse {
         }
     }
 
+    private void assignUnitIfRequired(SavotField field) {
 
+        if (field.getId().equals(SimbadFields.RA_d.name())) {
+            raUnit = " [ " + field.getUnit() + " ]";
+        }
+
+        if (field.getId().equals(SimbadFields.DEC_d.name())) {
+            decUnit = " [ " + field.getUnit() + " ]";
+        }
+
+        if (field.getId().equals(SimbadFields.COO_ERR_MAJA_d.name())) {
+            coordErrorMajAUnit = " [ " + field.getUnit() + " ]";
+        }
+
+        if (field.getId().equals(SimbadFields.COO_ERR_MINA_d.name())) {
+            coordErrorMinAUnit = " [ " + field.getUnit() + " ]";
+        }
+
+        if (field.getId().equals(SimbadFields.COO_ERR_ANGLE_d.name())) {
+            coordErrorAngUnit = " [ " + field.getUnit() + " ]";
+        }
+
+        if (field.getId().equals(SimbadFields.PM_pmra.name())) {
+            pmraUnit = " [ " + field.getUnit() + " ]";
+        }
+
+        if (field.getId().equals(SimbadFields.PM_pmde.name())) {
+            pmdecUnit = " [ " + field.getUnit() + " ]";
+        }
+    }
 
     public boolean isEmpty() {
         // TODO: implement this method

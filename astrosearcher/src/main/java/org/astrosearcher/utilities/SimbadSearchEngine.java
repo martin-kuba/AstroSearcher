@@ -36,22 +36,7 @@ public class SimbadSearchEngine {
             SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
                     SavotPullEngine.FULL,
                     "UTF-8");
-//            System.out.println("    -> Parser successfuly initialized!");
             SavotVOTable vot = parser.getVOTable();
-//            System.out.println("    -> VOT obtained from parser!");
-
-//            System.out.println("response: " + response);
-            TRSet ts = ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0);
-//            System.out.println("    -> TRSET obtained!");
-//            for (Object row : ts.getItems())
-
-
-//            System.out.println("Returning response...");
-//            System.out.println("    Fieldset size: " + ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItemCount());
-//            List<SavotField> test = ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems();
-//            System.out.println("    List of fields size: " + test.size());
-
-//            System.out.println("    parsing the response...");
 
             return new SimbadResponse(
                     SimbadServices.SIMBAD_ID,
@@ -85,15 +70,6 @@ public class SimbadSearchEngine {
                     SavotPullEngine.FULL,
                     "UTF-8");
             SavotVOTable vot = parser.getVOTable();
-
-            TRSet ts = ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0);
-//            for (Object row : ts.getItems())
-
-
-//            System.out.println("Returning response...");
-//            System.out.println("    Fieldset size: " + ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItemCount());
-//            List<SavotField> test = ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems();
-//            System.out.println("    List of fields size: " + test.size());
 
             return new SimbadResponse(
                     SimbadServices.SIMBAD_COORDINATES,
