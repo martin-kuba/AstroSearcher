@@ -162,23 +162,29 @@ Simbad fragment => query by ID
                    th:text="${data.pmBibcode}" target="_blank"></a>
             </div>
 
-            <th:block th:if="${!#strings.isEmpty(data.angularSizeMajor) || !#strings.isEmpty(data.angularSizeMinor)} ">
+            <div style="grid-row: 8/11; grid-column: 4/6;">  <h3>Coordinates (Galactic)</h3> </div>
+
+<!--            <th:block th:if="${!#strings.isEmpty(data.angularSizeMajor) || !#strings.isEmpty(data.angularSizeMinor)} ">-->
                 <div style="grid-row: 8/9; grid-column: 1/2;"><h4>Ang. size (major, minor):</h4></div>
                 <div style="grid-row: 8/9; grid-column: 2/3;"
                      th:text="${data.angularSizeMajor} + ' | ' +  ${data.angularSizeMinor}"></div>
 
                 <div style="grid-row: 9/10; grid-column: 1/2;"><h4>Ang. size (angle):</h4></div>
                 <div style="grid-row: 9/10; grid-column: 2/3;" th:text="${data.angularSizeAngle}"></div>
-            </th:block>
+<!--            </th:block>-->
 
             <div style="grid-row: 10/11; grid-column: 1/2;"><h4></h4>&nbsp;</div>
             <div style="grid-row: 10/11; grid-column: 2/3;">&nbsp;</div>
 
             <div style="grid-row: 11/12; grid-column: 1/2;"><h4>Spectral type:</h4></div>
             <div style="grid-row: 11/12; grid-column: 2/3;" th:text="${data.spectralType}"></div>
+            <div style="grid-row: 11/12; grid-column: 4/5;"><h4>l:</h4></div>
+            <div style="grid-row: 11/12; grid-column: 5/6;" th:text="${data.galacticLongitude}"></div>
 
             <div style="grid-row: 12/13; grid-column: 1/2;"><h4>Morphological type:</h4></div>
             <div style="grid-row: 12/13; grid-column: 2/3;" th:text="${data.morphologicalType}"></div>
+            <div style="grid-row: 12/13; grid-column: 4/5;"><h4>b:</h4></div>
+            <div style="grid-row: 12/13; grid-column: 5/6;" th:text="${data.galacticLatitude}"></div>
 
         </div>
         <div class="fluxes padded-grid">

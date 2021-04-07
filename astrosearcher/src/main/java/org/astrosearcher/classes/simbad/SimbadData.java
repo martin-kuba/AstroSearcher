@@ -1,15 +1,18 @@
 package org.astrosearcher.classes.simbad;
 
+import Coordinate_Converter.astroj.SkyAlgorithms;
 import cds.savot.model.SavotTD;
 import cds.savot.model.TDSet;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.constants.SimbadConstants;
 import org.astrosearcher.classes.constants.VizierConstants;
 import org.astrosearcher.enums.simbad.SimbadArgType;
 import org.astrosearcher.enums.simbad.SimbadFields;
 import org.astrosearcher.enums.simbad.SimbadServices;
+import org.ejml.simple.SimpleMatrix;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -44,6 +47,9 @@ public class SimbadData {
     private String coordErrorMajA;
     private String coordErrorMinA;
     private String coordErrorAng;
+
+    private Double galacticLongitude;
+    private Double galacticLatitude;
 
     private String pmra;
     private String pmdec;
@@ -141,12 +147,12 @@ public class SimbadData {
                 case PM_pmra:
                     pmra = ((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()
                                ? ((SavotTD)columns.getItemAt(columnIndex)).getContent()
-                               : ((SavotTD)columns.getItemAt(columnIndex)).getContent() + " [ mas/yr ]";
+                               : ((SavotTD)columns.getItemAt(columnIndex)).getContent();// + " [ mas/yr ]";
                     break;
                 case PM_pmde:
                     pmdec = ((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()
                             ? ((SavotTD)columns.getItemAt(columnIndex)).getContent()
-                            : ((SavotTD)columns.getItemAt(columnIndex)).getContent() + " [ mas/yr ]";
+                            : ((SavotTD)columns.getItemAt(columnIndex)).getContent(); // + " [ mas/yr ]";
                     break;
                 case PM_ERR_MAJA:
                     pmErrorMajA = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
@@ -208,6 +214,110 @@ public class SimbadData {
             ++columnIndex;
         }
 
+        calculate_galactic_coords();
+
+    }
+
+    private void calculate_galactic_coords() {
+
+        System.out.println("Calculating galactic coordinates from equatorial (ICRS)...");
+        double ra_double;
+        double dec_double;
+        double pmra_double;
+        double pmdec_double;
+
+        try {
+            ra_double  = Double.parseDouble(this.ra);
+            dec_double = Double.parseDouble(this.dec);
+            pmra_double  = Double.parseDouble(this.pmra);
+            pmdec_double = Double.parseDouble(this.pmdec);
+        } catch (NumberFormatException nfe) {
+            return;
+        }
+
+        double[] results = SkyAlgorithms.J2000toGal(ra_double / 15, dec_double, pmra_double, pmdec_double, false);
+        galacticLongitude = results[0];
+        galacticLatitude  = results[1];
+
+//        System.out.println("    RA and DEC parsed.");
+//
+//        double theta = Math.toRadians(ra_double);    // Convert from deg to radians
+//        double phi   = Math.toRadians(dec_double);   // Convert from deg to radians
+//
+//        System.out.println("    RA and DEC converted to radians.");
+//
+//        System.out.println("    Calculating latitude...");
+//        galacticLatitude = Math.asin(
+//                Math.sin(phi) * Math.cos(Limits.delta_zero_rad)
+//                - Math.cos(phi) * Math.sin(theta - Limits.alpha_zero_rad) * Math.sin(Limits.delta_zero_rad)
+//        );
+//
+//        System.out.println("    Calculating longitude...");
+//        galacticLongitude = Math.acos(
+//                Math.cos(phi) * Math.cos(theta - Limits.alpha_zero_rad)
+//                / Math.cos(galacticLatitude)
+//        );
+
+//        System.out.println();
+//        System.out.println("    Converting longitude and latitude to degrees...");
+//        galacticLongitude = Math.toDegrees(galacticLongitude);
+//        galacticLatitude  = Math.toDegrees(galacticLatitude);
+
+
+//
+//        // Convert from spherical to cartesian coordinates system
+//        double x = Math.cos(theta) * Math.cos(phi);
+//        double y = Math.sin(theta) * Math.cos(phi);
+//        double z = Math.sin(phi);
+//
+//        // initialize matrices
+//        SimpleMatrix coords  = new SimpleMatrix(new double[][] {{x},{y},{z}});
+//
+//        SimpleMatrix rotate1 = new SimpleMatrix(new double[][] {
+//                {Math.cos(Limits.longitude_zero_rad),  Math.sin(Limits.longitude_zero_rad), 0},
+//                {-Math.sin(Limits.longitude_zero_rad), Math.cos(Limits.longitude_zero_rad), 0},
+//                {0, 0, 1}
+//        });
+//
+//        SimpleMatrix rotate2 = new SimpleMatrix(new double[][] {
+//                {1, 0, 0},
+//                {0, Math.cos(Limits.delta_zero_rad),  Math.sin(Limits.delta_zero_rad)},
+//                {0, -Math.sin(Limits.delta_zero_rad), Math.cos(Limits.delta_zero_rad)}
+//        });
+//
+//        SimpleMatrix rotate3 = new SimpleMatrix(new double[][] {
+//                {Math.cos(Limits.alpha_zero_rad),  Math.sin(Limits.alpha_zero_rad), 0},
+//                {-Math.sin(Limits.alpha_zero_rad), Math.cos(Limits.alpha_zero_rad), 0},
+//                {0, 0, 1}
+//        });
+//
+//        // rotate
+//        SimpleMatrix result = rotate1.mult(rotate2).mult(rotate3).mult(coords);
+//        System.out.println("Matrix:\n" + rotate1.mult(rotate2).mult(rotate3));
+//
+//        // get new cartesian coordinates from result matrix
+//        x = result.get(0, 0);
+//        y = result.get(1, 0);
+//        z = result.get(2, 0);
+//
+//        // convert from cartesian to spherical coodinate system
+//        theta = Math.atan2(y, x);
+//        phi   = Math.acos( z / Math.sqrt(x*x + y*y + z*z));
+//
+//        galacticLatitude = Math.asin(
+//                Math.sin(phi) * Math.cos(Limits.delta_zero_rad))
+//                - Math.cos(phi) * Math.sin(theta - Limits.alpha_zero_rad) * Math.sin(Limits.delta_zero_rad
+//        );
+//
+//        galacticLatitude = Math.asin(
+//                Math.sin(phi) * Math.cos(Limits.delta_zero_rad)
+//                - Math.cos(phi) * Math.sin(theta - Limits.alpha_zero_rad) * Math.sin(Limits.delta_zero_rad)
+//        );
+//        galacticLongitude = Math.acos(Math.cos(phi) * Math.cos(theta - Limits.alpha_zero_rad)
+//                / Math.cos(galacticLatitude)) + 33 * Math.PI / 180;
+//
+//        galacticLatitude   = galacticLatitude  * 180 / Math.PI;  // convert from radians to deg
+//        galacticLongitude  = galacticLongitude * 180 / Math.PI;  // convert from radians to deg
     }
 
     public String getMainIdUrlEncoded() {

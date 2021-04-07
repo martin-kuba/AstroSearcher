@@ -80,9 +80,9 @@ public class SimbadResponse {
 
 //        System.out.println("        Data parsed successfully.");
 
-        for (int i = 0; i < fields.size(); i++ ) {
-            System.out.println("[ " + fields.get(i) + " ]: " + data.get(0).getTDSet().getContent(i));
-        }
+//        for (int i = 0; i < fields.size(); i++ ) {
+//            System.out.println("[ " + fields.get(i) + " ]: " + data.get(0).getTDSet().getContent(i));
+//        }
 
 
 //        this.data = data;

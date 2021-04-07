@@ -6,6 +6,7 @@ public final class Limits {
     public static final int RA_MIN = 0;
     public static final int RA_MAX = 360;
 
+
     // Declination
     public static final int DEC_MIN = -90;
     public static final int DEC_MAX = 90;
@@ -20,5 +21,16 @@ public final class Limits {
     // Pagesize
     public static final int PAGESIZE_MIN = 1;
     public static final int DEFAULT_PAGESIZE = 500;
+
+
+    // TODO: rename constants
+    // unassigned
+    public static final double alpha_zero = 282.25;
+    public static final double delta_zero = 62.6;
+    public static final double longitude_zero = 33;
+
+    public static final double alpha_zero_rad = 282.25 * Math.PI / 180;
+    public static final double delta_zero_rad = 62.6 * Math.PI / 180;
+    public static final double longitude_zero_rad = 33 * Math.PI / 180;
 
 }

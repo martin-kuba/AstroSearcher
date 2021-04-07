@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org</groupId>
 	<artifactId>astrosearcher</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.3.8-SNAPSHOT</version>
 	<name>astrosearcher</name>
 	<description>Spring Boot Project for searching in astronomic web-catalogues</description>
 	<properties>
@@ -50,6 +50,11 @@
 		<dependency>
 			<groupId>kxml2-min</groupId>
 			<artifactId>kxml2-min</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>astrocc</groupId>
+			<artifactId>astroCC</artifactId>
 			<version>1.0</version>
 		</dependency>
 <!--		<dependency>-->
