@@ -19,6 +19,8 @@ public class SearchFormInput {
     private String searchBy;
     private String searchInput;
 
+    private double radius = Limits.DEFAULT_RADIUS;
+
     @Min(value = Limits.PAGE_MIN, message = ValidationMSG.PAGE_MIN_VALIDATION_MSG)
     private int    page = Limits.DEFAULT_PAGE;
 

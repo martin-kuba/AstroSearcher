@@ -70,6 +70,16 @@ public class SearchEngine {
         // MAST
         if (input.isQueryMast()) {
             ResponseForReqByPos resp = MASTSearchEngine.findAllByPositionCrossmatch(input);
+            if (Limits.DEBUG) {
+                System.out.println("    MAST Crossmatch response data:");
+
+                if (resp != null && resp.getData() != null) {
+                    for (var line : resp.getData()) {
+                        System.out.println("        " + line);
+                    }
+                }
+            }
+
             responseData.setMastResponse(resp == null ? new MastResponse() : new MastResponse(resp));
         } else {
             responseData.setMastResponse(new MastResponse());

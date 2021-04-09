@@ -31,235 +31,250 @@ public enum CaomFields {
             1,
             true
     ),
+    RA(
+            "ra",
+            "RA (input)",
+            "Right ascension from query input",
+            2,
+            true
+    ),
+    DEC(
+            "dec",
+            "DEC (input)",
+            "Declination from query input",
+            3,
+            true
+
+    ),
     INTENT_TYPE(
             "intentType",
             "Observation type",
             "Whether observation is for science or calibration",
-            2,
+            4,
             true
     ),
     OBS_COLLECTION (
             "obs_collection",
             "Mission",
             "Collection",
-            3,
+            5,
             true
     ),
     PROVENANCE_NAME(
             "provenance_name",
             "Provenance Name",
             "Provenance name, or source of data",
-            4,
+            6,
             true
     ),
     INSTRUMENT_NAME(
             "instrument_name",
             "Instrument",
             "Instrument Name",
-            5,
+            7,
             true
     ),
     PROJECT(
             "project",
             "Project",
             "Processing project",
-            6,
+            8,
             true
     ),
     FILTERS(
             "filters",
             "Filters",
             "Instrument filters",
-            7,
+            9,
             true
     ),
     WAVELENGTH_REGION(
             "wavelength_region",
             "Waveband",
             "Energy Band",
-            8,
+            10,
             true
     ),
     TARGET_NAME(
             "target_name",
             "Target Name",
             "Target Name",
-            9,
+            11,
             true
     ),
     TARGET_CLASSIFICATION(
             "target_classification",
             "Target Classification",
             "Type of target",
-            10,
+            12,
             true
     ),
     OBS_ID(
             "obs_id",
             "Observation ID",
             "Observation identifier, given by mission",
-            11,
+            13,
             true
     ),
     S_RA(
             "s_ra",
             "RA",
             "Observation Right Ascension",
-            12,
+            14,
             true
     ),
     S_DEC(
             "s_dec",
             "Dec",
             "Observation Declination",
-            13,
+            15,
             true
     ),
     DATAPRODUCT_TYPE(
             "dataproduct_type",
             "Product type",
             "Type of product",
-            14,
+            16,
             true
     ),
     PROPOSAL_PI(
             "proposal_pi",
             "Principal Investigator",
             "Principal investigator's last name",
-            15,
+            17,
             true
     ),
     CALIB_LEVEL(
             "calib_level",
             "Calibration Level",
             "Calibration level",
-            16,
+            18,
             true
     ),
     T_MIN(
             "t_min",
             "Start Time",
             "Observation start datetime",
-            17,
+            19,
             true
     ),
     T_MAX(
             "t_max",
             "End Time",
             "Observation end datetime",
-            18,
+            20,
             true
     ),
     T_EXPTIME(
             "t_exptime",
             "Exposure Length",
             "Exposure time",
-            19,
+            21,
             true
     ),
     EM_MIN(
             "em_min",
             "Min. Wavelength",
             "Minimum Wavelength",
-            20,
+            22,
             true
     ),
     EM_MAX(
             "em_max",
             "Max. Wavelength",
             "Maximum Wavelength",
-            21,
+            23,
             true
     ),
     OBS_TITLE(
             "obs_title",
             "Observation Title",
             "Observation description from proposal",
-            22,
+            24,
             true
     ),
     T_OBS_RELEASE(
             "t_obs_release",
             "Release Date",
             "Dataset release date",
-            23,
+            25,
             true
     ),
     PROPOSAL_ID(
             "proposal_id",
             "Proposal ID",
             "Proposal ID",
-            24,
+            26,
             true
     ),
     PROPOSAL_TYPE(
             "proposal_type",
             "Proposal Type",
             "Type of telescope proposal",
-            25,
+            27,
             true
     ),
     SEQUENCE_NUMBER(
             "sequence_number",
             "Sequence Number",
             "Sequence number, e.g. Kepler quarter or TESS sector",
-            26,
+            28,
             true
     ),
     S_REGION(
             "s_region",
             "s_region",
             "STC/S Footprint",
-            27,
+            29,
             false
     ),
     DATA_RIGHTS(
             "dataRights",
             "Data Rights",
             "Data rights",
-            28,
+            30,
             true
     ),
     MT_FLAG(
             "mtFlag",
             "Moving Target",
             "Moving Target Flag",
-            29,
+            31,
             true
     ),
     SRC_DEN(
             "srcDen",
             "Number of Catalog Objects",
             "Number of cataloged objects found in observation",
-            30,
+            32,
             true
     ),
     OBSID(
             "obsid",
             "Product Group ID",
             "Database identifier for obs_id",
-            31,
+            33,
             true
     ),
     DISTANCE(
             "distance",
             "Distance (\")",
             "Angular separation between searched coordinates and center of obsevation",
-            32,
+            34,
             true
     ),
     SELECTED(
             "_selected_",
             "Selected",
             "Selected",
-            33,
+            35,
             false
     ),
     OBJID(
             "objID",
             "Object ID",
             "Plane ID of observation at given calibration level",
-            34,
+            36,
             false
     );
 

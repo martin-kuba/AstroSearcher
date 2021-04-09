@@ -341,7 +341,7 @@ Simbad fragment => query by Coordinates
                     </td>
                     <td th:text="${simbadData.angularDistance}"></td> <!-- DISTANCE (asec) -->
                     <td>
-                        <a th:href="@{${simbadData.getObjectTypeUrl()}}"
+                        <a th:href="@{${simbadResponse.objectTypeDescLink}}"
                            th:text="${simbadData.objectType}" target="_blank"></a>
                     </td>
                     <td th:text="${simbadData.ra}"></td>

@@ -118,6 +118,7 @@ public class TestingController {
             responseData = SearchEngine.process(new SearchFormInput(
                     SearchType.ID_NAME.toString(),
                     id,
+                    Limits.DEFAULT_RADIUS,
                     Limits.DEFAULT_PAGE, Limits.DEFAULT_PAGESIZE,
                     VizierCatalogueSearch.code.toString(),
                     VizierConstants.DEFAULT_CATALOG,

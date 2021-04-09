@@ -56,6 +56,7 @@ public class MastRequestObject extends RequestObject {
                 break;
             case MAST_CAOM_CONE:
                 params.putAll(new PositionInput(input.getSearchInput()).getAsMap());
+//                System.out.println("Args: " + new PositionInput(input.getSearchInput()).getAsMap());
                 break;
             case MAST_CAOM_CROSSMATCH:
 
@@ -63,7 +64,7 @@ public class MastRequestObject extends RequestObject {
 
                 params.put(MASTConstants.RA_COLUMN, ((CaomCrossmatchInput)data).getFields().get(0).getName());
                 params.put(MASTConstants.DEC_COLUMN, ((CaomCrossmatchInput)data).getFields().get(1).getName());
-                params.put(MASTConstants.RADIUS_COLUMN, MASTConstants.DEFAULT_CROSSMATCH_RADIUS);
+                params.put(MASTConstants.RADIUS_COLUMN, input.getRadius());
 
                 break;
             default:
