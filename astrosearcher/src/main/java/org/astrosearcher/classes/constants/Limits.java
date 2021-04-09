@@ -4,6 +4,8 @@ public final class Limits {
 
     // Application parameters
     public static final boolean DEBUG = false;
+    public static final boolean DEBUG_DISPLAY_MAST_RESULTS   = false;
+    public static final boolean DEBUG_DISPLAY_SIMBAD_RESULTS = false;
 
     // Right Ascension
     public static final int RA_MIN = 0;

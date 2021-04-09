@@ -42,7 +42,7 @@ public class SimbadRequestObject extends RequestObject {
             case SIMBAD_COORDINATES:
                 PositionInput position = new PositionInput(input.getSearchInput());
                 args.add(new SimbadArg(SimbadArgType.COORDINATES, position.getPosition()));
-                args.add(new SimbadArg(SimbadArgType.RADIUS, position.getRadius()));
+                args.add(new SimbadArg(SimbadArgType.RADIUS, input.getRadius()));
                 args.add(new SimbadArg(SimbadArgType.RADIUS_UNIT, SimbadConstants.DEFAULT_RADIUS_UNIT));
                 args.add(new SimbadArg(SimbadArgType.OUTPUT_LIMIT, input.getPagesize()));
                 break;
@@ -55,7 +55,7 @@ public class SimbadRequestObject extends RequestObject {
     @Override
     public String send() {
         if ( Limits.DEBUG ) {
-            System.out.println("    Starting to query SIMBAD...");
+            System.out.println("\n    >>> Starting to query SIMBAD...");
         }
 
         return ConnectionUtils.sendRequest(this);

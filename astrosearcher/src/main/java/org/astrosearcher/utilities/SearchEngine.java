@@ -3,6 +3,7 @@ package org.astrosearcher.utilities;
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.ResponseData;
 import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.RegularExpressions;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.mast.MastResponse;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
@@ -39,6 +40,7 @@ public class SearchEngine {
         if (input.isQueryMast()) {
             ResponseForReqByPos resp = MASTSearchEngine.findAllByPosition(input);
             responseData.setMastResponse(resp == null ? new MastResponse() : new MastResponse(resp));
+            printResponseIfDEBUG(resp);
         } else {
             responseData.setMastResponse(new MastResponse());
         }
@@ -70,17 +72,8 @@ public class SearchEngine {
         // MAST
         if (input.isQueryMast()) {
             ResponseForReqByPos resp = MASTSearchEngine.findAllByPositionCrossmatch(input);
-            if (Limits.DEBUG) {
-                System.out.println("    MAST Crossmatch response data:");
-
-                if (resp != null && resp.getData() != null) {
-                    for (var line : resp.getData()) {
-                        System.out.println("        " + line);
-                    }
-                }
-            }
-
             responseData.setMastResponse(resp == null ? new MastResponse() : new MastResponse(resp));
+            printResponseIfDEBUG(resp);
         } else {
             responseData.setMastResponse(new MastResponse());
         }
@@ -97,6 +90,7 @@ public class SearchEngine {
         if (input.isQueryMast()) {
             ResponseForReqByPos response = MASTSearchEngine.findAllByID(input);
             responseData.setMastResponse(response == null ? new MastResponse() : new MastResponse(response));
+            printResponseIfDEBUG(response);
         } else {
             responseData.setMastResponse(new MastResponse());
         }
@@ -133,7 +127,7 @@ public class SearchEngine {
             }
 
             // If user put coordinates into search bar but selected search by id/name...
-            if (PositionInput.isPositionInput(input.getSearchInput())) {
+            if (RegularExpressions.isPositionInput(input.getSearchInput())) {
                 throw new IllegalArgumentException(ExceptionMSG.SELECT_POSITION_FOR_QUERY_BY_COORDS);
             }
 
@@ -165,5 +159,20 @@ public class SearchEngine {
             return findAllByPositionCrossmatch(input);
         }
         throw new IllegalArgumentException(ExceptionMSG.NOT_DEFINED_SEARCH_OPTION + input.getSearchInput());
+    }
+
+    private static void printResponseIfDEBUG(ResponseForReqByPos resp) {
+        if (Limits.DEBUG && Limits.DEBUG_DISPLAY_MAST_RESULTS) {
+            System.out.println();
+            System.out.println("        MAST response data:");
+            System.out.println("        --------------------");
+
+            if (resp != null && resp.getData() != null) {
+                for (var line : resp.getData()) {
+                    System.out.println("            " + line);
+                }
+            }
+            System.out.println();
+        }
     }
 }

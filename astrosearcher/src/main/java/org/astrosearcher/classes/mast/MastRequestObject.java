@@ -2,6 +2,9 @@ package org.astrosearcher.classes.mast;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.CharsetEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,6 +59,7 @@ public class MastRequestObject extends RequestObject {
                 break;
             case MAST_CAOM_CONE:
                 params.putAll(new PositionInput(input.getSearchInput()).getAsMap());
+                params.put(MASTConstants.RADIUS_COLUMN, input.getRadius());
 //                System.out.println("Args: " + new PositionInput(input.getSearchInput()).getAsMap());
                 break;
             case MAST_CAOM_CROSSMATCH:
@@ -94,7 +98,7 @@ public class MastRequestObject extends RequestObject {
     @Override
     public String send() {
         if ( Limits.DEBUG ) {
-            System.out.println("    Starting to query MAST...");
+            System.out.println("\n    >>> Starting to query MAST...");
         }
 
         return ConnectionUtils.sendRequest(this);
@@ -107,7 +111,14 @@ public class MastRequestObject extends RequestObject {
 
     @Override
     public byte[] getParamsAsBytes() {
-//        System.out.println("Params: " + MASTConstants.REQUEST_PARAMS_PREFIX + gson.toJson(this));
-        return (MASTConstants.REQUEST_PARAMS_PREFIX + gson.toJson(this)).getBytes();
+        if (Limits.DEBUG) {
+            System.out.println("                params: " + MASTConstants.REQUEST_PARAMS_PREFIX + gson.toJson(this));
+            System.out.println("                params (encoded): " + MASTConstants.REQUEST_PARAMS_PREFIX +
+                    URLEncoder.encode(gson.toJson(this), StandardCharsets.UTF_8));
+        }
+
+        return (MASTConstants.REQUEST_PARAMS_PREFIX
+                + URLEncoder.encode(gson.toJson(this), StandardCharsets.UTF_8))
+                .getBytes();
     }
 }

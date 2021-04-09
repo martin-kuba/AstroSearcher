@@ -85,7 +85,7 @@ public class SimbadResponse {
             this.data.add(columns);
         }
 
-        if (Limits.DEBUG) {
+        if (Limits.DEBUG && Limits.DEBUG_DISPLAY_SIMBAD_RESULTS) {
             System.out.println("        Simbad response:");
             for (int i = 0; i < fields.size(); i++) {
                 System.out.println("            [ " + fields.get(i) + " ]: " + data.get(0).getTDSet().getContent(i));

@@ -37,7 +37,7 @@ public class VizierRequestObject extends RequestObject {
                 PositionInput position = new PositionInput(input.getSearchInput());
 
                 args.add(new VizierArg(VizierArgType.TARGET, position.getPosition()));
-                args.add(new VizierArg(VizierArgType.RADIUS, position.getRadius()));
+                args.add(new VizierArg(VizierArgType.RADIUS, input.getRadius()));
                 args.add(new VizierArg(VizierArgType.RADIUS_UNIT, VizierConstants.DEFAULT_RADIUS_UNIT));
                 break;
             default:
@@ -58,7 +58,7 @@ public class VizierRequestObject extends RequestObject {
     @Override
     public String send() {
         if ( Limits.DEBUG ) {
-            System.out.println("    Starting to query VIZIER...");
+            System.out.println("\n    >>> Starting to query VIZIER...");
         }
 
         return ConnectionUtils.sendRequest(this);

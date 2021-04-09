@@ -21,14 +21,14 @@ public class ConnectionUtils {
 
         try {
             if ( Limits.DEBUG ) {
-                System.out.println("        Opening connection...");
+                System.out.println("            Opening connection ( " + obj.getConnectionURL().toString() + " )...");
             }
 
             HttpURLConnection connection = (HttpURLConnection) obj.getConnectionURL().openConnection();
             connection.setRequestMethod("POST");
 
             if ( Limits.DEBUG ) {
-                System.out.println("        sending arguments...");
+                System.out.println("            Sending parameters...");
             }
 
             // set request parameters
@@ -48,7 +48,7 @@ public class ConnectionUtils {
             String inputLine;
 
             if ( Limits.DEBUG ) {
-                System.out.println("        Reading response...");
+                System.out.println("            Reading response...");
             }
 
             while ((inputLine = in.readLine()) != null) {
