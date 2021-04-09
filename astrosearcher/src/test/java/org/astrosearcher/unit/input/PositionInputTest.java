@@ -1,6 +1,7 @@
 package org.astrosearcher.unit.input;
 
 import org.astrosearcher.classes.PositionInput;
+import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,7 @@ public class PositionInputTest {
     private final int     WHOLE_RA       =  5;
     private final int     WHOLE_DEC      = 42;
 
-    private final double  DEFAULT_RADIUS =  0.2;
+    private final double  DEFAULT_RADIUS = Limits.DEFAULT_RADIUS;
     private final double  FRACTIONAL_RA  =  5.0;
     private final double  FRACTIONAL_DEC = 42.358;
 
