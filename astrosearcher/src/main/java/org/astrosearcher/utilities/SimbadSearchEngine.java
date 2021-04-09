@@ -6,6 +6,7 @@ import cds.savot.pull.SavotPullParser;
 
 import org.astrosearcher.classes.simbad.SimbadRequestObject;
 import org.astrosearcher.classes.simbad.SimbadResponse;
+import org.astrosearcher.classes.vizier.VizierResponse;
 import org.astrosearcher.enums.simbad.SimbadServices;
 import org.astrosearcher.models.SearchFormInput;
 
@@ -37,6 +38,10 @@ public class SimbadSearchEngine {
                     SavotPullEngine.FULL,
                     "UTF-8");
             SavotVOTable vot = parser.getVOTable();
+
+            if (isEmptyResponse(vot)) {
+                return new SimbadResponse();
+            }
 
             return new SimbadResponse(
                     SimbadServices.SIMBAD_ID,
@@ -71,6 +76,10 @@ public class SimbadSearchEngine {
                     "UTF-8");
             SavotVOTable vot = parser.getVOTable();
 
+            if (isEmptyResponse(vot)) {
+                return new SimbadResponse();
+            }
+
             return new SimbadResponse(
                     SimbadServices.SIMBAD_COORDINATES,
                     ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems(),
@@ -84,6 +93,18 @@ public class SimbadSearchEngine {
             System.out.println();
             return new SimbadResponse();
         }
+    }
+
+    private static boolean isEmptyResponse(SavotVOTable vot) {
+        if (vot.getResources().getItemCount() == 0 ) {
+            return true;
+        }
+
+        if (((SavotResource)vot.getResources().getItemAt(0)).getTableCount() == 0 ) {
+            return true;
+        }
+
+        return ((SavotResource) vot.getResources().getItemAt(0)).getData(0) == null;
     }
 
 }
