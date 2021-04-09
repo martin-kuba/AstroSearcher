@@ -43,9 +43,7 @@ public class VizierSearchEngine {
 //        System.out.println("getting votable...");
 //        System.err.println("testing output");
 
-        if (vot.getResources().getItemCount() == 0
-                || ((SavotResource)vot.getResources().getItemAt(0)).getTableCount() == 0
-                || ((SavotResource)vot.getResources().getItemAt(0)).getData(0) == null) {
+        if (isEmptyResponse(vot)) {
             return new VizierResponse();
         }
 
@@ -70,9 +68,25 @@ public class VizierSearchEngine {
 
         SavotVOTable vot = parser.getVOTable();
 
+        if (isEmptyResponse(vot)) {
+            return new VizierResponse();
+        }
+
         return new VizierResponse(VizierServices.VIZIER_COORDINATES,
                 ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems(),
                 ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
         );
+    }
+
+    private static boolean isEmptyResponse(SavotVOTable vot) {
+        if (vot.getResources().getItemCount() == 0 ) {
+            return true;
+        }
+
+        if (((SavotResource)vot.getResources().getItemAt(0)).getTableCount() == 0 ) {
+            return true;
+        }
+
+        return ((SavotResource) vot.getResources().getItemAt(0)).getData(0) == null;
     }
 }

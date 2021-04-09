@@ -11,6 +11,11 @@ import org.astrosearcher.classes.vizier.VizierResponse;
 import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.models.SearchFormInput;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 
 /**
  * Provides general interface for searching in three defined catalogues (Mast, Vizier, Simbad)
@@ -140,6 +145,12 @@ public class SearchEngine {
             if ( Limits.DEBUG ) {
                 System.out.println("CROSSMATCH query");
             }
+//            try {
+//                System.out.println(URLEncoder.encode(
+//                        new BufferedReader(new InputStreamReader(input.getFile().getInputStream())).lines()., StandardCharsets.UTF_8););
+//            } catch (Exception e) {
+//                System.err.println("Something went wrong...\n" + e);
+//            }
 
             return findAllByPositionCrossmatch(input);
         }

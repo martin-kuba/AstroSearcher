@@ -3,6 +3,7 @@ package org.astrosearcher.utilities;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.astrosearcher.classes.PositionInput;
+import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.enums.mast.MastServices;
 import org.astrosearcher.classes.mast.MastRequestObject;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
@@ -39,7 +40,7 @@ public class MASTSearchEngine {
             for (JsonObject obj : resp.getResolvedCoordinate()) {
 
                 // TODO: create new general class for constants like this radius
-                radius = 0.2;  // default radius;
+                radius = Limits.DEFAULT_RADIUS;
                 if ( obj.has("radius") && !obj.get("radius").isJsonNull() ) {
                     radius = obj.get("radius").getAsDouble();
                 }
