@@ -135,7 +135,7 @@ Simbad fragment => query by ID
 
             <div style="grid-row: 4/5; grid-column: 1/2;"><h4>Object type:</h4></div>
             <div style="grid-row: 4/5; grid-column: 2/3;">
-                <a th:href="@{${data.getObjectTypeUrl()}}"
+                <a th:href="@{${simbadResponse.objectTypeDescLink}}"
                    th:text="${data.objectType}" target="_blank"></a>
             </div>
             <div style="grid-row: 4/5; grid-column: 4/5;"><h4>Error (Major axis):</h4></div>

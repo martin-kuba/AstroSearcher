@@ -144,12 +144,12 @@ public class SimbadData {
                     dec = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
                     break;
 
-                case PM_pmra:
+                case PMRA:
                     pmra = ((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()
                                ? ((SavotTD)columns.getItemAt(columnIndex)).getContent()
                                : ((SavotTD)columns.getItemAt(columnIndex)).getContent();// + " [ mas/yr ]";
                     break;
-                case PM_pmde:
+                case PMDEC:
                     pmdec = ((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()
                             ? ((SavotTD)columns.getItemAt(columnIndex)).getContent()
                             : ((SavotTD)columns.getItemAt(columnIndex)).getContent(); // + " [ mas/yr ]";
@@ -351,10 +351,6 @@ public class SimbadData {
     public String getParallaxBibcodeUrl() {
         return SimbadConstants.CONNECTION_URL + SimbadServices.SIMBAD_REFERENCE
                 + "?bibcode=" + URLEncoder.encode(parallaxBibcode, StandardCharsets.UTF_8);
-    }
-
-    public String getObjectTypeUrl() {
-        return VizierConstants.OBJECT_TYPE_URL;
     }
 
     public String getQueryUrl() {

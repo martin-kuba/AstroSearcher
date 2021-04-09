@@ -1,12 +1,11 @@
 package org.astrosearcher.classes.simbad;
 
-import cds.savot.model.SavotField;
-import cds.savot.model.SavotTD;
-import cds.savot.model.SavotTR;
-import cds.savot.model.TDSet;
+import cds.savot.model.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.SimbadConstants;
+import org.astrosearcher.classes.constants.VizierConstants;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.enums.simbad.SimbadFields;
 import org.astrosearcher.enums.simbad.SimbadServices;
@@ -30,6 +29,8 @@ public class SimbadResponse {
     List<SimbadFields> fields = new ArrayList<>();
     private Map<SimbadFields, Integer> fieldMapper = new HashMap<>();
     List<List<String>> data = new ArrayList<>();
+
+    private String objectTypeDescLink = "";
 
     private String raUnit = "";
     private String decUnit = "";
@@ -57,7 +58,7 @@ public class SimbadResponse {
         for (SavotField field : responseFields) {
             try {
                 fields.add(SimbadFields.valueOf(field.getId()));
-                assignUnitIfRequired(field);
+                assignFieldInfoIfRequired(field);
                 fieldMapper.put(SimbadFields.valueOf(field.getId()), order);
                 ++order;
             } catch (NullPointerException npe) {
@@ -92,7 +93,7 @@ public class SimbadResponse {
         }
     }
 
-    private void assignUnitIfRequired(SavotField field) {
+    private void assignFieldInfoIfRequired(SavotField field) {
 
         if (field.getId().equals(SimbadFields.RA_d.name())) {
             raUnit = " [ " + field.getUnit() + " ]";
@@ -120,6 +121,13 @@ public class SimbadResponse {
 
         if (field.getId().equals(SimbadFields.PM_pmde.name())) {
             pmdecUnit = " [ " + field.getUnit() + " ]";
+        }
+
+        if (field.getId().equals(SimbadFields.OTYPE_S.name())) {
+            LinkSet links = field.getLinks();
+            objectTypeDescLink = links.getItemCount() == 0
+                    ? SimbadConstants.OBJECT_TYPE_URL
+                    : ((SavotLink)links.getItemAt(0)).getHref();
         }
     }
 
