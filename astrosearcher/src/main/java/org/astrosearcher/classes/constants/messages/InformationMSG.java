@@ -13,4 +13,7 @@ public final class InformationMSG {
 
     // Vizier
     public static final String NO_VIZIER_DATA = "Unfortunately, there were no data acquired from Vizier.";
+
+    // Sesame
+    public static final String NO_SESAME_DATA = "Unfortunately, there were no data acquired.";
 }

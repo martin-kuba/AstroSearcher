@@ -18,6 +18,12 @@ public final class RegularExpressions {
     // input from file
     public static final String FILE_COLUMNS_NAMES = "([a-zA-Z]*)\\s*([a-zA-Z]*).*";
 
+    // Sesame line with alias    //(?:?!</alias>)
+    public static final String SESAME_XML_ALIAS = "\\s*<alias>(.*?)</alias>";
+    public static final String SESAME_XML_ONAME = "\\s*<oname>(.*?)</oname>";
+    public static final String SESAME_VALID_RESPONSE   = ".*?" + SESAME_XML_ONAME + "(" + SESAME_XML_ALIAS + ")*.*?";
+
+
     public static boolean isPositionInput(String input) {
         Pattern pattern = Pattern.compile(RegularExpressions.POSITION_INPUT_REGEX);
         return pattern.matcher(input).matches();

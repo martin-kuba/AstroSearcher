@@ -173,3 +173,21 @@ a:active {
     text-decoration: none;
 }
 
+.id-grid {
+    width: 90%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-column-gap: 0.75em;
+    grid-row-gap: 0.5em;
+
+    background-color: rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+
+    box-sizing: border-box;
+    border: none;
+    padding: 2em 3em 2em 3em;
+    margin: 3em auto 0 auto;
+}
+
+

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/style.css" data-th-href="@{/css/style.css}">
+    <link rel="stylesheet" href="css/results.css" data-th-href="@{/css/results.css}">
+    <script src="js/showData.js"></script>
+    <script src="https://kit.fontawesome.com/254f57ca4f.js" crossorigin="anonymous"></script>
+    <title>AstroSearcher</title>
+</head>
+
+<body>
+<header>
+    <nav th:replace="fragments :: navigation"></nav>
+</header>
+<div id="container-bg">
+    <label class="data-MSG" th:unless="${containsSesameResponse}" th:text="${sesameDataMSG}"></label>
+    <div class="id-grid" th:if="${containsSesameResponse}">
+        <div th:each="alias : ${sesameResponse.aliases}" th:text="${alias}"></div>
+    </div>
+</div>
+</body>
+</html>

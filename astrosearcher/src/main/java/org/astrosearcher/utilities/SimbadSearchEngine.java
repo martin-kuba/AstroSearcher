@@ -4,6 +4,7 @@ import cds.savot.model.*;
 import cds.savot.pull.SavotPullEngine;
 import cds.savot.pull.SavotPullParser;
 
+import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.simbad.SimbadRequestObject;
 import org.astrosearcher.classes.simbad.SimbadResponse;
 import org.astrosearcher.classes.vizier.VizierResponse;
@@ -11,6 +12,8 @@ import org.astrosearcher.enums.simbad.SimbadServices;
 import org.astrosearcher.models.SearchFormInput;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class serves as inter-level between general SearchEngine class and ConnectionUtils class.
@@ -28,7 +31,6 @@ public class SimbadSearchEngine {
 //        System.out.println("    response acquired...");
 
         if (response == null) {
-            System.out.println("no response acquired");
             return new SimbadResponse();
         }
 
@@ -49,11 +51,13 @@ public class SimbadSearchEngine {
                     ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
             );
         } catch (Exception e) {
-            System.out.println("..::!!!   Exception caught (Simbad - ID)  !!!::..");
-            System.out.println("Message: " + e.getMessage());
-            System.out.println();
-            System.out.println("Exception" + e);
-            System.out.println();
+            if (Limits.DEBUG) {
+                System.out.println("..::!!!   Exception caught (Simbad - ID)  !!!::..");
+                System.out.println("Message: " + e.getMessage());
+                System.out.println();
+                System.out.println("Exception" + e);
+                System.out.println();
+            }
             return new SimbadResponse();
         }
 
@@ -65,7 +69,6 @@ public class SimbadSearchEngine {
         String response = new SimbadRequestObject(SimbadServices.SIMBAD_COORDINATES, input).send();
 
         if (response == null) {
-            System.out.println("no response acquired");
             return new SimbadResponse();
         }
 
@@ -86,11 +89,13 @@ public class SimbadSearchEngine {
                     ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
             );
         } catch (Exception e) {
-            System.out.println("..::!!!   Exception caught   !!!::..");
-            System.out.println("Message: " + e.getMessage());
-            System.out.println();
-            System.out.println("Exception" + e);
-            System.out.println();
+            if (Limits.DEBUG) {
+                System.out.println("..::!!!   Exception caught   !!!::..");
+                System.out.println("Message: " + e.getMessage());
+                System.out.println();
+                System.out.println("Exception" + e);
+                System.out.println();
+            }
             return new SimbadResponse();
         }
     }
