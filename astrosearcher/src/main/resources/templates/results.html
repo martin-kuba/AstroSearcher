@@ -77,7 +77,7 @@ Simbad fragment => query by ID + query by coordinates
 <div th:fragment="Vizier" id="data-Vizier" class="tabcontent">
     <label class="data-MSG" th:unless="${containsVizier}" th:text="${vizierDataMSG}"></label>
     <th:block th:if="${containsVizier}" th:each="table : ${vizierTables}">
-        <div class="id-grid">
+        <div class="data-table">
             <table>
                 <thead>
                     <tr>
