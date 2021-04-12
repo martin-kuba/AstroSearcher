@@ -85,6 +85,7 @@ public class MastRequestObject extends RequestObject {
     public MastRequestObject(MastServices service, PositionInput position, SearchFormInput input) {
         this(service);
         params.putAll(position.getAsMap());
+        params.put(MASTConstants.RADIUS_COLUMN, input.getRadius());
 
         // common parameters for all services
         page = input.getPage();
