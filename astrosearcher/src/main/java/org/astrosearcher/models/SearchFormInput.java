@@ -29,8 +29,8 @@ public class SearchFormInput {
 
     private String vizierCatalogueSearchBy;
 
-    @NotNull(message = ValidationMSG.EMPTY_VIZIER_CAT_VALIDATION_MSG)
-    @NotBlank(message = ValidationMSG.EMPTY_VIZIER_CAT_VALIDATION_MSG)
+//    @NotNull(message = ValidationMSG.EMPTY_VIZIER_CAT_VALIDATION_MSG)
+//    @NotBlank(message = ValidationMSG.EMPTY_VIZIER_CAT_VALIDATION_MSG)
     private String vizierCat = VizierConstants.DEFAULT_CATALOG;
 
 //    private String filename;
@@ -40,4 +40,8 @@ public class SearchFormInput {
     private boolean queryVizier = true;
     private boolean querySimbad = true;
 
+
+    public String getVizierCat() {
+        return vizierCat == null ? "" : vizierCat;
+    }
 }

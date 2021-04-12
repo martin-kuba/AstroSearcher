@@ -40,11 +40,11 @@ public class MASTSearchEngine {
             for (JsonObject obj : resp.getResolvedCoordinate()) {
 
                 // TODO: create new general class for constants like this radius
-                radius = Limits.DEFAULT_RADIUS;
-                if ( obj.has("radius") && !obj.get("radius").isJsonNull() ) {
-//                    radius = obj.get("radius").getAsDouble();
-                    input.setRadius(obj.get("radius").getAsDouble());
-                }
+//                radius = Limits.DEFAULT_RADIUS;
+//                if ( obj.has("radius") && !obj.get("radius").isJsonNull() ) {
+////                    radius = obj.get("radius").getAsDouble();
+//                    input.setRadius(obj.get("radius").getAsDouble());
+//                }
 
                 resolved.add(new PositionInput(
                         obj.get("ra").getAsDouble(),

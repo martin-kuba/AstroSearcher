@@ -25,7 +25,7 @@
         <div><button class="datasource" onclick="showData(event, 'data-MAST')"
                      th:text="'MAST (' + ${mastData != null ? mastData.size() : 0} + ')'"></button></div>
         <div><button class="datasource" onclick="showData(event, 'data-Vizier')"
-                     th:text="'Vizier (' + ${vizierData != null ? vizierData.size() : 0} + ')'"></button></div>
+                     th:text="'Vizier (' + ${vizierTables != null ? vizierTables.size() : 0} + ')'"></button></div>
         <div><button class="datasource" onclick="showData(event, 'data-Simbad')"
                      th:text="'Simbad (' + ${simbadData != null ? simbadData.size() : 0} + ')'"></button></div>
     </div>

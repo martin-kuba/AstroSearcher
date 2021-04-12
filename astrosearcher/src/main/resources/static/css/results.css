@@ -108,7 +108,7 @@
     width: 100%;
     overflow: scroll;
     border: none;
-    margin: 0 auto;
+    margin: 0 auto 3em auto;
 }
 
 .data-table table {

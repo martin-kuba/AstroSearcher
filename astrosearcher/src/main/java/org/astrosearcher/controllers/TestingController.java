@@ -35,9 +35,8 @@ public class TestingController {
         if (responseData.containsVizierResponse()) {
             // TODO: load Vizier response
 
-            model.addAttribute("vizierType", responseData.getVizierResponse().getType());
-            model.addAttribute("vizierFields", responseData.getVizierResponse().getFields());
-            model.addAttribute("vizierData", responseData.getVizierResponse().getData());
+            model.addAttribute("vizierType",   responseData.getVizierResponse().getType()   );
+            model.addAttribute("vizierTables", responseData.getVizierResponse().getTables() );
         } else {
             model.addAttribute("vizierDataMSG", InformationMSG.NO_VIZIER_DATA);
         }
@@ -47,9 +46,9 @@ public class TestingController {
     private void processSimbadResponse(ResponseData responseData, Model model) {
         if (responseData.containsSimbadResponse()) {
             // TODO: load Simbad response
-            model.addAttribute("simbadFields", responseData.getSimbadResponse().getFields());
-            model.addAttribute("simbadData", responseData.getSimbadResponse().getData());
-            model.addAttribute("simbadType", responseData.getSimbadResponse().getType().name());
+            model.addAttribute("simbadFields",   responseData.getSimbadResponse().getFields()      );
+            model.addAttribute("simbadData",     responseData.getSimbadResponse().getData()        );
+            model.addAttribute("simbadType",     responseData.getSimbadResponse().getType().name() );
             model.addAttribute("simbadResponse", responseData.getSimbadResponse());
 
             if (responseData.getSimbadResponse().getType() == SimbadServices.SIMBAD_ID) {

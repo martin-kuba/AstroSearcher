@@ -4,6 +4,7 @@ import cds.savot.model.SavotResource;
 import cds.savot.model.SavotVOTable;
 import cds.savot.pull.SavotPullEngine;
 import cds.savot.pull.SavotPullParser;
+import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.vizier.VizierRequestObject;
 import org.astrosearcher.classes.vizier.VizierResponse;
 import org.astrosearcher.enums.vizier.VizierServices;
@@ -22,45 +23,45 @@ import java.io.ByteArrayInputStream;
 public class VizierSearchEngine {
 
     public static VizierResponse findAllById(SearchFormInput input) {
-//        System.out.println("starting to query Vizier...");
+
         String response = new VizierRequestObject(VizierServices.VIZIER_ID, input).send();
-//        System.out.println("\n\n\n" + response + "\n\n\n\n\n");
-//        System.out.println("Response acquired...");
+
+        if (Limits.DEBUG) {
+            System.out.println("        Initializing SavotPullParser...");
+        }
 
         SavotPullParser parser;
         try {
             parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
                     SavotPullEngine.FULL,
                     "UTF-8");
-//        System.out.println("done");
         } catch (Exception e) {
-            System.out.println("    Exception caught while initalizigin vot parser");
+            System.out.println("    Exception caught while initializing vot parser");
             return new VizierResponse();
         }
 
-//        System.out.println("parser initialized");
         SavotVOTable vot = parser.getVOTable();
-//        System.out.println("getting votable...");
-//        System.err.println("testing output");
 
         if (isEmptyResponse(vot)) {
             return new VizierResponse();
         }
 
-        return new VizierResponse(VizierServices.VIZIER_ID,
-                ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems(),
-                ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
-        );
+        return new VizierResponse(VizierServices.VIZIER_ID, vot.getResources());
+
+//        return new VizierResponse(VizierServices.VIZIER_ID,
+//                ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems(),
+//                ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
+//        );
     }
 
     public static VizierResponse findAllByPosition(SearchFormInput input) {
 
-//        System.out.print("\n\n    Sending Vizier request ... ");
         String response = new VizierRequestObject(VizierServices.VIZIER_COORDINATES, input).send();
-//        System.out.println("received");
 
-//        System.out.println("    Response processing");
-//        System.out.print("        parser initialization with response ... ");
+        if (Limits.DEBUG) {
+            System.out.println("        Initializing SavotPullParser...");
+        }
+
         SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
                 SavotPullEngine.FULL,
                 "UTF-8");
@@ -72,21 +73,32 @@ public class VizierSearchEngine {
             return new VizierResponse();
         }
 
-        return new VizierResponse(VizierServices.VIZIER_COORDINATES,
-                ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems(),
-                ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
-        );
+        return new VizierResponse(VizierServices.VIZIER_COORDINATES, vot.getResources());
+
+//        return new VizierResponse(VizierServices.VIZIER_COORDINATES,
+//                ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems(),
+//                ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
+//        );
     }
 
     private static boolean isEmptyResponse(SavotVOTable vot) {
-        if (vot.getResources().getItemCount() == 0 ) {
-            return true;
+
+        if (Limits.DEBUG) {
+            System.out.print("        Checking resources count... ");
+            System.out.println(vot.getResources().getItemCount() + " resources found");
         }
 
-        if (((SavotResource)vot.getResources().getItemAt(0)).getTableCount() == 0 ) {
-            return true;
-        }
+        return vot.getResources().getItemCount() == 0;
+//        if (vot.getResources().getItemCount() == 0 ) {
+//            return true;
+//        }
 
-        return ((SavotResource) vot.getResources().getItemAt(0)).getData(0) == null;
+        // TODO: rework so these two IFs can be removed (moved to VizierResponse class)
+
+//        if (((SavotResource)vot.getResources().getItemAt(0)).getTableCount() == 0 ) {
+//            return true;
+//        }
+//
+//        return ((SavotResource) vot.getResources().getItemAt(0)).getData(0) == null;
     }
 }
