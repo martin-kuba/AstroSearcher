@@ -51,6 +51,7 @@ public class CDSCrossmatchRequestObject extends RequestObject {
 
     private double radius;
     private int    maxRecords;
+    private String catalogue;
 
     public CDSCrossmatchRequestObject(SearchFormInput input, String catalogue) {
         this.service = SimbadServices.SIMBAD_CROSSMATCH;
@@ -61,6 +62,7 @@ public class CDSCrossmatchRequestObject extends RequestObject {
 
         radius = input.getRadius() > 0.05 ? 180 : input.getRadius()*3600;
         maxRecords = input.getPagesize();
+        this.catalogue = catalogue;
 
         args.add(new SimbadArg(SimbadArgType.MAX_DISTANCE, radius ));
         args.add(new SimbadArg(SimbadArgType.MAX_RECORDS, maxRecords));
@@ -109,9 +111,19 @@ public class CDSCrossmatchRequestObject extends RequestObject {
             fos.close();
 
             entity.addPart( "cat1", new FileBody(tempFile));
-            entity.addPart( "cat2", new StringBody("simbad"));
+            entity.addPart( "cat2", new StringBody(catalogue));
+
+//            System.out.println("Catalogue: " + catalogue);
+//            System.out.println("params: " + httpClient.getParams());
 
             httpPost.setEntity(entity);
+
+//            System.out.println("\nURI: " + httpPost.getURI());
+//            System.out.println("\nheaders: " + httpPost.getAllHeaders());
+//            System.out.println("\nEntity:" + httpPost.getEntity());
+//
+//            System.out.println("\nEntity content:");
+//            httpPost.getEntity().writeTo(System.out);
 
             HttpResponse response = httpClient.execute(httpPost);
 
