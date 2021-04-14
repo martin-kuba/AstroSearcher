@@ -16,6 +16,7 @@ public final class RegularExpressions {
 
 
     // input from file
+    public static final String FILE_STRICT_COLUMN_NAMES = "^ra,dec$";
     public static final String FILE_COLUMNS_NAMES = "([a-zA-Z]*)\\s*([a-zA-Z]*).*";
 
     // Sesame line with alias    //(?:?!</alias>)

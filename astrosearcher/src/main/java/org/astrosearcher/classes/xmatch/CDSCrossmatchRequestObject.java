@@ -49,13 +49,22 @@ public class CDSCrossmatchRequestObject extends RequestObject {
     private List<SimbadArg> args = new ArrayList<>();
     private MultipartFile file;
 
+    private double radius;
+    private int    maxRecords;
+
     public CDSCrossmatchRequestObject(SearchFormInput input, String catalogue) {
         this.service = SimbadServices.SIMBAD_CROSSMATCH;
         this.file = input.getFile();
 
 
         args.add(new SimbadArg(SimbadArgType.REQUEST_TYPE, SimbadServices.SIMBAD_CROSSMATCH));
-        args.add(new SimbadArg(SimbadArgType.MAX_DISTANCE, 120));
+
+        radius = input.getRadius() > 0.05 ? 180 : input.getRadius()*3600;
+        maxRecords = input.getPagesize();
+
+        args.add(new SimbadArg(SimbadArgType.MAX_DISTANCE, radius ));
+        args.add(new SimbadArg(SimbadArgType.MAX_RECORDS, maxRecords));
+
         args.add(new SimbadArg(SimbadArgType.RESPONSE_FORMAT, "votable"));
 
         args.add(new SimbadArg(SimbadArgType.CATALOG2, catalogue));
@@ -84,10 +93,11 @@ public class CDSCrossmatchRequestObject extends RequestObject {
 
         try {
             entity.addPart( "request", new StringBody("xmatch"));
-            entity.addPart( "distMaxArcsec", new StringBody("15"));
+            entity.addPart( "distMaxArcsec", new StringBody(String.valueOf(radius)));
             entity.addPart( "RESPONSEFORMAT", new StringBody("votable"));
             entity.addPart( "colRA1", new StringBody("ra"));
             entity.addPart( "colDec1", new StringBody("dec"));
+            entity.addPart("maxrec", new StringBody(String.valueOf(maxRecords)));
 
 //            entity.addPart( "cat1", new FileBody(new File("posList.csv")));
 //            entity.addPart( "cat1", new FileBody(file.getResource().getFile()));

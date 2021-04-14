@@ -2,6 +2,7 @@ package org.astrosearcher.classes.simbad;
 
 import org.astrosearcher.classes.Position;
 import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.RegularExpressions;
 import org.astrosearcher.classes.constants.SimbadConstants;
 import org.astrosearcher.enums.simbad.SimbadArgType;
 import org.springframework.boot.test.util.TestPropertyValues;
@@ -32,9 +33,9 @@ public class CrossmatchFile {
             file.getBytes();
             file.getInputStream().read();
 
-            if ( Position.isPosition(line) ) {
+            if ( Position.isPosition(line) || !line.matches(RegularExpressions.FILE_STRICT_COLUMN_NAMES)) {
                 // TODO: throw exception here, because 'ra, dec' line is missing....
-                throw new IllegalArgumentException("file must contain line: 'ra, dec' at the beginning.");
+                throw new IllegalArgumentException("file must contain line: 'ra,dec' at the beginning.");
             }
             reader.close();
 

@@ -34,8 +34,9 @@ public class CaomCrossmatchInput {
             fields.add(new ArgType(MASTConstants.DEFAULT_RA_COLUMN_NAME, MASTConstants.RA_TYPE));
             fields.add(new ArgType(MASTConstants.DEFAULT_DEC_COLUMN_NAME, MASTConstants.DEC_TYPE));
 
-            if ( Position.isPosition(line) ) {
-                data.add(new Position(line));
+            if ( Position.isPosition(line) || !line.matches(RegularExpressions.FILE_STRICT_COLUMN_NAMES)) {
+                throw new IllegalArgumentException("file must contain line: 'ra,dec' at the beginning.");
+//                data.add(new Position(line));
             }
 
             while ( (line = reader.readLine()) != null ) {
