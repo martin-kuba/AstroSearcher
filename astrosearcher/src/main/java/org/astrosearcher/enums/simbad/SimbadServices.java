@@ -9,7 +9,8 @@ public enum SimbadServices {
     SIMBAD_ID("sim-id"),
     SIMBAD_COORDINATES("sim-coo"),
     SIMBAD_REFERENCE("sim-ref"),
-    SIMBAD_ID_REFERENCE("sim-id-refs");
+    SIMBAD_ID_REFERENCE("sim-id-refs"),
+    SIMBAD_CROSSMATCH("xmatch");
 
     String name;
 

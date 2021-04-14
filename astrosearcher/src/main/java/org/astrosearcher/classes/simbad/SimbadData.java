@@ -42,6 +42,9 @@ public class SimbadData {
     private String redshift;
     private String effectiveTemperature;
 
+    private String inputRA = null;
+    private String inputDec = null;
+
     private String ra;
     private String dec;
     private String coordErrorMajA;
@@ -80,40 +83,50 @@ public class SimbadData {
                 case TYPED_ID:
                     queried = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
                     break;
+                case main_id:
                 case MAIN_ID:
                     mainID = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
                     break;
+                case main_type:
                 case OTYPE_S:
                     objectType = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
                     break;
+                case nbref:
                 case NB_REF:
                     references = ((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()
                             ? 0
                             : Integer.parseInt(((SavotTD)columns.getItemAt(columnIndex)).getContent());
                     break;
 
+                case sp_type:
                 case SP_TYPE:
                     spectralType = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
                     break;
+                case morph_type:
                 case MORPH_TYPE:
                     morphologicalType = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
                     break;
 
+                case angDist:
                 case ANG_DIST:
                     angularDistance = ((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()
                             ? ((SavotTD)columns.getItemAt(columnIndex)).getContent()
                             : ((SavotTD)columns.getItemAt(columnIndex)).getContent() + " [ arcsec ]";
                     break;
+                case size_maj:
                 case GALDIM_MAJAXIS:
                     angularSizeMajor = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
                     break;
+                case size_min:
                 case GALDIM_MINAXIS:
                     angularSizeMinor = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
                     break;
+                case size_angle:
                 case GALDIM_ANGLE:
                     angularSizeAngle = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
                     break;
 
+                case radvel:
                 case RV_VALUE:
                     radialVelocity = ((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()
                             ? ((SavotTD)columns.getItemAt(columnIndex)).getContent()
@@ -128,27 +141,40 @@ public class SimbadData {
                                                : ((SavotTD)columns.getItemAt(columnIndex)).getContent() + " [ K ]";
                     break;
 
+                case coo_err_maj:
                 case COO_ERR_MAJA_d:
                     coordErrorMajA = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
                     break;
+                case coo_err_min:
                 case COO_ERR_MINA_d:
                     coordErrorMinA = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
                     break;
+                case coo_err_angle:
                 case COO_ERR_ANGLE_d:
                     coordErrorAng = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
                     break;
+                case ra:
                 case RA_d:
+                    if ( ra != null && !ra.isEmpty()) {
+                        inputRA = ra;
+                    }
                     ra = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
                     break;
+                case dec:
                 case DEC_d:
+                    if ( dec != null && !dec.isEmpty()) {
+                        inputDec = dec;
+                    }
                     dec = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
                     break;
 
+                case pmra:
                 case PMRA:
                     pmra = ((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()
                                ? ((SavotTD)columns.getItemAt(columnIndex)).getContent()
                                : ((SavotTD)columns.getItemAt(columnIndex)).getContent();// + " [ mas/yr ]";
                     break;
+                case pmdec:
                 case PMDEC:
                     pmdec = ((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()
                             ? ((SavotTD)columns.getItemAt(columnIndex)).getContent()
@@ -172,6 +198,26 @@ public class SimbadData {
                     pmBibcode = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
                     break;
 
+                case B:
+                case V:
+                case R:
+                case J:
+                case H:
+                case K:
+                case u:
+                case g:
+                case r:
+                case i:
+                case z:
+                    if ( !((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()) {
+                        SimbadFlux flux = new SimbadFlux(
+                                fields.get(columnIndex).name(),
+                                Double.parseDouble(((SavotTD)columns.getItemAt(columnIndex)).getContent())
+                        );
+                        fluxes.put(flux.getFilter(), flux);
+                    }
+                    break;
+
                 case FILTER_NAME_U:
                 case FILTER_NAME_B:
                 case FILTER_NAME_V:
@@ -192,6 +238,7 @@ public class SimbadData {
                     columnIndex += 8;
                     break;
 
+                case plx:
                 case PLX_plx:
                     parallaxValue = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
                     break;

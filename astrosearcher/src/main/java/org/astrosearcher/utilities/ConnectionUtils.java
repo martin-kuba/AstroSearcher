@@ -40,6 +40,10 @@ public class ConnectionUtils {
 
             // Check response code
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                if (Limits.DEBUG) {
+                    System.err.println("            RESPONSE CODE:  " + connection.getResponseCode());
+                    System.err.println("            RESPONSE MESSAGE:  " + connection.getResponseMessage());
+                }
                 return null;
             }
 

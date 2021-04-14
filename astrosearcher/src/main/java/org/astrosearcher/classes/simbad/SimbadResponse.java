@@ -57,16 +57,28 @@ public class SimbadResponse {
 
         for (SavotField field : responseFields) {
             try {
-                fields.add(SimbadFields.valueOf(field.getId()));
+//                System.out.println("        Field: " + field.getName() + ", " + field.getId());
+                fields.add( field.getId() == null || field.getId().isEmpty()
+                        ? SimbadFields.valueOf(field.getName())
+                        : SimbadFields.valueOf(field.getId())
+                );
                 assignFieldInfoIfRequired(field);
-                fieldMapper.put(SimbadFields.valueOf(field.getId()), order);
-                ++order;
+//                fieldMapper.put(SimbadFields.valueOf(field.getId()), order);
+//                ++order;
             } catch (NullPointerException npe) {
                 throw new NullPointerException(
                         ExceptionMSG.INVALID_SIMBAD_FIELD_NAME_EXCEPTION + npe
                 );
             } catch (IllegalArgumentException iae) {
+//                if (Limits.DEBUG) {
+//                    System.err.println("Field '" + field.getId() + "' not found in pre-defined Simbad fields enum");
+//                }
+
+
+
                 throw new IllegalArgumentException(
+                        "Field: '" + (field.getId()  == null ? field.getName() : field.getId())
+                                + "' " +
                         ExceptionMSG.SIMBAD_FIELD_NAME_NOT_MATCHED_EXCEPTION + iae
                 );
             }
@@ -95,35 +107,43 @@ public class SimbadResponse {
 
     private void assignFieldInfoIfRequired(SavotField field) {
 
-        if (field.getId().equals(SimbadFields.RA_d.name())) {
+        if (field.getId().equals(SimbadFields.RA_d.name())
+                || field.getName().equals(SimbadFields.ra.name())) {
             raUnit = " [ " + field.getUnit() + " ]";
         }
 
-        if (field.getId().equals(SimbadFields.DEC_d.name())) {
+        if (field.getId().equals(SimbadFields.DEC_d.name())
+                || field.getName().equals(SimbadFields.dec.name())) {
             decUnit = " [ " + field.getUnit() + " ]";
         }
 
-        if (field.getId().equals(SimbadFields.COO_ERR_MAJA_d.name())) {
+        if (field.getId().equals(SimbadFields.COO_ERR_MAJA_d.name())
+                || field.getName().equals(SimbadFields.coo_err_maj.name())) {
             coordErrorMajAUnit = " [ " + field.getUnit() + " ]";
         }
 
-        if (field.getId().equals(SimbadFields.COO_ERR_MINA_d.name())) {
+        if (field.getId().equals(SimbadFields.COO_ERR_MINA_d.name())
+                || field.getName().equals(SimbadFields.coo_err_min.name())) {
             coordErrorMinAUnit = " [ " + field.getUnit() + " ]";
         }
 
-        if (field.getId().equals(SimbadFields.COO_ERR_ANGLE_d.name())) {
+        if (field.getId().equals(SimbadFields.COO_ERR_ANGLE_d.name())
+                || field.getName().equals(SimbadFields.coo_err_angle.name())) {
             coordErrorAngUnit = " [ " + field.getUnit() + " ]";
         }
 
-        if (field.getId().equals(SimbadFields.PM_pmra.name())) {
+        if (field.getId().equals(SimbadFields.PM_pmra.name())
+                || field.getName().equals(SimbadFields.pmra.name())) {
             pmraUnit = " [ " + field.getUnit() + " ]";
         }
 
-        if (field.getId().equals(SimbadFields.PM_pmde.name())) {
+        if (field.getId().equals(SimbadFields.PM_pmde.name())
+                || field.getName().equals(SimbadFields.pmdec.name()) ) {
             pmdecUnit = " [ " + field.getUnit() + " ]";
         }
 
-        if (field.getId().equals(SimbadFields.OTYPE_S.name())) {
+        if (field.getId().equals(SimbadFields.OTYPE_S.name())
+                || field.getName().equals(SimbadFields.main_type.name())) {
             LinkSet links = field.getLinks();
             objectTypeDescLink = links.getItemCount() == 0
                     ? SimbadConstants.OBJECT_TYPE_URL

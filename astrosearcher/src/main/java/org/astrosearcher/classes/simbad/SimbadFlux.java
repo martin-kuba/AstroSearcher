@@ -25,6 +25,11 @@ public class SimbadFlux {
     private String qualityFlag;
     private String unit;
 
+    public SimbadFlux(String filter, double magnitude) {
+        this.filter = filter;
+        this.magnitude = magnitude;
+    }
+
     public SimbadFlux(List<String> row, int startIndex) {
         filter    = row.get(startIndex);
         magnitude = Double.parseDouble(row.get(startIndex + 1));
@@ -38,6 +43,7 @@ public class SimbadFlux {
 
         unit = row.get(startIndex + 8);
     }
+
 
     public SimbadFlux(TDSet columns, int startIndex) {
         filter    = ((SavotTD)columns.getItemAt(startIndex)).getContent();

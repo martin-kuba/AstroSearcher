@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org</groupId>
 	<artifactId>astrosearcher</artifactId>
-	<version>1.5.0c-SNAPSHOT</version>
+	<version>1.6.0-SNAPSHOT</version>
 	<name>astrosearcher</name>
 	<description>Spring Boot Project for searching in astronomic web-catalogues</description>
 	<properties>
@@ -142,6 +142,44 @@
 			<artifactId>ejml-all</artifactId>
 			<version>0.40</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-test</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.13</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>fluent-hc</artifactId>
+			<version>4.5.13</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>4.5.13</version>
+		</dependency>
+
+
+<!--		<dependency>-->
+<!--			<groupId>org.apache.httpcomponents.client5</groupId>-->
+<!--			<artifactId>httpclient5</artifactId>-->
+<!--			<version>5.0.3</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.apache.httpcomponents.client5</groupId>-->
+<!--			<artifactId>httpclient5-fluent</artifactId>-->
+<!--			<version>5.0.3</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.apache.httpcomponents.client5</groupId>-->
+<!--			<artifactId>httpclient5-win</artifactId>-->
+<!--			<version>5.0.3</version>-->
+<!--		</dependency>-->
+
 		<!--		<dependency>-->
 <!--			<groupId>cds.savot.model</groupId>-->
 <!--			<artifactId>model</artifactId>-->

@@ -7,6 +7,7 @@ import cds.savot.pull.SavotPullParser;
 import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.vizier.VizierRequestObject;
 import org.astrosearcher.classes.vizier.VizierResponse;
+import org.astrosearcher.classes.xmatch.CDSCrossmatchRequestObject;
 import org.astrosearcher.enums.vizier.VizierServices;
 import org.astrosearcher.models.SearchFormInput;
 
@@ -79,6 +80,27 @@ public class VizierSearchEngine {
 //                ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems(),
 //                ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
 //        );
+    }
+
+    public static VizierResponse findAllByCrossmatch(SearchFormInput input) {
+        String response = new CDSCrossmatchRequestObject(input, "vizier:" + input.getVizierCat()).send();
+
+        if (Limits.DEBUG) {
+            System.out.println("        Initializing SavotPullParser...");
+        }
+
+        SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
+                SavotPullEngine.FULL,
+                "UTF-8");
+//        System.out.println("done");
+
+        SavotVOTable vot = parser.getVOTable();
+
+        if (isEmptyResponse(vot)) {
+            return new VizierResponse();
+        }
+
+        return new VizierResponse(VizierServices.VIZIER_CROSSMATCH, vot.getResources());
     }
 
     private static boolean isEmptyResponse(SavotVOTable vot) {

@@ -1,6 +1,5 @@
 package org.astrosearcher.utilities;
 
-import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.ResponseData;
 import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.constants.RegularExpressions;
@@ -11,11 +10,6 @@ import org.astrosearcher.classes.simbad.SimbadResponse;
 import org.astrosearcher.classes.vizier.VizierResponse;
 import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.models.SearchFormInput;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 
 
 /**
@@ -40,7 +34,7 @@ public class SearchEngine {
         if (input.isQueryMast()) {
             ResponseForReqByPos resp = MASTSearchEngine.findAllByPosition(input);
             responseData.setMastResponse(resp == null ? new MastResponse() : new MastResponse(resp));
-            printResponseIfDEBUG(resp);
+            printMastResponseIfDEBUG(resp);
         } else {
             responseData.setMastResponse(new MastResponse());
         }
@@ -73,9 +67,23 @@ public class SearchEngine {
         if (input.isQueryMast()) {
             ResponseForReqByPos resp = MASTSearchEngine.findAllByPositionCrossmatch(input);
             responseData.setMastResponse(resp == null ? new MastResponse() : new MastResponse(resp));
-            printResponseIfDEBUG(resp);
+            printMastResponseIfDEBUG(resp);
         } else {
             responseData.setMastResponse(new MastResponse());
+        }
+
+        // Simbad
+        if (input.isQuerySimbad()) {
+            responseData.setSimbadResponse(SimbadSearchEngine.findAllByCrossmatch(input));
+        } else {
+            responseData.setSimbadResponse(new SimbadResponse());
+        }
+
+        // Vizier
+        if (input.isQueryVizier()) {
+            responseData.setVizierResponse(VizierSearchEngine.findAllByCrossmatch(input));
+        } else {
+            responseData.setVizierResponse(new VizierResponse());
         }
 
 //        responseData.setSimbadResponse(SimbadSearchEngine.findAllByPosition(input));
@@ -90,7 +98,7 @@ public class SearchEngine {
         if (input.isQueryMast()) {
             ResponseForReqByPos response = MASTSearchEngine.findAllByID(input);
             responseData.setMastResponse(response == null ? new MastResponse() : new MastResponse(response));
-            printResponseIfDEBUG(response);
+            printMastResponseIfDEBUG(response);
         } else {
             responseData.setMastResponse(new MastResponse());
         }
@@ -149,19 +157,13 @@ public class SearchEngine {
             if ( Limits.DEBUG ) {
                 System.out.println("CROSSMATCH query");
             }
-//            try {
-//                System.out.println(URLEncoder.encode(
-//                        new BufferedReader(new InputStreamReader(input.getFile().getInputStream())).lines()., StandardCharsets.UTF_8););
-//            } catch (Exception e) {
-//                System.err.println("Something went wrong...\n" + e);
-//            }
 
             return findAllByPositionCrossmatch(input);
         }
         throw new IllegalArgumentException(ExceptionMSG.NOT_DEFINED_SEARCH_OPTION + input.getSearchInput());
     }
 
-    private static void printResponseIfDEBUG(ResponseForReqByPos resp) {
+    private static void printMastResponseIfDEBUG(ResponseForReqByPos resp) {
         if (Limits.DEBUG && Limits.DEBUG_DISPLAY_MAST_RESULTS) {
             System.out.println();
             System.out.println("        MAST response data:");

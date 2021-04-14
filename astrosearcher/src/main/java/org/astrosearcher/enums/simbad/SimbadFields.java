@@ -274,10 +274,45 @@ public enum SimbadFields {
     XMM_Obsno("Observation identifier"),
     OID4("Object internal identifier"),
 
-    /* *********************** *
-     *    QUERY BY POSITION    *
-     * *********************** */
 
+    /* ******************* *
+     *    CROSS - MATCH    *
+     * ******************* */
+
+    angDist("Xmatch distance in arcseconds"),
+    ra(""),
+	dec(""),
+	main_id(""),
+    coo_err_maj("Half Major axis of the positional error"),
+    coo_err_min("Half Minor axis of the positional error"),
+	coo_err_angle("Position angle of the positional error"),
+	nbref(""),
+    ra_sexa(""),
+    dec_sexa(""),
+    main_type(""),
+    other_types(""),
+    radvel(""),
+    datatype(""),
+    redshift(""),
+    sp_type(""),
+    morph_type(""),
+    plx(""),
+    pmra(""),
+    pmdec(""),
+    size_maj(""),
+    size_min(""),
+    size_angle(""),
+    B(""),
+    V(""),
+    R(""),
+    J(""),
+    H(""),
+    K(""),
+    u(""),
+    g(""),
+    r(""),
+    i(""),
+    z(""),
 
     DEFAULT("default");
 

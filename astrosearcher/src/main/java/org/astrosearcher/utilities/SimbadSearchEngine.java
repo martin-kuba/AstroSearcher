@@ -8,6 +8,7 @@ import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.simbad.SimbadRequestObject;
 import org.astrosearcher.classes.simbad.SimbadResponse;
 import org.astrosearcher.classes.vizier.VizierResponse;
+import org.astrosearcher.classes.xmatch.CDSCrossmatchRequestObject;
 import org.astrosearcher.enums.simbad.SimbadServices;
 import org.astrosearcher.models.SearchFormInput;
 
@@ -91,6 +92,40 @@ public class SimbadSearchEngine {
         } catch (Exception e) {
             if (Limits.DEBUG) {
                 System.out.println("..::!!!   Exception caught   !!!::..");
+                System.out.println("Message: " + e.getMessage());
+                System.out.println();
+                System.out.println("Exception" + e);
+                System.out.println();
+            }
+            return new SimbadResponse();
+        }
+    }
+
+    public static SimbadResponse findAllByCrossmatch(SearchFormInput input) {
+        String response = new CDSCrossmatchRequestObject(input, "simbad").send();
+
+        if (response == null) {
+            return new SimbadResponse();
+        }
+
+        try {
+            SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
+                    SavotPullEngine.FULL,
+                    "UTF-8");
+            SavotVOTable vot = parser.getVOTable();
+
+            if (isEmptyResponse(vot)) {
+                return new SimbadResponse();
+            }
+
+            return new SimbadResponse(
+                    SimbadServices.SIMBAD_CROSSMATCH,
+                    ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems(),
+                    ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
+            );
+        } catch (Exception e) {
+            if (Limits.DEBUG) {
+                System.out.println("..::!!!   Exception caught (Simbad - ID)  !!!::..");
                 System.out.println("Message: " + e.getMessage());
                 System.out.println();
                 System.out.println("Exception" + e);

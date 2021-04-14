@@ -67,7 +67,8 @@ Simbad fragment => query by ID + query by coordinates
     <th:block th:if="${#strings.equals(simbadType, 'SIMBAD_ID')}">
         <div th:replace="results :: Simbad-id"></div>
     </th:block>
-    <th:block th:if="${#strings.equals(simbadType, 'SIMBAD_COORDINATES')}">
+    <th:block th:if="${#strings.equals(simbadType, 'SIMBAD_COORDINATES')
+                       || #strings.equals(simbadType, 'SIMBAD_CROSSMATCH')}">
         <div th:replace="results :: Simbad-coord"></div>
     </th:block>
 </div>
@@ -306,6 +307,12 @@ Simbad fragment => query by Coordinates
                     <th>Identifier</th>
                     <th>Dist</th>
                     <th>Obj. type</th>
+
+                    <th:block th:if="${#strings.equals(simbadType, 'SIMBAD_CROSSMATCH')}">
+                        <th th:text="'RA (input)'"></th>
+                        <th th:text="'Dec (input)'"></th>
+                    </th:block>
+
                     <th th:text="${'RA (ICRS, J2000)' + simbadResponse.raUnit}"></th>
                     <th th:text="${'Dec (ICRS, J2000)' + simbadResponse.decUnit}"></th>
                     <th th:text="${'PM - RA' + simbadResponse.pmraUnit}"></th>
@@ -347,6 +354,12 @@ Simbad fragment => query by Coordinates
                         <a th:href="@{${simbadResponse.objectTypeDescLink}}"
                            th:text="${simbadData.objectType}" target="_blank"></a>
                     </td>
+
+                    <th:block th:if="${#strings.equals(simbadType, 'SIMBAD_CROSSMATCH')}">
+                        <td th:text="${simbadData.inputRA}"></td>
+                        <td th:text="${simbadData.inputDec}"></td>
+                    </th:block>
+
                     <td th:text="${simbadData.ra}"></td>
                     <td th:text="${simbadData.dec}"></td>
                     <td th:text="${simbadData.pmra}"></td>

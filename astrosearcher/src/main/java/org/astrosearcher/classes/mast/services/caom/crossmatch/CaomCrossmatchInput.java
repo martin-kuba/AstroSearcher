@@ -27,8 +27,8 @@ public class CaomCrossmatchInput {
             String line = reader.readLine();
 
             if (Limits.DEBUG) {
-                System.out.println("    Cross-match input file:");
-                System.out.println("        " + line);
+                System.out.println("        Cross-match input file:");
+                System.out.println("            " + line);
             }
 
             fields.add(new ArgType(MASTConstants.DEFAULT_RA_COLUMN_NAME, MASTConstants.RA_TYPE));
@@ -40,7 +40,7 @@ public class CaomCrossmatchInput {
 
             while ( (line = reader.readLine()) != null ) {
                 if (Limits.DEBUG) {
-                    System.out.println("        " + line);
+                    System.out.println("            " + line);
                 }
                 data.add(new Position(line));
             }
