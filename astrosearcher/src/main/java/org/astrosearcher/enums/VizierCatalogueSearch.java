@@ -1,6 +1,6 @@
 package org.astrosearcher.enums;
 
-import org.astrosearcher.enums.vizier.VizierArgType;
+import org.astrosearcher.enums.cds.vizier.VizierArgType;
 
 public enum VizierCatalogueSearch {
     code("code", VizierArgType.SOURCE),

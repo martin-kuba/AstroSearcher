@@ -1,4 +1,4 @@
-package org.astrosearcher.enums.vizier;
+package org.astrosearcher.enums.cds.vizier;
 
 public enum VizierArgType {
     OBJECT_ID("-objID="),

@@ -7,10 +7,10 @@ import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
 import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
-import org.astrosearcher.classes.constants.VizierConstants;
+import org.astrosearcher.classes.constants.cds.VizierConstants;
 import org.astrosearcher.enums.VizierCatalogueSearch;
-import org.astrosearcher.enums.vizier.VizierArgType;
-import org.astrosearcher.enums.vizier.VizierServices;
+import org.astrosearcher.enums.cds.vizier.VizierArgType;
+import org.astrosearcher.enums.cds.vizier.VizierServices;
 import org.astrosearcher.models.SearchFormInput;
 import org.astrosearcher.utilities.ConnectionUtils;
 

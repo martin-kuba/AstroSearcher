@@ -4,7 +4,7 @@ import cds.savot.model.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.astrosearcher.classes.constants.Limits;
-import org.astrosearcher.enums.vizier.VizierServices;
+import org.astrosearcher.enums.cds.vizier.VizierServices;
 import org.astrosearcher.utilities.VotableUtils;
 
 import java.util.ArrayList;

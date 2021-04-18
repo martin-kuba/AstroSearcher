@@ -1,17 +1,12 @@
 package org.astrosearcher.classes.simbad;
 
 import org.astrosearcher.classes.Position;
-import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.constants.RegularExpressions;
-import org.astrosearcher.classes.constants.SimbadConstants;
-import org.astrosearcher.enums.simbad.SimbadArgType;
-import org.springframework.boot.test.util.TestPropertyValues;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -3,12 +3,10 @@ package org.astrosearcher.models;
 import lombok.*;
 import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.constants.messages.ValidationMSG;
-import org.astrosearcher.classes.constants.VizierConstants;
+import org.astrosearcher.classes.constants.cds.VizierConstants;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -43,5 +41,9 @@ public class SearchFormInput {
 
     public String getVizierCat() {
         return vizierCat == null ? "" : vizierCat;
+    }
+
+    public double getRadiusInArcseconds() {
+        return radius * Limits.DEG_TO_ARCSEC;
     }
 }

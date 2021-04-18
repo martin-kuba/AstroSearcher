@@ -7,14 +7,11 @@ import cds.savot.pull.SavotPullParser;
 import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.simbad.SimbadRequestObject;
 import org.astrosearcher.classes.simbad.SimbadResponse;
-import org.astrosearcher.classes.vizier.VizierResponse;
 import org.astrosearcher.classes.xmatch.CDSCrossmatchRequestObject;
-import org.astrosearcher.enums.simbad.SimbadServices;
+import org.astrosearcher.enums.cds.simbad.SimbadServices;
 import org.astrosearcher.models.SearchFormInput;
 
 import java.io.ByteArrayInputStream;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Class serves as inter-level between general SearchEngine class and ConnectionUtils class.

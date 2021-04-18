@@ -1,4 +1,4 @@
-package org.astrosearcher.enums.simbad;
+package org.astrosearcher.enums.cds.simbad;
 
 /**
  * This enum class represents subset of services ("queries by") provided by Simbad server.

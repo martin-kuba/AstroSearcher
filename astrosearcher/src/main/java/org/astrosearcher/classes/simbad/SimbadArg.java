@@ -1,7 +1,7 @@
 package org.astrosearcher.classes.simbad;
 
 import lombok.AllArgsConstructor;
-import org.astrosearcher.enums.simbad.SimbadArgType;
+import org.astrosearcher.enums.cds.simbad.SimbadArgType;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;

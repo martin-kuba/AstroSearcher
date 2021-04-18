@@ -2,11 +2,11 @@ package org.astrosearcher.controllers;
 
 import org.astrosearcher.classes.ResponseData;
 import org.astrosearcher.classes.constants.Limits;
-import org.astrosearcher.classes.constants.VizierConstants;
+import org.astrosearcher.classes.constants.cds.VizierConstants;
 import org.astrosearcher.classes.constants.messages.InformationMSG;
 import org.astrosearcher.classes.simbad.SimbadFlux;
 import org.astrosearcher.enums.VizierCatalogueSearch;
-import org.astrosearcher.enums.simbad.SimbadServices;
+import org.astrosearcher.enums.cds.simbad.SimbadServices;
 import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.models.SearchFormInput;
 import org.astrosearcher.utilities.SearchEngine;

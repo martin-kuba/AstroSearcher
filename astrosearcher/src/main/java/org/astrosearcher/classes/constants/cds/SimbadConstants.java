@@ -1,4 +1,4 @@
-package org.astrosearcher.classes.constants;
+package org.astrosearcher.classes.constants.cds;
 
 public final class SimbadConstants {
     public static final String CONNECTION_URL  = "http://simbad.u-strasbg.fr/simbad/";

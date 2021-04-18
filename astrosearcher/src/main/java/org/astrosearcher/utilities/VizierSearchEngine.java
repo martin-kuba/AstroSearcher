@@ -1,6 +1,5 @@
 package org.astrosearcher.utilities;
 
-import cds.savot.model.SavotResource;
 import cds.savot.model.SavotVOTable;
 import cds.savot.pull.SavotPullEngine;
 import cds.savot.pull.SavotPullParser;
@@ -8,7 +7,7 @@ import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.vizier.VizierRequestObject;
 import org.astrosearcher.classes.vizier.VizierResponse;
 import org.astrosearcher.classes.xmatch.CDSCrossmatchRequestObject;
-import org.astrosearcher.enums.vizier.VizierServices;
+import org.astrosearcher.enums.cds.vizier.VizierServices;
 import org.astrosearcher.models.SearchFormInput;
 
 import java.io.ByteArrayInputStream;

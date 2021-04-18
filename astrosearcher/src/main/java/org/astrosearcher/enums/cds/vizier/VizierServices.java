@@ -1,4 +1,4 @@
-package org.astrosearcher.enums.vizier;
+package org.astrosearcher.enums.cds.vizier;
 
 public enum VizierServices {
     VIZIER_COORDINATES,

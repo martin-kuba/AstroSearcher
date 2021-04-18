@@ -7,12 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.astrosearcher.classes.constants.Limits;
-import org.astrosearcher.classes.constants.SimbadConstants;
-import org.astrosearcher.classes.constants.VizierConstants;
-import org.astrosearcher.enums.simbad.SimbadArgType;
-import org.astrosearcher.enums.simbad.SimbadFields;
-import org.astrosearcher.enums.simbad.SimbadServices;
-import org.ejml.simple.SimpleMatrix;
+import org.astrosearcher.classes.constants.cds.SimbadConstants;
+import org.astrosearcher.enums.cds.simbad.SimbadArgType;
+import org.astrosearcher.enums.cds.simbad.SimbadFields;
+import org.astrosearcher.enums.cds.simbad.SimbadServices;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;

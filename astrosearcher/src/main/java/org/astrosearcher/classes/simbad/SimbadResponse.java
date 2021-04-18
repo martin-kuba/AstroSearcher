@@ -4,11 +4,10 @@ import cds.savot.model.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.astrosearcher.classes.constants.Limits;
-import org.astrosearcher.classes.constants.SimbadConstants;
-import org.astrosearcher.classes.constants.VizierConstants;
+import org.astrosearcher.classes.constants.cds.SimbadConstants;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
-import org.astrosearcher.enums.simbad.SimbadFields;
-import org.astrosearcher.enums.simbad.SimbadServices;
+import org.astrosearcher.enums.cds.simbad.SimbadFields;
+import org.astrosearcher.enums.cds.simbad.SimbadServices;
 
 import java.util.ArrayList;
 import java.util.HashMap;

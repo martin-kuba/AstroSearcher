@@ -1,4 +1,4 @@
-package org.astrosearcher.enums.simbad.id;
+package org.astrosearcher.enums.cds.simbad.id;
 
 /**
  *

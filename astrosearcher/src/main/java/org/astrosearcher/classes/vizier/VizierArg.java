@@ -2,7 +2,7 @@ package org.astrosearcher.classes.vizier;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.astrosearcher.enums.vizier.VizierArgType;
+import org.astrosearcher.enums.cds.vizier.VizierArgType;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;

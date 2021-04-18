@@ -4,9 +4,8 @@ import cds.savot.model.SavotTD;
 import cds.savot.model.TDSet;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.astrosearcher.classes.constants.SimbadConstants;
-import org.astrosearcher.classes.constants.VizierConstants;
-import org.astrosearcher.enums.simbad.SimbadServices;
+import org.astrosearcher.classes.constants.cds.SimbadConstants;
+import org.astrosearcher.enums.cds.simbad.SimbadServices;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;

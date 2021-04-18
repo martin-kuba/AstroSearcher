@@ -4,8 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.astrosearcher.classes.RequestObject;
 import org.astrosearcher.classes.constants.Limits;
-import org.astrosearcher.classes.constants.SesameConstats;
-import org.astrosearcher.classes.constants.SimbadConstants;
+import org.astrosearcher.classes.constants.cds.SesameConstats;
 import org.astrosearcher.utilities.ConnectionUtils;
 
 import java.net.MalformedURLException;
