@@ -15,7 +15,7 @@
 </header>
 <div id="container-bg">
     <label class="data-MSG" th:unless="${containsSesameResponse}" th:text="${sesameDataMSG}"></label>
-    <div class="id-grid" th:if="${containsSesameResponse}">
+    <div class="id-grid tbox" th:if="${containsSesameResponse}">
         <div th:each="alias : ${sesameResponse.aliases}" th:text="${alias}"></div>
     </div>
 </div>

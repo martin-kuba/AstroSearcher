@@ -32,7 +32,7 @@ h1 {
 h2 {
   color: skyblue;
   font-size: 3em;
-  margin: 0;
+  margin: 0 auto 1em auto;
 }
 
 h3 {
@@ -117,7 +117,6 @@ p {
   margin: 0 auto;
   text-align: center;
   font-size: 1.4em;
-  background-color: rgba(0, 0, 0, 0.3);
   box-sizing: border-box;
   padding: 1em;
 }
@@ -203,13 +202,38 @@ p {
  *****************************/
 
 .motivation {
-  width: fit-content;
+  text-align: center;
+}
+
+.tbox {
   background-color: rgba(0, 0, 0, 0.3);
+}
+
+.top {
   position: relative;
   top: 10%;
-  text-align: center;
+}
+
+.fitcontent {
+  width: fit-content;
   padding: 1em;
   margin: 0 auto;
+}
+
+.widecontent {
+  width: 80%;
+  padding: 3em 5em 3em 4em;
+  margin: 0 auto;
+}
+
+.fit-grid2 {
+  display: grid;
+  grid-column-gap: 0.75em;
+  grid-template-columns: fit-content(100%) fit-content(100%);
+
+  color: #ffffff;
+
+  font-size: 1.25em;
 }
 
 

@@ -125,7 +125,6 @@
     display: grid;
     grid-column-gap: 0.75em;
 
-    background-color: rgba(0, 0, 0, 0.3);
     color: #ffffff;
 
     padding: 2.5em 5em 2em 4em;
@@ -181,7 +180,6 @@ a:active {
     grid-column-gap: 0.75em;
     grid-row-gap: 0.5em;
 
-    background-color: rgba(0, 0, 0, 0.3);
     color: #ffffff;
 
     box-sizing: border-box;

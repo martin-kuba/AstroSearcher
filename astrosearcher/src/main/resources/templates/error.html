@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="style.css" data-th-href="@{/css/style.css}">
+    <title>AstroSearcher</title>
+</head>
+
+<body>
+<header>
+    <nav th:replace="fragments :: navigation"></nav>
+</header>
+<div id="container-bg">
+    <div class="widecontent top tbox">
+        <div class="error-label" style="font-size: 3em; margin-bottom: 1em;">Error</div>
+        <div class="fit-grid2">
+            <div>STATUS CODE:</div>
+            <div th:text="${status}"></div>
+
+            <div>Message:</div>
+            <div th:text="${error}"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

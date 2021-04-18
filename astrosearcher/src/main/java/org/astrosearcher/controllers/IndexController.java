@@ -5,12 +5,13 @@ import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.enums.VizierCatalogueSearch;
 import org.astrosearcher.models.SearchFormInput;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -31,5 +32,12 @@ public class IndexController {
         model.addAttribute("searchOptions", SearchType.values());
         model.addAttribute("vizierOptions", VizierCatalogueSearch.values());
         return "filled/index";
+    }
+
+//    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NumberFormatException.class)
+    public String handleError(final ServletRequest request, HttpServletResponse response, Model model) {
+        model.addAttribute("errorMSG", "Status code: ");
+        return "error";
     }
 }
