@@ -21,7 +21,6 @@ public class IdentifiersController {
             model.addAttribute("sesameResponse", SesameSearchEngine.findAllAliasesForId(id));
         }
         model.addAttribute("containsSesameResponse", !response.getAliases().isEmpty());
-//        System.out.println("containg sesame reponse: " + response.getAliases().isEmpty());
 
         return "identifiers";
     }

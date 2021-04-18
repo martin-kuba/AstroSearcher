@@ -19,6 +19,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class represents request object which is used in URL request sent to Vizier (CDS) server.
+ *
+ * Class provides basic properties for sending request to Vizier server as well as main functionality for sending
+ * given request by our web application (implementation of abstract methods from abstract class RequestObject).
+ *
+ * @author Ľuboslav Halama
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -45,14 +53,14 @@ public class VizierRequestObject extends RequestObject {
                         + input.getSearchBy());
         }
 
+        // which catalogues should be queried
         args.add(new VizierArg(
                 VizierCatalogueSearch.valueOf(input.getVizierCatalogueSearchBy()).getArgType(),
                 input.getVizierCat())
         );
+
+        // output limit
         args.add(new VizierArg(VizierArgType.OUTPUT_LIMIT, input.getPagesize()));
-
-        // TODO: edit to work for all search types, now works only for position
-
     }
 
     @Override

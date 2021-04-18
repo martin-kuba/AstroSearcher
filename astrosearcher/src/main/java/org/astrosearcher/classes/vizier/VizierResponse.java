@@ -10,14 +10,20 @@ import org.astrosearcher.utilities.VotableUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class represents Vizier response used in final Response for user.
+ *
+ * Class stores:
+ *   1.) type of query
+ *   2.) tables (data itself) - each parsed separately using VizierTable class
+ *
+ * @author Ľuboslav Halama
+ */
 @NoArgsConstructor
 @Getter
 public class VizierResponse {
 
-    private VizierServices type;
-    private List<String> fields = new ArrayList<>();
-    private List<List<String>> data = new ArrayList<>();
-
+    private VizierServices    type;
     private List<VizierTable> tables = new ArrayList<>();
 
     public VizierResponse(VizierServices service, ResourceSet resources) {
@@ -38,13 +44,6 @@ public class VizierResponse {
 
                 // if table is not empty, store it into: List<VizierTable> tables
                 if ( !VotableUtils.isEmpty(table) ) {
-//                    tables.add(new VizierTable(
-//                            table.getName(),
-//                            table.getDescription(),
-//                            table.getFields().getItems(),
-//                            resource.getTRSet(tableIndex).getItems()
-////                            table.getData().getTableData().getTRs().getItems()
-//                    ));
                     tables.add(new VizierTable(table));
                 }
             }
@@ -61,28 +60,7 @@ public class VizierResponse {
 
     }
 
-    public VizierResponse(VizierServices service, List<SavotField> responseFields, List<SavotTR> data) {
-        this.type = service;
-
-        for (SavotField field : responseFields) {
-            fields.add(field.getName());
-        }
-
-        for (SavotTR row : data) {
-
-            List<String> nextRow = new ArrayList<>();
-            TDSet columns = row.getTDSet();
-
-            for (int colIndex = 0; colIndex < columns.getItemCount(); colIndex++) {
-                nextRow.add(((SavotTD)columns.getItemAt(colIndex)).getContent());
-            }
-
-            this.data.add(nextRow);
-        }
-    }
-
     public boolean isEmpty() {
         return tables.isEmpty();
-//        return fields.isEmpty() || data.isEmpty();
     }
 }

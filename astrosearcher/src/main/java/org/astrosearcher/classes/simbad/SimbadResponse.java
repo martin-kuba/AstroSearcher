@@ -17,17 +17,21 @@ import java.util.Map;
 /**
  * Class represents parsed response from Simbad server.
  *
+ * Class stores:
+ *   1.) type of query
+ *   2.) fields (column names in table)
+ *   3.) data (parsed separately using SimbadData class)
+ *   4.) Units for data
+ *
  * @author Ľuboslav Halama
  */
-
 @NoArgsConstructor
 @Getter
 public class SimbadResponse {
 
-    private SimbadServices type;
-    List<SimbadFields> fields = new ArrayList<>();
-    private Map<SimbadFields, Integer> fieldMapper = new HashMap<>();
-    List<List<String>> data = new ArrayList<>();
+    private SimbadServices     type;
+    private List<SimbadFields> fields       = new ArrayList<>();
+    private List<SimbadData>   assignedData = new ArrayList<>();
 
     private String objectTypeDescLink = "";
 
@@ -43,8 +47,6 @@ public class SimbadResponse {
     private String galLongitudeUnit = "[ deg ]";
     private String galLatitudeUnit = "[ deg ]";
 
-    List<SimbadData> assignedData = new ArrayList<>();
-
     public SimbadResponse(SimbadServices type, List<SavotField> responseFields, List<SavotTR> data) {
         this.type = type;
 
@@ -52,29 +54,19 @@ public class SimbadResponse {
             return;
         }
 
-        int order = 0;
-
+        // parse fields
         for (SavotField field : responseFields) {
             try {
-//                System.out.println("        Field: " + field.getName() + ", " + field.getId());
                 fields.add( field.getId() == null || field.getId().isEmpty()
                         ? SimbadFields.valueOf(field.getName())
                         : SimbadFields.valueOf(field.getId())
                 );
                 assignFieldInfoIfRequired(field);
-//                fieldMapper.put(SimbadFields.valueOf(field.getId()), order);
-//                ++order;
             } catch (NullPointerException npe) {
                 throw new NullPointerException(
                         ExceptionMSG.INVALID_SIMBAD_FIELD_NAME_EXCEPTION + npe
                 );
             } catch (IllegalArgumentException iae) {
-//                if (Limits.DEBUG) {
-//                    System.err.println("Field '" + field.getId() + "' not found in pre-defined Simbad fields enum");
-//                }
-
-
-
                 throw new IllegalArgumentException(
                         "Field: '" + (field.getId()  == null ? field.getName() : field.getId())
                                 + "' " +
@@ -83,17 +75,9 @@ public class SimbadResponse {
             }
         }
 
+        // parse each row of data and store it
         for (SavotTR row : data) {
-
-            List<String> columns = new ArrayList<>();
-            TDSet responseColumns = row.getTDSet();
-
-            for (int columnIndex = 0; columnIndex < responseColumns.getItemCount(); columnIndex++) {
-                columns.add(((SavotTD)responseColumns.getItemAt(columnIndex)).getContent());
-            }
-
-            assignedData.add(new SimbadData(responseColumns, fields));
-            this.data.add(columns);
+            assignedData.add(new SimbadData(row.getTDSet(), fields));
         }
 
         if (Limits.DEBUG && Limits.DEBUG_DISPLAY_SIMBAD_RESULTS) {
@@ -104,13 +88,21 @@ public class SimbadResponse {
         }
     }
 
+    /**
+     * Function takes field and decides, whether unit must be stored.
+     * If so, unit is obtained and stored.
+     *
+     * @param field    field from VOTable file
+     */
     private void assignFieldInfoIfRequired(SavotField field) {
 
+        // Right Ascension
         if (field.getId().equals(SimbadFields.RA_d.name())
                 || field.getName().equals(SimbadFields.ra.name())) {
             raUnit = " [ " + field.getUnit() + " ]";
         }
 
+        // Declination
         if (field.getId().equals(SimbadFields.DEC_d.name())
                 || field.getName().equals(SimbadFields.dec.name())) {
             decUnit = " [ " + field.getUnit() + " ]";
@@ -131,16 +123,19 @@ public class SimbadResponse {
             coordErrorAngUnit = " [ " + field.getUnit() + " ]";
         }
 
+        // Proper Motion - Right Ascension
         if (field.getId().equals(SimbadFields.PM_pmra.name())
                 || field.getName().equals(SimbadFields.pmra.name())) {
             pmraUnit = " [ " + field.getUnit() + " ]";
         }
 
+        // Proper Motion - Declination
         if (field.getId().equals(SimbadFields.PM_pmde.name())
                 || field.getName().equals(SimbadFields.pmdec.name()) ) {
             pmdecUnit = " [ " + field.getUnit() + " ]";
         }
 
+        // type of astronomical object
         if (field.getId().equals(SimbadFields.OTYPE_S.name())
                 || field.getName().equals(SimbadFields.main_type.name())) {
             LinkSet links = field.getLinks();
@@ -152,6 +147,6 @@ public class SimbadResponse {
 
     public boolean isEmpty() {
         // TODO: implement this method
-        return fields.isEmpty() || data.isEmpty();
+        return fields.isEmpty() || assignedData.isEmpty(); //|| data.isEmpty();
     }
 }

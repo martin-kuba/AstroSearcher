@@ -26,7 +26,6 @@ public class SimbadSearchEngine {
     // TODO: change return type, implement functionality
     public static SimbadResponse findAllById(SearchFormInput input) {
         String response = new SimbadRequestObject(SimbadServices.SIMBAD_ID, input).send();
-//        System.out.println("    response acquired...");
 
         if (response == null) {
             return new SimbadResponse();

@@ -14,6 +14,11 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class represents parsed (data read) from uploaded file for crossmatch query on MAST.
+ *
+ * @author Ľuboslav Halama
+ */
 @Getter
 public class CaomCrossmatchInput {
 
@@ -31,14 +36,16 @@ public class CaomCrossmatchInput {
                 System.out.println("            " + line);
             }
 
+            // set fields for RA, DEC
             fields.add(new ArgType(MASTConstants.DEFAULT_RA_COLUMN_NAME, MASTConstants.RA_TYPE));
             fields.add(new ArgType(MASTConstants.DEFAULT_DEC_COLUMN_NAME, MASTConstants.DEC_TYPE));
 
-            if ( Position.isPosition(line) || !line.matches(RegularExpressions.FILE_STRICT_COLUMN_NAMES)) {
+            // if file does not include descriptive line first
+            if ( !line.matches(RegularExpressions.FILE_STRICT_COLUMN_NAMES)) {
                 throw new IllegalArgumentException("file must contain line: 'ra,dec' at the beginning.");
-//                data.add(new Position(line));
             }
 
+            // read data
             while ( (line = reader.readLine()) != null ) {
                 if (Limits.DEBUG) {
                     System.out.println("            " + line);

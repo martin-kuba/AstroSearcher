@@ -8,6 +8,11 @@ import org.astrosearcher.classes.constants.RegularExpressions;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class represents parsed position from user input
+ *
+ * @author Ľuboslav Halama
+ */
 @Getter
 public class Position {
     private double ra;

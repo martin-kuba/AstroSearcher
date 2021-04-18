@@ -10,6 +10,15 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class represents MAST response (data part) used in final Response for user.
+ *
+ * Class stores:
+ *   1.) fields (column names in table) compared with pre-defined settings
+ *   2.) data (Json Object format)
+ *
+ * @author Ľuboslav Halama
+ */
 @Getter
 public class MastResponse {
     private List<CaomFields> fields = new ArrayList<>();

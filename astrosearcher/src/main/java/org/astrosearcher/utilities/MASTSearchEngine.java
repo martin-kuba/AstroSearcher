@@ -39,17 +39,9 @@ public class MASTSearchEngine {
 
             for (JsonObject obj : resp.getResolvedCoordinate()) {
 
-                // TODO: create new general class for constants like this radius
-//                radius = Limits.DEFAULT_RADIUS;
-//                if ( obj.has("radius") && !obj.get("radius").isJsonNull() ) {
-////                    radius = obj.get("radius").getAsDouble();
-//                    input.setRadius(obj.get("radius").getAsDouble());
-//                }
-
                 resolved.add(new PositionInput(
                         obj.get("ra").getAsDouble(),
-                        obj.get("decl").getAsDouble()//,
-                        //radius
+                        obj.get("decl").getAsDouble()
                 ));
             }
         } catch (Exception e) {
@@ -70,15 +62,12 @@ public class MASTSearchEngine {
     }
 
     public static ResponseForReqByPos findAllByPosition(PositionInput position, SearchFormInput input) {
-//        System.out.println("    querying by position...");
         String response = new MastRequestObject(MastServices.MAST_CAOM_CONE, position, input).send();
-//        System.out.println("    parsing response from JSON");
         return response == null ? null : new Gson().fromJson(response, ResponseForReqByPos.class);
     }
 
     public static ResponseForReqByPos findAllByPositionCrossmatch(SearchFormInput input) {
         String response = new MastRequestObject(MastServices.MAST_CAOM_CROSSMATCH, input).send();
-//        System.out.println("Response for Crossmatch request:\n " + response);
 
         // TODO: check this return statement!!!
         return response == null ? null : new Gson().fromJson(response, ResponseForReqByPos.class);

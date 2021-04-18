@@ -11,6 +11,11 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+/**
+ * Class represents information about one flux from SimbadResponse.
+ *
+ * @author Ľuboslav Halama
+ */
 @AllArgsConstructor
 @Getter
 public class SimbadFlux {

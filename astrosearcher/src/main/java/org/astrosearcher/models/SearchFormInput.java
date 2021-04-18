@@ -27,11 +27,8 @@ public class SearchFormInput {
 
     private String vizierCatalogueSearchBy;
 
-//    @NotNull(message = ValidationMSG.EMPTY_VIZIER_CAT_VALIDATION_MSG)
-//    @NotBlank(message = ValidationMSG.EMPTY_VIZIER_CAT_VALIDATION_MSG)
     private String vizierCat = VizierConstants.DEFAULT_CATALOG;
 
-//    private String filename;
     private MultipartFile file;
 
     private boolean queryMast = true;

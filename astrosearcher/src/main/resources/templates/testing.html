@@ -27,7 +27,8 @@
         <div><button class="datasource" onclick="showData(event, 'data-Vizier')"
                      th:text="'Vizier (' + ${vizierTables != null ? vizierTables.size() : 0} + ')'"></button></div>
         <div><button class="datasource" onclick="showData(event, 'data-Simbad')"
-                     th:text="'Simbad (' + ${simbadData != null ? simbadData.size() : 0} + ')'"></button></div>
+                     th:text="'Simbad (' + ${simbadResponse.assignedData.size()} + ')'">
+        </button></div>
     </div>
 
     <!-- Tab content -->

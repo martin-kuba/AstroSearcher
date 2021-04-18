@@ -10,6 +10,14 @@ import org.astrosearcher.utilities.ConnectionUtils;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * Class represents request object which is used in URL request sent to Sesame (CDS).
+ *
+ * Class provides basic properties for sending request to MAST server as well as main functionality for sending
+ * given request by our web application (implementation of abstract methods from abstract class RequestObject).
+ *
+ * @author Ľuboslav Halama
+ */
 @Getter
 @AllArgsConstructor
 public class SesameRequestObject extends RequestObject {

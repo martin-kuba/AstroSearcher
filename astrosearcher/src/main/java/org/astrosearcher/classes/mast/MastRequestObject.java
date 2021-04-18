@@ -60,7 +60,6 @@ public class MastRequestObject extends RequestObject {
             case MAST_CAOM_CONE:
                 params.putAll(new PositionInput(input.getSearchInput()).getAsMap());
                 params.put(MASTConstants.RADIUS_COLUMN, input.getRadius());
-//                System.out.println("Args: " + new PositionInput(input.getSearchInput()).getAsMap());
                 break;
             case MAST_CAOM_CROSSMATCH:
 
@@ -90,10 +89,6 @@ public class MastRequestObject extends RequestObject {
         // common parameters for all services
         page = input.getPage();
         pagesize = input.getPagesize();
-    }
-
-    private void loadCrossmatchInput(SearchFormInput input) {
-
     }
 
     @Override

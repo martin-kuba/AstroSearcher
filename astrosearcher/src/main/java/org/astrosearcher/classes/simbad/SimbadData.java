@@ -19,6 +19,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class represents parsed data from Simbad response.
+ *
+ * Data are being assigned by current field in each iteration.
+ *
+ * @author Ľuboslav Halama
+ */
 @Getter
 @NoArgsConstructor
 @Setter
@@ -73,9 +80,6 @@ public class SimbadData {
     public SimbadData(TDSet columns, List<SimbadFields> fields) {
         int columnIndex = 0;
         while (columnIndex < columns.getItemCount()) {
-
-//            System.out.println(fields.get(columnIndex) + " [" + columnIndex + "]: " +
-//                    ((SavotTD)columns.getItemAt(columnIndex)).getContent());
 
             switch (fields.get(columnIndex)) {
                 case TYPED_ID:
@@ -275,6 +279,7 @@ public class SimbadData {
         double pmdec_double = 0;
         boolean usePM = true;
 
+        // get RA and DEC
         try {
             ra_double  = Double.parseDouble(this.ra);
             dec_double = Double.parseDouble(this.dec);
@@ -283,6 +288,8 @@ public class SimbadData {
                     + nfe.getMessage());
             return;
         }
+
+        // get Proper Motion if possible, dont use it otherwise
         try {
             pmra_double  = Double.parseDouble(this.pmra);
             pmdec_double = Double.parseDouble(this.pmdec);
@@ -290,114 +297,65 @@ public class SimbadData {
             usePM = false;
         }
 
+        // calculate galactic coordinates and store them
         double[] results = SkyAlgorithms.J2000toGal(ra_double / 15, dec_double, pmra_double, pmdec_double, usePM);
         galacticLongitude = results[0];
         galacticLatitude  = results[1];
-
-//        System.out.println("    RA and DEC parsed.");
-//
-//        double theta = Math.toRadians(ra_double);    // Convert from deg to radians
-//        double phi   = Math.toRadians(dec_double);   // Convert from deg to radians
-//
-//        System.out.println("    RA and DEC converted to radians.");
-//
-//        System.out.println("    Calculating latitude...");
-//        galacticLatitude = Math.asin(
-//                Math.sin(phi) * Math.cos(Limits.delta_zero_rad)
-//                - Math.cos(phi) * Math.sin(theta - Limits.alpha_zero_rad) * Math.sin(Limits.delta_zero_rad)
-//        );
-//
-//        System.out.println("    Calculating longitude...");
-//        galacticLongitude = Math.acos(
-//                Math.cos(phi) * Math.cos(theta - Limits.alpha_zero_rad)
-//                / Math.cos(galacticLatitude)
-//        );
-
-//        System.out.println();
-//        System.out.println("    Converting longitude and latitude to degrees...");
-//        galacticLongitude = Math.toDegrees(galacticLongitude);
-//        galacticLatitude  = Math.toDegrees(galacticLatitude);
-
-
-//
-//        // Convert from spherical to cartesian coordinates system
-//        double x = Math.cos(theta) * Math.cos(phi);
-//        double y = Math.sin(theta) * Math.cos(phi);
-//        double z = Math.sin(phi);
-//
-//        // initialize matrices
-//        SimpleMatrix coords  = new SimpleMatrix(new double[][] {{x},{y},{z}});
-//
-//        SimpleMatrix rotate1 = new SimpleMatrix(new double[][] {
-//                {Math.cos(Limits.longitude_zero_rad),  Math.sin(Limits.longitude_zero_rad), 0},
-//                {-Math.sin(Limits.longitude_zero_rad), Math.cos(Limits.longitude_zero_rad), 0},
-//                {0, 0, 1}
-//        });
-//
-//        SimpleMatrix rotate2 = new SimpleMatrix(new double[][] {
-//                {1, 0, 0},
-//                {0, Math.cos(Limits.delta_zero_rad),  Math.sin(Limits.delta_zero_rad)},
-//                {0, -Math.sin(Limits.delta_zero_rad), Math.cos(Limits.delta_zero_rad)}
-//        });
-//
-//        SimpleMatrix rotate3 = new SimpleMatrix(new double[][] {
-//                {Math.cos(Limits.alpha_zero_rad),  Math.sin(Limits.alpha_zero_rad), 0},
-//                {-Math.sin(Limits.alpha_zero_rad), Math.cos(Limits.alpha_zero_rad), 0},
-//                {0, 0, 1}
-//        });
-//
-//        // rotate
-//        SimpleMatrix result = rotate1.mult(rotate2).mult(rotate3).mult(coords);
-//        System.out.println("Matrix:\n" + rotate1.mult(rotate2).mult(rotate3));
-//
-//        // get new cartesian coordinates from result matrix
-//        x = result.get(0, 0);
-//        y = result.get(1, 0);
-//        z = result.get(2, 0);
-//
-//        // convert from cartesian to spherical coodinate system
-//        theta = Math.atan2(y, x);
-//        phi   = Math.acos( z / Math.sqrt(x*x + y*y + z*z));
-//
-//        galacticLatitude = Math.asin(
-//                Math.sin(phi) * Math.cos(Limits.delta_zero_rad))
-//                - Math.cos(phi) * Math.sin(theta - Limits.alpha_zero_rad) * Math.sin(Limits.delta_zero_rad
-//        );
-//
-//        galacticLatitude = Math.asin(
-//                Math.sin(phi) * Math.cos(Limits.delta_zero_rad)
-//                - Math.cos(phi) * Math.sin(theta - Limits.alpha_zero_rad) * Math.sin(Limits.delta_zero_rad)
-//        );
-//        galacticLongitude = Math.acos(Math.cos(phi) * Math.cos(theta - Limits.alpha_zero_rad)
-//                / Math.cos(galacticLatitude)) + 33 * Math.PI / 180;
-//
-//        galacticLatitude   = galacticLatitude  * 180 / Math.PI;  // convert from radians to deg
-//        galacticLongitude  = galacticLongitude * 180 / Math.PI;  // convert from radians to deg
     }
 
+    /**
+     * Encodes object’s ID into URL format
+     *
+     * @return  URL encoded object’s ID
+     */
     public String getMainIdUrlEncoded() {
         return URLEncoder.encode(mainID, StandardCharsets.UTF_8);
     }
 
+    /**
+     * Result from function is used for proper generation of links for CDS Portal.
+     *
+     * @return  constructed URL for CDS Portal (with given object ID settings)
+     */
     public String getCDSPortalUrl() {
         return SimbadConstants.CDS_PORTAL_UrL + "?target=" + getMainIdUrlEncoded();
     }
 
+    /**
+     * Result from function is used for proper generation of links for Simbad object ID reference query.
+     *
+     * @return  constructed URL for Simbad query by object ID reference (bibcode)
+     */
     public String getReferencesUrl() {
         return SimbadConstants.CONNECTION_URL + SimbadServices.SIMBAD_ID_REFERENCE +
                 "?" + SimbadArgType.ID + "=" + URLEncoder.encode(mainID, StandardCharsets.UTF_8);
     }
 
+    /**
+     * Result from function is used for proper generation of links for Simbad object Proper Motion reference query.
+     *
+     * @return  constructed URL for Simbad query by object Proper Motion reference (bibcode)
+     */
     public String getPMBibcodeUrl() {
         return SimbadConstants.CONNECTION_URL + SimbadServices.SIMBAD_REFERENCE
                 + "?bibcode=" + URLEncoder.encode(pmBibcode, StandardCharsets.UTF_8);
     }
 
+    /**
+     * Result from function is used for proper generation of links for Simbad object parallax reference query.
+     *
+     * @return  constructed URL for Simbad query by object Parallax reference (bibcode)
+     */
     public String getParallaxBibcodeUrl() {
         return SimbadConstants.CONNECTION_URL + SimbadServices.SIMBAD_REFERENCE
                 + "?bibcode=" + URLEncoder.encode(parallaxBibcode, StandardCharsets.UTF_8);
     }
 
+    /**
+     * Result from function is used for proper generation of links for Simbad ID query.
+     *
+     * @return  constructed URL for Simbad query by object ID
+     */
     public String getQueryUrl() {
         return SimbadConstants.CONNECTION_URL + SimbadServices.SIMBAD_ID
                 + "?" + SimbadArgType.ID + "=" + URLEncoder.encode(mainID, StandardCharsets.UTF_8);

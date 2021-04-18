@@ -110,8 +110,6 @@ public class SearchEngine {
             responseData.setSimbadResponse(new SimbadResponse());
         }
 
-//        System.out.println("Simbad response acquired and parsed.\n");
-
         // Vizier
         if (input.isQueryVizier()) {
             responseData.setVizierResponse(VizierSearchEngine.findAllById(input));

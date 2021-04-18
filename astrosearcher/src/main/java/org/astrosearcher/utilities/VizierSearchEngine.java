@@ -47,11 +47,6 @@ public class VizierSearchEngine {
         }
 
         return new VizierResponse(VizierServices.VIZIER_ID, vot.getResources());
-
-//        return new VizierResponse(VizierServices.VIZIER_ID,
-//                ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems(),
-//                ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
-//        );
     }
 
     public static VizierResponse findAllByPosition(SearchFormInput input) {
@@ -65,7 +60,6 @@ public class VizierSearchEngine {
         SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
                 SavotPullEngine.FULL,
                 "UTF-8");
-//        System.out.println("done");
 
         SavotVOTable vot = parser.getVOTable();
 
@@ -74,11 +68,6 @@ public class VizierSearchEngine {
         }
 
         return new VizierResponse(VizierServices.VIZIER_COORDINATES, vot.getResources());
-
-//        return new VizierResponse(VizierServices.VIZIER_COORDINATES,
-//                ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems(),
-//                ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
-//        );
     }
 
     public static VizierResponse findAllByCrossmatch(SearchFormInput input) {
@@ -91,7 +80,6 @@ public class VizierSearchEngine {
         SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
                 SavotPullEngine.FULL,
                 "UTF-8");
-//        System.out.println("done");
 
         SavotVOTable vot = parser.getVOTable();
 
@@ -110,16 +98,5 @@ public class VizierSearchEngine {
         }
 
         return vot.getResources().getItemCount() == 0;
-//        if (vot.getResources().getItemCount() == 0 ) {
-//            return true;
-//        }
-
-        // TODO: rework so these two IFs can be removed (moved to VizierResponse class)
-
-//        if (((SavotResource)vot.getResources().getItemAt(0)).getTableCount() == 0 ) {
-//            return true;
-//        }
-//
-//        return ((SavotResource) vot.getResources().getItemAt(0)).getData(0) == null;
     }
 }

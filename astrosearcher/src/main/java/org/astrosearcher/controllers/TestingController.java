@@ -47,7 +47,7 @@ public class TestingController {
         if (responseData.containsSimbadResponse()) {
             // TODO: load Simbad response
             model.addAttribute("simbadFields",   responseData.getSimbadResponse().getFields()      );
-            model.addAttribute("simbadData",     responseData.getSimbadResponse().getData()        );
+//            model.addAttribute("simbadData",     responseData.getSimbadResponse().getData()        );
             model.addAttribute("simbadType",     responseData.getSimbadResponse().getType().name() );
             model.addAttribute("simbadResponse", responseData.getSimbadResponse());
 
