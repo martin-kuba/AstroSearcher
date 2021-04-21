@@ -105,7 +105,11 @@ public class SearchEngine {
 
         // Simbad
         if (input.isQuerySimbad()) {
-            responseData.setSimbadResponse(SimbadSearchEngine.findAllById(input));
+            if (RegularExpressions.isIAUFormat(input.getSearchInput())) {
+                responseData.setSimbadResponse(SimbadSearchEngine.findAllByPosition(input));
+            } else {
+                responseData.setSimbadResponse(SimbadSearchEngine.findAllById(input));
+            }
         } else {
             responseData.setSimbadResponse(new SimbadResponse());
         }

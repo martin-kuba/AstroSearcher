@@ -15,6 +15,7 @@ public final class RegularExpressions {
     public static final String IAU_INPUT_ReGEX = "[JB]" + UNSIGN_FRUMBER + SIGN_FRUMBER;
 
 
+
     // input from file
     public static final String FILE_STRICT_COLUMN_NAMES = "^ra,dec$";
     public static final String FILE_COLUMNS_NAMES = "([a-zA-Z]*)\\s*([a-zA-Z]*).*";

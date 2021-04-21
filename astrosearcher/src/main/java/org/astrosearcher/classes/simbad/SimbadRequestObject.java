@@ -3,6 +3,7 @@ package org.astrosearcher.classes.simbad;
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
 import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.RegularExpressions;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.constants.cds.SimbadConstants;
 import org.astrosearcher.enums.cds.simbad.SimbadArgType;
@@ -40,8 +41,14 @@ public class SimbadRequestObject extends RequestObject {
                 args.add(new SimbadArg(SimbadArgType.ID, input.getSearchInput()));
                 break;
             case SIMBAD_COORDINATES:
-                PositionInput position = new PositionInput(input.getSearchInput());
-                args.add(new SimbadArg(SimbadArgType.COORDINATES, position.getPosition()));
+
+                if (RegularExpressions.isIAUFormat(input.getSearchInput())) {
+                    args.add(new SimbadArg(SimbadArgType.COORDINATES, input.getSearchInput()));
+                } else {
+                    PositionInput position = new PositionInput(input.getSearchInput());
+                    args.add(new SimbadArg(SimbadArgType.COORDINATES, position.getPosition()));
+                }
+
                 args.add(new SimbadArg(SimbadArgType.RADIUS, input.getRadius()));
                 args.add(new SimbadArg(SimbadArgType.RADIUS_UNIT, SimbadConstants.DEFAULT_RADIUS_UNIT));
                 args.add(new SimbadArg(SimbadArgType.OUTPUT_LIMIT, input.getPagesize()));
