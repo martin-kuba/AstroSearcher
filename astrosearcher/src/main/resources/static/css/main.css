@@ -1,0 +1,129 @@
+html {
+    height: 100%;
+    background: url(../images/sky.jpg) no-repeat fixed center center;
+    background-size: cover;
+    /*font-family: sans-serif;*/
+}
+
+body {
+    height: 100%;
+    font-size: 1.2rem;
+    background: inherit;
+}
+
+header {
+    color: white;
+    font-size: 1.5rem;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.h-90 {
+    height: 90% !important;
+}
+
+.table-cells-py-0 > tbody > tr > td {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.table-cells-pe-3 > tbody > tr > td {
+    padding-right: 1.0rem;
+}
+
+.flex-basis-25 > * {
+    flex-basis: 25%;
+}
+
+.grid-cols-autofit {
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+}
+
+.rounded-5 {
+    border-radius: 1rem !important;
+}
+
+.mt-6 {
+    margin-top: 5rem !important;
+}
+
+.mt-7 {
+    margin-top: 7.5rem !important;
+}
+
+/*******************
+ **   F O R M S   **
+ *******************/
+.alert {
+    padding: 0.25rem 0.5rem;
+    margin-bottom: 0;
+}
+
+.form-label, .form-check-label {
+    color: white;
+    padding: 0.1rem 0;
+}
+
+.form-check-input {
+    width:  1.55rem;
+    height: 1.55rem;
+}
+
+.bg-black-03 {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.tab {
+    width: 95%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    overflow: hidden;
+    background-color: transparent;
+    text-align: center;
+    margin: 0 auto;
+    padding-top: 2em;
+}
+
+
+/***********************
+ **   R E S U L T S   **
+ ***********************/
+.tab button {
+    width: 100%;
+    background-color: inherit;
+    color: #ffffff;
+
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0.5em 1em;
+    transition: 0.3s;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.tab button:hover {
+    background-color: rgba(0, 191, 255, 0.15);
+    color: #ffffff;
+}
+
+.tab button.active {
+    background-color: rgba(0, 95, 127, 0.3);
+    color: #ffffff;
+}
+
+/* Style the tab content */
+.tabcontent {
+    width: 95%;
+    height: 80%;
+    display: none;
+    padding: 0;
+    border: none;
+    margin: 0 auto;
+}
+
+.table-primary thead > * > * {
+    background-color: #0d6efd;
+    color: white;
+}
