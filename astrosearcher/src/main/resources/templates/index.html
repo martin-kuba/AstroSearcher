@@ -49,11 +49,11 @@
                     </div>
                 </div>
                 <div class="row mb-2">
-                    <div class="col-2 offset-2">
+                    <div class="col-3 offset-2">
                         <label for="pageSizeLabel" class="form-label">Page&nbsp;size:</label>
                         <input class="form-control" id="pageSizeLabel" th:field="${searchFormInput.pagesize}">
                     </div>
-                    <div class="col-2">
+                    <div class="col-3">
                         <label for="pageLabel" class="form-label">Page:</label>
                         <input class="form-control" id="pageLabel" th:field="${searchFormInput.page}">
                     </div>
@@ -66,26 +66,26 @@
                         </select>
                     </div>
                     <div class="col-10">
-                        <label for="vizierCatLabel" class="form-label">Vizier Catalogue (shortcut / words to search by):</label>
+                        <label for="vizierCatLabel" class="form-label">Vizier Catalogues:</label>
                         <input class="form-control" id="vizierCatLabel" th:field="${searchFormInput.vizierCat}"
                                placeholder="V/139/sdss9 or description">
                     </div>
                 </div>
-                <div class="row justify-content-center mb-5">
-                    <div class="col-2 offset-2 form-check">
-                        <input class="form-check-input me-2" type="checkbox" id="mastCheck"
+                <div class="row justify-content-evenly mb-5">
+                    <div class="col-auto form-check justify-content-center">
+                        <input class="form-check-lg me-2 align-middle" type="checkbox" id="mastCheck"
                                th:field="${searchFormInput.queryMast}">
-                        <label for="mastCheck" class="form-check-label">MAST</label>
+                        <label for="mastCheck" class="form-check-label align-middle">MAST</label>
                     </div>
-                    <div class="col-2 form-check">
-                        <input class="form-check-input me-2" type="checkbox" id="vizierCheck"
+                    <div class="col-auto form-check justify-content-center">
+                        <input class="form-check-lg me-2 align-middle" type="checkbox" id="vizierCheck"
                                th:field="${searchFormInput.queryVizier}">
-                        <label for="vizierCheck" class="form-check-label">Vizier</label>
+                        <label for="vizierCheck" class="form-check-label align-middle">Vizier</label>
                     </div>
-                    <div class="col-2 form-check">
-                        <input class="form-check-input me-2" type="checkbox" id="simbadCheck"
+                    <div class="col-auto form-check justify-content-center">
+                        <input class="form-check-lg me-2 align-middle" type="checkbox" id="simbadCheck"
                                th:field="${searchFormInput.querySimbad}">
-                        <label for="simbadCheck" class="form-check-label">Simbad</label>
+                        <label for="simbadCheck" class="form-check-label align-middle">Simbad</label>
                     </div>
                 </div>
                 <div class="row">

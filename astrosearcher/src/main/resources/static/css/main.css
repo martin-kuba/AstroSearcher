@@ -58,12 +58,16 @@ header {
     margin-bottom: 0;
 }
 
-.form-label, .form-check-label {
+.form-label {
     color: white;
     padding: 0.1rem 0;
 }
 
-.form-check-input {
+.form-check-label {
+    color: white;;
+}
+
+.form-check-lg {
     width:  1.55rem;
     height: 1.55rem;
 }
