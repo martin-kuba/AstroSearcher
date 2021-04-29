@@ -20,59 +20,59 @@
     <header>
         <nav th:replace="fragments :: navigation"></nav>
     </header>
-        <div class="position-absolute top-50 start-50 translate-middle w-75">
-            <form class="container p-4 mx-auto bg-black-03 rounded-5" action="testing" method="post"
-                  enctype="multipart/form-data" onsubmit="btnToLoadingStatus(event)">
-                <div class="row mb-2 gx-lg-3">
-                    <div class="col-8 offset-2">
+        <div class="position-absolute top-50 start-50 translate-middle w-100">
+            <form class="container p-2 p-md-3 p-lg-4 mx-auto bg-black-03 rounded-5 w-min-75"
+                  action="testing" method="post" enctype="multipart/form-data" onsubmit="btnToLoadingStatus(event)">
+                <div class="row mb-2 gx-2 gx-md-3 gx-lg-4">
+                    <div class="col-6 col-md-8 offset-3 offset-md-2">
                         <div th:class="${#strings.isEmpty(errorMSG)}
                            ? 'alert alert-warning collapse'
                            : 'alert alert-warning collapse.show()'"
                              th:text="${errorMSG}" role="alert">&nbsp;> </div>
                     </div>
-                    <div class="col-2"><label class="form-label">Radius [&nbsp;deg&nbsp;]</label></div>
+                    <div class="col-3 col-md-2"><label class="form-label">Radius [&nbsp;deg&nbsp;]</label></div>
                 </div>
-                <div class="row mb-1 gx-lg-3">
-                    <div class="col-2">
+                <div class="row mb-1 gx-2 gx-md-3 gx-lg-4">
+                    <div class="col-3 col-md-2">
                         <select class="form-select" th:field="${searchFormInput.searchBy}">
                             <option th:each="opt : ${searchOptions}" th:value="${opt}" th:text="${opt}"></option>
                         </select>
                     </div>
-                    <div class="col-8">
+                    <div class="col-6 col-md-8">
                         <input class="form-control" th:field="${searchFormInput.searchInput}"
                                placeholder="Enter ID (name) or position (ra, dec)">
                     </div>
-                    <div class="col-2"><input class="form-control" th:field="${searchFormInput.radius}"></div>
+                    <div class="col-3 col-md-2"><input class="form-control" th:field="${searchFormInput.radius}"></div>
                 </div>
-                <div class="row mb-2 gx-lg-3">
-                    <div class="col-8 offset-2">
+                <div class="row mb-2 gx-2 gx-md-3 gx-lg-4">
+                    <div class="col-6 col-md-8 offset-3 offset-md-2">
                         <input class="form-control" id="upload-file" type="file" th:field="${searchFormInput.file}">
                     </div>
                 </div>
-                <div class="row mb-2 gx-lg-3">
-                    <div class="col-3 offset-2">
+                <div class="row mb-2 gx-2 gx-md-3 gx-lg-4">
+                    <div class="col-4 col-md-3 offset-3 offset-md-2">
                         <label for="pageSizeLabel" class="form-label">Page&nbsp;size:</label>
                         <input class="form-control" id="pageSizeLabel" th:field="${searchFormInput.pagesize}">
                     </div>
-                    <div class="col-3">
+                    <div class="col-4 col-md-3">
                         <label for="pageLabel" class="form-label">Page:</label>
                         <input class="form-control" id="pageLabel" th:field="${searchFormInput.page}">
                     </div>
                 </div>
-                <div class="row mb-3 gx-lg-3">
-                    <div class="col-2">
+                <div class="row mb-3 gx-2 gx-md-3 gx-lg-4">
+                    <div class="col-3 col-md-2">
                         <label for="vizierSelect" class="form-label">&nbsp;</label>
                         <select class="form-select" id="vizierSelect" th:field="${searchFormInput.vizierCatalogueSearchBy}">
                             <option th:each="opt : ${vizierOptions}" th:value="${opt}" th:text="${opt}"></option>
                         </select>
                     </div>
-                    <div class="col-10">
+                    <div class="col-9 col-md-10">
                         <label for="vizierCatLabel" class="form-label">Vizier Catalogues:</label>
                         <input class="form-control" id="vizierCatLabel" th:field="${searchFormInput.vizierCat}"
                                placeholder="V/139/sdss9 or description">
                     </div>
                 </div>
-                <div class="row justify-content-evenly mb-5 gx-lg-3">
+                <div class="row justify-content-evenly mb-5 gx-2 gx-md-3 gx-lg-4">
                     <div class="col-auto form-check justify-content-center px-0">
                         <input class="form-check-lg me-2 align-middle" type="checkbox" id="mastCheck"
                                th:field="${searchFormInput.queryMast}">
@@ -89,8 +89,8 @@
                         <label for="simbadCheck" class="form-check-label align-middle">Simbad</label>
                     </div>
                 </div>
-                <div class="row gx-lg-3">
-                    <div class="d-grid col-4 mx-auto">
+                <div class="row gx-2 gx-md-3 gx-lg-4">
+                    <div class="d-grid col-6 col-md-4 mx-auto">
                         <button id="btn-search" type="submit"
                                 class="btn btn-primary btn-lg d-flex align-items-center justify-content-center">
                             <span id="spinner" class="spinner-border spinner-border-sm me-2" role="status" hidden></span>

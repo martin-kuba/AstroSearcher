@@ -7,7 +7,7 @@ html {
 
 body {
     height: 100%;
-    font-size: 1.2rem;
+    font-size: 1.15rem;
     background: inherit;
 }
 
@@ -52,6 +52,14 @@ header {
 
 .mt-7 {
     margin-top: 7.5rem !important;
+}
+
+.mw-90 {
+    max-width: 90%;
+}
+
+.w-min-75 {
+    min-width: 75%;
 }
 
 /*******************

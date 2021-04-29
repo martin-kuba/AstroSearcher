@@ -110,7 +110,7 @@ Simbad fragment => query by ID
 -->
 <div th:fragment="Simbad-id">
     <th:block th:if="${containsSimbad}" th:with="data = ${simbadResponse.assignedData.get(0)}">
-        <div class="container-fluid bg-black-03 text-white py-1 rounded-5 px-lg-5">
+        <div class="container-fluid bg-black-03 text-white py-1 rounded-5 px-2 px-md-3 px-lg-4">
             <div class="row d-flex justify-content-around">
                 <div class="col-auto my-5"> <div th:replace="results :: Simbad-id-general-info"></div> </div>
                 <div class="col-auto my-5"> <div th:replace="results :: Simbad-id-coordinates"></div>  </div>
@@ -118,7 +118,7 @@ Simbad fragment => query by ID
             </div>
         </div>
 
-        <div class="container-fluid bg-black-03 text-white px-5 py-1 mt-5 rounded-5">
+        <div class="container-fluid bg-black-03 text-white py-1 mt-5 rounded-5 px-2 px-md-3 px-lg-4">
             <div class="row d-flex justify-content-around">
                 <div class="col-auto my-5"> <div th:replace="results :: Simbad-id-fluxes"></div>       </div>
                 <div class="col-auto my-5"> <div th:replace="results :: Simbad-id-parallax"></div>     </div>
@@ -288,7 +288,7 @@ Simbad fragment => query by ID - General Info [1]
         <div class="col text-primary"><h3>General information</h3></div>
     </div>
     <div class="overflow-auto">
-        <table class="table-cells-pe-2 table-cells-py-0 text-nowrap">
+        <table class="table-cells-pe-3 table-cells-py-0 text-nowrap">
             <tbody>
             <tr>
                 <td class="fw-bold">Queried:</td>
@@ -347,7 +347,7 @@ Simbad fragment => query by ID - Coordinates [2]
         <div class="col text-primary"><h3>Coordinates (ICRS)</h3></div>
     </div>
     <div class="overflow-auto">
-        <table class="table-cells-pe-2 table-cells-py-0 mb-4 text-nowrap">
+        <table class="table-cells-pe-3 table-cells-py-0 mb-4 text-nowrap">
             <tbody>
             <tr>
                 <td class="fw-bold">RA:</td>
@@ -382,7 +382,7 @@ Simbad fragment => query by ID - Coordinates [2]
         <div class="col text-primary"><h3>Coordinates (Galactic)</h3></div>
     </div>
     <div class="overflow-auto">
-        <table class="table-cells-pe-2 table-cells-py-0 text-nowrap">
+        <table class="table-cells-pe-3 table-cells-py-0 text-nowrap">
             <tbody>
             <tr>
                 <td class="fw-bold">Gal. longitude:</td>
@@ -409,7 +409,7 @@ Simbad fragment => query by ID - Proper Motion [3]
         <div class="col text-primary"><h3 th:text="${'Proper Motion ' + data.pmSystem}"></h3></div>
     </div>
     <div class="overflow-auto">
-        <table class="table-cells-pe-2 table-cells-py-0 text-nowrap">
+        <table class="table-cells-pe-3 table-cells-py-0 text-nowrap">
             <tbody>
             <tr>
                 <td class="fw-bold">RA:</td>
@@ -455,7 +455,7 @@ Simbad fragment => query by ID - Fluxes [4]
         <div class="col text-primary"><h3>Fluxes</h3></div>
     </div>
     <div class="overflow-auto">
-        <table class="table table-primary table-striped table-responsive table-cells-pe-2 table-cells-py-0 m-0 text-nowrap">
+        <table class="table table-primary table-striped table-responsive table-cells-pe-3 table-cells-py-0 m-0 text-nowrap">
             <thead>
             <tr>
                 <th class="text-nowrap">Filter</th>
@@ -495,7 +495,7 @@ Simbad fragment => query by ID - Parallax [5]
         <div class="col text-primary"><h3>Parallax</h3></div>
     </div>
     <div class="overflow-auto">
-        <table class="table-cells-pe-2 table-cells-py-0 text-nowrap">
+        <table class="table-cells-pe-3 table-cells-py-0 text-nowrap">
             <tbody>
             <tr>
                 <td class="fw-bold">Value:</td>
@@ -532,7 +532,7 @@ Simbad fragment => query by ID - Further Information [6]
         <div class="col text-primary"><h3>Further Information</h3></div>
     </div>
     <div class="overflow-auto">
-        <table class="table-cells-pe-2 table-cells-py-0 mb-3 text-nowrap">
+        <table class="table-cells-pe-3 table-cells-py-0 mb-3 text-nowrap">
             <tbody>
             <tr>
                 <td class="fw-bold">Radial velocity:</td>
