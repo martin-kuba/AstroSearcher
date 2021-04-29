@@ -26,8 +26,12 @@ header {
     padding-bottom: 0;
 }
 
+.table-cells-pe-2 > tbody > tr > td {
+    padding-right: 0.5rem;
+}
+
 .table-cells-pe-3 > tbody > tr > td {
-    padding-right: 1.0rem;
+    padding-right: 1rem;
 }
 
 .flex-basis-25 > * {

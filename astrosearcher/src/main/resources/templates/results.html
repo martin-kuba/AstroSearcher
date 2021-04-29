@@ -110,7 +110,7 @@ Simbad fragment => query by ID
 -->
 <div th:fragment="Simbad-id">
     <th:block th:if="${containsSimbad}" th:with="data = ${simbadResponse.assignedData.get(0)}">
-        <div class="container-fluid bg-black-03 text-white px-5 py-1 rounded-5">
+        <div class="container-fluid bg-black-03 text-white py-1 rounded-5 px-lg-5">
             <div class="row d-flex justify-content-around">
                 <div class="col-auto my-5"> <div th:replace="results :: Simbad-id-general-info"></div> </div>
                 <div class="col-auto my-5"> <div th:replace="results :: Simbad-id-coordinates"></div>  </div>
@@ -287,51 +287,54 @@ Simbad fragment => query by ID - General Info [1]
     <div class="row mb-4">
         <div class="col text-primary"><h3>General information</h3></div>
     </div>
-    <table class="table-cells-pe-3 table-cells-py-0">
-        <tbody>
-        <tr>
-            <td class="fw-bold">Queried:</td>
-            <td th:text="${data.queried}"></td>
-        </tr>
-        <tr>
-            <td class="fw-bold">Main ID:</td>
-            <td><a class="link-warning text-decoration-none"
-                   th:href="@{'/identifiers?id=' + ${data.getMainIdUrlEncoded()}}"
-                   th:text="${data.mainID}" target="_blank"></a></td>
-        </tr>
-        <tr>
-            <td class="fw-bold">Object type:</td>
-            <td><a class="link-warning text-decoration-none" th:href="@{${simbadResponse.objectTypeDescLink}}"
-                   th:text="${data.objectType}" target="_blank"></a></td>
-        </tr>
-        <tr>
-            <td class="fw-bold">References:</td>
-            <td><a class="link-warning text-decoration-none" th:href="@{${data.getReferencesUrl()}}"
-                   th:text="${data.references}" target="_blank"></a></td>
-        </tr>
-        <tr th:if="${!#strings.isEmpty(data.angularDistance)}">
-            <td class="fw-bold">Ang. dist:</td>
-            <td th:text="${data.angularDistance}"></td>
-        </tr>
-        <tr th:if="${!#strings.isEmpty(data.angularSizeMajor) || !#strings.isEmpty(data.angularSizeMinor)} ">
-            <td class="fw-bold">Ang. size (major, minor):</td>
-            <td th:text="${data.angularSizeMajor}"></td>
-            <td th:text="${data.angularSizeMinor}"></td>
-        </tr>
-        <tr th:if="${!#strings.isEmpty(data.angularSizeAngle)}" class="mb-4">
-            <td class="fw-bold">Ang. size (angle):</td>
-            <td th:text="${data.angularSizeAngle}"></td>
-        </tr>
-        <tr th:if="${!#strings.isEmpty(data.spectralType)}">
-            <td class="fw-bold">Spectral type:</td>
-            <td th:text="${data.spectralType}"></td>
-        </tr>
-        <tr th:if="${!#strings.isEmpty(data.morphologicalType)}">
-            <td class="fw-bold">Morphological type:</td>
-            <td th:text="${data.morphologicalType}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="overflow-auto">
+        <table class="table-cells-pe-2 table-cells-py-0 text-nowrap">
+            <tbody>
+            <tr>
+                <td class="fw-bold">Queried:</td>
+                <td th:text="${data.queried}"></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Main ID:</td>
+                <td><a class="link-warning text-decoration-none"
+                       th:href="@{'/identifiers?id=' + ${data.getMainIdUrlEncoded()}}"
+                       th:text="${data.mainID}" target="_blank"></a></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Object type:</td>
+                <td><a class="link-warning text-decoration-none" th:href="@{${simbadResponse.objectTypeDescLink}}"
+                       th:text="${data.objectType}" target="_blank"></a></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">References:</td>
+                <td><a class="link-warning text-decoration-none" th:href="@{${data.getReferencesUrl()}}"
+                       th:text="${data.references}" target="_blank"></a></td>
+            </tr>
+            <tr th:if="${!#strings.isEmpty(data.angularDistance)}">
+                <td class="fw-bold">Ang. dist:</td>
+                <td th:text="${data.angularDistance}"></td>
+            </tr>
+            <tr th:if="${!#strings.isEmpty(data.angularSizeMajor) || !#strings.isEmpty(data.angularSizeMinor)} ">
+                <td class="fw-bold">Ang. size (major, minor):</td>
+                <td th:text="${data.angularSizeMajor}"></td>
+                <td th:text="${data.angularSizeMinor}"></td>
+            </tr>
+            <tr th:if="${!#strings.isEmpty(data.angularSizeAngle)}" class="mb-4">
+                <td class="fw-bold">Ang. size (angle):</td>
+                <td th:text="${data.angularSizeAngle}"></td>
+            </tr>
+            <tr th:if="${!#strings.isEmpty(data.spectralType)}">
+                <td class="fw-bold">Spectral type:</td>
+                <td th:text="${data.spectralType}"></td>
+            </tr>
+            <tr th:if="${!#strings.isEmpty(data.morphologicalType)}">
+                <td class="fw-bold">Morphological type:</td>
+                <td th:text="${data.morphologicalType}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 
 <!--
@@ -343,53 +346,57 @@ Simbad fragment => query by ID - Coordinates [2]
     <div class="row mb-4">
         <div class="col text-primary"><h3>Coordinates (ICRS)</h3></div>
     </div>
-    <table class="table-cells-pe-3 table-cells-py-0 mb-4">
-        <tbody>
-        <tr>
-            <td class="fw-bold">RA:</td>
-            <td th:text="${data.ra}"></td>
-            <td th:text="${simbadResponse.raUnit}"></td>
-        </tr>
-        <tr>
-            <td class="fw-bold">Dec:</td>
-            <td th:text="${data.dec}"></td>
-            <td th:text="${simbadResponse.decUnit}"></td>
-        </tr>
-        <tr>
-            <td class="fw-bold">Error (Major axis):</td>
-            <td th:text="${data.coordErrorMajA}"></td>
-            <td th:text="${simbadResponse.coordErrorMajAUnit}"></td>
-        </tr>
-        <tr>
-            <td class="fw-bold">Error (Minor axis):</td>
-            <td th:text="${data.coordErrorMinA}"></td>
-            <td th:text="${simbadResponse.coordErrorMinAUnit}"></td>
-        </tr>
-        <tr>
-            <td class="fw-bold">Error (Angle):</td>
-            <td th:text="${data.coordErrorAng}"></td>
-            <td th:text="${simbadResponse.coordErrorAngUnit}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="overflow-auto">
+        <table class="table-cells-pe-2 table-cells-py-0 mb-4 text-nowrap">
+            <tbody>
+            <tr>
+                <td class="fw-bold">RA:</td>
+                <td th:text="${data.ra}"></td>
+                <td th:text="${simbadResponse.raUnit}"></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Dec:</td>
+                <td th:text="${data.dec}"></td>
+                <td th:text="${simbadResponse.decUnit}"></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Error (Major axis):</td>
+                <td th:text="${data.coordErrorMajA}"></td>
+                <td th:text="${simbadResponse.coordErrorMajAUnit}"></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Error (Minor axis):</td>
+                <td th:text="${data.coordErrorMinA}"></td>
+                <td th:text="${simbadResponse.coordErrorMinAUnit}"></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Error (Angle):</td>
+                <td th:text="${data.coordErrorAng}"></td>
+                <td th:text="${simbadResponse.coordErrorAngUnit}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     <div class="row mb-4">
         <div class="col text-primary"><h3>Coordinates (Galactic)</h3></div>
     </div>
-    <table class="table-cells-pe-3 table-cells-py-0">
-        <tbody>
-        <tr>
-            <td class="fw-bold">Gal. longitude:</td>
-            <td th:text="${data.galacticLongitude}"></td>
-            <td th:text="${simbadResponse.galLongitudeUnit}"></td>
-        </tr>
-        <tr>
-            <td class="fw-bold">Gal. latitude:</td>
-            <td th:text="${data.galacticLatitude}"></td>
-            <td th:text="${simbadResponse.galLatitudeUnit}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="overflow-auto">
+        <table class="table-cells-pe-2 table-cells-py-0 text-nowrap">
+            <tbody>
+            <tr>
+                <td class="fw-bold">Gal. longitude:</td>
+                <td th:text="${data.galacticLongitude}"></td>
+                <td th:text="${simbadResponse.galLongitudeUnit}"></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Gal. latitude:</td>
+                <td th:text="${data.galacticLatitude}"></td>
+                <td th:text="${simbadResponse.galLatitudeUnit}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <!--
@@ -401,38 +408,41 @@ Simbad fragment => query by ID - Proper Motion [3]
     <div class="row mb-4">
         <div class="col text-primary"><h3 th:text="${'Proper Motion ' + data.pmSystem}"></h3></div>
     </div>
-    <table class="table-cells-pe-3 table-cells-py-0">
-        <tbody>
-        <tr>
-            <td class="fw-bold">RA:</td>
-            <td th:text="${data.pmra}"></td>
-            <td th:text="${simbadResponse.pmraUnit}"></td>
-        </tr>
-        <tr>
-            <td class="fw-bold">Dec:</td>
-            <td th:text="${data.pmdec}"></td>
-            <td th:text="${simbadResponse.pmdecUnit}"></td>
-        </tr>
-        <tr>
-            <td class="fw-bold">Error (Major axis):</td>
-            <td th:text="${data.pmErrorMajA}"></td>
-        </tr>
-        <tr>
-            <td class="fw-bold">Error (Minor axis):</td>
-            <td th:text="${data.pmErrorMinA}"></td>
-        </tr>
-        <tr>
-            <td class="fw-bold">Error (Angle):</td>
-            <td th:text="${data.pmErrorAng}"></td>
-        </tr>
-        <tr>
-            <td class="fw-bold">Bibcode:</td>
-            <td colspan="2">
-                <a class="link-warning text-decoration-none"
-                   th:href="@{${data.getPMBibcodeUrl()}}" th:text="${data.pmBibcode}" target="_blank"></a></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="overflow-auto">
+        <table class="table-cells-pe-2 table-cells-py-0 text-nowrap">
+            <tbody>
+            <tr>
+                <td class="fw-bold">RA:</td>
+                <td th:text="${data.pmra}"></td>
+                <td th:text="${simbadResponse.pmraUnit}"></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Dec:</td>
+                <td th:text="${data.pmdec}"></td>
+                <td th:text="${simbadResponse.pmdecUnit}"></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Error (Major axis):</td>
+                <td th:text="${data.pmErrorMajA}"></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Error (Minor axis):</td>
+                <td th:text="${data.pmErrorMinA}"></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Error (Angle):</td>
+                <td th:text="${data.pmErrorAng}"></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Bibcode:</td>
+                <td colspan="2">
+                    <a class="link-warning text-decoration-none"
+                       th:href="@{${data.getPMBibcodeUrl()}}" th:text="${data.pmBibcode}" target="_blank"></a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 
 <!--
@@ -444,32 +454,35 @@ Simbad fragment => query by ID - Fluxes [4]
     <div class="row mb-4">
         <div class="col text-primary"><h3>Fluxes</h3></div>
     </div>
-    <table class="table table-primary table-striped table-responsive table-cells-pe-3 table-cells-py-0">
-        <thead>
-        <tr>
-            <th class="text-nowrap">Filter</th>
-            <th class="text-nowrap">Magnitude</th>
-            <th class="text-nowrap">Error</th>
-            <th class="text-nowrap">System</th>
-            <th class="text-nowrap">Bibcode</th>
-            <th class="text-nowrap">Quality</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="flux : ${data.fluxes.values()}">
-            <td class="text-nowrap" th:text="${flux.filter}"></td>
-            <td class="text-nowrap" th:text="${flux.magnitude}"></td>
-            <td class="text-nowrap" th:text="${flux.error}"></td>
-            <td class="text-nowrap" th:text="${flux.system}"></td>
-            <td class="text-nowrap">
-                <a style="color: midnightblue;"
-                   th:href="@{${flux.getBibcodeUrl()}}"
-                   th:text="${flux.bibcode}" target="_blank"></a>
-            </td>
-            <td class="text-nowrap" th:text="${flux.qualityFlag}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="overflow-auto">
+        <table class="table table-primary table-striped table-responsive table-cells-pe-2 table-cells-py-0 m-0 text-nowrap">
+            <thead>
+            <tr>
+                <th class="text-nowrap">Filter</th>
+                <th class="text-nowrap">Magnitude</th>
+                <th class="text-nowrap">Error</th>
+                <th class="text-nowrap">System</th>
+                <th class="text-nowrap">Bibcode</th>
+                <th class="text-nowrap">Quality</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="flux : ${data.fluxes.values()}">
+                <td class="text-nowrap" th:text="${flux.filter}"></td>
+                <td class="text-nowrap" th:text="${flux.magnitude}"></td>
+                <td class="text-nowrap" th:text="${flux.error}"></td>
+                <td class="text-nowrap" th:text="${flux.system}"></td>
+                <td class="text-nowrap">
+                    <a class="link-primary text-decoration-none"
+                       th:href="@{${flux.getBibcodeUrl()}}"
+                       th:text="${flux.bibcode}" target="_blank"></a>
+                </td>
+                <td class="text-nowrap" th:text="${flux.qualityFlag}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
 
 <!--
@@ -481,29 +494,31 @@ Simbad fragment => query by ID - Parallax [5]
     <div class="row mb-4">
         <div class="col text-primary"><h3>Parallax</h3></div>
     </div>
-    <table class="table-cells-pe-3 table-cells-py-0">
-        <tbody>
-        <tr>
-            <td class="fw-bold">Value:</td>
-            <td th:text="${data.parallaxValue}"></td>
-        </tr>
-        <tr>
-            <td class="fw-bold">Error:</td>
-            <td th:text="${data.parallaxError}"></td>
-        </tr>
-        <tr>
-            <td class="fw-bold">Observatory code:</td>
-            <td th:text="${data.parallaxObsCode}"></td>
-        </tr>
-        <tr>
-            <td class="fw-bold">Bibcode:</td>
-            <td>
-                <a class="link-warning text-decoration-none" th:href="@{${data.getParallaxBibcodeUrl()}}"
-                   th:text="${data.parallaxBibcode}" target="_blank"></a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="overflow-auto">
+        <table class="table-cells-pe-2 table-cells-py-0 text-nowrap">
+            <tbody>
+            <tr>
+                <td class="fw-bold">Value:</td>
+                <td th:text="${data.parallaxValue}"></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Error:</td>
+                <td th:text="${data.parallaxError}"></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Observatory code:</td>
+                <td th:text="${data.parallaxObsCode}"></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Bibcode:</td>
+                <td>
+                    <a class="link-warning text-decoration-none" th:href="@{${data.getParallaxBibcodeUrl()}}"
+                       th:text="${data.parallaxBibcode}" target="_blank"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <!--
@@ -516,22 +531,24 @@ Simbad fragment => query by ID - Further Information [6]
     <div class="row mb-4">
         <div class="col text-primary"><h3>Further Information</h3></div>
     </div>
-    <table class="table-cells-pe-3 table-cells-py-0 mb-3">
-        <tbody>
-        <tr>
-            <td class="fw-bold">Radial velocity:</td>
-            <td th:text="${data.radialVelocity}"></td>
-        </tr>
-        <tr>
-            <td class="fw-bold">Redshift:</td>
-            <td th:text="${data.redshift}"></td>
-        </tr>
-        <tr>
-            <td class="fw-bold">Effective temperature:</td>
-            <td th:text="${data.effectiveTemperature}"></td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="overflow-auto">
+        <table class="table-cells-pe-2 table-cells-py-0 mb-3 text-nowrap">
+            <tbody>
+            <tr>
+                <td class="fw-bold">Radial velocity:</td>
+                <td th:text="${data.radialVelocity}"></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Redshift:</td>
+                <td th:text="${data.redshift}"></td>
+            </tr>
+            <tr>
+                <td class="fw-bold">Effective temperature:</td>
+                <td th:text="${data.effectiveTemperature}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     <div class="row">
         <div class="col">
