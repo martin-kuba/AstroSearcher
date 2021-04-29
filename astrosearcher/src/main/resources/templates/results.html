@@ -24,9 +24,9 @@ MAST fragment => query by ID + query by coordinates
             <table class="table table-striped table-primary m-0 fs-8">
                 <thead>
                 <tr class="fw-bold">
-                    <th class="sticky-top">#</th>
+                    <th class="sticky-top px-1 px-md-2 py-1 py-md-2">#</th>
                     <th:block th:each="field : ${mastFields}">
-                        <th class="sticky-top" th:text="${field}"></th>
+                        <th class="sticky-top px-1 px-md-2 py-1 py-md-2" th:text="${field}"></th>
                     </th:block>
                 </tr>
                 </thead>
@@ -84,9 +84,9 @@ Simbad fragment => query by ID + query by coordinates
             <table class="table table-striped table-primary m-0 fs-8">
                 <thead>
                 <tr class="fw-bold">
-                    <th class="sticky-top" th:text="${table.getName()}">#</th>
+                    <th class="sticky-top px-1 px-md-2 py-1 py-md-2" th:text="${table.getName()}">#</th>
                     <th:block th:each="field : ${table.getFields()}">
-                        <th class="sticky-top" th:text="${field}"></th>
+                        <th class="sticky-top px-1 px-md-2 py-1 py-md-2" th:text="${field}"></th>
                     </th:block>
                 </tr>
                 </thead>
@@ -137,43 +137,43 @@ Simbad fragment => query by Coordinates
     <table class="table table-striped table-primary m-0 fs-8">
         <thead>
         <tr class="fw-bold">
-            <th class="sticky-top">#</th>
-            <th class="sticky-top">Identifier</th>
-            <th class="sticky-top">Dist</th>
-            <th class="sticky-top">Obj. type</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">#</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Identifier</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Dist</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Obj. type</th>
 
             <th:block th:if="${#strings.equals(simbadType, 'SIMBAD_CROSSMATCH')}">
-                <th class="sticky-top" th:text="'RA (input)'"></th>
-                <th class="sticky-top" th:text="'Dec (input)'"></th>
+                <th class="sticky-top px-1 px-md-2 py-1 py-md-2" th:text="'RA (input)'"></th>
+                <th class="sticky-top px-1 px-md-2 py-1 py-md-2" th:text="'Dec (input)'"></th>
             </th:block>
 
-            <th class="sticky-top" th:text="${'RA (ICRS, J2000)' + simbadResponse.raUnit}"></th>
-            <th class="sticky-top" th:text="${'Dec (ICRS, J2000)' + simbadResponse.decUnit}"></th>
-            <th class="sticky-top" th:text="${'PM - RA' + simbadResponse.pmraUnit}"></th>
-            <th class="sticky-top" th:text="${'PM - Dec' + simbadResponse.pmdecUnit}"></th>
-            <th class="sticky-top">Parallax</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2" th:text="${'RA (ICRS, J2000)' + simbadResponse.raUnit}"></th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2" th:text="${'Dec (ICRS, J2000)' + simbadResponse.decUnit}"></th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2" th:text="${'PM - RA' + simbadResponse.pmraUnit}"></th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2" th:text="${'PM - Dec' + simbadResponse.pmdecUnit}"></th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Parallax</th>
             <!--                    <th>Rvel/Z</th>-->
-            <th class="sticky-top">Redshift</th>
-            <th class="sticky-top">Rad. vel.</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Redshift</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Rad. vel.</th>
             <!--                    <th>cz</th>-->
-            <th class="sticky-top">Mag U</th>
-            <th class="sticky-top">Mag B</th>
-            <th class="sticky-top">Mag V</th>
-            <th class="sticky-top">Mag R</th>
-            <th class="sticky-top">Mag G</th>
-            <th class="sticky-top">Mag I</th>
-            <th class="sticky-top">Mag H</th>
-            <th class="sticky-top">Mag J</th>
-            <th class="sticky-top">Mag K</th>
-            <th class="sticky-top">Mag u</th>
-            <th class="sticky-top">Mag g</th>
-            <th class="sticky-top">Mag r</th>
-            <th class="sticky-top">Mag i</th>
-            <th class="sticky-top">Mag z</th>
-            <th class="sticky-top">Sp. type.</th>
-            <th class="sticky-top">Mor. type</th>
-            <th class="sticky-top">Angular size</th>
-            <th class="sticky-top">#ref (1850 - now)</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Mag U</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Mag B</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Mag V</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Mag R</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Mag G</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Mag I</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Mag H</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Mag J</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Mag K</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Mag u</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Mag g</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Mag r</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Mag i</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Mag z</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Sp. type.</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Mor. type</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">Angular size</th>
+            <th class="sticky-top px-1 px-md-2 py-1 py-md-2">#ref (1850 - now)</th>
         </tr>
         </thead>
         <tbody>
