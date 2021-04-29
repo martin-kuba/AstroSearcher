@@ -16,12 +16,17 @@
     <title>AstroSearcher</title>
 </head>
 
-<body>
-    <header>
-        <nav th:replace="fragments :: navigation"></nav>
-    </header>
-        <div class="position-absolute top-50 start-50 translate-middle w-100">
-            <form class="container p-2 p-md-3 p-lg-4 mx-auto bg-black-03 rounded-5 w-min-75"
+<body class="d-flex flex-column">
+    <div class="row flex-grow-0 fs-3 bg-black-03">
+        <header>
+            <div>
+                <nav th:replace="fragments :: navigation"></nav>
+            </div>
+        </header>
+    </div>
+    <div class="row content fs-7">
+        <div class="m-auto">
+            <form class="container p-2 p-md-3 p-lg-4 bg-black-03 rounded-5"
                   action="testing" method="post" enctype="multipart/form-data" onsubmit="btnToLoadingStatus(event)">
                 <div class="row mb-2 gx-2 gx-md-3 gx-lg-4">
                     <div class="col-6 col-md-8 offset-3 offset-md-2">
@@ -74,17 +79,17 @@
                 </div>
                 <div class="row justify-content-evenly mb-5 gx-2 gx-md-3 gx-lg-4">
                     <div class="col-auto form-check justify-content-center px-0">
-                        <input class="form-check-lg me-2 align-middle" type="checkbox" id="mastCheck"
+                        <input class="form-check-lg me-1 me-md-2 align-middle" type="checkbox" id="mastCheck"
                                th:field="${searchFormInput.queryMast}">
                         <label for="mastCheck" class="form-check-label align-middle">MAST</label>
                     </div>
                     <div class="col-auto form-check justify-content-center px-0">
-                        <input class="form-check-lg me-2 align-middle" type="checkbox" id="vizierCheck"
+                        <input class="form-check-lg me-1 me-md-2 align-middle" type="checkbox" id="vizierCheck"
                                th:field="${searchFormInput.queryVizier}">
                         <label for="vizierCheck" class="form-check-label align-middle">Vizier</label>
                     </div>
                     <div class="col-auto form-check justify-content-center px-0">
-                        <input class="form-check-lg me-2 align-middle" type="checkbox" id="simbadCheck"
+                        <input class="form-check-lg me-1 me-md-2 align-middle" type="checkbox" id="simbadCheck"
                                th:field="${searchFormInput.querySimbad}">
                         <label for="simbadCheck" class="form-check-label align-middle">Simbad</label>
                     </div>
@@ -100,6 +105,9 @@
                 </div>
             </form>
         </div>
+
+    </div>
+
 
 
 
