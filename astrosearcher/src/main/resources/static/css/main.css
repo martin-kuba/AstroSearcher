@@ -47,6 +47,10 @@ body {
     font-size: calc(0.9rem + 0.35vw) !important;
 }
 
+.fs-8 {
+    font-size: calc(0.8rem + 0.25vw) !important;
+}
+
 /*******************
  **   F O R M S   **
  *******************/

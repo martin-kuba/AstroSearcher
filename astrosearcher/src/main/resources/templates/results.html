@@ -21,7 +21,7 @@ MAST fragment => query by ID + query by coordinates
     <div class="alert alert-info display-6 text-center py-3" th:unless="${containsMAST}" th:text="${mastDataMSG}"></div>
     <th:block th:if="${containsMAST}">
         <div class="text-nowrap mh-100 overflow-scroll">
-            <table class="table table-striped table-primary m-0 fs-6">
+            <table class="table table-striped table-primary m-0 fs-8">
                 <thead>
                 <tr class="fw-bold">
                     <th class="sticky-top">#</th>
@@ -32,18 +32,18 @@ MAST fragment => query by ID + query by coordinates
                 </thead>
                 <tbody>
                 <tr th:each="row, iterStat : ${mastData}">
-                    <td class="px-2 py-1" th:text="${iterStat.index + 1}"></td>
+                    <td class="px-1 px-md-2 py-0 py-md-1" th:text="${iterStat.index + 1}"></td>
                     <th:block th:each="field : ${mastFields}"
                               th:with="isEmpty=${#strings.isEmpty(row.get(field.getWorkName()))
                                                  || row.get(field.getWorkName()).isJsonNull()}">
-                        <td class="px-2 py-1" th:if="${isEmpty}"></td>
+                        <td class="px-1 px-md-2 py-0 py-md-1" th:if="${isEmpty}"></td>
                         <th:block th:unless="${isEmpty}">
-                            <td class="px-2 py-1" th:if="${field.isIcon()}">
+                            <td class="px-1 px-md-2 py-0 py-md-1" th:if="${field.isIcon()}">
                                 <a th:href="${row.get(field.getWorkName()).getAsString()}" target="_blank">
                                     <i th:class="${field.getIconClass()}"></i>
                                 </a>
                             </td>
-                            <td class="px-2 py-1" th:unless="${field.isIcon()}">
+                            <td class="px-1 px-md-2 py-0 py-md-1" th:unless="${field.isIcon()}">
                                 <span th:if="${row.get(field.getWorkName()).getAsJsonPrimitive().isString()}"
                                       th:text="${row.get(field.getWorkName()).getAsString()}">
                                 </span>
@@ -81,7 +81,7 @@ Simbad fragment => query by ID + query by coordinates
     <div class="alert alert-info display-6 text-center py-3" th:unless="${containsVizier}" th:text="${vizierDataMSG}"></div>
     <th:block th:if="${containsVizier}" th:each="table : ${vizierTables}">
         <div class="text-nowrap mh-100 overflow-scroll mb-4">
-            <table class="table table-striped table-primary m-0 fs-6">
+            <table class="table table-striped table-primary m-0 fs-8">
                 <thead>
                 <tr class="fw-bold">
                     <th class="sticky-top" th:text="${table.getName()}">#</th>
@@ -92,9 +92,9 @@ Simbad fragment => query by ID + query by coordinates
                 </thead>
                 <tbody>
                 <tr th:each="row, iterStat : ${table.getData}">
-                    <td class="px-2 py-1" th:text="${iterStat.index + 1}"></td>
+                    <td class="px-1 px-md-2 py-0 py-md-1" th:text="${iterStat.index + 1}"></td>
                     <th:block th:each="column : ${row}">
-                        <td class="px-2 py-1" th:text="${column}"></td>
+                        <td class="px-1 px-md-2 py-0 py-md-1" th:text="${column}"></td>
                     </th:block>
                 </tr>
                 </tbody>
@@ -134,7 +134,7 @@ Simbad fragment => query by Coordinates
 ***************************************
 -->
 <div th:fragment="Simbad-coord" class="text-nowrap mh-100 overflow-scroll">
-    <table class="table table-striped table-primary m-0 fs-6">
+    <table class="table table-striped table-primary m-0 fs-8">
         <thead>
         <tr class="fw-bold">
             <th class="sticky-top">#</th>
@@ -178,95 +178,95 @@ Simbad fragment => query by Coordinates
         </thead>
         <tbody>
         <tr th:each="simbadData, iterStat : ${simbadResponse.assignedData}">
-            <td class="px-2 py-1" th:text="${iterStat.index + 1}"></td>
-            <td class="px-2 py-1">
+            <td class="px-1 px-md-2 py-0 py-md-1" th:text="${iterStat.index + 1}"></td>
+            <td class="px-1 px-md-2 py-0 py-md-1">
                 <a class="link-primary text-decoration-none"
                    th:href="@{'/testing?id=' + ${simbadData.getMainIdUrlEncoded()}}" target="_blank"
                    th:text="${simbadData.mainID}"></a>
             </td>
-            <td class="px-2 py-1" th:text="${simbadData.angularDistance}"></td> <!-- DISTANCE (asec) -->
-            <td class="px-2 py-1">
+            <td class="px-1 px-md-2 py-0 py-md-1" th:text="${simbadData.angularDistance}"></td> <!-- DISTANCE (asec) -->
+            <td class="px-1 px-md-2 py-0 py-md-1">
                 <a class="link-primary text-decoration-none"
                    th:href="@{${simbadResponse.objectTypeDescLink}}"
                    th:text="${simbadData.objectType}" target="_blank"></a>
             </td>
 
             <th:block th:if="${#strings.equals(simbadType, 'SIMBAD_CROSSMATCH')}">
-                <td class="px-2 py-1" th:text="${simbadData.inputRA}"></td>
-                <td class="px-2 py-1" th:text="${simbadData.inputDec}"></td>
+                <td class="px-1 px-md-2 py-0 py-md-1" th:text="${simbadData.inputRA}"></td>
+                <td class="px-1 px-md-2 py-0 py-md-1" th:text="${simbadData.inputDec}"></td>
             </th:block>
 
-            <td class="px-2 py-1" th:text="${simbadData.ra}"></td>
-            <td class="px-2 py-1" th:text="${simbadData.dec}"></td>
-            <td class="px-2 py-1" th:text="${simbadData.pmra}"></td>
-            <td class="px-2 py-1" th:text="${simbadData.pmdec}"></td>
-            <td class="px-2 py-1" th:text="${simbadData.parallaxValue}"></td>
+            <td class="px-1 px-md-2 py-0 py-md-1" th:text="${simbadData.ra}"></td>
+            <td class="px-1 px-md-2 py-0 py-md-1" th:text="${simbadData.dec}"></td>
+            <td class="px-1 px-md-2 py-0 py-md-1" th:text="${simbadData.pmra}"></td>
+            <td class="px-1 px-md-2 py-0 py-md-1" th:text="${simbadData.pmdec}"></td>
+            <td class="px-1 px-md-2 py-0 py-md-1" th:text="${simbadData.parallaxValue}"></td>
             <!--                    <td></td> &lt;!&ndash; Rvel / Z &ndash;&gt;-->
-            <td class="px-2 py-1" th:text="${simbadData.redshift}"></td>
-            <td class="px-2 py-1" th:text="${simbadData.radialVelocity}"></td>
+            <td class="px-1 px-md-2 py-0 py-md-1" th:text="${simbadData.redshift}"></td>
+            <td class="px-1 px-md-2 py-0 py-md-1" th:text="${simbadData.radialVelocity}"></td>
             <!--                    <td></td> &lt;!&ndash; cz &ndash;&gt;-->
-            <td class="px-2 py-1">
+            <td class="px-1 px-md-2 py-0 py-md-1">
                 <span th:if="${simbadData.getFluxes().containsKey('U')}"
                       th:text="${simbadData.getFluxes().get('U').magnitude}"></span>
             </td>
-            <td class="px-2 py-1">
+            <td class="px-1 px-md-2 py-0 py-md-1">
                 <span th:if="${simbadData.fluxes.containsKey('B')}"
                       th:text="${simbadData.fluxes.get('B').magnitude}"></span>
             </td>
-            <td class="px-2 py-1">
+            <td class="px-1 px-md-2 py-0 py-md-1">
                 <span th:if="${simbadData.fluxes.containsKey('V')}"
                       th:text="${simbadData.fluxes.get('V').magnitude}"></span>
             </td>
-            <td class="px-2 py-1">
+            <td class="px-1 px-md-2 py-0 py-md-1">
                 <span th:if="${simbadData.fluxes.containsKey('R')}"
                       th:text="${simbadData.fluxes.get('R').magnitude}"></span>
             </td>
-            <td class="px-2 py-1">
+            <td class="px-1 px-md-2 py-0 py-md-1">
                 <span th:if="${simbadData.fluxes.containsKey('G')}"
                       th:text="${simbadData.fluxes.get('G').magnitude}"></span>
             </td>
-            <td class="px-2 py-1">
+            <td class="px-1 px-md-2 py-0 py-md-1">
                 <span th:if="${simbadData.fluxes.containsKey('I')}"
                       th:text="${simbadData.fluxes.get('I').magnitude}"></span>
             </td>
-            <td class="px-2 py-1">
+            <td class="px-1 px-md-2 py-0 py-md-1">
                 <span th:if="${simbadData.fluxes.containsKey('H')}"
                       th:text="${simbadData.fluxes.get('H').magnitude}"></span>
             </td>
-            <td class="px-2 py-1">
+            <td class="px-1 px-md-2 py-0 py-md-1">
                 <span th:if="${simbadData.fluxes.containsKey('J')}"
                       th:text="${simbadData.fluxes.get('J').magnitude}"></span>
             </td>
-            <td class="px-2 py-1">
+            <td class="px-1 px-md-2 py-0 py-md-1">
                 <span th:if="${simbadData.fluxes.containsKey('K')}"
                       th:text="${simbadData.fluxes.get('K').magnitude}"></span>
             </td>
-            <td class="px-2 py-1">
+            <td class="px-1 px-md-2 py-0 py-md-1">
                 <span th:if="${simbadData.fluxes.containsKey('u')}"
                       th:text="${simbadData.fluxes.get('u').magnitude}"></span>
             </td>
-            <td class="px-2 py-1">
+            <td class="px-1 px-md-2 py-0 py-md-1">
                 <span th:if="${simbadData.fluxes.containsKey('g')}"
                       th:text="${simbadData.fluxes.get('g').magnitude}"></span>
             </td>
-            <td class="px-2 py-1">
+            <td class="px-1 px-md-2 py-0 py-md-1">
                 <span th:if="${simbadData.fluxes.containsKey('r')}"
                       th:text="${simbadData.fluxes.get('r').magnitude}"></span>
             </td>
-            <td class="px-2 py-1">
+            <td class="px-1 px-md-2 py-0 py-md-1">
                 <span th:if="${simbadData.fluxes.containsKey('i')}"
                       th:text="${simbadData.fluxes.get('i').magnitude}"></span>
             </td>
-            <td class="px-2 py-1">
+            <td class="px-1 px-md-2 py-0 py-md-1">
                 <span th:if="${simbadData.fluxes.containsKey('z')}"
                       th:text="${simbadData.fluxes.get('z').magnitude}"></span>
             </td>
-            <td class="px-2 py-1" th:text="${simbadData.spectralType}"></td>
-            <td class="px-2 py-1" th:text="${simbadData.morphologicalType}"></td>
-            <td class="px-2 py-1" th:text="${simbadData.angularSizeMajor + ' | ' +
+            <td class="px-1 px-md-2 py-0 py-md-1" th:text="${simbadData.spectralType}"></td>
+            <td class="px-1 px-md-2 py-0 py-md-1" th:text="${simbadData.morphologicalType}"></td>
+            <td class="px-1 px-md-2 py-0 py-md-1" th:text="${simbadData.angularSizeMajor + ' | ' +
                                    simbadData.angularSizeMinor + ' | ' +
                                    simbadData.angularSizeAngle}"></td>
-            <td class="px-2 py-1">
+            <td class="px-1 px-md-2 py-0 py-md-1">
                 <a class="link-primary text-decoration-none"
                    th:href="@{${simbadData.getReferencesUrl()}}"
                    th:text="${simbadData.references}" target="_blank"></a>
