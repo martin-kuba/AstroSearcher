@@ -23,19 +23,19 @@
     <nav th:replace="fragments :: navigation"></nav>
 </header>
 <div class="h-90">
-    <div class="tab">
+    <div class="tab w-95 bg-transparent overflow-hidden fw-bold fs-4 mt-3 mt-md-4 mt-lg-5 mb-0 mx-auto">
         <div>
-            <button class="datasource" onclick="showData(event, 'data-MAST')"
+            <button onclick="showData(event, 'data-MAST')"
                     th:text="'MAST (' + ${mastData != null ? mastData.size() : 0} + ')'">
             </button>
         </div>
         <div>
-            <button class="datasource" onclick="showData(event, 'data-Vizier')"
+            <button onclick="showData(event, 'data-Vizier')"
                     th:text="'Vizier (' + ${vizierTables != null ? vizierTables.size() : 0} + ')'">
             </button>
         </div>
         <div>
-            <button class="datasource" onclick="showData(event, 'data-Simbad')"
+            <button onclick="showData(event, 'data-Simbad')"
                     th:text="'Simbad (' + ${simbadResponse != null ? simbadResponse.assignedData.size() : 0} + ')'">
             </button>
         </div>

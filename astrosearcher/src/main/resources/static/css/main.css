@@ -1,3 +1,6 @@
+/*****************************************
+ **   G E N E R A L   E L E M E N T S   **
+ *****************************************/
 html {
     height: 100%;
     background: url(../images/sky.jpg) no-repeat fixed center center;
@@ -10,18 +13,40 @@ body {
     background: inherit;
 }
 
-.header {
-    flex: 0 1 100%;
-}
 
-.content {
-    flex: 1 1 auto;
-}
-
+/*****************************
+ **   D I M E N S I O N S   **
+ *****************************/
 .h-90 {
     height: 90% !important;
 }
 
+.w-95 {
+    width: 95% !important;
+}
+
+
+/*************************
+ **   P O S I T I O N   **
+ *************************/
+.sticky-left {
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+    z-index: 1024;
+}
+
+
+/*****************************
+ **   B A C K G R O U N D   **
+ *****************************/
+.bg-black-03 {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+/*********************
+ **   T A B L E S   **
+ *********************/
 .table-cells-py-0 > tbody > tr > td {
     padding-top: 0;
     padding-bottom: 0;
@@ -31,18 +56,47 @@ body {
     padding-right: 1rem;
 }
 
+
+/*****************
+ **   F L E X   **
+ *****************/
+.header {
+    flex: 0 1 100%;
+}
+
+.content {
+    flex: 1 1 auto;
+}
+
+
+/*****************
+ **   G R I D   **
+ *****************/
 .grid-cols-autofit {
     grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
 }
 
+
+/***********************
+ **   B O R D E R S   **
+ ***********************/
 .rounded-5 {
     border-radius: 1rem !important;
 }
 
-.mw-90 {
-    max-width: 90%;
+/***********************
+ **   P A D D I N G   **
+ ***********************/
+@media (min-width: 768px) {
+    .py-md-0-6 {
+        padding-top: 0.15rem !important;
+        padding-bottom: 0.15rem !important;
+    }
 }
 
+/*******************
+ **   F O N T S   **
+ *******************/
 .fs-7 {
     font-size: calc(0.9rem + 0.35vw) !important;
 }
@@ -50,6 +104,7 @@ body {
 .fs-8 {
     font-size: calc(0.8rem + 0.25vw) !important;
 }
+
 
 /*******************
  **   F O R M S   **
@@ -73,19 +128,10 @@ body {
     height: 1.55rem;
 }
 
-.bg-black-03 {
-    background-color: rgba(0, 0, 0, 0.3);
-}
-
 .tab {
-    width: 95%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    overflow: hidden;
-    background-color: transparent;
     text-align: center;
-    margin: 0 auto;
-    padding-top: 2em;
 }
 
 
@@ -104,8 +150,6 @@ body {
     padding: 0.5em 1em;
     transition: 0.3s;
     text-align: center;
-    font-size: 20px;
-    font-weight: bold;
 }
 
 .tab button:hover {
@@ -118,7 +162,6 @@ body {
     color: #ffffff;
 }
 
-/* Style the tab content */
 .tabcontent {
     width: 95%;
     height: 80%;
