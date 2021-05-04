@@ -10,9 +10,9 @@ function showData(evt, selectedDataSource) {
     }
 
     // Get all elements with class="tablinks" and remove the class "active"
-    datasource = document.getElementsByClassName("datasource");
-    for (i = 0; i < datasource.length; i++) {
-        datasource[i].className = datasource[i].className.replace(" active", "");
+    dataTab = document.getElementsByClassName("data-tab");
+    for (i = 0; i < dataTab.length; i++) {
+        dataTab[i].className = dataTab[i].className.replace(" active", "");
     }
 
     // Show the current tab, and add an "active" class to the button that opened the tab
