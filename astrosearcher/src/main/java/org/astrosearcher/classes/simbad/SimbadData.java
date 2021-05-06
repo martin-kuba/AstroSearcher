@@ -73,7 +73,7 @@ public class SimbadData {
     private String parallaxBibcode;
 
     private Map<String, SimbadFlux> fluxes = new HashMap<>();
-    private List<SimbadMeasurement> measurements = new ArrayList<>();
+    private List<SimbadMeasurementsTable> measurements = new ArrayList<>();
 
     private List<SimbadFields> unassignedFields = new ArrayList<>();
     private List<String>       unassignedData   = new ArrayList<>();

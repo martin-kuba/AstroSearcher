@@ -13,7 +13,10 @@ public enum SimbadArgType {
     OUTPUT_LIMIT("output.max"),
     RADIUS("Radius"),
     RADIUS_UNIT("Radius.unit"),
-    BIBCODE("bibcode");
+    BIBCODE("bibcode"),
+
+    MEASURES_DISP_T("mesdisplay"),
+    MEASURES_CATS("list.mescat");
 
     private String urlName;
 

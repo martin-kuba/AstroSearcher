@@ -18,7 +18,7 @@ public class SearchFormInput {
     private String searchBy;
     private String searchInput;
 
-//    private String SimbadFormat = SimbadConstants.DEFAULT_FORMAT;
+    private String SimbadFormat = SimbadConstants.DEFAULT_FORMAT;
 
     private double radius = Limits.DEFAULT_RADIUS;
 

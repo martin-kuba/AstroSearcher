@@ -6,6 +6,7 @@ import org.astrosearcher.classes.constants.RegularExpressions;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.mast.MastResponse;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
+import org.astrosearcher.classes.simbad.SimbadMeasurementsTable;
 import org.astrosearcher.classes.simbad.SimbadResponse;
 import org.astrosearcher.classes.vizier.VizierResponse;
 import org.astrosearcher.enums.SearchType;
@@ -14,6 +15,9 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -133,6 +137,29 @@ public class SearchEngine {
         return responseData;
     }
 
+    public static List<SimbadMeasurementsTable> findAllMeasurementsByID(SearchFormInput input) {
+
+        List<SimbadMeasurementsTable> measurements = new ArrayList<>();
+
+        try {
+            synchronized (SearchEngine.class) {
+                while (timeQuantumUsed) {
+                    SearchEngine.class.wait();
+                }
+            }
+        } catch (InterruptedException e) {
+            return new ArrayList<>();
+        }
+
+        timeQuantumUsed = true;
+        if ( Limits.DEBUG ) {
+            System.out.println("[ Time Quantum ] ::: time quantum taken");
+        }
+
+        return SimbadSearchEngine.findAllMeasurementsById(input);
+    }
+
+
 
     public static ResponseData process (SearchFormInput input) {
 
@@ -148,7 +175,9 @@ public class SearchEngine {
         timeQuantumUsed = true;
 
         if ( Limits.DEBUG ) {
-            System.out.println("[ Time Quantum ] ::: time quantum taken");
+            if (Limits.DEBUG_CORE) {
+                System.out.println("[ Time Quantum ] ::: time quantum taken");
+            }
             System.out.print("Resolving which type of query has been selected by user... ");
         }
 

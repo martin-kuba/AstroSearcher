@@ -9,6 +9,7 @@ public final class SimbadConstants {
 
 
     public static final String DEFAULT_FORMAT = "output.format=votable";
+    public static final String ASCII_FORMAT   = "output.format=ascii";
 
     public static final String DEFAULT_RADIUS_UNIT = "deg";
 

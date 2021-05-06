@@ -25,7 +25,7 @@ public class AstrosearcherApplication {
 	void freeTimeQuantum() {
 
 		synchronized (SearchEngine.class) {
-			if (Limits.DEBUG) {
+			if (Limits.DEBUG && Limits.DEBUG_CORE) {
 				System.out.println("[ Time Quantum ] ::: time quantum freed");
 			}
 

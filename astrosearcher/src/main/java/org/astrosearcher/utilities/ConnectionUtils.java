@@ -57,6 +57,7 @@ public class ConnectionUtils {
 
             while ((inputLine = in.readLine()) != null) {
                 responseData.append(inputLine);
+                responseData.append('\n');
             }
             in.close();
 

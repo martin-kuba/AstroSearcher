@@ -45,6 +45,8 @@ public class SimbadRequestObject extends RequestObject {
         switch (service) {
             case SIMBAD_ID:
                 args.add(new SimbadArg(SimbadArgType.ID, input.getSearchInput()));
+                args.add(new SimbadArg(SimbadArgType.MEASURES_DISP_T, "A"));
+                args.add(new SimbadArg(SimbadArgType.MEASURES_CATS, ""));
                 break;
             case SIMBAD_COORDINATES:
 
@@ -88,7 +90,12 @@ public class SimbadRequestObject extends RequestObject {
             params.append(arg.toString());
         }
 
-        return (SimbadConstants.DEFAULT_FORMAT + params.toString()).getBytes();
+        if (Limits.DEBUG && Limits.DEBUG_SIMBAD_REQUEST) {
+            System.out.println();
+            System.out.println("            Parameters = " + format + params.toString());
+        }
+
+        return (format + params.toString()).getBytes();
 //                (SimbadConstants.DEFAULT_FORMAT + params.toString()).getBytes();
     }
 }

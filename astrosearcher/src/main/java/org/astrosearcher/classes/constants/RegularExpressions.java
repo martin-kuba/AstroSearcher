@@ -25,6 +25,18 @@ public final class RegularExpressions {
     public static final String SESAME_XML_ONAME = "\\s*<oname>(.*?)</oname>";
     public static final String SESAME_VALID_RESPONSE   = ".*?" + SESAME_XML_ONAME + "(" + SESAME_XML_ALIAS + ")*.*?";
 
+    // Simbad ASCII response
+    public static final String SIMBAD_ASCII_MEASURE_CAT = "(?:(\\w+):(\\d+)\\s*)";
+
+    public static final String SIMBAD_ASCII_MEASURE_VAL = "([^\\|]+\\|)+\\n";
+    public static final String SIMBAD_ASCII_MEASURE_CAT_UNCOUNTED = "(?:\\w+:\\d+\\s*)";
+    public static final String SIMBAD_ASCII_MEASUREMENTS =
+            "Measures \\((" + SIMBAD_ASCII_MEASURE_CAT_UNCOUNTED + "*)\\):\\n((?:(?:[^\\|\\n]+\\|)*\\n)*)";
+
+    //language=regexp
+    public static final String SIMBAD_ASCII = "(?:.*?\\n)*" + SIMBAD_ASCII_MEASUREMENTS + "(?:.*?\\n)*";
+
+
 
     public static boolean isPositionInput(String input) {
         Pattern pattern = Pattern.compile(RegularExpressions.POSITION_INPUT_REGEX);

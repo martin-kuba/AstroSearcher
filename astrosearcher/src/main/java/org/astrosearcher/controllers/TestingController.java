@@ -2,6 +2,7 @@ package org.astrosearcher.controllers;
 
 import org.astrosearcher.classes.ResponseData;
 import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.cds.SimbadConstants;
 import org.astrosearcher.classes.constants.cds.VizierConstants;
 import org.astrosearcher.classes.constants.messages.InformationMSG;
 import org.astrosearcher.classes.simbad.SimbadFlux;
@@ -117,6 +118,7 @@ public class TestingController {
             responseData = SearchEngine.process(new SearchFormInput(
                     SearchType.ID_NAME.toString(),
                     id,
+                    SimbadConstants.DEFAULT_FORMAT,
                     Limits.DEFAULT_RADIUS,
                     Limits.DEFAULT_PAGE, Limits.DEFAULT_PAGESIZE,
                     VizierCatalogueSearch.code.toString(),

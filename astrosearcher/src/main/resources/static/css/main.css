@@ -17,14 +17,37 @@ body {
 /*****************************
  **   D I M E N S I O N S   **
  *****************************/
+.h-80 {
+    height: 80% !important;
+}
+
 .h-90 {
     height: 90% !important;
+}
+
+.mh-90 {
+    max-height: 90% !important;
+}
+
+.w-90 {
+    width: 90% !important;
 }
 
 .w-95 {
     width: 95% !important;
 }
 
+@media (min-width: 768px) {
+    .w-md-75 {
+        width: 75% !important;
+    }
+}
+
+@media (min-width: 992px) {
+    .w-lg-60 {
+        width: 60% !important;
+    }
+}
 
 /*************************
  **   P O S I T I O N   **

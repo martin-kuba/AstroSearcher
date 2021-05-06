@@ -1,6 +1,7 @@
 package org.astrosearcher.unit.input;
 
 import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.cds.SimbadConstants;
 import org.astrosearcher.classes.constants.messages.ValidationMSG;
 import org.astrosearcher.models.SearchFormInput;
 
@@ -29,7 +30,7 @@ public class SearchFormInputTest {
         Set<ConstraintViolation<SearchFormInput>> violations;
 
         violations = validator.validate(
-                new SearchFormInput("", "", Limits.DEFAULT_RADIUS,
+                new SearchFormInput("", "", SimbadConstants.DEFAULT_FORMAT, Limits.DEFAULT_RADIUS,
                         NEGATIVE_PAGE, VALID_PAGESIZE,
                         "code", "V/139", null, true, true, true));
 
@@ -39,7 +40,7 @@ public class SearchFormInputTest {
         }
 
         violations = validator.validate(
-                new SearchFormInput("", "",  Limits.DEFAULT_RADIUS,
+                new SearchFormInput("", "", SimbadConstants.DEFAULT_FORMAT,  Limits.DEFAULT_RADIUS,
                         ZERO_PAGE, VALID_PAGESIZE,
                         "code",  "V/139", null, true, true, true));
 
@@ -54,7 +55,7 @@ public class SearchFormInputTest {
         Set<ConstraintViolation<SearchFormInput>> violations;
 
         violations = validator.validate(
-                new SearchFormInput("", "",  Limits.DEFAULT_RADIUS,
+                new SearchFormInput("", "", SimbadConstants.DEFAULT_FORMAT,  Limits.DEFAULT_RADIUS,
                         VALID_PAGE, NEGATIVE_PAGESIZE,
                         "code",  "V/139", null, true, true, true));
 
@@ -64,7 +65,7 @@ public class SearchFormInputTest {
         }
 
         violations = validator.validate(
-                new SearchFormInput("", "",  Limits.DEFAULT_RADIUS,
+                new SearchFormInput("", "", SimbadConstants.DEFAULT_FORMAT,  Limits.DEFAULT_RADIUS,
                         VALID_PAGE, ZERO_PAGESIZE,
                         "code", "V/139", null, true, true, true));
 
