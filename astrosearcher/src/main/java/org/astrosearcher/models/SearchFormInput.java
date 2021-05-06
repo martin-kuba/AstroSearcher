@@ -2,6 +2,7 @@ package org.astrosearcher.models;
 
 import lombok.*;
 import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.cds.SimbadConstants;
 import org.astrosearcher.classes.constants.messages.ValidationMSG;
 import org.astrosearcher.classes.constants.cds.VizierConstants;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,6 +17,8 @@ public class SearchFormInput {
 
     private String searchBy;
     private String searchInput;
+
+//    private String SimbadFormat = SimbadConstants.DEFAULT_FORMAT;
 
     private double radius = Limits.DEFAULT_RADIUS;
 

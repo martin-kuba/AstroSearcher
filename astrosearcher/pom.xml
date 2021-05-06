@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>org</groupId>
 	<artifactId>astrosearcher</artifactId>
-	<version>1.7.0p-SNAPSHOT</version>
+	<version>1.7.1-SNAPSHOT</version>
 	<name>astrosearcher</name>
 	<description>Spring Boot Project for searching in astronomic web-catalogues</description>
 	<properties>

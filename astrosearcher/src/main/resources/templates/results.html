@@ -546,6 +546,12 @@ Simbad fragment => query by ID - Further Information [6]
                 <td class="fw-bold">Effective temperature:</td>
                 <td th:text="${data.effectiveTemperature}"></td>
             </tr>
+            <tr>
+                <td colspan="2">
+                    <a class="link-warning text-decoration-none" target="_blank"
+                       th:href="@{'/measurements?id=' + ${data.getMainIdUrlEncoded()}}">Measurements</a>
+                </td>
+            </tr>
             </tbody>
         </table>
     </div>

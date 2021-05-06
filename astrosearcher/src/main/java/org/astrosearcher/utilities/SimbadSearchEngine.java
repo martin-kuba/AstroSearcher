@@ -131,6 +131,11 @@ public class SimbadSearchEngine {
         }
     }
 
+//    public SimbadMeasurementsResponse findAllMeasurementsById(SearchFormInput input) {
+//
+//
+//    }
+
     private static boolean isEmptyResponse(SavotVOTable vot) {
         if (vot.getResources().getItemCount() == 0 ) {
             return true;

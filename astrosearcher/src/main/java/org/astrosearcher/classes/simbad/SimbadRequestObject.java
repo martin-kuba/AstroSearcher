@@ -28,10 +28,16 @@ import java.util.List;
 public class SimbadRequestObject extends RequestObject {
 
     private SimbadServices service;
+    private String          format = SimbadConstants.DEFAULT_FORMAT;
     private List<SimbadArg> args = new ArrayList<>();
 
     private SimbadRequestObject(SimbadServices service) {
         this.service = service;
+    }
+
+    public SimbadRequestObject(SimbadServices service, SearchFormInput input, String format) {
+        this(service, input);
+        this.format = format;
     }
 
     public SimbadRequestObject(SimbadServices service, SearchFormInput input) {

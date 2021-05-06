@@ -10,6 +10,10 @@ import org.astrosearcher.classes.simbad.SimbadResponse;
 import org.astrosearcher.classes.vizier.VizierResponse;
 import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.models.SearchFormInput;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 
 
 /**
@@ -24,7 +28,11 @@ import org.astrosearcher.models.SearchFormInput;
  *
  * @author Ľuboslav Halama
  */
+@EnableScheduling
+@EnableAsync
 public class SearchEngine {
+
+    public static boolean timeQuantumUsed = false;
 
 
     public static ResponseData findAllByPosition(SearchFormInput input) {
@@ -125,9 +133,22 @@ public class SearchEngine {
         return responseData;
     }
 
+
     public static ResponseData process (SearchFormInput input) {
 
+        try {
+            synchronized (SearchEngine.class) {
+                while (timeQuantumUsed) {
+                    SearchEngine.class.wait();
+                }
+            }
+        } catch (InterruptedException e) {
+            // interrupted
+        }
+        timeQuantumUsed = true;
+
         if ( Limits.DEBUG ) {
+            System.out.println("[ Time Quantum ] ::: time quantum taken");
             System.out.print("Resolving which type of query has been selected by user... ");
         }
 
