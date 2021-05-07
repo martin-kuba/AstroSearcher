@@ -1,7 +1,7 @@
 package org.astrosearcher.utilities;
 
 import org.astrosearcher.classes.ResponseData;
-import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.AppConfig;
 import org.astrosearcher.classes.constants.RegularExpressions;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.mast.MastResponse;
@@ -11,10 +11,8 @@ import org.astrosearcher.classes.simbad.SimbadResponse;
 import org.astrosearcher.classes.vizier.VizierResponse;
 import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.models.SearchFormInput;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -152,7 +150,7 @@ public class SearchEngine {
         }
 
         timeQuantumUsed = true;
-        if ( Limits.DEBUG ) {
+        if ( AppConfig.DEBUG ) {
             System.out.println("[ Time Quantum ] ::: time quantum taken");
         }
 
@@ -174,15 +172,15 @@ public class SearchEngine {
         }
         timeQuantumUsed = true;
 
-        if ( Limits.DEBUG ) {
-            if (Limits.DEBUG_CORE) {
+        if ( AppConfig.DEBUG ) {
+            if (AppConfig.DEBUG_CORE) {
                 System.out.println("[ Time Quantum ] ::: time quantum taken");
             }
             System.out.print("Resolving which type of query has been selected by user... ");
         }
 
         if (SearchType.ID_NAME.equals(input.getSearchBy())) {
-            if ( Limits.DEBUG ) {
+            if ( AppConfig.DEBUG ) {
                 System.out.println("query by ID");
             }
 
@@ -198,7 +196,7 @@ public class SearchEngine {
         }
 
         if (SearchType.POSITION.equals(input.getSearchBy())) {
-            if ( Limits.DEBUG ) {
+            if ( AppConfig.DEBUG ) {
                 System.out.println("query by POSITION");
             }
 
@@ -206,7 +204,7 @@ public class SearchEngine {
         }
 
         if (SearchType.POSITION_CROSSMATCH.equals(input.getSearchBy())) {
-            if ( Limits.DEBUG ) {
+            if ( AppConfig.DEBUG ) {
                 System.out.println("CROSSMATCH query");
             }
 
@@ -216,7 +214,7 @@ public class SearchEngine {
     }
 
     private static void printMastResponseIfDEBUG(ResponseForReqByPos resp) {
-        if (Limits.DEBUG && Limits.DEBUG_DISPLAY_MAST_RESULTS) {
+        if (AppConfig.DEBUG && AppConfig.DEBUG_DISPLAY_MAST_RESULTS) {
             System.out.println();
             System.out.println("        MAST response data:");
             System.out.println("        --------------------");

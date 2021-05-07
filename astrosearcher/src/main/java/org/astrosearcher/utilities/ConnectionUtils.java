@@ -1,7 +1,7 @@
 package org.astrosearcher.utilities;
 
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.AppConfig;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -20,14 +20,14 @@ public class ConnectionUtils {
         StringBuilder responseData = new StringBuilder();
 
         try {
-            if ( Limits.DEBUG ) {
+            if ( AppConfig.DEBUG ) {
                 System.out.println("            Opening connection ( " + obj.getConnectionURL().toString() + " )...");
             }
 
             HttpURLConnection connection = (HttpURLConnection) obj.getConnectionURL().openConnection();
             connection.setRequestMethod("POST");
 
-            if ( Limits.DEBUG ) {
+            if ( AppConfig.DEBUG ) {
                 System.out.println("            Sending parameters...");
             }
 
@@ -40,7 +40,7 @@ public class ConnectionUtils {
 
             // Check response code
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                if (Limits.DEBUG) {
+                if (AppConfig.DEBUG) {
                     System.err.println("            RESPONSE CODE:  " + connection.getResponseCode());
                     System.err.println("            RESPONSE MESSAGE:  " + connection.getResponseMessage());
                 }
@@ -51,7 +51,7 @@ public class ConnectionUtils {
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String inputLine;
 
-            if ( Limits.DEBUG ) {
+            if ( AppConfig.DEBUG ) {
                 System.out.println("            Reading response...");
             }
 

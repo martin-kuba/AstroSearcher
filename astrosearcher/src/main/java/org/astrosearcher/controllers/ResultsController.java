@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
-public class TestingController {
+public class ResultsController {
 
     private void processMastResponse(ResponseData responseData, Model model) {
         if (responseData.containsMastResponse()) {
@@ -73,10 +73,10 @@ public class TestingController {
         processMastResponse(responseData, model);
         processVizierResponse(responseData, model);
         processSimbadResponse(responseData, model);
-        return "testing";
+        return "results";
     }
 
-    @PostMapping("testing")
+    @PostMapping("results")
     public String test(@ModelAttribute @Valid SearchFormInput input,
                        Errors errors, Model model) {
 
@@ -110,7 +110,7 @@ public class TestingController {
         return processResponse(responseData, model);
     }
 
-    @GetMapping("testing")
+    @GetMapping("results")
     public String getSearch(@RequestParam String id, Model model) {
 
         ResponseData responseData;

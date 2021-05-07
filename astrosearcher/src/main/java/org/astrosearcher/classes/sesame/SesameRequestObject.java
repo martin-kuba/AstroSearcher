@@ -3,7 +3,7 @@ package org.astrosearcher.classes.sesame;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.AppConfig;
 import org.astrosearcher.classes.constants.cds.SesameConstats;
 import org.astrosearcher.utilities.ConnectionUtils;
 
@@ -26,7 +26,7 @@ public class SesameRequestObject extends RequestObject {
 
     @Override
     public String send() {
-        if ( Limits.DEBUG ) {
+        if ( AppConfig.DEBUG ) {
             System.out.println("\n    >>> Starting to query Sesame...");
         }
 

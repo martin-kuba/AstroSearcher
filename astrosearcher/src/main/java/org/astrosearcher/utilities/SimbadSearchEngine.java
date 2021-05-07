@@ -4,7 +4,7 @@ import cds.savot.model.*;
 import cds.savot.pull.SavotPullEngine;
 import cds.savot.pull.SavotPullParser;
 
-import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.AppConfig;
 import org.astrosearcher.classes.constants.cds.SimbadConstants;
 import org.astrosearcher.classes.simbad.SimbadMeasurementsTable;
 import org.astrosearcher.classes.simbad.SimbadRequestObject;
@@ -52,7 +52,7 @@ public class SimbadSearchEngine {
                     ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
             );
         } catch (Exception e) {
-            if (Limits.DEBUG) {
+            if (AppConfig.DEBUG) {
                 System.out.println("..::!!!   Exception caught (Simbad - ID)  !!!::..");
                 System.out.println("Message: " + e.getMessage());
                 System.out.println();
@@ -90,7 +90,7 @@ public class SimbadSearchEngine {
                     ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
             );
         } catch (Exception e) {
-            if (Limits.DEBUG) {
+            if (AppConfig.DEBUG) {
                 System.out.println("..::!!!   Exception caught   !!!::..");
                 System.out.println("Message: " + e.getMessage());
                 System.out.println();
@@ -124,7 +124,7 @@ public class SimbadSearchEngine {
                     ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
             );
         } catch (Exception e) {
-            if (Limits.DEBUG) {
+            if (AppConfig.DEBUG) {
                 System.out.println("..::!!!   Exception caught (Simbad - ID)  !!!::..");
                 System.out.println("Message: " + e.getMessage());
                 System.out.println();

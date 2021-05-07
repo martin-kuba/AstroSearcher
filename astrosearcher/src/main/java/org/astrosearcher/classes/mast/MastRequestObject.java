@@ -3,7 +3,6 @@ package org.astrosearcher.classes.mast;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.CharsetEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.Gson;
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.AppConfig;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.constants.MASTConstants;
 import org.astrosearcher.classes.mast.services.caom.crossmatch.CaomCrossmatchInput;
@@ -93,7 +92,7 @@ public class MastRequestObject extends RequestObject {
 
     @Override
     public String send() {
-        if ( Limits.DEBUG ) {
+        if ( AppConfig.DEBUG ) {
             System.out.println("\n    >>> Starting to query MAST...");
         }
 
@@ -107,7 +106,7 @@ public class MastRequestObject extends RequestObject {
 
     @Override
     public byte[] getParamsAsBytes() {
-        if (Limits.DEBUG) {
+        if (AppConfig.DEBUG) {
             System.out.println("                params: " + MASTConstants.REQUEST_PARAMS_PREFIX + gson.toJson(this));
             System.out.println("                params (encoded): " + MASTConstants.REQUEST_PARAMS_PREFIX +
                     URLEncoder.encode(gson.toJson(this), StandardCharsets.UTF_8));

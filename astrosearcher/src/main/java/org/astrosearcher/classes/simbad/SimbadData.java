@@ -6,7 +6,7 @@ import cds.savot.model.TDSet;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.AppConfig;
 import org.astrosearcher.classes.constants.cds.SimbadConstants;
 import org.astrosearcher.enums.cds.simbad.SimbadArgType;
 import org.astrosearcher.enums.cds.simbad.SimbadFields;
@@ -270,7 +270,7 @@ public class SimbadData {
 
     private void calculate_galactic_coords() {
 
-        if (Limits.DEBUG) {
+        if (AppConfig.DEBUG) {
             System.out.println("        Starting the calculation of galactic coordinates.");
         }
 

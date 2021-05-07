@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.AppConfig;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.constants.cds.VizierConstants;
 import org.astrosearcher.enums.VizierCatalogueSearch;
@@ -65,7 +65,7 @@ public class VizierRequestObject extends RequestObject {
 
     @Override
     public String send() {
-        if ( Limits.DEBUG ) {
+        if ( AppConfig.DEBUG ) {
             System.out.println("\n    >>> Starting to query VIZIER...");
         }
 

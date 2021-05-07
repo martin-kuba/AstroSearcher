@@ -3,16 +3,14 @@ package org.astrosearcher.classes.simbad;
 import cds.savot.model.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.AppConfig;
 import org.astrosearcher.classes.constants.cds.SimbadConstants;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.enums.cds.simbad.SimbadFields;
 import org.astrosearcher.enums.cds.simbad.SimbadServices;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Class represents parsed response from Simbad server.
@@ -80,7 +78,7 @@ public class SimbadResponse {
             assignedData.add(new SimbadData(row.getTDSet(), fields));
         }
 
-        if (Limits.DEBUG && Limits.DEBUG_DISPLAY_SIMBAD_RESULTS) {
+        if (AppConfig.DEBUG && AppConfig.DEBUG_DISPLAY_SIMBAD_RESULTS) {
             System.out.println("        Simbad response:");
             for (int i = 0; i < fields.size(); i++) {
                 System.out.println("            [ " + fields.get(i) + " ]: " + data.get(0).getTDSet().getContent(i));

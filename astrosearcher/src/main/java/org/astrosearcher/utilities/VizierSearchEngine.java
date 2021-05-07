@@ -3,7 +3,7 @@ package org.astrosearcher.utilities;
 import cds.savot.model.SavotVOTable;
 import cds.savot.pull.SavotPullEngine;
 import cds.savot.pull.SavotPullParser;
-import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.AppConfig;
 import org.astrosearcher.classes.vizier.VizierRequestObject;
 import org.astrosearcher.classes.vizier.VizierResponse;
 import org.astrosearcher.classes.xmatch.CDSCrossmatchRequestObject;
@@ -26,7 +26,7 @@ public class VizierSearchEngine {
 
         String response = new VizierRequestObject(VizierServices.VIZIER_ID, input).send();
 
-        if (Limits.DEBUG) {
+        if (AppConfig.DEBUG) {
             System.out.println("        Initializing SavotPullParser...");
         }
 
@@ -53,7 +53,7 @@ public class VizierSearchEngine {
 
         String response = new VizierRequestObject(VizierServices.VIZIER_COORDINATES, input).send();
 
-        if (Limits.DEBUG) {
+        if (AppConfig.DEBUG) {
             System.out.println("        Initializing SavotPullParser...");
         }
 
@@ -73,7 +73,7 @@ public class VizierSearchEngine {
     public static VizierResponse findAllByCrossmatch(SearchFormInput input) {
         String response = new CDSCrossmatchRequestObject(input, "vizier:" + input.getVizierCat()).send();
 
-        if (Limits.DEBUG) {
+        if (AppConfig.DEBUG) {
             System.out.println("        Initializing SavotPullParser...");
         }
 
@@ -92,7 +92,7 @@ public class VizierSearchEngine {
 
     private static boolean isEmptyResponse(SavotVOTable vot) {
 
-        if (Limits.DEBUG) {
+        if (AppConfig.DEBUG) {
             System.out.print("        Checking resources count... ");
             System.out.println(vot.getResources().getItemCount() + " resources found");
         }

@@ -3,7 +3,7 @@ package org.astrosearcher.classes.vizier;
 import cds.savot.model.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.AppConfig;
 import org.astrosearcher.enums.cds.vizier.VizierServices;
 import org.astrosearcher.utilities.VotableUtils;
 
@@ -30,7 +30,7 @@ public class VizierResponse {
         this.type = service;
 
         int debug_progress_counter = 0;
-        if (Limits.DEBUG) {
+        if (AppConfig.DEBUG) {
             System.out.println("        Parsing the response...");
         }
 
@@ -48,13 +48,13 @@ public class VizierResponse {
                 }
             }
 
-            if (Limits.DEBUG && resIndex >= (debug_progress_counter + 1) * resources.getItemCount() / 4) {
+            if (AppConfig.DEBUG && resIndex >= (debug_progress_counter + 1) * resources.getItemCount() / 4) {
                 debug_progress_counter++;
                 System.out.println("            [  " + debug_progress_counter * 25 + "% ] resources parsed!");
             }
         }
 
-        if (Limits.DEBUG) {
+        if (AppConfig.DEBUG) {
             System.out.println("            [ 100% ] resources parsed!");
         }
 

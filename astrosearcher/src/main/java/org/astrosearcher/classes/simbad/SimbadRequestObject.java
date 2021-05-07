@@ -2,7 +2,7 @@ package org.astrosearcher.classes.simbad;
 
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.AppConfig;
 import org.astrosearcher.classes.constants.RegularExpressions;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.constants.cds.SimbadConstants;
@@ -69,7 +69,7 @@ public class SimbadRequestObject extends RequestObject {
 
     @Override
     public String send() {
-        if ( Limits.DEBUG ) {
+        if ( AppConfig.DEBUG ) {
             System.out.println("\n    >>> Starting to query SIMBAD...");
         }
 
@@ -90,7 +90,7 @@ public class SimbadRequestObject extends RequestObject {
             params.append(arg.toString());
         }
 
-        if (Limits.DEBUG && Limits.DEBUG_SIMBAD_REQUEST) {
+        if (AppConfig.DEBUG && AppConfig.DEBUG_SIMBAD_REQUEST) {
             System.out.println();
             System.out.println("            Parameters = " + format + params.toString());
         }

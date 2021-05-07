@@ -8,7 +8,7 @@ import org.apache.http.entity.mime.*;
 import org.apache.http.entity.mime.content.*;
 
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.AppConfig;
 import org.astrosearcher.classes.constants.cds.SimbadConstants;
 import org.astrosearcher.classes.constants.cds.XMatchConstats;
 import org.astrosearcher.classes.simbad.SimbadArg;
@@ -99,7 +99,7 @@ public class CDSCrossmatchRequestObject extends RequestObject {
             BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             String inputLine;
 
-            if ( Limits.DEBUG ) {
+            if ( AppConfig.DEBUG ) {
                 System.out.println("            Reading response...");
             }
 
@@ -127,7 +127,7 @@ public class CDSCrossmatchRequestObject extends RequestObject {
             params.append(arg.toString());
         }
 
-        if (Limits.DEBUG) {
+        if (AppConfig.DEBUG) {
             System.out.println("            params: " + params);
         }
 
