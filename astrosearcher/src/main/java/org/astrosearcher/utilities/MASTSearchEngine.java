@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.mast.MastResponse;
 import org.astrosearcher.enums.mast.MastServices;
 import org.astrosearcher.classes.mast.MastRequestObject;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
@@ -32,7 +33,6 @@ public class MASTSearchEngine {
             return resolved;
         }
 
-        double radius;
         // in case parsing would not be valid
         try {
             ResponseForReqByName resp = new Gson().fromJson(response, ResponseForReqByName.class);
@@ -45,32 +45,45 @@ public class MASTSearchEngine {
                 ));
             }
         } catch (Exception e) {
-//            System.out.println("Exception caught:\n" + e);
+            return resolved;
         }
 
         return resolved;
     }
 
-    public static ResponseForReqByPos findAllByID(SearchFormInput input) {
+    public static MastResponse findAllByID(SearchFormInput input) {
         List<PositionInput> resolved = resolvePositionByNameOrID(input);
-        return resolved.isEmpty() ? null : findAllByPosition(resolved.get(0), input);
+        return resolved.isEmpty() ? new MastResponse() : findAllByPosition(resolved.get(0), input);
     }
 
-    public static ResponseForReqByPos findAllByPosition(SearchFormInput input) {
+    public static MastResponse findAllByPosition(SearchFormInput input) {
         String response = new MastRequestObject(MastServices.MAST_CAOM_CONE, input).send();
-        return response == null ? null : new Gson().fromJson(response, ResponseForReqByPos.class);
+
+        if (response == null) {
+            return new MastResponse();
+        }
+
+        return new MastResponse(new Gson().fromJson(response, ResponseForReqByPos.class));
     }
 
-    public static ResponseForReqByPos findAllByPosition(PositionInput position, SearchFormInput input) {
+    public static MastResponse findAllByPosition(PositionInput position, SearchFormInput input) {
         String response = new MastRequestObject(MastServices.MAST_CAOM_CONE, position, input).send();
-        return response == null ? null : new Gson().fromJson(response, ResponseForReqByPos.class);
+
+        if (response == null) {
+            new MastResponse();
+        }
+
+        return new MastResponse(new Gson().fromJson(response, ResponseForReqByPos.class));
     }
 
-    public static ResponseForReqByPos findAllByPositionCrossmatch(SearchFormInput input) {
+    public static MastResponse findAllByPositionCrossmatch(SearchFormInput input) {
         String response = new MastRequestObject(MastServices.MAST_CAOM_CROSSMATCH, input).send();
 
-        // TODO: check this return statement!!!
-        return response == null ? null : new Gson().fromJson(response, ResponseForReqByPos.class);
+        if (response == null) {
+            return new MastResponse();
+        }
+
+        return new MastResponse(new Gson().fromJson(response, ResponseForReqByPos.class));
     }
 
 }

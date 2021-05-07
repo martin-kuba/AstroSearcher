@@ -38,13 +38,12 @@ public class SearchEngine {
 
 
     public static ResponseData findAllByPosition(SearchFormInput input) {
+
         ResponseData responseData = new ResponseData();
 
         // MAST
         if (input.isQueryMast()) {
-            ResponseForReqByPos resp = MASTSearchEngine.findAllByPosition(input);
-            responseData.setMastResponse(resp == null ? new MastResponse() : new MastResponse(resp));
-            printMastResponseIfDEBUG(resp);
+            responseData.setMastResponse(MASTSearchEngine.findAllByPosition(input));
         } else {
             responseData.setMastResponse(new MastResponse());
         }
@@ -56,7 +55,6 @@ public class SearchEngine {
             responseData.setSimbadResponse(new SimbadResponse());
         }
 
-
         // Vizier
         if (input.isQueryVizier()) {
             responseData.setVizierResponse(VizierSearchEngine.findAllByPosition(input));
@@ -64,20 +62,16 @@ public class SearchEngine {
             responseData.setVizierResponse(new VizierResponse());
         }
 
-
         return responseData;
     }
 
     public static ResponseData findAllByPositionCrossmatch(SearchFormInput input) {
-        ResponseData responseData = new ResponseData();
 
-//        System.out.println("File: " + input.getFile().getName());
+        ResponseData responseData = new ResponseData();
 
         // MAST
         if (input.isQueryMast()) {
-            ResponseForReqByPos resp = MASTSearchEngine.findAllByPositionCrossmatch(input);
-            responseData.setMastResponse(resp == null ? new MastResponse() : new MastResponse(resp));
-            printMastResponseIfDEBUG(resp);
+            responseData.setMastResponse(MASTSearchEngine.findAllByPositionCrossmatch(input));
         } else {
             responseData.setMastResponse(new MastResponse());
         }
@@ -96,8 +90,6 @@ public class SearchEngine {
             responseData.setVizierResponse(new VizierResponse());
         }
 
-//        responseData.setSimbadResponse(SimbadSearchEngine.findAllByPosition(input));
-
         return responseData;
     }
 
@@ -106,9 +98,7 @@ public class SearchEngine {
 
         // MAST
         if (input.isQueryMast()) {
-            ResponseForReqByPos response = MASTSearchEngine.findAllByID(input);
-            responseData.setMastResponse(response == null ? new MastResponse() : new MastResponse(response));
-            printMastResponseIfDEBUG(response);
+            responseData.setMastResponse(MASTSearchEngine.findAllByID(input));
         } else {
             responseData.setMastResponse(new MastResponse());
         }
@@ -131,13 +121,10 @@ public class SearchEngine {
             responseData.setVizierResponse(new VizierResponse());
         }
 
-
         return responseData;
     }
 
     public static List<SimbadMeasurementsTable> findAllMeasurementsByID(SearchFormInput input) {
-
-        List<SimbadMeasurementsTable> measurements = new ArrayList<>();
 
         try {
             synchronized (SearchEngine.class) {
@@ -157,8 +144,6 @@ public class SearchEngine {
         return SimbadSearchEngine.findAllMeasurementsById(input);
     }
 
-
-
     public static ResponseData process (SearchFormInput input) {
 
         try {
@@ -168,7 +153,7 @@ public class SearchEngine {
                 }
             }
         } catch (InterruptedException e) {
-            // interrupted
+            return new ResponseData();
         }
         timeQuantumUsed = true;
 
@@ -211,20 +196,5 @@ public class SearchEngine {
             return findAllByPositionCrossmatch(input);
         }
         throw new IllegalArgumentException(ExceptionMSG.NOT_DEFINED_SEARCH_OPTION + input.getSearchInput());
-    }
-
-    private static void printMastResponseIfDEBUG(ResponseForReqByPos resp) {
-        if (AppConfig.DEBUG && AppConfig.DEBUG_DISPLAY_MAST_RESULTS) {
-            System.out.println();
-            System.out.println("        MAST response data:");
-            System.out.println("        --------------------");
-
-            if (resp != null && resp.getData() != null) {
-                for (var line : resp.getData()) {
-                    System.out.println("            " + line);
-                }
-            }
-            System.out.println();
-        }
     }
 }
