@@ -7,7 +7,9 @@ import org.astrosearcher.classes.constants.messages.ValidationMSG;
 import org.astrosearcher.classes.constants.cds.VizierConstants;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Size;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,20 +18,27 @@ import javax.validation.constraints.Min;
 public class SearchFormInput {
 
     private String searchBy;
+
+    @Size(max = Limits.INPUT_MAX_LENGTH, message = ValidationMSG.INPUT_MAX_LENGTH_VALIDATION_MSG)
     private String searchInput;
 
     private String SimbadFormat = SimbadConstants.DEFAULT_FORMAT;
 
+    @Min(value = Limits.RADIUS_MIN, message = ValidationMSG.RADIUS_MIN_VALIDATION_MSG)
+    @Max(value = Limits.RADIUS_MAX, message = ValidationMSG.RADIUS_MAX_VALIDATION_MSG)
     private double radius = Limits.DEFAULT_RADIUS;
 
     @Min(value = Limits.PAGE_MIN, message = ValidationMSG.PAGE_MIN_VALIDATION_MSG)
+    @Max(value = Limits.PAGE_MAX, message = ValidationMSG.PAGE_MAX_VALIDATION_MSG)
     private int    page = Limits.DEFAULT_PAGE;
 
     @Min(value = Limits.PAGESIZE_MIN, message = ValidationMSG.PAGESIZE_MIN_VALIDATION_MSG)
+    @Max(value = Limits.PAGESIZE_MAX, message = ValidationMSG.PAGESIZE_MAX_VALIDATION_MSG)
     private int    pagesize = Limits.DEFAULT_PAGESIZE;
 
     private String vizierCatalogueSearchBy;
 
+    @Size(max = Limits.VIZIER_INPUT_MAX_LENGTH, message = ValidationMSG.VIZIER_INPUT_MAX_LENGTH_VALIDATION_MSG)
     private String vizierCat = VizierConstants.DEFAULT_CATALOG;
 
     private MultipartFile file;
@@ -37,7 +46,6 @@ public class SearchFormInput {
     private boolean queryMast = true;
     private boolean queryVizier = true;
     private boolean querySimbad = true;
-
 
     public String getVizierCat() {
         return vizierCat == null ? "" : vizierCat;
