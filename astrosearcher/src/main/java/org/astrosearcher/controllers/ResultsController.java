@@ -77,8 +77,8 @@ public class ResultsController {
     }
 
     @PostMapping("results")
-    public String test(@ModelAttribute @Valid SearchFormInput input,
-                       Errors errors, Model model) {
+    public String postSearch(@ModelAttribute @Valid SearchFormInput input,
+                             Errors errors, Model model) {
 
         if (errors.hasFieldErrors()) {
 //            System.out.println("test\n");

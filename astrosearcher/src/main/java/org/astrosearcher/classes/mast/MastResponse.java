@@ -11,11 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class represents MAST response (data part) used in final Response for user.
+ * Class represents MAST response (data part).
  *
  * Class stores:
- *   1.) fields (column names in table) compared with pre-defined settings
- *   2.) data (Json Object format)
+ *     1.) fields   -> column names in table
+ *                  -> used with pre-defined settings (@see org.astrosearcher.enums.mast.services.caom.cone.CaomFields)
+ *
+ *     2.) data     -> in format of Json Object
  *
  * @author Ľuboslav Halama
  */

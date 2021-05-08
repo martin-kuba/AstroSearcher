@@ -20,11 +20,11 @@ import java.util.List;
 
 /**
  * Provides general interface for searching in three defined catalogues (Mast, Vizier, Simbad)
- *
+ * <p>
  * Class focuses mainly on searching by two diferrent types:
- *   1.) ID/name
- *   2.) Coordinates (position) -> RA, Dec, (opt. Radius)
- *
+ * 1.) ID/name
+ * 2.) Coordinates (position) -> RA, Dec, (opt. Radius)
+ * <p>
  * However, querying on MAST server is possible only by using coordinates, so ID/name must be firstly resolved
  * into coordinates (position) and query by coordinates (position) is used then.
  *
@@ -34,32 +34,59 @@ import java.util.List;
 @EnableAsync
 public class SearchEngine {
 
-    public static boolean timeQuantumUsed = false;
+//    public static boolean timeQuantumUsed = false;
+
+    private static boolean finished(SearchFormInput input) {
+        return !input.isQueryMast() && !input.isQueryVizier() && !input.isQuerySimbad();
+    }
 
 
     public static ResponseData findAllByPosition(SearchFormInput input) {
 
         ResponseData responseData = new ResponseData();
 
-        // MAST
-        if (input.isQueryMast()) {
-            responseData.setMastResponse(MASTSearchEngine.findAllByPosition(input));
-        } else {
-            responseData.setMastResponse(new MastResponse());
-        }
+        while (true) {
 
-        // SIMBAD
-        if (input.isQuerySimbad()) {
-            responseData.setSimbadResponse(SimbadSearchEngine.findAllByPosition(input));
-        } else {
-            responseData.setSimbadResponse(new SimbadResponse());
-        }
+            try {
 
-        // Vizier
-        if (input.isQueryVizier()) {
-            responseData.setVizierResponse(VizierSearchEngine.findAllByPosition(input));
-        } else {
-            responseData.setVizierResponse(new VizierResponse());
+                // MAST
+                if (input.isQueryMast()) {
+                    if (!MASTSearchEngine.isTimeQuantumUsed()) {
+                        MASTSearchEngine.setTimeQuantum(true);
+                        responseData.setMastResponse(MASTSearchEngine.findAllByPosition(input));
+                        input.setQueryMast(false);
+                    }
+                }
+
+                // SIMBAD
+                if (input.isQuerySimbad()) {
+                    if (!SimbadSearchEngine.isTimeQuantumUsed()) {
+                        SimbadSearchEngine.setTimeQuantum(true);
+                        responseData.setSimbadResponse(SimbadSearchEngine.findAllByPosition(input));
+                        input.setQuerySimbad(false);
+                    }
+                }
+
+                // Vizier
+                if (input.isQueryVizier()) {
+                    if (!VizierSearchEngine.isTimeQuantumUsed()) {
+                        VizierSearchEngine.setTimeQuantum(true);
+                        responseData.setVizierResponse(VizierSearchEngine.findAllByPosition(input));
+                        input.setQueryVizier(false);
+                    }
+
+                }
+
+                if (finished(input)) {
+                    break;
+                } else {
+                    synchronized (SearchEngine.class) {
+                        SearchEngine.class.wait();
+                    }
+                }
+            } catch (InterruptedException ie) {
+                break;
+            }
         }
 
         return responseData;
@@ -69,25 +96,48 @@ public class SearchEngine {
 
         ResponseData responseData = new ResponseData();
 
-        // MAST
-        if (input.isQueryMast()) {
-            responseData.setMastResponse(MASTSearchEngine.findAllByPositionCrossmatch(input));
-        } else {
-            responseData.setMastResponse(new MastResponse());
-        }
+        while (true) {
 
-        // Simbad
-        if (input.isQuerySimbad()) {
-            responseData.setSimbadResponse(SimbadSearchEngine.findAllByCrossmatch(input));
-        } else {
-            responseData.setSimbadResponse(new SimbadResponse());
-        }
+            try {
 
-        // Vizier
-        if (input.isQueryVizier()) {
-            responseData.setVizierResponse(VizierSearchEngine.findAllByCrossmatch(input));
-        } else {
-            responseData.setVizierResponse(new VizierResponse());
+                // MAST
+                if (input.isQueryMast()) {
+                    if (!MASTSearchEngine.isTimeQuantumUsed()) {
+                        MASTSearchEngine.setTimeQuantum(true);
+                        responseData.setMastResponse(MASTSearchEngine.findAllByPositionCrossmatch(input));
+                        input.setQueryMast(false);
+                    }
+                }
+
+                // SIMBAD
+                if (input.isQuerySimbad()) {
+                    if (!SimbadSearchEngine.isTimeQuantumUsed()) {
+                        SimbadSearchEngine.setTimeQuantum(true);
+                        responseData.setSimbadResponse(SimbadSearchEngine.findAllByCrossmatch(input));
+                        input.setQuerySimbad(false);
+                    }
+                }
+
+                // Vizier
+                if (input.isQueryVizier()) {
+                    if (!VizierSearchEngine.isTimeQuantumUsed()) {
+                        VizierSearchEngine.setTimeQuantum(true);
+                        responseData.setVizierResponse(VizierSearchEngine.findAllByCrossmatch(input));
+                        input.setQueryVizier(false);
+                    }
+
+                }
+
+                if (finished(input)) {
+                    break;
+                } else {
+                    synchronized (SearchEngine.class) {
+                        SearchEngine.class.wait();
+                    }
+                }
+            } catch (InterruptedException ie) {
+                break;
+            }
         }
 
         return responseData;
@@ -96,29 +146,52 @@ public class SearchEngine {
     public static ResponseData findAllByID(SearchFormInput input) {
         ResponseData responseData = new ResponseData();
 
-        // MAST
-        if (input.isQueryMast()) {
-            responseData.setMastResponse(MASTSearchEngine.findAllByID(input));
-        } else {
-            responseData.setMastResponse(new MastResponse());
-        }
+        while (true) {
 
-        // Simbad
-        if (input.isQuerySimbad()) {
-            if (RegularExpressions.isIAUFormat(input.getSearchInput())) {
-                responseData.setSimbadResponse(SimbadSearchEngine.findAllByPosition(input));
-            } else {
-                responseData.setSimbadResponse(SimbadSearchEngine.findAllById(input));
+            try {
+
+                // MAST
+                if (input.isQueryMast()) {
+                    if (!MASTSearchEngine.isTimeQuantumUsed()) {
+                        MASTSearchEngine.setTimeQuantum(true);
+                        responseData.setMastResponse(MASTSearchEngine.findAllByID(input));
+                        input.setQueryMast(false);
+                    }
+                }
+
+                // SIMBAD
+                if (input.isQuerySimbad()) {
+                    if (!SimbadSearchEngine.isTimeQuantumUsed()) {
+                        SimbadSearchEngine.setTimeQuantum(true);
+                        if (RegularExpressions.isIAUFormat(input.getSearchInput())) {
+                            responseData.setSimbadResponse(SimbadSearchEngine.findAllByPosition(input));
+                        } else {
+                            responseData.setSimbadResponse(SimbadSearchEngine.findAllById(input));
+                        }
+                        input.setQuerySimbad(false);
+                    }
+                }
+
+                // Vizier
+                if (input.isQueryVizier()) {
+                    if (!VizierSearchEngine.isTimeQuantumUsed()) {
+                        VizierSearchEngine.setTimeQuantum(true);
+                        responseData.setVizierResponse(VizierSearchEngine.findAllById(input));
+                        input.setQueryVizier(false);
+                    }
+
+                }
+
+                if (finished(input)) {
+                    break;
+                } else {
+                    synchronized (SearchEngine.class) {
+                        SearchEngine.class.wait();
+                    }
+                }
+            } catch (InterruptedException ie) {
+                break;
             }
-        } else {
-            responseData.setSimbadResponse(new SimbadResponse());
-        }
-
-        // Vizier
-        if (input.isQueryVizier()) {
-            responseData.setVizierResponse(VizierSearchEngine.findAllById(input));
-        } else {
-            responseData.setVizierResponse(new VizierResponse());
         }
 
         return responseData;
@@ -127,45 +200,36 @@ public class SearchEngine {
     public static List<SimbadMeasurementsTable> findAllMeasurementsByID(SearchFormInput input) {
 
         try {
-            synchronized (SearchEngine.class) {
-                while (timeQuantumUsed) {
-                    SearchEngine.class.wait();
-                }
+            while (SimbadSearchEngine.isTimeQuantumUsed()) {
+                SearchEngine.class.wait();
             }
         } catch (InterruptedException e) {
             return new ArrayList<>();
         }
 
-        timeQuantumUsed = true;
-        if ( AppConfig.DEBUG ) {
-            System.out.println("[ Time Quantum ] ::: time quantum taken");
-        }
-
+        SimbadSearchEngine.setTimeQuantum(true);
         return SimbadSearchEngine.findAllMeasurementsById(input);
     }
 
-    public static ResponseData process (SearchFormInput input) {
+    public static ResponseData process(SearchFormInput input) {
 
-        try {
-            synchronized (SearchEngine.class) {
-                while (timeQuantumUsed) {
-                    SearchEngine.class.wait();
-                }
-            }
-        } catch (InterruptedException e) {
-            return new ResponseData();
-        }
-        timeQuantumUsed = true;
+//        try {
+//            synchronized (SearchEngine.class) {
+//                while (timeQuantumUsed) {
+//                    SearchEngine.class.wait();
+//                }
+//            }
+//        } catch (InterruptedException e) {
+//            return new ResponseData();
+//        }
+//        timeQuantumUsed = true;
 
-        if ( AppConfig.DEBUG ) {
-            if (AppConfig.DEBUG_CORE) {
-                System.out.println("[ Time Quantum ] ::: time quantum taken");
-            }
+        if (AppConfig.DEBUG) {
             System.out.print("Resolving which type of query has been selected by user... ");
         }
 
         if (SearchType.ID_NAME.equals(input.getSearchBy())) {
-            if ( AppConfig.DEBUG ) {
+            if (AppConfig.DEBUG) {
                 System.out.println("query by ID");
             }
 
@@ -181,7 +245,7 @@ public class SearchEngine {
         }
 
         if (SearchType.POSITION.equals(input.getSearchBy())) {
-            if ( AppConfig.DEBUG ) {
+            if (AppConfig.DEBUG) {
                 System.out.println("query by POSITION");
             }
 
@@ -189,7 +253,7 @@ public class SearchEngine {
         }
 
         if (SearchType.POSITION_CROSSMATCH.equals(input.getSearchBy())) {
-            if ( AppConfig.DEBUG ) {
+            if (AppConfig.DEBUG) {
                 System.out.println("CROSSMATCH query");
             }
 

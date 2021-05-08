@@ -2,7 +2,10 @@ package org.astrosearcher.utilities;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import lombok.Getter;
+import lombok.Setter;
 import org.astrosearcher.classes.PositionInput;
+import org.astrosearcher.classes.constants.AppConfig;
 import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.mast.MastResponse;
 import org.astrosearcher.enums.mast.MastServices;
@@ -11,6 +14,7 @@ import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
 import org.astrosearcher.classes.mast.services.name.lookup.ResponseForReqByName;
 import org.astrosearcher.models.SearchFormInput;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +27,23 @@ import java.util.List;
  * @author Ľuboslav Halama
  */
 public class MASTSearchEngine {
+
+    private static boolean timeQuantumUsed = false;
+
+    public synchronized static boolean isTimeQuantumUsed() {
+        return timeQuantumUsed;
+    }
+
+    public synchronized static void setTimeQuantum(boolean flag) {
+        timeQuantumUsed = flag;
+        if (AppConfig.DEBUG_SCHEDULE) {
+            if (flag) {
+                System.out.println("    " + LocalTime.now() + " ::: [ MAST ]             : Time Quantum used");
+            } else {
+                System.out.println("    " + LocalTime.now() + " ::: [ MAST ]             : Time Quantum freed");
+            }
+        }
+    }
 
     private static List<PositionInput> resolvePositionByNameOrID(SearchFormInput input) {
 

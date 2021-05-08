@@ -14,6 +14,7 @@ import org.astrosearcher.enums.cds.simbad.SimbadServices;
 import org.astrosearcher.models.SearchFormInput;
 
 import java.io.ByteArrayInputStream;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,23 @@ import java.util.List;
  * @author Ľuboslav Halama
  */
 public class SimbadSearchEngine {
+
+    private static boolean timeQuantumUsed = false;
+
+    public synchronized static boolean isTimeQuantumUsed() {
+        return timeQuantumUsed;
+    }
+
+    public synchronized static void setTimeQuantum(boolean flag) {
+        timeQuantumUsed = flag;
+        if (AppConfig.DEBUG_SCHEDULE) {
+            if (flag) {
+                System.out.println("    " + LocalTime.now() + " ::: [ SIMBAD ]           : Time Quantum used");
+            } else {
+                System.out.println("    " + LocalTime.now() + " ::: [ SIMBAD ]           : Time Quantum freed");
+            }
+        }
+    }
 
     // TODO: change return type, implement functionality
     public static SimbadResponse findAllById(SearchFormInput input) {

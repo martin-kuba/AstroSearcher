@@ -23,4 +23,9 @@ public final class Limits {
     public static final int PAGESIZE_MIN = 1;
     public static final int DEFAULT_PAGESIZE = 500;
 
+    // Queries per second
+    public static final int MAST_MAX_QPS   = 4;
+    public static final int SIMBAD_MAX_QPS = 4;
+    public static final int VIZIER_MAX_QPS = 4;
+
 }

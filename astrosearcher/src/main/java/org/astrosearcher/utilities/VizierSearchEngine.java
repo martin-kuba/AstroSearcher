@@ -11,6 +11,7 @@ import org.astrosearcher.enums.cds.vizier.VizierServices;
 import org.astrosearcher.models.SearchFormInput;
 
 import java.io.ByteArrayInputStream;
+import java.time.LocalTime;
 
 /**
  * Class serves as inter-level between general SearchEngine class and ConnectionUtils class.
@@ -21,6 +22,23 @@ import java.io.ByteArrayInputStream;
  * @author Ľuboslav Halama
  */
 public class VizierSearchEngine {
+
+    private static boolean timeQuantumUsed = false;
+
+    public synchronized static boolean isTimeQuantumUsed() {
+        return timeQuantumUsed;
+    }
+
+    public synchronized static void setTimeQuantum(boolean flag) {
+        timeQuantumUsed = flag;
+        if (AppConfig.DEBUG_SCHEDULE) {
+            if (flag) {
+                System.out.println("    " + LocalTime.now() + " ::: [ Vizier ]           : Time Quantum used");
+            } else {
+                System.out.println("    " + LocalTime.now() + " ::: [ Vizier ]           : Time Quantum freed");
+            }
+        }
+    }
 
     public static VizierResponse findAllById(SearchFormInput input) {
 
