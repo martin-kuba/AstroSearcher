@@ -22,9 +22,8 @@ public class SesameResponse {
     private List<String> aliases = new ArrayList<>();
 
     public SesameResponse(String response) {
-        Pattern pattern = Pattern.compile(RegularExpressions.SESAME_VALID_RESPONSE);
-        Matcher matcher = pattern.matcher(response);
 
+        Matcher matcher = Pattern.compile(RegularExpressions.SESAME_VALID_RESPONSE).matcher(response);
         if ( !matcher.matches() ) {
             return;
         }
@@ -32,8 +31,7 @@ public class SesameResponse {
         id = matcher.group(1);
 
         // load all aliases
-        pattern = Pattern.compile(RegularExpressions.SESAME_XML_ALIAS);
-        matcher = pattern.matcher(response);
+        matcher = Pattern.compile(RegularExpressions.SESAME_XML_ALIAS).matcher(response);
         while (matcher.find()) {
             aliases.add(matcher.group(1));
         }

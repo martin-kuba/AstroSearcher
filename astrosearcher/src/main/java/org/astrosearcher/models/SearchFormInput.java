@@ -2,14 +2,14 @@ package org.astrosearcher.models;
 
 import lombok.*;
 import org.astrosearcher.classes.constants.Limits;
+import org.astrosearcher.classes.constants.RegularExpressions;
 import org.astrosearcher.classes.constants.cds.SimbadConstants;
 import org.astrosearcher.classes.constants.messages.ValidationMSG;
 import org.astrosearcher.classes.constants.cds.VizierConstants;
+import org.springframework.format.annotation.NumberFormat;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,8 +24,9 @@ public class SearchFormInput {
 
     private String SimbadFormat = SimbadConstants.DEFAULT_FORMAT;
 
-    @Min(value = Limits.RADIUS_MIN, message = ValidationMSG.RADIUS_MIN_VALIDATION_MSG)
-    @Max(value = Limits.RADIUS_MAX, message = ValidationMSG.RADIUS_MAX_VALIDATION_MSG)
+    @NotNull(message = ValidationMSG.RADIUS_NULL_VALIDATION_MSG)
+    @DecimalMin(value = Limits.RADIUS_MIN_STRING, message = ValidationMSG.RADIUS_MIN_VALIDATION_MSG)
+    @DecimalMax(value = Limits.RADIUS_MAX_STRING, message = ValidationMSG.RADIUS_MAX_VALIDATION_MSG)
     private double radius = Limits.DEFAULT_RADIUS;
 
     @Min(value = Limits.PAGE_MIN, message = ValidationMSG.PAGE_MIN_VALIDATION_MSG)

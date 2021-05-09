@@ -49,7 +49,7 @@
                     </div>
                     <div class="col-3 col-md-2">
                         <input class="form-control" th:field="${searchFormInput.radius}"
-                               type="number">
+                               type="number" step="any" required>
                     </div>
                 </div>
                 <div class="row mb-2 gx-2 gx-md-3 gx-lg-4">
@@ -61,12 +61,12 @@
                     <div class="col-4 col-md-3 offset-3 offset-md-2">
                         <label for="pageSizeLabel" class="form-label">Page&nbsp;size:</label>
                         <input class="form-control" id="pageSizeLabel" th:field="${searchFormInput.pagesize}"
-                               type="number">
+                               type="number" required>
                     </div>
                     <div class="col-4 col-md-3">
                         <label for="pageLabel" class="form-label">Page:</label>
                         <input class="form-control" id="pageLabel" th:field="${searchFormInput.page}"
-                               type="number">
+                               type="number" required>
                     </div>
                 </div>
                 <div class="row mb-3 gx-2 gx-md-3 gx-lg-4">

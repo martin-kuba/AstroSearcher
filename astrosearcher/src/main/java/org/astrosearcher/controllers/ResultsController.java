@@ -1,5 +1,6 @@
 package org.astrosearcher.controllers;
 
+import org.astrosearcher.validators.FileValidator;
 import org.astrosearcher.classes.ResponseData;
 import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.constants.cds.SimbadConstants;
@@ -11,6 +12,8 @@ import org.astrosearcher.enums.cds.simbad.SimbadServices;
 import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.models.SearchFormInput;
 import org.astrosearcher.utilities.SearchEngine;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
@@ -20,9 +23,23 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @Controller
+@EnableAsync
 public class ResultsController {
 
+    @Autowired
+    private SearchEngine engine;
+
+    @Autowired
+    private FileValidator fileValidator;
+
+    private void handleFail(String message, Model model) {
+        model.addAttribute("errorMSG",      message);
+        model.addAttribute("searchOptions", SearchType.values());
+        model.addAttribute("vizierOptions", VizierCatalogueSearch.values());
+    }
+
     private void processMastResponse(ResponseData responseData, Model model) {
+
         if (responseData.containsMastResponse()) {
             model.addAttribute("mastFields", responseData.getMastResponse().getFields());
             model.addAttribute("mastData", responseData.getMastResponse().getData());
@@ -33,9 +50,8 @@ public class ResultsController {
     }
 
     private void processVizierResponse(ResponseData responseData, Model model) {
-        if (responseData.containsVizierResponse()) {
-            // TODO: load Vizier response
 
+        if (responseData.containsVizierResponse()) {
             model.addAttribute("vizierType",   responseData.getVizierResponse().getType()   );
             model.addAttribute("vizierTables", responseData.getVizierResponse().getTables() );
         } else {
@@ -45,10 +61,10 @@ public class ResultsController {
     }
 
     private void processSimbadResponse(ResponseData responseData, Model model) {
+
         if (responseData.containsSimbadResponse()) {
-            // TODO: load Simbad response
+
             model.addAttribute("simbadFields",   responseData.getSimbadResponse().getFields()      );
-//            model.addAttribute("simbadData",     responseData.getSimbadResponse().getData()        );
             model.addAttribute("simbadType",     responseData.getSimbadResponse().getType().name() );
             model.addAttribute("simbadResponse", responseData.getSimbadResponse());
 
@@ -64,9 +80,7 @@ public class ResultsController {
     private String processResponse(ResponseData responseData, Model model) {
 
         if (responseData.isEmpty()) {
-            model.addAttribute("errorMSG", InformationMSG.NO_DATA_AT_ALL);
-            model.addAttribute("searchOptions", SearchType.values());
-            model.addAttribute("vizierOptions", VizierCatalogueSearch.values());
+            handleFail(InformationMSG.NO_DATA_AT_ALL, model);
             return "index";
         }
 
@@ -80,30 +94,28 @@ public class ResultsController {
     public String postSearch(@ModelAttribute @Valid SearchFormInput input,
                              Errors errors, Model model) {
 
-        if (errors.hasFieldErrors()) {
-//            System.out.println("test\n");
-            model.addAttribute("errorMSG", errors.getFieldError().getDefaultMessage());
-//            System.out.println("Error: " + errors.getFieldError());
-            model.addAttribute("searchOptions", SearchType.values());
-            model.addAttribute("vizierOptions", VizierCatalogueSearch.values());
+
+        fileValidator.validate(input, errors);
+        if (errors.hasErrors()) {
+            handleFail(errors.getAllErrors().get(0).getDefaultMessage(), model);
+            return "index";
+        }
+        else if (errors.hasFieldErrors()) {
+            handleFail(errors.getFieldError().getDefaultMessage(), model);
             return "index";
         } else if (errors.hasGlobalErrors()) {
-            model.addAttribute("errorMSG", errors.getGlobalError().getDefaultMessage());
-//            System.out.println("Error: " + errors.getFieldError());
-            model.addAttribute("searchOptions", SearchType.values());
-            model.addAttribute("vizierOptions", VizierCatalogueSearch.values());
+            handleFail(errors.getGlobalError().getDefaultMessage(), model);
             return "index";
         }
 
-
-
         ResponseData responseData;
         try {
-            responseData = SearchEngine.process(input);
+            responseData = engine.process(input);
         } catch (IllegalArgumentException iae) {
-            model.addAttribute("errorMSG", iae.getMessage());
-            model.addAttribute("searchOptions", SearchType.values());
-            model.addAttribute("vizierOptions", VizierCatalogueSearch.values());
+            handleFail(iae.getMessage(), model);
+            return "index";
+        } catch (Exception e) {
+            e.printStackTrace();
             return "index";
         }
 
@@ -115,7 +127,7 @@ public class ResultsController {
 
         ResponseData responseData;
         try {
-            responseData = SearchEngine.process(new SearchFormInput(
+            responseData = engine.process(new SearchFormInput(
                     SearchType.ID_NAME.toString(),
                     id,
                     SimbadConstants.DEFAULT_FORMAT,
@@ -126,9 +138,10 @@ public class ResultsController {
                     null,
                     true, true, true));
         } catch (IllegalArgumentException iae) {
-            model.addAttribute("errorMSG", iae.getMessage());
-            model.addAttribute("searchOptions", SearchType.values());
-            model.addAttribute("vizierOptions", VizierCatalogueSearch.values());
+            handleFail(iae.getMessage(), model);
+            return "index";
+        } catch (Exception e) {
+            e.printStackTrace();
             return "index";
         }
 

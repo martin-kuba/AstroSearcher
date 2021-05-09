@@ -7,9 +7,9 @@ public final class Limits {
      * ********************************************* */
 
     // Queries per second
-    public static final int MAST_MAX_QPS   = 4;
-    public static final int SIMBAD_MAX_QPS = 4;
-    public static final int VIZIER_MAX_QPS = 4;
+    public static final int MAST_MAX_QPS   = 5;
+    public static final int SIMBAD_MAX_QPS = 5;
+    public static final int VIZIER_MAX_QPS = 5;
 
 
     /* *********************************************** *
@@ -28,9 +28,9 @@ public final class Limits {
     public static final int DEC_MAX = 90;
 
     // Radius
-    public static final double DEFAULT_RADIUS = 0.075;
-    public static final int    RADIUS_MAX     = 5;
-    public static final int    RADIUS_MIN     = 0;
+    public static final double DEFAULT_RADIUS    = 0.075;
+    public static final String RADIUS_MAX_STRING = "5.0";
+    public static final String RADIUS_MIN_STRING = "0.0";
     public static final int    DEG_TO_ARCSEC  = 3600;
 
     // Page

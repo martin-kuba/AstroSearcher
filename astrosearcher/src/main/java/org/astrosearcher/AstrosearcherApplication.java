@@ -8,12 +8,15 @@ import org.astrosearcher.utilities.SimbadSearchEngine;
 import org.astrosearcher.utilities.VizierSearchEngine;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.time.LocalTime;
+import java.util.concurrent.Executor;
 
 @Configuration
 @EnableScheduling
@@ -25,11 +28,11 @@ public class AstrosearcherApplication {
 		SpringApplication.run(AstrosearcherApplication.class, args);
 	}
 
-	@Scheduled(fixedDelay = 1000 / (Limits.MAST_MAX_QPS + 1))
+	@Scheduled(fixedDelay = 1000 / (Limits.MAST_MAX_QPS - 1))
 	void freeMastTimeQuantum() {
 
 		synchronized (MASTSearchEngine.class) {
-			MASTSearchEngine.setTimeQuantum(false);
+			MASTSearchEngine.setTimeQuantumUsed(false);
 		}
 
 		synchronized (SearchEngine.class) {
@@ -41,11 +44,11 @@ public class AstrosearcherApplication {
 
 	}
 
-	@Scheduled(fixedDelay = 1000 / (Limits.SIMBAD_MAX_QPS + 1))
+	@Scheduled(fixedDelay = 1000 / (Limits.SIMBAD_MAX_QPS - 1))
 	void freeSimbadTimeQuantum() {
 
 		synchronized (SimbadSearchEngine.class) {
-			SimbadSearchEngine.setTimeQuantum(false);
+			SimbadSearchEngine.setTimeQuantumUsed(false);
 		}
 
 		synchronized (SearchEngine.class) {
@@ -56,11 +59,11 @@ public class AstrosearcherApplication {
 		}
 	}
 
-	@Scheduled(fixedDelay = 1000 / (Limits.VIZIER_MAX_QPS + 1))
+	@Scheduled(fixedDelay = 1000 / (Limits.VIZIER_MAX_QPS - 1))
 	void freeVizierTimeQuantum() {
 
 		synchronized (VizierSearchEngine.class) {
-			VizierSearchEngine.setTimeQuantum(false);
+			VizierSearchEngine.setTimeQuantumUsed(false);
 		}
 
 		synchronized (SearchEngine.class) {
@@ -69,5 +72,16 @@ public class AstrosearcherApplication {
 			}
 			SearchEngine.class.notify();
 		}
+	}
+
+	@Bean(name = "threadPoolTaskExecutor")
+	public Executor asyncExecutor() {
+		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+		executor.setCorePoolSize(8);
+		executor.setMaxPoolSize(8);
+		executor.setQueueCapacity(50);
+		executor.setThreadNamePrefix("AsynchThread::");
+		executor.initialize();
+		return executor;
 	}
 }

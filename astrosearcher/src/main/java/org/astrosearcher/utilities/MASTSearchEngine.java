@@ -13,10 +13,13 @@ import org.astrosearcher.classes.mast.MastRequestObject;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
 import org.astrosearcher.classes.mast.services.name.lookup.ResponseForReqByName;
 import org.astrosearcher.models.SearchFormInput;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Class serves as inter-level between general SearchEngine class and ConnectionUtils class.
@@ -26,15 +29,16 @@ import java.util.List;
  *
  * @author Ľuboslav Halama
  */
+@Service
 public class MASTSearchEngine {
 
     private static boolean timeQuantumUsed = false;
 
-    public synchronized static boolean isTimeQuantumUsed() {
-        return timeQuantumUsed;
+    public synchronized static boolean isTimeQuantumFree() {
+        return !timeQuantumUsed;
     }
 
-    public synchronized static void setTimeQuantum(boolean flag) {
+    public synchronized static void setTimeQuantumUsed(boolean flag) {
         timeQuantumUsed = flag;
         if (AppConfig.DEBUG_SCHEDULE) {
             if (flag) {
@@ -44,6 +48,7 @@ public class MASTSearchEngine {
             }
         }
     }
+
 
     private static List<PositionInput> resolvePositionByNameOrID(SearchFormInput input) {
 
@@ -72,39 +77,56 @@ public class MASTSearchEngine {
         return resolved;
     }
 
-    public static MastResponse findAllByID(SearchFormInput input) {
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<MastResponse> findAllByID(SearchFormInput input) {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         List<PositionInput> resolved = resolvePositionByNameOrID(input);
-        return resolved.isEmpty() ? new MastResponse() : findAllByPosition(resolved.get(0), input);
+
+        if (resolved.isEmpty()) {
+            return CompletableFuture.completedFuture(new MastResponse());
+        }
+
+        return findAllByPosition(resolved.get(0), input);
     }
 
-    public static MastResponse findAllByPosition(SearchFormInput input) {
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<MastResponse> findAllByPosition(SearchFormInput input) {
         String response = new MastRequestObject(MastServices.MAST_CAOM_CONE, input).send();
 
         if (response == null) {
-            return new MastResponse();
+            return CompletableFuture.completedFuture(new MastResponse());
         }
 
-        return new MastResponse(new Gson().fromJson(response, ResponseForReqByPos.class));
+        return CompletableFuture.completedFuture(
+                new MastResponse(new Gson().fromJson(response, ResponseForReqByPos.class)));
     }
 
-    public static MastResponse findAllByPosition(PositionInput position, SearchFormInput input) {
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<MastResponse> findAllByPosition(PositionInput position, SearchFormInput input) {
         String response = new MastRequestObject(MastServices.MAST_CAOM_CONE, position, input).send();
 
         if (response == null) {
-            new MastResponse();
+            return CompletableFuture.completedFuture(new MastResponse());
         }
 
-        return new MastResponse(new Gson().fromJson(response, ResponseForReqByPos.class));
+        return CompletableFuture.completedFuture(
+                new MastResponse(new Gson().fromJson(response, ResponseForReqByPos.class)));
     }
 
-    public static MastResponse findAllByPositionCrossmatch(SearchFormInput input) {
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<MastResponse> findAllByPositionCrossmatch(SearchFormInput input) {
         String response = new MastRequestObject(MastServices.MAST_CAOM_CROSSMATCH, input).send();
 
         if (response == null) {
-            return new MastResponse();
+            return CompletableFuture.completedFuture(new MastResponse());
         }
 
-        return new MastResponse(new Gson().fromJson(response, ResponseForReqByPos.class));
+        return CompletableFuture.completedFuture(
+                new MastResponse(new Gson().fromJson(response, ResponseForReqByPos.class)));
     }
 
 }

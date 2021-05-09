@@ -5,17 +5,20 @@ import org.astrosearcher.classes.constants.AppConfig;
 import org.astrosearcher.classes.constants.RegularExpressions;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.mast.MastResponse;
-import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
 import org.astrosearcher.classes.simbad.SimbadMeasurementsTable;
 import org.astrosearcher.classes.simbad.SimbadResponse;
 import org.astrosearcher.classes.vizier.VizierResponse;
 import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.models.SearchFormInput;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -32,52 +35,116 @@ import java.util.List;
  */
 @EnableScheduling
 @EnableAsync
+@Service
 public class SearchEngine {
 
-//    public static boolean timeQuantumUsed = false;
+    @Autowired
+    MASTSearchEngine mastSearchEngine;
+
+    @Autowired
+    SimbadSearchEngine simbadSearchEngine;
+
+    @Autowired
+    VizierSearchEngine vizierSearchEngine;
+
+    ResponseData responseData = new ResponseData();
+
+    CompletableFuture<MastResponse>   mastResponse = null;
+    CompletableFuture<SimbadResponse> simbadResponse = null;
+    CompletableFuture<VizierResponse> vizierResponse = null;
 
     private static boolean finished(SearchFormInput input) {
         return !input.isQueryMast() && !input.isQueryVizier() && !input.isQuerySimbad();
     }
 
+    private void storeResults(ResponseData responseData,
+                                     CompletableFuture<MastResponse>   mastResponse,
+                                     CompletableFuture<SimbadResponse> simbadResponse,
+                                     CompletableFuture<VizierResponse> vizierResponse) {
 
-    public static ResponseData findAllByPosition(SearchFormInput input) {
+
+        List<CompletableFuture> tasks = new ArrayList<>();
+
+        if (mastResponse != null) {
+            tasks.add(mastResponse);
+        }
+        if (simbadResponse != null) {
+            tasks.add(simbadResponse);
+        }
+        if (vizierResponse != null) {
+            tasks.add(vizierResponse);
+        }
+
+        if (tasks.isEmpty()) {
+            return;
+        }
+
+        if (tasks.size() == 1) {
+            CompletableFuture.allOf(tasks.get(0)).join();
+        }
+
+        if (tasks.size() == 2) {
+            CompletableFuture.allOf(tasks.get(0), tasks.get(1)).join();
+        }
+
+        if (tasks.size() == 3) {
+            CompletableFuture.allOf(tasks.get(0), tasks.get(1), tasks.get(2)).join();
+        }
+
+//        CompletableFuture.allOf(mastResponse, simbadResponse, vizierResponse).join();
+        try {
+            if (simbadResponse != null) {
+                responseData.setSimbadResponse(simbadResponse.get());
+            }
+
+            if (mastResponse != null) {
+                responseData.setMastResponse(mastResponse.get());
+            }
+
+            if (vizierResponse != null) {
+                responseData.setVizierResponse(vizierResponse.get());
+            }
+        } catch (ExecutionException | InterruptedException ignored) {
+        }
+    }
+
+
+    public ResponseData findAllByPosition(SearchFormInput input) {
 
         ResponseData responseData = new ResponseData();
+
+        CompletableFuture<MastResponse>   mastResponse   = null;
+        CompletableFuture<SimbadResponse> simbadResponse = null;
+        CompletableFuture<VizierResponse> vizierResponse = null;
 
         while (true) {
 
             try {
 
                 // MAST
-                if (input.isQueryMast()) {
-                    if (!MASTSearchEngine.isTimeQuantumUsed()) {
-                        MASTSearchEngine.setTimeQuantum(true);
-                        responseData.setMastResponse(MASTSearchEngine.findAllByPosition(input));
-                        input.setQueryMast(false);
-                    }
+                if (input.isQueryMast() && MASTSearchEngine.isTimeQuantumFree()) {
+                    MASTSearchEngine.setTimeQuantumUsed(true);
+                    mastResponse = mastSearchEngine.findAllByPosition(input);
+                    input.setQueryMast(false);
                 }
 
+
                 // SIMBAD
-                if (input.isQuerySimbad()) {
-                    if (!SimbadSearchEngine.isTimeQuantumUsed()) {
-                        SimbadSearchEngine.setTimeQuantum(true);
-                        responseData.setSimbadResponse(SimbadSearchEngine.findAllByPosition(input));
-                        input.setQuerySimbad(false);
-                    }
+                if (input.isQuerySimbad() && SimbadSearchEngine.isTimeQuantumFree()) {
+                    SimbadSearchEngine.setTimeQuantumUsed(true);
+                    simbadResponse = simbadSearchEngine.findAllByPosition(input);
+                    input.setQuerySimbad(false);
                 }
 
                 // Vizier
-                if (input.isQueryVizier()) {
-                    if (!VizierSearchEngine.isTimeQuantumUsed()) {
-                        VizierSearchEngine.setTimeQuantum(true);
-                        responseData.setVizierResponse(VizierSearchEngine.findAllByPosition(input));
-                        input.setQueryVizier(false);
-                    }
-
+                if (input.isQueryVizier() && VizierSearchEngine.isTimeQuantumFree()) {
+                    VizierSearchEngine.setTimeQuantumUsed(true);
+                    vizierResponse = vizierSearchEngine.findAllByPosition(input);
+                    input.setQueryVizier(false);
                 }
 
                 if (finished(input)) {
+                    storeResults(responseData, mastResponse, simbadResponse, vizierResponse);
                     break;
                 } else {
                     synchronized (SearchEngine.class) {
@@ -92,43 +159,41 @@ public class SearchEngine {
         return responseData;
     }
 
-    public static ResponseData findAllByPositionCrossmatch(SearchFormInput input) {
+    public ResponseData findAllByPositionCrossmatch(SearchFormInput input) {
 
         ResponseData responseData = new ResponseData();
+
+        CompletableFuture<MastResponse>   mastResponse   = null;
+        CompletableFuture<SimbadResponse> simbadResponse = null;
+        CompletableFuture<VizierResponse> vizierResponse = null;
 
         while (true) {
 
             try {
 
                 // MAST
-                if (input.isQueryMast()) {
-                    if (!MASTSearchEngine.isTimeQuantumUsed()) {
-                        MASTSearchEngine.setTimeQuantum(true);
-                        responseData.setMastResponse(MASTSearchEngine.findAllByPositionCrossmatch(input));
-                        input.setQueryMast(false);
-                    }
+                if (input.isQueryMast() && MASTSearchEngine.isTimeQuantumFree()) {
+                    MASTSearchEngine.setTimeQuantumUsed(true);
+                    mastResponse = mastSearchEngine.findAllByPositionCrossmatch(input);
+                    input.setQueryMast(false);
                 }
 
                 // SIMBAD
-                if (input.isQuerySimbad()) {
-                    if (!SimbadSearchEngine.isTimeQuantumUsed()) {
-                        SimbadSearchEngine.setTimeQuantum(true);
-                        responseData.setSimbadResponse(SimbadSearchEngine.findAllByCrossmatch(input));
-                        input.setQuerySimbad(false);
-                    }
+                if (input.isQuerySimbad() && SimbadSearchEngine.isTimeQuantumFree()) {
+                    SimbadSearchEngine.setTimeQuantumUsed(true);
+                    simbadResponse = simbadSearchEngine.findAllByCrossmatch(input);
+                    input.setQuerySimbad(false);
                 }
 
                 // Vizier
-                if (input.isQueryVizier()) {
-                    if (!VizierSearchEngine.isTimeQuantumUsed()) {
-                        VizierSearchEngine.setTimeQuantum(true);
-                        responseData.setVizierResponse(VizierSearchEngine.findAllByCrossmatch(input));
-                        input.setQueryVizier(false);
-                    }
-
+                if (input.isQueryVizier() && VizierSearchEngine.isTimeQuantumFree()) {
+                    VizierSearchEngine.setTimeQuantumUsed(true);
+                    vizierResponse = vizierSearchEngine.findAllByCrossmatch(input);
+                    input.setQueryVizier(false);
                 }
 
                 if (finished(input)) {
+                    storeResults(responseData, mastResponse, simbadResponse, vizierResponse);
                     break;
                 } else {
                     synchronized (SearchEngine.class) {
@@ -143,46 +208,48 @@ public class SearchEngine {
         return responseData;
     }
 
-    public static ResponseData findAllByID(SearchFormInput input) {
+    public ResponseData findAllByID(SearchFormInput input) {
+
         ResponseData responseData = new ResponseData();
+
+        CompletableFuture<MastResponse>   mastResponse   = null;
+        CompletableFuture<SimbadResponse> simbadResponse = null;
+        CompletableFuture<VizierResponse> vizierResponse = null;
 
         while (true) {
 
             try {
 
                 // MAST
-                if (input.isQueryMast()) {
-                    if (!MASTSearchEngine.isTimeQuantumUsed()) {
-                        MASTSearchEngine.setTimeQuantum(true);
-                        responseData.setMastResponse(MASTSearchEngine.findAllByID(input));
-                        input.setQueryMast(false);
+                if (input.isQueryMast() && MASTSearchEngine.isTimeQuantumFree()) {
+                    MASTSearchEngine.setTimeQuantumUsed(true);
+                    if (mastSearchEngine == null) {
+                        System.err.println("    mastSearchEngine is NULL!");
                     }
+                    mastResponse = mastSearchEngine.findAllByID(input);
+                    input.setQueryMast(false);
                 }
 
                 // SIMBAD
-                if (input.isQuerySimbad()) {
-                    if (!SimbadSearchEngine.isTimeQuantumUsed()) {
-                        SimbadSearchEngine.setTimeQuantum(true);
-                        if (RegularExpressions.isIAUFormat(input.getSearchInput())) {
-                            responseData.setSimbadResponse(SimbadSearchEngine.findAllByPosition(input));
-                        } else {
-                            responseData.setSimbadResponse(SimbadSearchEngine.findAllById(input));
-                        }
-                        input.setQuerySimbad(false);
+                if (input.isQuerySimbad() && SimbadSearchEngine.isTimeQuantumFree()) {
+                    SimbadSearchEngine.setTimeQuantumUsed(true);
+                    if (RegularExpressions.isIAUFormat(input.getSearchInput())) {
+                        simbadResponse = simbadSearchEngine.findAllByPosition(input);
+                    } else {
+                        simbadResponse = simbadSearchEngine.findAllById(input);
                     }
+                    input.setQuerySimbad(false);
                 }
 
                 // Vizier
-                if (input.isQueryVizier()) {
-                    if (!VizierSearchEngine.isTimeQuantumUsed()) {
-                        VizierSearchEngine.setTimeQuantum(true);
-                        responseData.setVizierResponse(VizierSearchEngine.findAllById(input));
-                        input.setQueryVizier(false);
-                    }
-
+                if (input.isQueryVizier() && VizierSearchEngine.isTimeQuantumFree()) {
+                    VizierSearchEngine.setTimeQuantumUsed(true);
+                    vizierResponse = vizierSearchEngine.findAllById(input);
+                    input.setQueryVizier(false);
                 }
 
                 if (finished(input)) {
+                    storeResults(responseData, mastResponse, simbadResponse, vizierResponse);
                     break;
                 } else {
                     synchronized (SearchEngine.class) {
@@ -197,32 +264,23 @@ public class SearchEngine {
         return responseData;
     }
 
-    public static List<SimbadMeasurementsTable> findAllMeasurementsByID(SearchFormInput input) {
+    public List<SimbadMeasurementsTable> findAllMeasurementsByID(SearchFormInput input) {
 
         try {
-            while (SimbadSearchEngine.isTimeQuantumUsed()) {
-                SearchEngine.class.wait();
+            while ( !SimbadSearchEngine.isTimeQuantumFree() ) {
+                synchronized (SearchEngine.class) {
+                    SearchEngine.class.wait();
+                }
             }
         } catch (InterruptedException e) {
             return new ArrayList<>();
         }
 
-        SimbadSearchEngine.setTimeQuantum(true);
+        SimbadSearchEngine.setTimeQuantumUsed(true);
         return SimbadSearchEngine.findAllMeasurementsById(input);
     }
 
-    public static ResponseData process(SearchFormInput input) {
-
-//        try {
-//            synchronized (SearchEngine.class) {
-//                while (timeQuantumUsed) {
-//                    SearchEngine.class.wait();
-//                }
-//            }
-//        } catch (InterruptedException e) {
-//            return new ResponseData();
-//        }
-//        timeQuantumUsed = true;
+    public ResponseData process(SearchFormInput input) {
 
         if (AppConfig.DEBUG) {
             System.out.print("Resolving which type of query has been selected by user... ");

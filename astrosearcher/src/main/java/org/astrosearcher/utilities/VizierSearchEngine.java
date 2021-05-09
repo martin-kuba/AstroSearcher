@@ -9,9 +9,12 @@ import org.astrosearcher.classes.vizier.VizierResponse;
 import org.astrosearcher.classes.xmatch.CDSCrossmatchRequestObject;
 import org.astrosearcher.enums.cds.vizier.VizierServices;
 import org.astrosearcher.models.SearchFormInput;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
 import java.time.LocalTime;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Class serves as inter-level between general SearchEngine class and ConnectionUtils class.
@@ -21,15 +24,16 @@ import java.time.LocalTime;
  *
  * @author Ľuboslav Halama
  */
+@Service
 public class VizierSearchEngine {
 
     private static boolean timeQuantumUsed = false;
 
-    public synchronized static boolean isTimeQuantumUsed() {
-        return timeQuantumUsed;
+    public synchronized static boolean isTimeQuantumFree() {
+        return !timeQuantumUsed;
     }
 
-    public synchronized static void setTimeQuantum(boolean flag) {
+    public synchronized static void setTimeQuantumUsed(boolean flag) {
         timeQuantumUsed = flag;
         if (AppConfig.DEBUG_SCHEDULE) {
             if (flag) {
@@ -40,72 +44,22 @@ public class VizierSearchEngine {
         }
     }
 
-    public static VizierResponse findAllById(SearchFormInput input) {
-
-        String response = new VizierRequestObject(VizierServices.VIZIER_ID, input).send();
-
-        if (AppConfig.DEBUG) {
-            System.out.println("        Initializing SavotPullParser...");
-        }
-
-        SavotPullParser parser;
-        try {
-            parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
-                    SavotPullEngine.FULL,
-                    "UTF-8");
-        } catch (Exception e) {
-            System.out.println("    Exception caught while initializing vot parser");
-            return new VizierResponse();
-        }
-
-        SavotVOTable vot = parser.getVOTable();
-
-        if (isEmptyResponse(vot)) {
-            return new VizierResponse();
-        }
-
-        return new VizierResponse(VizierServices.VIZIER_ID, vot.getResources());
-    }
-
-    public static VizierResponse findAllByPosition(SearchFormInput input) {
-
-        String response = new VizierRequestObject(VizierServices.VIZIER_COORDINATES, input).send();
-
-        if (AppConfig.DEBUG) {
-            System.out.println("        Initializing SavotPullParser...");
-        }
-
-        SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
-                SavotPullEngine.FULL,
-                "UTF-8");
-
-        SavotVOTable vot = parser.getVOTable();
-
-        if (isEmptyResponse(vot)) {
-            return new VizierResponse();
-        }
-
-        return new VizierResponse(VizierServices.VIZIER_COORDINATES, vot.getResources());
-    }
-
-    public static VizierResponse findAllByCrossmatch(SearchFormInput input) {
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<VizierResponse> findAllById(SearchFormInput input) {
         String response = new CDSCrossmatchRequestObject(input, "vizier:" + input.getVizierCat()).send();
+        return processResponse(VizierServices.VIZIER_ID, response);
+    }
 
-        if (AppConfig.DEBUG) {
-            System.out.println("        Initializing SavotPullParser...");
-        }
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<VizierResponse> findAllByPosition(SearchFormInput input) {
+        String response = new CDSCrossmatchRequestObject(input, "vizier:" + input.getVizierCat()).send();
+        return processResponse(VizierServices.VIZIER_COORDINATES, response);
+    }
 
-        SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
-                SavotPullEngine.FULL,
-                "UTF-8");
-
-        SavotVOTable vot = parser.getVOTable();
-
-        if (isEmptyResponse(vot)) {
-            return new VizierResponse();
-        }
-
-        return new VizierResponse(VizierServices.VIZIER_CROSSMATCH, vot.getResources());
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<VizierResponse> findAllByCrossmatch(SearchFormInput input) {
+        String response = new CDSCrossmatchRequestObject(input, "vizier:" + input.getVizierCat()).send();
+        return processResponse(VizierServices.VIZIER_CROSSMATCH, response);
     }
 
     private static boolean isEmptyResponse(SavotVOTable vot) {
@@ -116,5 +70,28 @@ public class VizierSearchEngine {
         }
 
         return vot.getResources().getItemCount() == 0;
+    }
+
+    private static CompletableFuture<VizierResponse> processResponse(VizierServices service, String response) {
+
+        if (response == null) {
+            return CompletableFuture.completedFuture(new VizierResponse());
+        }
+
+        if (AppConfig.DEBUG) {
+            System.out.println("        Initializing SavotPullParser...");
+        }
+
+        SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
+                SavotPullEngine.FULL,
+                "UTF-8");
+
+        SavotVOTable vot = parser.getVOTable();
+
+        if (isEmptyResponse(vot)) {
+            return CompletableFuture.completedFuture(new VizierResponse());
+        }
+
+        return CompletableFuture.completedFuture(new VizierResponse(VizierServices.VIZIER_CROSSMATCH, vot.getResources()));
     }
 }

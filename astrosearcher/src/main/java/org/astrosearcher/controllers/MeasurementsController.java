@@ -6,6 +6,7 @@ import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.models.SearchFormInput;
 import org.astrosearcher.utilities.SearchEngine;
 import org.astrosearcher.utilities.SesameSearchEngine;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,9 @@ import java.util.List;
 @Controller
 public class MeasurementsController {
 
+    @Autowired
+    private SearchEngine engine;
+
     @GetMapping("measurements")
     public String load(@RequestParam String id, Model model) {
         SearchFormInput input = new SearchFormInput();
@@ -26,7 +30,7 @@ public class MeasurementsController {
         input.setQueryVizier(false);
         input.setQueryMast(false);
 
-        List<SimbadMeasurementsTable> response =  SearchEngine.findAllMeasurementsByID(input);
+        List<SimbadMeasurementsTable> response = engine.findAllMeasurementsByID(input);
 
         if ( response.isEmpty() ) {
             model.addAttribute("simbadDataMSG", InformationMSG.NO_SIMBAD_DATA);

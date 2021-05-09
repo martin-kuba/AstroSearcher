@@ -39,7 +39,7 @@ public class CaomCrossmatchInput {
             fields.add(new ArgType(MASTConstants.DEFAULT_DEC_COLUMN_NAME, MASTConstants.DEC_TYPE));
 
             // if file does not include descriptive line first
-            if ( !line.matches(RegularExpressions.FILE_STRICT_COLUMN_NAMES)) {
+            if ( !line.matches(RegularExpressions.FILE_STRICT_COLUMN_NAMES_LINE)) {
                 throw new IllegalArgumentException("file must contain line: 'ra,dec' at the beginning.");
             }
 

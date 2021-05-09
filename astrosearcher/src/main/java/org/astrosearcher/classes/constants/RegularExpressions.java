@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 
 public final class RegularExpressions {
 
+    public static final String DECIMAL        = "[+-]?\\d+(?:\\.\\d+)?";
     public static final String UNSIGN_FRUMBER = "(\\d+(?:\\.\\d+)?)";
     public static final String SIGN_FRUMBER = "([+-]?\\d+(?:\\.\\d+)?)";          // FRactaional nUMBER
     public static final String SEP          = "(?:(?:\\s*,\\s*)|\\s+)";           // SEParator
@@ -17,13 +18,16 @@ public final class RegularExpressions {
 
 
     // input from file
-    public static final String FILE_STRICT_COLUMN_NAMES = "^ra,dec$";
-    public static final String FILE_COLUMNS_NAMES = "([a-zA-Z]*)\\s*([a-zA-Z]*).*";
+    public static final String FILE_STRICT_COLUMN_NAMES =
+        MASTConstants.DEFAULT_RA_COLUMN_NAME + ", " + MASTConstants.DEFAULT_DEC_COLUMN_NAME;
+    public static final String FILE_STRICT_COLUMN_NAMES_LINE =
+            "^" + MASTConstants.DEFAULT_RA_COLUMN_NAME + ",\\s?" + MASTConstants.DEFAULT_DEC_COLUMN_NAME + "$";
+    public static final String FILE_COORDINATES_LINE         = "^" + UNSIGN_FRUMBER + ",\\s?" + SIGN_FRUMBER + "$";
 
     // Sesame line with alias    //(?:?!</alias>)
-    public static final String SESAME_XML_ALIAS = "\\s*<alias>(.*?)</alias>";
-    public static final String SESAME_XML_ONAME = "\\s*<oname>(.*?)</oname>";
-    public static final String SESAME_VALID_RESPONSE   = ".*?" + SESAME_XML_ONAME + "(" + SESAME_XML_ALIAS + ")*.*?";
+    public static final String SESAME_XML_ALIAS = "\\s*<alias>(.*?)</alias>\\n";
+    public static final String SESAME_XML_ONAME = "\\s*<oname>(.*?)</oname>\\n";
+    public static final String SESAME_VALID_RESPONSE   = "[\\s\\S]*?" + SESAME_XML_ONAME + "(" + SESAME_XML_ALIAS + ")*[\\s\\S]*?";
 
     // Simbad ASCII response
     public static final String SIMBAD_ASCII_MEASURE_CAT = "(?:(\\w+):(\\d+)\\s*)";
