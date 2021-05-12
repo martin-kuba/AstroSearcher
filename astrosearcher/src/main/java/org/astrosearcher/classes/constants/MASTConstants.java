@@ -1,7 +1,10 @@
 package org.astrosearcher.classes.constants;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+/**
+ * Constant values used for querying of Mast service.
+ *
+ * @author Ľuboslav Halama
+ */
 public final class MASTConstants {
     public static final String CONNECTION_URL = "https://mast.stsci.edu/api/v0/invoke?";
     public static final String REQUEST_PARAMS_PREFIX = "request=";

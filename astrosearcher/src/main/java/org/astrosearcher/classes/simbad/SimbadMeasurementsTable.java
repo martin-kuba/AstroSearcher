@@ -8,6 +8,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Class represents tabular data about one type of measurement.
+ *
+ * @author Ľuboslav Halama
+ */
 @Getter
 public class SimbadMeasurementsTable {
 

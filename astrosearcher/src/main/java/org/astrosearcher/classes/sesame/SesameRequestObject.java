@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.astrosearcher.classes.RequestObject;
 import org.astrosearcher.classes.constants.AppConfig;
-import org.astrosearcher.classes.constants.cds.SesameConstats;
+import org.astrosearcher.classes.constants.cds.SesameConstants;
 import org.astrosearcher.utilities.ConnectionUtils;
 
 import java.net.MalformedURLException;
@@ -13,8 +13,9 @@ import java.net.URL;
 /**
  * Class represents request object which is used in URL request sent to Sesame (CDS).
  *
- * Class provides basic properties for sending request to MAST server as well as main functionality for sending
- * given request by our web application (implementation of abstract methods from abstract class RequestObject).
+ * Class provides basic properties for sending a request to Sesame server
+ * as well as main functionality for sending the given request by our web
+ * application (implementation of abstract methods from abstract class RequestObject).
  *
  * @author Ľuboslav Halama
  */
@@ -35,7 +36,7 @@ public class SesameRequestObject extends RequestObject {
 
     @Override
     public URL getConnectionURL() throws MalformedURLException {
-        return new URL(SesameConstats.CONNECTION_URL);
+        return new URL(SesameConstants.CONNECTION_URL);
     }
 
     @Override

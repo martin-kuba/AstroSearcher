@@ -1,5 +1,10 @@
 package org.astrosearcher.classes.constants.messages;
 
+/**
+ * Informative messages used for clarifying specific situations (no data acquired).
+ *
+ * @author Ľuboslav Halama
+ */
 public final class InformationMSG {
 
     // General

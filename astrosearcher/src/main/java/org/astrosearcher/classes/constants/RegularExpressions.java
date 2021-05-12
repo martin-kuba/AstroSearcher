@@ -2,6 +2,11 @@ package org.astrosearcher.classes.constants;
 
 import java.util.regex.Pattern;
 
+/**
+ * Regular expressions used in the application.
+ *
+ * @author Ľuboslav Halama
+ */
 public final class RegularExpressions {
 
     public static final String DECIMAL        = "[+-]?\\d+(?:\\.\\d+)?";

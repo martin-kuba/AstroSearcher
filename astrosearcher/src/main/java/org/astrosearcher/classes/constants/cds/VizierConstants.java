@@ -1,5 +1,10 @@
 package org.astrosearcher.classes.constants.cds;
 
+/**
+ * Constant values used for querying of Vizier service.
+ *
+ * @author Ľuboslav Halama
+ */
 public class VizierConstants {
     public static final String CONNECTION_URL  = "http://vizier.u-strasbg.fr/viz-bin//";
 

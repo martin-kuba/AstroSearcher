@@ -2,11 +2,8 @@ package org.astrosearcher.utilities;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import lombok.Getter;
-import lombok.Setter;
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.constants.AppConfig;
-import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.mast.MastResponse;
 import org.astrosearcher.enums.mast.MastServices;
 import org.astrosearcher.classes.mast.MastRequestObject;
@@ -22,10 +19,11 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * Class serves as inter-level between general SearchEngine class and ConnectionUtils class.
+ * Class serves as inter-level between general SearchEngine class and
+ * ConnectionUtils class.
  *
- * Class provides usage of RequestObject needed for constructing and sending of request as well as parsing of response
- * acquired from MAST server.
+ * Class provides usage of RequestObject needed for constructing and sending
+ * of request as well as parsing of response acquired from MAST server.
  *
  * @author Ľuboslav Halama
  */

@@ -2,6 +2,11 @@ package org.astrosearcher.enums.cds.simbad;
 
 import lombok.Getter;
 
+/**
+ * All the fields included in a Simbad (votable) response.
+ *
+ * @author Ľuboslav Halama
+ */
 @Getter
 public enum SimbadFields {
     TYPED_ID("Typed ID"),

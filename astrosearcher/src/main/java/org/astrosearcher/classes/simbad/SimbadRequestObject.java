@@ -17,11 +17,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class represents request object which is used in URL request sent to Simbad (cds) server based on information in:
+ * Class represents request object which is used in URL request sent to Simbad
+ * (cds) server based on information in:
  * ->   http://simbad.u-strasbg.fr/Pages/guide/sim-url.htx   <-
  *
- * Class provides basic properties for sending request to Simbad server as well as main functionality for sending
- * given request by our web application (implementation of abstract methods from abstract class RequestObject).
+ * Class provides basic properties for sending request to Simbad server as well
+ * as main functionality for sending given request by our web application
+ * (implementation of abstract methods from abstract class RequestObject).
  *
  * @author Ľuboslav Halama
  */

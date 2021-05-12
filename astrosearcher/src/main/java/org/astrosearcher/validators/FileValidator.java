@@ -14,6 +14,12 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * Class serves for a validation of a file that is obtained from search form
+ * in the application Graphic User Interface (GUI) - in HTML template.
+ *
+ * @author Ľuboslav Halama
+ */
 @Component
 public class FileValidator implements Validator {
 

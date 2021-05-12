@@ -1,5 +1,11 @@
 package org.astrosearcher.classes.constants;
 
+/**
+ * Specifications and definitions of minimal and maximal values of input
+ * variables and application properties.
+ *
+ * @author Ľuboslav Halama
+ */
 public final class Limits {
 
     /* ********************************************* *

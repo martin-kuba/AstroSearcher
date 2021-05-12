@@ -1,5 +1,10 @@
 package org.astrosearcher.classes.constants.cds;
 
+/**
+ * Constant values used for querying of X-match service (provided by CDS)
+ *
+ * @author Ľuboslav Halama
+ */
 public final class XMatchConstats {
     public static final String CONNECTION_URL    = "http://cdsxmatch.u-strasbg.fr/xmatch/api/v1/sync";
 

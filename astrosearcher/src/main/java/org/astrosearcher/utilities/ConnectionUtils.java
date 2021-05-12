@@ -9,7 +9,8 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 
 /**
- * Class provides general functionality for sending requests and retrieving responses from servers.
+ * Class provides general functionality for sending requests and retrieving
+ * responses from servers.
  *
  * @author Ľuboslav Halama
  */

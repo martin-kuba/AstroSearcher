@@ -1,5 +1,10 @@
 package org.astrosearcher.classes.constants.messages;
 
+/**
+ * Messages for exceptions that might be thrown by this application..
+ *
+ * @author Ľuboslav Halama
+ */
 public final class ExceptionMSG {
     public static final String SELECT_POSITION_FOR_QUERY_BY_COORDS =
             "Select POSITION option for querying by coordinates.";

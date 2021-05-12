@@ -1,5 +1,11 @@
 package org.astrosearcher.enums.cds.xmatch;
 
+/**
+ * All the compulsory and a subset of optional arguments used for X-Match
+ * service (provided by CDS).
+ *
+ * @author Ľuboslav Halama
+ */
 public enum XMatchArgType {
     CATALOG1("cat1"),
     CATALOG1_RA_COL("colRA1"),

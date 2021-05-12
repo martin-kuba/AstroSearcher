@@ -1,5 +1,10 @@
 package org.astrosearcher.classes.constants;
 
+/**
+ * Values used for running of the application (besides application.properties).
+ *
+ * @author Ľuboslav Halama
+ */
 public final class AppConfig {
 
     /* ***************************************************** *

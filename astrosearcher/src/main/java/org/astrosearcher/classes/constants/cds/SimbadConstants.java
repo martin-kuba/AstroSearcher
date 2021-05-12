@@ -1,5 +1,11 @@
 package org.astrosearcher.classes.constants.cds;
 
+
+/**
+ * Constant values used for querying of Simbad service.
+ *
+ * @author Ľuboslav Halama
+ */
 public final class SimbadConstants {
     public static final String CONNECTION_URL  = "http://simbad.u-strasbg.fr/simbad/";
     public static final String CDS_PORTAL_UrL  = "http://cdsportal.u-strasbg.fr/";

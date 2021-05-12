@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class one table from Vizier response
+ * Class represents one table from Vizier response
  *
  * Class stores:
  *   1.) name of the table

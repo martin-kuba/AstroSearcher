@@ -22,14 +22,16 @@ import java.util.concurrent.ExecutionException;
 
 
 /**
- * Provides general interface for searching in three defined catalogues (Mast, Vizier, Simbad)
+ * Provides general interface for searching in three defined catalogues
+ * (Mast, Vizier, Simbad)
  * <p>
  * Class focuses mainly on searching by two diferrent types:
  * 1.) ID/name
  * 2.) Coordinates (position) -> RA, Dec, (opt. Radius)
  * <p>
- * However, querying on MAST server is possible only by using coordinates, so ID/name must be firstly resolved
- * into coordinates (position) and query by coordinates (position) is used then.
+ * However, querying on MAST server is possible only by using coordinates,
+ * so ID/name must be firstly resolved into coordinates (position) and query
+ * by coordinates (position) is used then.
  *
  * @author Ľuboslav Halama
  */

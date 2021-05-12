@@ -1,8 +1,9 @@
 package org.astrosearcher.enums.cds.simbad;
 
 /**
- * This enum class represents several possible arguments in URL request for Simbad server (only subset of all
- * possible arguments - not all are needed by this application).
+ * This enum class represents several possible arguments in URL request
+ * for Simbad server (only subset of all possible arguments - not all
+ * are needed by this application).
  *
  * @author Ľuboslav Halama
  */

@@ -3,6 +3,11 @@ package org.astrosearcher.classes.constants.messages;
 import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.constants.RegularExpressions;
 
+/**
+ * Messages used for clarifying the validations failures.
+ *
+ * @author Ľuboslav Halama
+ */
 public final class ValidationMSG {
 
     // Input (general input)

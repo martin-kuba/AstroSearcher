@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class represents parsed (data read) from uploaded file for crossmatch query on MAST.
+ * Class represents parsed (data read) from uploaded file for crossmatch
+ * query on MAST.
  *
  * @author Ľuboslav Halama
  */

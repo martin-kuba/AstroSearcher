@@ -20,10 +20,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Class represents request object which is used in URL request sent to Vizier (CDS) server.
+ * Class represents request object which is used in URL request sent to Vizier
+ * (CDS) server.
  *
- * Class provides basic properties for sending request to Vizier server as well as main functionality for sending
- * given request by our web application (implementation of abstract methods from abstract class RequestObject).
+ * Class provides basic properties for sending request to Vizier server as well
+ * as main functionality for sending the given request by our web application
+ * (implementation of abstract methods from abstract class RequestObject).
  *
  * @author Ľuboslav Halama
  */

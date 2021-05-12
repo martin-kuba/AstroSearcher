@@ -1,5 +1,10 @@
 package org.astrosearcher.enums.cds.vizier;
 
+/**
+ * Subset of all the possible arguments to query Vizier service.
+ *
+ * @author Ľuboslav Halama
+ */
 public enum VizierArgType {
     OBJECT_ID("-objID="),
     OUTPUT_LIMIT("-out.max="),

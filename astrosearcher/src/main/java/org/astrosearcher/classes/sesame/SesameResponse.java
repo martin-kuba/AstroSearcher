@@ -10,7 +10,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Class represents only subset of data obtained from Sesame (only subset is needed - aliases).
+ * Class represents only subset of data obtained from Sesame (only subset is
+ * needed - aliases).
  *
  * @author Ľuboslav Halama
  */

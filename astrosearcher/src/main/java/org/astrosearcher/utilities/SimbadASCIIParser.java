@@ -11,6 +11,12 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Class used for parsing the Simbad ASCII response that is used for obtaining
+ * the measurements for given astronomical object.
+ *
+ * @author Ľuboslav Halama
+ */
 public class SimbadASCIIParser {
 
     @AllArgsConstructor

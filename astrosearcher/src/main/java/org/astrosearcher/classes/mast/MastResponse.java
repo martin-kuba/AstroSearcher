@@ -15,7 +15,8 @@ import java.util.List;
  *
  * Class stores:
  *     1.) fields   -> column names in table
- *                  -> used with pre-defined settings (@see org.astrosearcher.enums.mast.services.caom.cone.CaomFields)
+ *                  -> used with pre-defined settings
+ *                     (@see org.astrosearcher.enums.mast.services.caom.cone.CaomFields)
  *
  *     2.) data     -> in format of Json Object
  *

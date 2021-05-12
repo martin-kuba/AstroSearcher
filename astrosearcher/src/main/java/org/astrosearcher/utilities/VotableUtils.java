@@ -3,6 +3,11 @@ package org.astrosearcher.utilities;
 import cds.savot.model.SavotTable;
 import cds.savot.model.TRSet;
 
+/**
+ * Class offers functionality for working with parsed votable data. .
+ *
+ * @author Ľuboslav Halama
+ */
 public class VotableUtils {
 
     public static boolean isEmpty(SavotTable table) {
