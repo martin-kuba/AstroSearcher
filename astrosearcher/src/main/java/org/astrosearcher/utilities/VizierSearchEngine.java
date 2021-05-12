@@ -93,6 +93,6 @@ public class VizierSearchEngine {
             return CompletableFuture.completedFuture(new VizierResponse());
         }
 
-        return CompletableFuture.completedFuture(new VizierResponse(VizierServices.VIZIER_CROSSMATCH, vot.getResources()));
+        return CompletableFuture.completedFuture(new VizierResponse(service, vot.getResources()));
     }
 }

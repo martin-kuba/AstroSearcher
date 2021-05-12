@@ -53,111 +53,19 @@ public class SimbadSearchEngine {
     @Async("threadPoolTaskExecutor")
     public CompletableFuture<SimbadResponse> findAllById(SearchFormInput input) {
         String response = new SimbadRequestObject(SimbadServices.SIMBAD_ID, input).send();
-
-        if (response == null) {
-            return CompletableFuture.completedFuture(new SimbadResponse());
-        }
-
-        // TODO: rework for proper exception catching
-        try {
-            SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
-                    SavotPullEngine.FULL,
-                    "UTF-8");
-            SavotVOTable vot = parser.getVOTable();
-
-            if (isEmptyResponse(vot)) {
-                return CompletableFuture.completedFuture(new SimbadResponse());
-            }
-
-            return CompletableFuture.completedFuture(new SimbadResponse(
-                    SimbadServices.SIMBAD_ID,
-                    ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems(),
-                    ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
-            ));
-        } catch (Exception e) {
-            if (AppConfig.DEBUG) {
-                System.out.println("..::!!!   Exception caught (Simbad - ID)  !!!::..");
-                System.out.println("Message: " + e.getMessage());
-                System.out.println();
-                System.out.println("Exception" + e);
-                System.out.println();
-            }
-            return CompletableFuture.completedFuture(new SimbadResponse());
-        }
-
+        return processResponse(SimbadServices.SIMBAD_ID, response);
     }
 
     @Async("threadPoolTaskExecutor")
     public CompletableFuture<SimbadResponse> findAllByPosition(SearchFormInput input) {
-        // TODO: implement whole functionality - get response from Simbad
-
         String response = new SimbadRequestObject(SimbadServices.SIMBAD_COORDINATES, input).send();
-
-        if (response == null) {
-            return CompletableFuture.completedFuture(new SimbadResponse());
-        }
-
-        // TODO: rework for proper exception catching
-        try {
-            SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
-                    SavotPullEngine.FULL,
-                    "UTF-8");
-            SavotVOTable vot = parser.getVOTable();
-
-            if (isEmptyResponse(vot)) {
-                return CompletableFuture.completedFuture(new SimbadResponse());
-            }
-
-            return CompletableFuture.completedFuture(new SimbadResponse(
-                    SimbadServices.SIMBAD_COORDINATES,
-                    ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems(),
-                    ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
-            ));
-        } catch (Exception e) {
-            if (AppConfig.DEBUG) {
-                System.out.println("..::!!!   Exception caught   !!!::..");
-                System.out.println("Message: " + e.getMessage());
-                System.out.println();
-                System.out.println("Exception" + e);
-                System.out.println();
-            }
-            return CompletableFuture.completedFuture(new SimbadResponse());
-        }
+        return processResponse(SimbadServices.SIMBAD_COORDINATES, response);
     }
 
     @Async("threadPoolTaskExecutor")
     public CompletableFuture<SimbadResponse> findAllByCrossmatch(SearchFormInput input) {
         String response = new CDSCrossmatchRequestObject(input, "simbad").send();
-
-        if (response == null) {
-            return CompletableFuture.completedFuture(new SimbadResponse());
-        }
-
-        try {
-            SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
-                    SavotPullEngine.FULL,
-                    "UTF-8");
-            SavotVOTable vot = parser.getVOTable();
-
-            if (isEmptyResponse(vot)) {
-                return CompletableFuture.completedFuture(new SimbadResponse());
-            }
-
-            return CompletableFuture.completedFuture(new SimbadResponse(
-                    SimbadServices.SIMBAD_CROSSMATCH,
-                    ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems(),
-                    ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
-            ));
-        } catch (Exception e) {
-            if (AppConfig.DEBUG) {
-                System.out.println("..::!!!   Exception caught (Simbad - ID)  !!!::..");
-                System.out.println("Message: " + e.getMessage());
-                System.out.println();
-                System.out.println("Exception" + e);
-                System.out.println();
-            }
-            return CompletableFuture.completedFuture(new SimbadResponse());
-        }
+        return processResponse(SimbadServices.SIMBAD_CROSSMATCH, response);
     }
 
     public static List<SimbadMeasurementsTable> findAllMeasurementsById(SearchFormInput input) {
@@ -183,6 +91,38 @@ public class SimbadSearchEngine {
         }
 
         return ((SavotResource) vot.getResources().getItemAt(0)).getData(0) == null;
+    }
+
+    private static CompletableFuture<SimbadResponse> processResponse(SimbadServices service, String response) {
+        if (response == null) {
+            return CompletableFuture.completedFuture(new SimbadResponse());
+        }
+
+        try {
+            SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),
+                    SavotPullEngine.FULL,
+                    "UTF-8");
+            SavotVOTable vot = parser.getVOTable();
+
+            if (isEmptyResponse(vot)) {
+                return CompletableFuture.completedFuture(new SimbadResponse());
+            }
+
+            return CompletableFuture.completedFuture(new SimbadResponse(
+                    service,
+                    ((SavotResource) vot.getResources().getItemAt(0)).getFieldSet(0).getItems(),
+                    ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
+            ));
+        } catch (Exception e) {
+            if (AppConfig.DEBUG) {
+                System.out.println("..::!!!   Exception caught (Simbad - ID)  !!!::..");
+                System.out.println("Message: " + e.getMessage());
+                System.out.println();
+                System.out.println("Exception" + e);
+                System.out.println();
+            }
+            return CompletableFuture.completedFuture(new SimbadResponse());
+        }
     }
 
 }
