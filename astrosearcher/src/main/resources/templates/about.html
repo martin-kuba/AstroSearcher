@@ -14,23 +14,56 @@
     <nav th:replace="fragments :: navigation"></nav>
 </header>
     <div class="w-75 bg-black-03 rounded-5 text-white my-4 my-md-5 mx-auto">
-        <div class="p-4 p-md-5">
-            <h2 class="text-primary mb-4">Motivation</h2>
-            <p>Project AstroSearcher was created in order to improve searching of
-                astronomical objects in international astronomical databases -
+        <div class="p-4 py-md-5 px-md-6">
+            <h2 class="text-primary mb-4">Project</h2>
+            <p>Project AstroSearcher was created in May 2021 as a part of bachelor’s thesis developed
+                by Ľuboslav Halama in cooperation with Ernst Paunzen Dr.rer.nat.<br>
+                Astrosearcher’s goal is to improve searching of astronomical objects
+                in three of the largest international astronomical databases -
                 <a class="link-warning text-decoration-none"
                    href="https://archive.stsci.edu/">MAST</a>,
                 <a class="link-warning text-decoration-none"
                    href="http://simbad.u-strasbg.fr/simbad/">Simbad</a>,
                 and <a class="link-warning text-decoration-none"
-                       href="https://vizier.u-strasbg.fr/viz-bin/VizieR">Vizier</a>.<br>
-                AstroSearcher serves as interface between user and astronomical databases
-                and provides unified searching in multiple databases at once.
+                       href="https://vizier.u-strasbg.fr/viz-bin/VizieR">Vizier</a>.
             </p>
         </div>
     </div>
+
     <div class="w-75 bg-black-03 rounded-5 text-white my-4 my-md-5 mx-auto">
-        <div class="p-4 p-md-5">
+        <div class="p-4 py-md-5 px-md-6">
+            <h2 class="text-primary mb-4">Searching</h2>
+            <p>AstroSearcher serves as interface between user and astronomical databases
+                and provides unified searching in multiple databases at once.
+            </p>
+            <p class="mb-0">
+                Search form can be divided into two main groups by its parameters - compulsory and optional.<br>
+                <b>Compulsory</b> - these parameters include:
+            </p>
+            <ul>
+                <li><u>Search type</u> - specifies what type of search parameters are used</li>
+                <li><u>Search input</u> - used for queries by <i>id/name (e.g. Sirius)</i> and
+                    <i>position (&lt;number&gt; &lt;number&gt;, e.g. 85.0 -5.8)</i></li>
+                <li><u>File</u> - in case of query by file with coordinates, file must be uploaded
+                    (with the first row containing line: &quot;ra,dec&quot;, other rows with coordinates in decimal format)</li>
+            </ul>
+            <p class="mb-0">
+                <b>Optional</b> - these parameters include:
+            </p>
+            <ul>
+                <li><u>Radius</u> - radius can be specified in order to make search more precise</li>
+                <li><u>Page size</u> - size of the output</li>
+                <li><u>Page</u> - MAST parameter, output is divided into blocks with &quot;page size&quot;
+                    where &quot;page&quot; specifies block’s number.</li>
+                <li><u>Vizier type and input</u> - words (specific words defined by Vizier)
+                    or code (codes of Vizier catalogues separated by space)</li>
+                <li><u>Checkboxes</u> - specifies which service should be queried</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="w-75 bg-black-03 rounded-5 text-white my-4 my-md-5 mx-auto">
+        <div class="p-4 p-md-5 px-md-6">
             <h2 class="text-primary mb-4">Credits</h2>
 
             <p> This service is hosted by

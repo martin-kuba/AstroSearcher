@@ -13,6 +13,10 @@ body {
     background: inherit;
 }
 
+header {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
 
 /*****************************
  **   D I M E N S I O N S   **
@@ -47,6 +51,10 @@ body {
     .w-lg-60 {
         width: 60% !important;
     }
+}
+
+.bs-bbox {
+    box-sizing: border-box;
 }
 
 /*************************
@@ -121,6 +129,13 @@ body {
     .py-md-0-6 {
         padding-top: 0.15rem !important;
         padding-bottom: 0.15rem !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .px-md-6 {
+        padding-left: 5rem !important;
+        padding-right: 5rem !important;
     }
 }
 

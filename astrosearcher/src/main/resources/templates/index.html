@@ -17,14 +17,14 @@
 </head>
 
 <body class="d-flex flex-column">
-    <div class="row flex-grow-0">
+    <div class="row flex-grow-0 m-0">
         <header>
             <div>
                 <nav th:replace="fragments :: navigation"></nav>
             </div>
         </header>
     </div>
-    <div class="row content fs-7">
+    <div class="row content fs-7 bs-bbox m-0">
         <div class="m-auto">
             <form class="container p-2 p-md-3 p-lg-4 bg-black-03 rounded-5"
                   action="results" method="post" enctype="multipart/form-data" onsubmit="btnToLoadingStatus(event)">
