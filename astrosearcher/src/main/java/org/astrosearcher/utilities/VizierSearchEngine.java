@@ -47,13 +47,13 @@ public class VizierSearchEngine {
 
     @Async("threadPoolTaskExecutor")
     public CompletableFuture<VizierResponse> findAllById(SearchFormInput input) {
-        String response = new CDSCrossmatchRequestObject(input, "vizier:" + input.getVizierCat()).send();
+        String response = new VizierRequestObject(VizierServices.VIZIER_ID, input).send();
         return processResponse(VizierServices.VIZIER_ID, response);
     }
 
     @Async("threadPoolTaskExecutor")
     public CompletableFuture<VizierResponse> findAllByPosition(SearchFormInput input) {
-        String response = new CDSCrossmatchRequestObject(input, "vizier:" + input.getVizierCat()).send();
+        String response = new VizierRequestObject(VizierServices.VIZIER_COORDINATES, input).send();
         return processResponse(VizierServices.VIZIER_COORDINATES, response);
     }
 
