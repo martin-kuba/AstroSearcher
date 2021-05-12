@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.2</version>
+		<version>2.4.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org</groupId>
 	<artifactId>astrosearcher</artifactId>
-	<version>1.7.4d-SNAPSHOT</version>
+	<version>1.7.4e-SNAPSHOT</version>
 	<name>astrosearcher</name>
 	<description>Spring Boot Project for searching in astronomic web-catalogues</description>
 	<properties>
