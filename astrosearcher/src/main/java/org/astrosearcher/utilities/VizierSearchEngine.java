@@ -3,12 +3,15 @@ package org.astrosearcher.utilities;
 import cds.savot.model.SavotVOTable;
 import cds.savot.pull.SavotPullEngine;
 import cds.savot.pull.SavotPullParser;
-import org.astrosearcher.classes.constants.AppConfig;
+import org.astrosearcher.TomcatConfig;
+import org.astrosearcher.AppConfig;
 import org.astrosearcher.classes.vizier.VizierRequestObject;
 import org.astrosearcher.classes.vizier.VizierResponse;
 import org.astrosearcher.classes.xmatch.CDSCrossmatchRequestObject;
 import org.astrosearcher.enums.cds.vizier.VizierServices;
 import org.astrosearcher.models.SearchFormInput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,8 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class VizierSearchEngine {
 
+    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+
     private static boolean timeQuantumUsed = false;
 
     public synchronized static boolean isTimeQuantumFree() {
@@ -38,9 +43,9 @@ public class VizierSearchEngine {
         timeQuantumUsed = flag;
         if (AppConfig.DEBUG_SCHEDULE) {
             if (flag) {
-                System.out.println("    " + LocalTime.now() + " ::: [ Vizier ]           : Time Quantum used");
+                log.debug("    {} ::: [ Vizier ]           : Time Quantum used\n", LocalTime.now());
             } else {
-                System.out.println("    " + LocalTime.now() + " ::: [ Vizier ]           : Time Quantum freed");
+                log.debug("    {} ::: [ Vizier ]           : Time Quantum freed\n", LocalTime.now());
             }
         }
     }
@@ -66,8 +71,8 @@ public class VizierSearchEngine {
     private static boolean isEmptyResponse(SavotVOTable vot) {
 
         if (AppConfig.DEBUG) {
-            System.out.print("        Checking resources count... ");
-            System.out.println(vot.getResources().getItemCount() + " resources found");
+            log.debug("        Checking resources count... ");
+            log.debug("{} resources found\n", vot.getResources().getItemCount());
         }
 
         return vot.getResources().getItemCount() == 0;
@@ -80,7 +85,7 @@ public class VizierSearchEngine {
         }
 
         if (AppConfig.DEBUG) {
-            System.out.println("        Initializing SavotPullParser...");
+            log.debug("        Initializing SavotPullParser...\n");
         }
 
         SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),

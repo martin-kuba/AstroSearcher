@@ -3,9 +3,12 @@ package org.astrosearcher.classes.vizier;
 import cds.savot.model.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.astrosearcher.classes.constants.AppConfig;
+import org.astrosearcher.TomcatConfig;
+import org.astrosearcher.AppConfig;
 import org.astrosearcher.enums.cds.vizier.VizierServices;
 import org.astrosearcher.utilities.VotableUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +26,8 @@ import java.util.List;
 @Getter
 public class VizierResponse {
 
+    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+
     private VizierServices    type;
     private List<VizierTable> tables = new ArrayList<>();
 
@@ -31,7 +36,7 @@ public class VizierResponse {
 
         int debug_progress_counter = 0;
         if (AppConfig.DEBUG) {
-            System.out.println("        Parsing the response...");
+            log.debug("        Parsing the response...\n");
         }
 
         // load and check every resource in response
@@ -50,12 +55,12 @@ public class VizierResponse {
 
             if (AppConfig.DEBUG && resIndex >= (debug_progress_counter + 1) * resources.getItemCount() / 4) {
                 debug_progress_counter++;
-                System.out.println("            [  " + debug_progress_counter * 25 + "% ] resources parsed!");
+                log.debug("            [  " + debug_progress_counter * 25 + "% ] resources parsed!\n");
             }
         }
 
         if (AppConfig.DEBUG) {
-            System.out.println("            [ 100% ] resources parsed!");
+            log.debug("            [ 100% ] resources parsed!\n");
         }
 
     }

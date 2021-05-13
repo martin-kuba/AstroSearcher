@@ -1,11 +1,14 @@
 package org.astrosearcher.classes.mast.services.caom.crossmatch;
 
 import lombok.Getter;
+import org.astrosearcher.TomcatConfig;
 import org.astrosearcher.classes.ArgType;
 import org.astrosearcher.classes.Position;
-import org.astrosearcher.classes.constants.AppConfig;
+import org.astrosearcher.AppConfig;
 import org.astrosearcher.classes.constants.MASTConstants;
 import org.astrosearcher.classes.constants.RegularExpressions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -21,6 +24,8 @@ import java.util.List;
 @Getter
 public class CaomCrossmatchInput {
 
+    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+
     private List<ArgType>  fields = new ArrayList<>();
     private List<Position> data   = new ArrayList<>();
 
@@ -31,8 +36,8 @@ public class CaomCrossmatchInput {
             String line = reader.readLine();
 
             if (AppConfig.DEBUG) {
-                System.out.println("        Cross-match input file:");
-                System.out.println("            " + line);
+                log.debug("        Cross-match input file:\n");
+                log.debug("            {}\n", line);
             }
 
             // set fields for RA, DEC
@@ -47,14 +52,13 @@ public class CaomCrossmatchInput {
             // read data
             while ( (line = reader.readLine()) != null ) {
                 if (AppConfig.DEBUG) {
-                    System.out.println("            " + line);
+                    log.debug("            {}\n", line);
                 }
                 data.add(new Position(line));
             }
 
         } catch (IOException e) {
-            System.out.println("There has been a problem with file: " + file.getName() +
-                    ", " + e.getMessage());
+            log.error("There has been a problem with file: {}, {}\n", file.getName(), e.getMessage());
         }
     }
 }

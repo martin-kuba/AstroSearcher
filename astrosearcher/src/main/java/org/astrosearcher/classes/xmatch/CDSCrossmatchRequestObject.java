@@ -7,14 +7,17 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.entity.mime.*;
 import org.apache.http.entity.mime.content.*;
 
+import org.astrosearcher.TomcatConfig;
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.classes.constants.AppConfig;
+import org.astrosearcher.AppConfig;
 import org.astrosearcher.classes.constants.cds.SimbadConstants;
 import org.astrosearcher.classes.constants.cds.XMatchConstats;
 import org.astrosearcher.classes.simbad.SimbadArg;
 import org.astrosearcher.enums.cds.simbad.SimbadServices;
 import org.astrosearcher.enums.cds.xmatch.XMatchArgType;
 import org.astrosearcher.models.SearchFormInput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
@@ -35,6 +38,8 @@ import java.util.List;
  * @author Ľuboslav Halama
  */
 public class CDSCrossmatchRequestObject extends RequestObject {
+
+    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
 
     private SimbadServices service;
     private List<SimbadArg> args = new ArrayList<>();
@@ -82,7 +87,7 @@ public class CDSCrossmatchRequestObject extends RequestObject {
             entity.addPart(XMatchArgType.CATALOG2.toString(), new StringBody(catalogue));
 
         } catch(Exception e) {
-            e.printStackTrace();
+            log.error("Exception: ", e);
         }
     }
 
@@ -102,7 +107,7 @@ public class CDSCrossmatchRequestObject extends RequestObject {
             String inputLine;
 
             if ( AppConfig.DEBUG ) {
-                System.out.println("            Reading response...");
+                log.debug("            Reading response...\n");
             }
 
             while ((inputLine = in.readLine()) != null) {
@@ -130,7 +135,7 @@ public class CDSCrossmatchRequestObject extends RequestObject {
         }
 
         if (AppConfig.DEBUG) {
-            System.out.println("            params: " + params);
+            log.debug("            params: {}\n", params);
         }
 
         return (params.toString()).getBytes();

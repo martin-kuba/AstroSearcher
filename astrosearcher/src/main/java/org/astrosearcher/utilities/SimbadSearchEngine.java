@@ -4,7 +4,8 @@ import cds.savot.model.*;
 import cds.savot.pull.SavotPullEngine;
 import cds.savot.pull.SavotPullParser;
 
-import org.astrosearcher.classes.constants.AppConfig;
+import org.astrosearcher.TomcatConfig;
+import org.astrosearcher.AppConfig;
 import org.astrosearcher.classes.constants.cds.SimbadConstants;
 import org.astrosearcher.classes.simbad.SimbadMeasurementsTable;
 import org.astrosearcher.classes.simbad.SimbadRequestObject;
@@ -12,6 +13,8 @@ import org.astrosearcher.classes.simbad.SimbadResponse;
 import org.astrosearcher.classes.xmatch.CDSCrossmatchRequestObject;
 import org.astrosearcher.enums.cds.simbad.SimbadServices;
 import org.astrosearcher.models.SearchFormInput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +36,8 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class SimbadSearchEngine {
 
+    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+
     private static boolean timeQuantumUsed = false;
 
     public synchronized static boolean isTimeQuantumFree() {
@@ -43,9 +48,9 @@ public class SimbadSearchEngine {
         timeQuantumUsed = flag;
         if (AppConfig.DEBUG_SCHEDULE) {
             if (flag) {
-                System.out.println("    " + LocalTime.now() + " ::: [ SIMBAD ]           : Time Quantum used");
+                log.debug("    {} ::: [ SIMBAD ]           : Time Quantum used", LocalTime.now());
             } else {
-                System.out.println("    " + LocalTime.now() + " ::: [ SIMBAD ]           : Time Quantum freed");
+                log.debug("    {} ::: [ SIMBAD ]           : Time Quantum freed", LocalTime.now());
             }
         }
     }
@@ -115,11 +120,8 @@ public class SimbadSearchEngine {
             ));
         } catch (Exception e) {
             if (AppConfig.DEBUG) {
-                System.out.println("..::!!!   Exception caught (Simbad - ID)  !!!::..");
-                System.out.println("Message: " + e.getMessage());
-                System.out.println();
-                System.out.println("Exception" + e);
-                System.out.println();
+                log.error("..::!!!   Exception caught (Simbad - {})  !!!::..", service);
+                log.error("Message: {}", e.getMessage(), e);
             }
             return CompletableFuture.completedFuture(new SimbadResponse());
         }

@@ -2,14 +2,17 @@ package org.astrosearcher.utilities;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.astrosearcher.TomcatConfig;
 import org.astrosearcher.classes.PositionInput;
-import org.astrosearcher.classes.constants.AppConfig;
+import org.astrosearcher.AppConfig;
 import org.astrosearcher.classes.mast.MastResponse;
 import org.astrosearcher.enums.mast.MastServices;
 import org.astrosearcher.classes.mast.MastRequestObject;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
 import org.astrosearcher.classes.mast.services.name.lookup.ResponseForReqByName;
 import org.astrosearcher.models.SearchFormInput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +33,8 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class MASTSearchEngine {
 
+    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+
     private static boolean timeQuantumUsed = false;
 
     public synchronized static boolean isTimeQuantumFree() {
@@ -40,9 +45,9 @@ public class MASTSearchEngine {
         timeQuantumUsed = flag;
         if (AppConfig.DEBUG_SCHEDULE) {
             if (flag) {
-                System.out.println("    " + LocalTime.now() + " ::: [ MAST ]             : Time Quantum used");
+                log.debug("    {} ::: [ MAST ]             : Time Quantum used", LocalTime.now());
             } else {
-                System.out.println("    " + LocalTime.now() + " ::: [ MAST ]             : Time Quantum freed");
+                log.debug("    {} ::: [ MAST ]             : Time Quantum freed", LocalTime.now());
             }
         }
     }

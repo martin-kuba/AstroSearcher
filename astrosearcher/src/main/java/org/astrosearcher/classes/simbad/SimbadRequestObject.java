@@ -1,8 +1,9 @@
 package org.astrosearcher.classes.simbad;
 
+import org.astrosearcher.TomcatConfig;
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.classes.constants.AppConfig;
+import org.astrosearcher.AppConfig;
 import org.astrosearcher.classes.constants.RegularExpressions;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.constants.cds.SimbadConstants;
@@ -10,6 +11,8 @@ import org.astrosearcher.enums.cds.simbad.SimbadArgType;
 import org.astrosearcher.enums.cds.simbad.SimbadServices;
 import org.astrosearcher.models.SearchFormInput;
 import org.astrosearcher.utilities.ConnectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,6 +31,8 @@ import java.util.List;
  * @author Ľuboslav Halama
  */
 public class SimbadRequestObject extends RequestObject {
+
+    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
 
     private SimbadServices service;
     private String          format = SimbadConstants.DEFAULT_FORMAT;
@@ -72,7 +77,7 @@ public class SimbadRequestObject extends RequestObject {
     @Override
     public String send() {
         if ( AppConfig.DEBUG ) {
-            System.out.println("\n    >>> Starting to query SIMBAD...");
+            log.debug("\n    >>> Starting to query SIMBAD...");
         }
 
         return ConnectionUtils.sendRequest(this);
@@ -80,7 +85,6 @@ public class SimbadRequestObject extends RequestObject {
 
     @Override
     public URL getConnectionURL() throws MalformedURLException {
-//        System.out.println("CONNECTION URL: " + CONNECTION_URL + service + "?");
         return new URL(SimbadConstants.CONNECTION_URL + service + "?");
     }
 
@@ -93,11 +97,9 @@ public class SimbadRequestObject extends RequestObject {
         }
 
         if (AppConfig.DEBUG && AppConfig.DEBUG_SIMBAD_REQUEST) {
-            System.out.println();
-            System.out.println("            Parameters = " + format + params.toString());
+            log.debug("\n            Parameters = " + format + params.toString());
         }
 
         return (format + params.toString()).getBytes();
-//                (SimbadConstants.DEFAULT_FORMAT + params.toString()).getBytes();
     }
 }

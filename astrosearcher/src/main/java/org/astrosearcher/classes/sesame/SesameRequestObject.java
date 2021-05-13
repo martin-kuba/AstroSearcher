@@ -2,10 +2,13 @@ package org.astrosearcher.classes.sesame;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.astrosearcher.TomcatConfig;
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.classes.constants.AppConfig;
+import org.astrosearcher.AppConfig;
 import org.astrosearcher.classes.constants.cds.SesameConstants;
 import org.astrosearcher.utilities.ConnectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,12 +26,14 @@ import java.net.URL;
 @AllArgsConstructor
 public class SesameRequestObject extends RequestObject {
 
+    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+
     private String id;
 
     @Override
     public String send() {
         if ( AppConfig.DEBUG ) {
-            System.out.println("\n    >>> Starting to query Sesame...");
+            log.debug("\n    >>> Starting to query Sesame...\n");
         }
 
         return ConnectionUtils.sendRequest(this);

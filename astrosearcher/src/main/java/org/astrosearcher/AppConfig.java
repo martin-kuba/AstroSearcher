@@ -1,4 +1,4 @@
-package org.astrosearcher.classes.constants;
+package org.astrosearcher;
 
 /**
  * Values used for running of the application (besides application.properties).

@@ -3,11 +3,14 @@ package org.astrosearcher.classes.simbad;
 import cds.savot.model.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.astrosearcher.classes.constants.AppConfig;
+import org.astrosearcher.TomcatConfig;
+import org.astrosearcher.AppConfig;
 import org.astrosearcher.classes.constants.cds.SimbadConstants;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.enums.cds.simbad.SimbadFields;
 import org.astrosearcher.enums.cds.simbad.SimbadServices;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +29,8 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 public class SimbadResponse {
+
+    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
 
     private SimbadServices     type;
     private List<SimbadFields> fields       = new ArrayList<>();
@@ -79,9 +84,9 @@ public class SimbadResponse {
         }
 
         if (AppConfig.DEBUG && AppConfig.DEBUG_DISPLAY_SIMBAD_RESULTS) {
-            System.out.println("        Simbad response:");
+            log.debug("        Simbad response:");
             for (int i = 0; i < fields.size(); i++) {
-                System.out.println("            [ " + fields.get(i) + " ]: " + data.get(0).getTDSet().getContent(i));
+                log.debug("            [ " + fields.get(i) + " ]: " + data.get(0).getTDSet().getContent(i));
             }
         }
     }

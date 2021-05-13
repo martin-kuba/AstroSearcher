@@ -6,11 +6,14 @@ import cds.savot.model.TDSet;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.astrosearcher.classes.constants.AppConfig;
+import org.astrosearcher.TomcatConfig;
+import org.astrosearcher.AppConfig;
 import org.astrosearcher.classes.constants.cds.SimbadConstants;
 import org.astrosearcher.enums.cds.simbad.SimbadArgType;
 import org.astrosearcher.enums.cds.simbad.SimbadFields;
 import org.astrosearcher.enums.cds.simbad.SimbadServices;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -30,6 +33,9 @@ import java.util.Map;
 @NoArgsConstructor
 @Setter
 public class SimbadData {
+
+    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+
     private String queried;
     private String mainID;
     private String objectType;
@@ -271,7 +277,7 @@ public class SimbadData {
     private void calculate_galactic_coords() {
 
         if (AppConfig.DEBUG) {
-            System.out.println("        Starting the calculation of galactic coordinates.");
+            log.debug("        Starting the calculation of galactic coordinates.\n");
         }
 
         double ra_double;
@@ -285,8 +291,8 @@ public class SimbadData {
             ra_double  = Double.parseDouble(this.ra);
             dec_double = Double.parseDouble(this.dec);
         } catch (NumberFormatException nfe) {
-            System.err.println("Exception caught while calculating galactic coordinates (NumberFormatException):\n"
-                    + nfe.getMessage());
+            log.error("Exception caught while calculating galactic coordinates (NumberFormatException): {}\n",
+                    nfe.getMessage());
             return;
         }
 

@@ -2,9 +2,12 @@ package org.astrosearcher.classes.mast;
 
 import com.google.gson.JsonObject;
 import lombok.Getter;
+import org.astrosearcher.TomcatConfig;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.enums.mast.services.caom.cone.CaomFields;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -24,6 +27,9 @@ import java.util.List;
  */
 @Getter
 public class MastResponse {
+
+    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+
     private List<CaomFields> fields = new ArrayList<>();
 
     private List<JsonObject> data = new ArrayList<>();
@@ -52,10 +58,12 @@ public class MastResponse {
                     }
                     break;
                 } catch (NullPointerException npe) {
+                    log.error("MAST response exception: {}", ExceptionMSG.INVALID_MAST_FIELD_NAME_EXCEPTION, npe);
                     throw new NullPointerException(
                             ExceptionMSG.INVALID_MAST_FIELD_NAME_EXCEPTION + npe
                     );
                 } catch (IllegalArgumentException iae) {
+                    log.error("MAST response exception: {}", ExceptionMSG.MAST_FIELD_NAME_NOT_MATCHED_EXCEPTION, iae);
                     throw new IllegalArgumentException(
                             ExceptionMSG.MAST_FIELD_NAME_NOT_MATCHED_EXCEPTION + iae
                     );

@@ -3,9 +3,10 @@ package org.astrosearcher.classes.vizier;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.astrosearcher.TomcatConfig;
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.classes.constants.AppConfig;
+import org.astrosearcher.AppConfig;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.constants.cds.VizierConstants;
 import org.astrosearcher.enums.VizierCatalogueSearch;
@@ -13,6 +14,8 @@ import org.astrosearcher.enums.cds.vizier.VizierArgType;
 import org.astrosearcher.enums.cds.vizier.VizierServices;
 import org.astrosearcher.models.SearchFormInput;
 import org.astrosearcher.utilities.ConnectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -33,6 +36,8 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 public class VizierRequestObject extends RequestObject {
+
+    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
 
     private String format = VizierConstants.FORMAT_VOTABLE;
     private List<VizierArg> args = new ArrayList<>();
@@ -68,7 +73,7 @@ public class VizierRequestObject extends RequestObject {
     @Override
     public String send() {
         if ( AppConfig.DEBUG ) {
-            System.out.println("\n    >>> Starting to query VIZIER...");
+            log.debug("\n    >>> Starting to query VIZIER...\n");
         }
 
         return ConnectionUtils.sendRequest(this);

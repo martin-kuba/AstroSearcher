@@ -1,7 +1,10 @@
 package org.astrosearcher.utilities;
 
+import org.astrosearcher.TomcatConfig;
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.classes.constants.AppConfig;
+import org.astrosearcher.AppConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -16,20 +19,22 @@ import java.net.HttpURLConnection;
  */
 public class ConnectionUtils {
 
+    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+
     public static String sendRequest(RequestObject obj) {
 
         StringBuilder responseData = new StringBuilder();
 
         try {
             if ( AppConfig.DEBUG ) {
-                System.out.println("            Opening connection ( " + obj.getConnectionURL().toString() + " )...");
+                log.debug("            Opening connection ( {} )...\n", obj.getConnectionURL().toString() );
             }
 
             HttpURLConnection connection = (HttpURLConnection) obj.getConnectionURL().openConnection();
             connection.setRequestMethod("POST");
 
             if ( AppConfig.DEBUG ) {
-                System.out.println("            Sending parameters...");
+                log.debug("            Sending parameters...\n");
             }
 
             // set request parameters
@@ -42,8 +47,8 @@ public class ConnectionUtils {
             // Check response code
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 if (AppConfig.DEBUG) {
-                    System.err.println("            RESPONSE CODE:  " + connection.getResponseCode());
-                    System.err.println("            RESPONSE MESSAGE:  " + connection.getResponseMessage());
+                    log.debug("            RESPONSE CODE: {}\n ", connection.getResponseCode());
+                    log.debug("            RESPONSE MESSAGE: {}\n ", connection.getResponseMessage());
                 }
                 return null;
             }
@@ -53,7 +58,7 @@ public class ConnectionUtils {
             String inputLine;
 
             if ( AppConfig.DEBUG ) {
-                System.out.println("            Reading response...");
+                log.debug("            Reading response...\n");
             }
 
             while ((inputLine = in.readLine()) != null) {

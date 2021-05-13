@@ -9,15 +9,18 @@ import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.Gson;
+import org.astrosearcher.TomcatConfig;
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.classes.constants.AppConfig;
+import org.astrosearcher.AppConfig;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.constants.MASTConstants;
 import org.astrosearcher.classes.mast.services.caom.crossmatch.CaomCrossmatchInput;
 import org.astrosearcher.enums.mast.MastServices;
 import org.astrosearcher.models.SearchFormInput;
 import org.astrosearcher.utilities.ConnectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class represents request object which is used in URL request sent to Mast server.
@@ -29,6 +32,8 @@ import org.astrosearcher.utilities.ConnectionUtils;
  * @author Ľuboslav Halama
  */
 public class MastRequestObject extends RequestObject {
+
+    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
 
     @JsonIgnore
     private static final Gson gson = new Gson();
@@ -94,7 +99,7 @@ public class MastRequestObject extends RequestObject {
     @Override
     public String send() {
         if ( AppConfig.DEBUG ) {
-            System.out.println("\n    >>> Starting to query MAST...");
+            log.debug("\n    >>> Starting to query MAST...\n");
         }
 
         return ConnectionUtils.sendRequest(this);
@@ -108,8 +113,8 @@ public class MastRequestObject extends RequestObject {
     @Override
     public byte[] getParamsAsBytes() {
         if (AppConfig.DEBUG) {
-            System.out.println("                params: " + MASTConstants.REQUEST_PARAMS_PREFIX + gson.toJson(this));
-            System.out.println("                params (encoded): " + MASTConstants.REQUEST_PARAMS_PREFIX +
+            log.debug("                params: {}\n", MASTConstants.REQUEST_PARAMS_PREFIX + gson.toJson(this));
+            log.debug("                params (encoded): {}\n", MASTConstants.REQUEST_PARAMS_PREFIX +
                     URLEncoder.encode(gson.toJson(this), StandardCharsets.UTF_8));
         }
 

@@ -1,11 +1,12 @@
 package org.astrosearcher;
 
-import org.astrosearcher.classes.constants.AppConfig;
 import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.utilities.MASTSearchEngine;
 import org.astrosearcher.utilities.SearchEngine;
 import org.astrosearcher.utilities.SimbadSearchEngine;
 import org.astrosearcher.utilities.VizierSearchEngine;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +25,8 @@ import java.util.concurrent.Executor;
 @SpringBootApplication
 public class AstrosearcherApplication {
 
+	private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+
 	public static void main(String[] args) {
 		SpringApplication.run(AstrosearcherApplication.class, args);
 	}
@@ -37,7 +40,7 @@ public class AstrosearcherApplication {
 
 		synchronized (SearchEngine.class) {
 			if (AppConfig.DEBUG_SCHEDULE) {
-				System.out.println("    " + LocalTime.now() + " ::: [ SearchEngine ]     : Notifying...");
+				log.debug("    {} ::: [ SearchEngine ]     : Notifying...", LocalTime.now());
 			}
 			SearchEngine.class.notify();
 		}
@@ -53,7 +56,7 @@ public class AstrosearcherApplication {
 
 		synchronized (SearchEngine.class) {
 			if (AppConfig.DEBUG_SCHEDULE) {
-				System.out.println("    " + LocalTime.now() + " ::: [ SearchEngine ]     : Notifying...");
+				log.debug("    {} ::: [ SearchEngine ]     : Notifying...", LocalTime.now());
 			}
 			SearchEngine.class.notify();
 		}
@@ -68,7 +71,7 @@ public class AstrosearcherApplication {
 
 		synchronized (SearchEngine.class) {
 			if (AppConfig.DEBUG_SCHEDULE) {
-				System.out.println("    " + LocalTime.now() + " ::: [ SearchEngine ]     : Notifying...");
+				log.debug("    {} ::: [ SearchEngine ]     : Notifying...", LocalTime.now());
 			}
 			SearchEngine.class.notify();
 		}

@@ -1,7 +1,8 @@
 package org.astrosearcher.utilities;
 
+import org.astrosearcher.TomcatConfig;
 import org.astrosearcher.classes.ResponseData;
-import org.astrosearcher.classes.constants.AppConfig;
+import org.astrosearcher.AppConfig;
 import org.astrosearcher.classes.constants.RegularExpressions;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.mast.MastResponse;
@@ -10,6 +11,8 @@ import org.astrosearcher.classes.simbad.SimbadResponse;
 import org.astrosearcher.classes.vizier.VizierResponse;
 import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.models.SearchFormInput;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -40,6 +43,8 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class SearchEngine {
 
+    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+
     @Autowired
     MASTSearchEngine mastSearchEngine;
 
@@ -48,12 +53,6 @@ public class SearchEngine {
 
     @Autowired
     VizierSearchEngine vizierSearchEngine;
-
-    ResponseData responseData = new ResponseData();
-
-    CompletableFuture<MastResponse>   mastResponse = null;
-    CompletableFuture<SimbadResponse> simbadResponse = null;
-    CompletableFuture<VizierResponse> vizierResponse = null;
 
     private static boolean finished(SearchFormInput input) {
         return !input.isQueryMast() && !input.isQueryVizier() && !input.isQuerySimbad();
@@ -93,7 +92,6 @@ public class SearchEngine {
             CompletableFuture.allOf(tasks.get(0), tasks.get(1), tasks.get(2)).join();
         }
 
-//        CompletableFuture.allOf(mastResponse, simbadResponse, vizierResponse).join();
         try {
             if (simbadResponse != null) {
                 responseData.setSimbadResponse(simbadResponse.get());
@@ -226,7 +224,7 @@ public class SearchEngine {
                 if (input.isQueryMast() && MASTSearchEngine.isTimeQuantumFree()) {
                     MASTSearchEngine.setTimeQuantumUsed(true);
                     if (mastSearchEngine == null) {
-                        System.err.println("    mastSearchEngine is NULL!");
+                        log.error("    mastSearchEngine is NULL!");
                     }
                     mastResponse = mastSearchEngine.findAllByID(input);
                     input.setQueryMast(false);
@@ -285,12 +283,12 @@ public class SearchEngine {
     public ResponseData process(SearchFormInput input) {
 
         if (AppConfig.DEBUG) {
-            System.out.print("Resolving which type of query has been selected by user... ");
+            log.debug("Resolving which type of query has been selected by user...\n");
         }
 
         if (SearchType.ID_NAME.equals(input.getSearchBy())) {
             if (AppConfig.DEBUG) {
-                System.out.println("query by ID");
+                log.debug("query by ID\n");
             }
 
             // If user put coordinates into search bar but selected search by id/name...
@@ -306,7 +304,7 @@ public class SearchEngine {
 
         if (SearchType.POSITION.equals(input.getSearchBy())) {
             if (AppConfig.DEBUG) {
-                System.out.println("query by POSITION");
+                log.debug("query by POSITION\n");
             }
 
             return findAllByPosition(input);
@@ -314,7 +312,7 @@ public class SearchEngine {
 
         if (SearchType.POSITION_CROSSMATCH.equals(input.getSearchBy())) {
             if (AppConfig.DEBUG) {
-                System.out.println("CROSSMATCH query");
+                log.debug("CROSSMATCH query\n");
             }
 
             return findAllByPositionCrossmatch(input);
