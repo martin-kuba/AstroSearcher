@@ -3,12 +3,10 @@ package org.astrosearcher.classes.vizier;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.astrosearcher.TomcatConfig;
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.AppConfig;
-import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.constants.cds.VizierConstants;
+import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.enums.VizierCatalogueSearch;
 import org.astrosearcher.enums.cds.vizier.VizierArgType;
 import org.astrosearcher.enums.cds.vizier.VizierServices;
@@ -25,7 +23,7 @@ import java.util.List;
 /**
  * Class represents request object which is used in URL request sent to Vizier
  * (CDS) server.
- *
+ * <p>
  * Class provides basic properties for sending request to Vizier server as well
  * as main functionality for sending the given request by our web application
  * (implementation of abstract methods from abstract class RequestObject).
@@ -72,10 +70,7 @@ public class VizierRequestObject extends RequestObject {
 
     @Override
     public String send() {
-        if ( AppConfig.DEBUG ) {
-            log.debug("    >>> Starting to query VIZIER...");
-        }
-
+        log.debug("    >>> Starting to query VIZIER...");
         return ConnectionUtils.sendRequest(this);
     }
 

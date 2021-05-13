@@ -1,11 +1,9 @@
 package org.astrosearcher.utilities;
 
-import cds.savot.model.*;
+import cds.savot.model.SavotResource;
+import cds.savot.model.SavotVOTable;
 import cds.savot.pull.SavotPullEngine;
 import cds.savot.pull.SavotPullParser;
-
-import org.astrosearcher.TomcatConfig;
-import org.astrosearcher.AppConfig;
 import org.astrosearcher.classes.constants.cds.SimbadConstants;
 import org.astrosearcher.classes.simbad.SimbadMeasurementsTable;
 import org.astrosearcher.classes.simbad.SimbadRequestObject;
@@ -19,7 +17,6 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -27,7 +24,7 @@ import java.util.concurrent.CompletableFuture;
 /**
  * Class serves as inter-level between general SearchEngine class and
  * ConnectionUtils class.
- *
+ * <p>
  * Class provides usage of RequestObject needed for constructing and sending
  * of request as well as parsing of response acquired from Simbad (cds) server.
  *
@@ -46,13 +43,12 @@ public class SimbadSearchEngine {
 
     public synchronized static void setTimeQuantumUsed(boolean flag) {
         timeQuantumUsed = flag;
-        if (AppConfig.DEBUG_SCHEDULE) {
-            if (flag) {
-                log.debug("Time Quantum used");
-            } else {
-                log.debug("Time Quantum freed");
-            }
+        if (flag) {
+            log.debug("Time Quantum used");
+        } else {
+            log.debug("Time Quantum freed");
         }
+
     }
 
     @Async("threadPoolTaskExecutor")
@@ -87,11 +83,11 @@ public class SimbadSearchEngine {
     }
 
     private static boolean isEmptyResponse(SavotVOTable vot) {
-        if (vot.getResources().getItemCount() == 0 ) {
+        if (vot.getResources().getItemCount() == 0) {
             return true;
         }
 
-        if (((SavotResource)vot.getResources().getItemAt(0)).getTableCount() == 0 ) {
+        if (((SavotResource) vot.getResources().getItemAt(0)).getTableCount() == 0) {
             return true;
         }
 
@@ -119,10 +115,8 @@ public class SimbadSearchEngine {
                     ((SavotResource) vot.getResources().getItemAt(0)).getTRSet(0).getItems()
             ));
         } catch (Exception e) {
-            if (AppConfig.DEBUG) {
-                log.error("..::!!!   Exception caught (Simbad - {})  !!!::..", service);
-                log.error("Message: {}", e.getMessage(), e);
-            }
+            log.error("..::!!!   Exception caught (Simbad - {})  !!!::..", service);
+            log.error("Message: {}", e.getMessage(), e);
             return CompletableFuture.completedFuture(new SimbadResponse());
         }
     }

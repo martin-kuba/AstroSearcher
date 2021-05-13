@@ -1,15 +1,14 @@
 package org.astrosearcher.classes.xmatch;
 
-import org.apache.http.*;
-import org.apache.http.client.*;
-import org.apache.http.client.methods.*;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.InputStreamBody;
+import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.entity.mime.*;
-import org.apache.http.entity.mime.content.*;
-
-import org.astrosearcher.TomcatConfig;
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.AppConfig;
 import org.astrosearcher.classes.constants.cds.SimbadConstants;
 import org.astrosearcher.classes.constants.cds.XMatchConstats;
 import org.astrosearcher.classes.simbad.SimbadArg;
@@ -20,7 +19,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Class represents request object which is used in URL request sent to Xmatch
  * (CDS) server.
- *
+ * <p>
  * Class provides basic properties for sending a request to MAST server as well
  * as main functionality for sending the given request by our web application
  * (implementation of abstract methods from abstract class RequestObject).
@@ -45,7 +45,7 @@ public class CDSCrossmatchRequestObject extends RequestObject {
     private List<SimbadArg> args = new ArrayList<>();
     private MultipartFile file;
 
-    private MultipartEntity entity = new MultipartEntity( HttpMultipartMode.BROWSER_COMPATIBLE );
+    private MultipartEntity entity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 
     public CDSCrossmatchRequestObject(SearchFormInput input, String catalogue) {
         this.service = SimbadServices.SIMBAD_CROSSMATCH;
@@ -65,10 +65,10 @@ public class CDSCrossmatchRequestObject extends RequestObject {
             );
 
             // set response format
-            entity.addPart(XMatchArgType.RESPONSE_FORMAT.toString() , new StringBody(XMatchConstats.FORMAT));
+            entity.addPart(XMatchArgType.RESPONSE_FORMAT.toString(), new StringBody(XMatchConstats.FORMAT));
 
             // ra and dec column names in uploaded file
-            entity.addPart(XMatchArgType.CATALOG1_RA_COL.toString() , new StringBody(XMatchConstats.RA_COLUMN));
+            entity.addPart(XMatchArgType.CATALOG1_RA_COL.toString(), new StringBody(XMatchConstats.RA_COLUMN));
             entity.addPart(XMatchArgType.CATALOG1_DEC_COL.toString(), new StringBody(XMatchConstats.DEC_COLUMN));
 
             // set output limit
@@ -86,7 +86,7 @@ public class CDSCrossmatchRequestObject extends RequestObject {
             // prepare second catalogue (Simbad or Vizier table)
             entity.addPart(XMatchArgType.CATALOG2.toString(), new StringBody(catalogue));
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             log.error("Exception: ", e);
         }
     }
@@ -105,17 +105,13 @@ public class CDSCrossmatchRequestObject extends RequestObject {
 
             BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
             String inputLine;
-
-            if ( AppConfig.DEBUG ) {
-                log.debug("            Reading response...");
-            }
+            log.debug("            Reading response...");
 
             while ((inputLine = in.readLine()) != null) {
                 responseData.append(inputLine);
             }
             in.close();
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return responseData.toString();
@@ -129,14 +125,12 @@ public class CDSCrossmatchRequestObject extends RequestObject {
     @Override
     @Deprecated
     public byte[] getParamsAsBytes() {
+
         StringBuilder params = new StringBuilder();
         for (SimbadArg arg : args) {
             params.append(arg.toString());
         }
-
-        if (AppConfig.DEBUG) {
-            log.debug("            params: {}", params);
-        }
+        log.debug("            params: {}", params);
 
         return (params.toString()).getBytes();
     }

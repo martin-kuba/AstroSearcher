@@ -1,8 +1,6 @@
 package org.astrosearcher.utilities;
 
-import org.astrosearcher.TomcatConfig;
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.AppConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,18 +24,13 @@ public class ConnectionUtils {
         StringBuilder responseData = new StringBuilder();
 
         try {
-            if ( AppConfig.DEBUG ) {
-                log.debug("            Opening connection ( {} )...", obj.getConnectionURL().toString() );
-            }
+            log.debug("            Opening connection ( {} )...", obj.getConnectionURL().toString());
 
             HttpURLConnection connection = (HttpURLConnection) obj.getConnectionURL().openConnection();
             connection.setRequestMethod("POST");
 
-            if ( AppConfig.DEBUG ) {
-                log.debug("            Sending parameters...");
-            }
-
             // set request parameters
+            log.debug("            Sending parameters...");
             connection.setDoOutput(true);
             OutputStream os = connection.getOutputStream();
             os.write(obj.getParamsAsBytes());
@@ -46,20 +39,15 @@ public class ConnectionUtils {
 
             // Check response code
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                if (AppConfig.DEBUG) {
-                    log.debug("            RESPONSE CODE: {} ", connection.getResponseCode());
-                    log.debug("            RESPONSE MESSAGE: {} ", connection.getResponseMessage());
-                }
+                log.debug("            RESPONSE CODE: {} ", connection.getResponseCode());
+                log.debug("            RESPONSE MESSAGE: {} ", connection.getResponseMessage());
                 return null;
             }
 
             // read response data and store them into 'responseData'
+            log.debug("            Reading response...");
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String inputLine;
-
-            if ( AppConfig.DEBUG ) {
-                log.debug("            Reading response...");
-            }
 
             while ((inputLine = in.readLine()) != null) {
                 responseData.append(inputLine);

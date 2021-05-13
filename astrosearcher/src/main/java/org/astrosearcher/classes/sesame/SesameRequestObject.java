@@ -2,9 +2,7 @@ package org.astrosearcher.classes.sesame;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.astrosearcher.TomcatConfig;
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.AppConfig;
 import org.astrosearcher.classes.constants.cds.SesameConstants;
 import org.astrosearcher.utilities.ConnectionUtils;
 import org.slf4j.Logger;
@@ -15,7 +13,7 @@ import java.net.URL;
 
 /**
  * Class represents request object which is used in URL request sent to Sesame (CDS).
- *
+ * <p>
  * Class provides basic properties for sending a request to Sesame server
  * as well as main functionality for sending the given request by our web
  * application (implementation of abstract methods from abstract class RequestObject).
@@ -32,10 +30,7 @@ public class SesameRequestObject extends RequestObject {
 
     @Override
     public String send() {
-        if ( AppConfig.DEBUG ) {
-            log.debug("    >>> Starting to query Sesame...");
-        }
-
+        log.debug("    >>> Starting to query Sesame...");
         return ConnectionUtils.sendRequest(this);
     }
 

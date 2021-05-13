@@ -2,21 +2,18 @@ package org.astrosearcher.utilities;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import org.astrosearcher.TomcatConfig;
 import org.astrosearcher.classes.PositionInput;
-import org.astrosearcher.AppConfig;
-import org.astrosearcher.classes.mast.MastResponse;
-import org.astrosearcher.enums.mast.MastServices;
 import org.astrosearcher.classes.mast.MastRequestObject;
+import org.astrosearcher.classes.mast.MastResponse;
 import org.astrosearcher.classes.mast.services.caom.cone.ResponseForReqByPos;
 import org.astrosearcher.classes.mast.services.name.lookup.ResponseForReqByName;
+import org.astrosearcher.enums.mast.MastServices;
 import org.astrosearcher.models.SearchFormInput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -43,12 +40,10 @@ public class MASTSearchEngine {
 
     public synchronized static void setTimeQuantumUsed(boolean flag) {
         timeQuantumUsed = flag;
-        if (AppConfig.DEBUG_SCHEDULE) {
-            if (flag) {
-                log.debug("Time Quantum used");
-            } else {
-                log.debug("Time Quantum freed");
-            }
+        if (flag) {
+            log.debug("Time Quantum used");
+        } else {
+            log.debug("Time Quantum freed");
         }
     }
 

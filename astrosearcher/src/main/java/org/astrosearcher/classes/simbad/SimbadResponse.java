@@ -1,10 +1,11 @@
 package org.astrosearcher.classes.simbad;
 
-import cds.savot.model.*;
+import cds.savot.model.LinkSet;
+import cds.savot.model.SavotField;
+import cds.savot.model.SavotLink;
+import cds.savot.model.SavotTR;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.astrosearcher.TomcatConfig;
-import org.astrosearcher.AppConfig;
 import org.astrosearcher.classes.constants.cds.SimbadConstants;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.enums.cds.simbad.SimbadFields;
@@ -83,11 +84,9 @@ public class SimbadResponse {
             assignedData.add(new SimbadData(row.getTDSet(), fields));
         }
 
-        if (AppConfig.DEBUG && AppConfig.DEBUG_DISPLAY_SIMBAD_RESULTS) {
-            log.debug("        Simbad response:");
-            for (int i = 0; i < fields.size(); i++) {
-                log.debug("            [ " + fields.get(i) + " ]: " + data.get(0).getTDSet().getContent(i));
-            }
+        log.debug("        Simbad response:");
+        for (int i = 0; i < fields.size(); i++) {
+            log.debug("            [ " + fields.get(i) + " ]: " + data.get(0).getTDSet().getContent(i));
         }
     }
 

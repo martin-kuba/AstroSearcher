@@ -1,8 +1,6 @@
 package org.astrosearcher.utilities;
 
-import org.astrosearcher.TomcatConfig;
 import org.astrosearcher.classes.ResponseData;
-import org.astrosearcher.AppConfig;
 import org.astrosearcher.classes.constants.RegularExpressions;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.mast.MastResponse;
@@ -59,9 +57,9 @@ public class SearchEngine {
     }
 
     private void storeResults(ResponseData responseData,
-                                     CompletableFuture<MastResponse>   mastResponse,
-                                     CompletableFuture<SimbadResponse> simbadResponse,
-                                     CompletableFuture<VizierResponse> vizierResponse) {
+                              CompletableFuture<MastResponse> mastResponse,
+                              CompletableFuture<SimbadResponse> simbadResponse,
+                              CompletableFuture<VizierResponse> vizierResponse) {
 
 
         List<CompletableFuture> tasks = new ArrayList<>();
@@ -113,7 +111,7 @@ public class SearchEngine {
 
         ResponseData responseData = new ResponseData();
 
-        CompletableFuture<MastResponse>   mastResponse   = null;
+        CompletableFuture<MastResponse> mastResponse = null;
         CompletableFuture<SimbadResponse> simbadResponse = null;
         CompletableFuture<VizierResponse> vizierResponse = null;
 
@@ -163,7 +161,7 @@ public class SearchEngine {
 
         ResponseData responseData = new ResponseData();
 
-        CompletableFuture<MastResponse>   mastResponse   = null;
+        CompletableFuture<MastResponse> mastResponse = null;
         CompletableFuture<SimbadResponse> simbadResponse = null;
         CompletableFuture<VizierResponse> vizierResponse = null;
 
@@ -212,7 +210,7 @@ public class SearchEngine {
 
         ResponseData responseData = new ResponseData();
 
-        CompletableFuture<MastResponse>   mastResponse   = null;
+        CompletableFuture<MastResponse> mastResponse = null;
         CompletableFuture<SimbadResponse> simbadResponse = null;
         CompletableFuture<VizierResponse> vizierResponse = null;
 
@@ -267,7 +265,7 @@ public class SearchEngine {
     public List<SimbadMeasurementsTable> findAllMeasurementsByID(SearchFormInput input) {
 
         try {
-            while ( !SimbadSearchEngine.isTimeQuantumFree() ) {
+            while (!SimbadSearchEngine.isTimeQuantumFree()) {
                 synchronized (SearchEngine.class) {
                     SearchEngine.class.wait();
                 }
@@ -282,14 +280,12 @@ public class SearchEngine {
 
     public ResponseData process(SearchFormInput input) {
 
-        if (AppConfig.DEBUG) {
-            log.debug("Resolving which type of query has been selected by user...");
-        }
+        log.debug("Resolving which type of query has been selected by user...");
+
 
         if (SearchType.ID_NAME.equals(input.getSearchBy())) {
-            if (AppConfig.DEBUG) {
-                log.debug("query by ID");
-            }
+            log.debug("query by ID");
+
 
             // If user put coordinates into search bar but selected search by id/name...
             if (RegularExpressions.isPositionInput(input.getSearchInput())) {
@@ -303,17 +299,15 @@ public class SearchEngine {
         }
 
         if (SearchType.POSITION.equals(input.getSearchBy())) {
-            if (AppConfig.DEBUG) {
-                log.debug("query by POSITION");
-            }
+            log.debug("query by POSITION");
+
 
             return findAllByPosition(input);
         }
 
         if (SearchType.POSITION_CROSSMATCH.equals(input.getSearchBy())) {
-            if (AppConfig.DEBUG) {
-                log.debug("CROSSMATCH query");
-            }
+            log.debug("CROSSMATCH query");
+
 
             return findAllByPositionCrossmatch(input);
         }

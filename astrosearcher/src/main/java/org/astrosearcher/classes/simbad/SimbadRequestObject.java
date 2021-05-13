@@ -1,12 +1,10 @@
 package org.astrosearcher.classes.simbad;
 
-import org.astrosearcher.TomcatConfig;
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.AppConfig;
 import org.astrosearcher.classes.constants.RegularExpressions;
-import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.constants.cds.SimbadConstants;
+import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.enums.cds.simbad.SimbadArgType;
 import org.astrosearcher.enums.cds.simbad.SimbadServices;
 import org.astrosearcher.models.SearchFormInput;
@@ -76,10 +74,7 @@ public class SimbadRequestObject extends RequestObject {
 
     @Override
     public String send() {
-        if ( AppConfig.DEBUG ) {
-            log.debug("    >>> Starting to query SIMBAD...");
-        }
-
+        log.debug("    >>> Starting to query SIMBAD...");
         return ConnectionUtils.sendRequest(this);
     }
 
@@ -96,9 +91,7 @@ public class SimbadRequestObject extends RequestObject {
             params.append(arg.toString());
         }
 
-        if (AppConfig.DEBUG && AppConfig.DEBUG_SIMBAD_REQUEST) {
-            log.debug("            Parameters = " + format + params.toString());
-        }
+        log.debug("            Parameters = " + format + params.toString());
 
         return (format + params.toString()).getBytes();
     }

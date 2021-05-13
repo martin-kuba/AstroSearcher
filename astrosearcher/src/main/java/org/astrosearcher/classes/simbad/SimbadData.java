@@ -6,8 +6,6 @@ import cds.savot.model.TDSet;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.astrosearcher.TomcatConfig;
-import org.astrosearcher.AppConfig;
 import org.astrosearcher.classes.constants.cds.SimbadConstants;
 import org.astrosearcher.enums.cds.simbad.SimbadArgType;
 import org.astrosearcher.enums.cds.simbad.SimbadFields;
@@ -24,7 +22,7 @@ import java.util.Map;
 
 /**
  * Class represents parsed data from Simbad response.
- *
+ * <p>
  * Data are being assigned by current field in each iteration.
  *
  * @author Ľuboslav Halama
@@ -39,7 +37,7 @@ public class SimbadData {
     private String queried;
     private String mainID;
     private String objectType;
-    private int    references;
+    private int references;
 
     private String spectralType;
     private String morphologicalType;
@@ -82,7 +80,7 @@ public class SimbadData {
     private List<SimbadMeasurementsTable> measurements = new ArrayList<>();
 
     private List<SimbadFields> unassignedFields = new ArrayList<>();
-    private List<String>       unassignedData   = new ArrayList<>();
+    private List<String> unassignedData = new ArrayList<>();
 
     public SimbadData(TDSet columns, List<SimbadFields> fields) {
         int columnIndex = 0;
@@ -90,121 +88,121 @@ public class SimbadData {
 
             switch (fields.get(columnIndex)) {
                 case TYPED_ID:
-                    queried = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    queried = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
                 case main_id:
                 case MAIN_ID:
-                    mainID = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    mainID = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
                 case main_type:
                 case OTYPE_S:
-                    objectType = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    objectType = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
                 case nbref:
                 case NB_REF:
-                    references = ((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()
+                    references = ((SavotTD) columns.getItemAt(columnIndex)).getContent().isEmpty()
                             ? 0
-                            : Integer.parseInt(((SavotTD)columns.getItemAt(columnIndex)).getContent());
+                            : Integer.parseInt(((SavotTD) columns.getItemAt(columnIndex)).getContent());
                     break;
 
                 case sp_type:
                 case SP_TYPE:
-                    spectralType = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    spectralType = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
                 case morph_type:
                 case MORPH_TYPE:
-                    morphologicalType = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    morphologicalType = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
 
                 case angDist:
                 case ANG_DIST:
-                    angularDistance = ((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()
-                            ? ((SavotTD)columns.getItemAt(columnIndex)).getContent()
-                            : ((SavotTD)columns.getItemAt(columnIndex)).getContent() + " [ arcsec ]";
+                    angularDistance = ((SavotTD) columns.getItemAt(columnIndex)).getContent().isEmpty()
+                            ? ((SavotTD) columns.getItemAt(columnIndex)).getContent()
+                            : ((SavotTD) columns.getItemAt(columnIndex)).getContent() + " [ arcsec ]";
                     break;
                 case size_maj:
                 case GALDIM_MAJAXIS:
-                    angularSizeMajor = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    angularSizeMajor = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
                 case size_min:
                 case GALDIM_MINAXIS:
-                    angularSizeMinor = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    angularSizeMinor = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
                 case size_angle:
                 case GALDIM_ANGLE:
-                    angularSizeAngle = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    angularSizeAngle = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
 
                 case radvel:
                 case RV_VALUE:
-                    radialVelocity = ((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()
-                            ? ((SavotTD)columns.getItemAt(columnIndex)).getContent()
-                            : ((SavotTD)columns.getItemAt(columnIndex)).getContent() + " [ km/s ]";
+                    radialVelocity = ((SavotTD) columns.getItemAt(columnIndex)).getContent().isEmpty()
+                            ? ((SavotTD) columns.getItemAt(columnIndex)).getContent()
+                            : ((SavotTD) columns.getItemAt(columnIndex)).getContent() + " [ km/s ]";
                     break;
                 case Z_VALUE:
-                    redshift = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    redshift = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
                 case Fe_H_Teff:
-                    effectiveTemperature = ((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()
-                                               ? ((SavotTD)columns.getItemAt(columnIndex)).getContent()
-                                               : ((SavotTD)columns.getItemAt(columnIndex)).getContent() + " [ K ]";
+                    effectiveTemperature = ((SavotTD) columns.getItemAt(columnIndex)).getContent().isEmpty()
+                            ? ((SavotTD) columns.getItemAt(columnIndex)).getContent()
+                            : ((SavotTD) columns.getItemAt(columnIndex)).getContent() + " [ K ]";
                     break;
 
                 case coo_err_maj:
                 case COO_ERR_MAJA_d:
-                    coordErrorMajA = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    coordErrorMajA = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
                 case coo_err_min:
                 case COO_ERR_MINA_d:
-                    coordErrorMinA = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    coordErrorMinA = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
                 case coo_err_angle:
                 case COO_ERR_ANGLE_d:
-                    coordErrorAng = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    coordErrorAng = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
                 case ra:
                 case RA_d:
-                    if ( ra != null && !ra.isEmpty()) {
+                    if (ra != null && !ra.isEmpty()) {
                         inputRA = ra;
                     }
-                    ra = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    ra = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
                 case dec:
                 case DEC_d:
-                    if ( dec != null && !dec.isEmpty()) {
+                    if (dec != null && !dec.isEmpty()) {
                         inputDec = dec;
                     }
-                    dec = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    dec = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
 
                 case pmra:
                 case PMRA:
-                    pmra = ((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()
-                               ? ((SavotTD)columns.getItemAt(columnIndex)).getContent()
-                               : ((SavotTD)columns.getItemAt(columnIndex)).getContent();// + " [ mas/yr ]";
+                    pmra = ((SavotTD) columns.getItemAt(columnIndex)).getContent().isEmpty()
+                            ? ((SavotTD) columns.getItemAt(columnIndex)).getContent()
+                            : ((SavotTD) columns.getItemAt(columnIndex)).getContent();// + " [ mas/yr ]";
                     break;
                 case pmdec:
                 case PMDEC:
-                    pmdec = ((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()
-                            ? ((SavotTD)columns.getItemAt(columnIndex)).getContent()
-                            : ((SavotTD)columns.getItemAt(columnIndex)).getContent(); // + " [ mas/yr ]";
+                    pmdec = ((SavotTD) columns.getItemAt(columnIndex)).getContent().isEmpty()
+                            ? ((SavotTD) columns.getItemAt(columnIndex)).getContent()
+                            : ((SavotTD) columns.getItemAt(columnIndex)).getContent(); // + " [ mas/yr ]";
                     break;
                 case PM_ERR_MAJA:
-                    pmErrorMajA = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    pmErrorMajA = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
                 case PM_ERR_MINA:
-                    pmErrorMinA = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    pmErrorMinA = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
                 case PM_ERR_ANGLE:
-                    pmErrorAng = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    pmErrorAng = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
                 case PM_system:
-                    pmSystem = !((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()
-                            ? "(" + ((SavotTD)columns.getItemAt(columnIndex)).getContent() +")"
+                    pmSystem = !((SavotTD) columns.getItemAt(columnIndex)).getContent().isEmpty()
+                            ? "(" + ((SavotTD) columns.getItemAt(columnIndex)).getContent() + ")"
                             : "";
                     break;
                 case PM_bibcode:
-                    pmBibcode = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    pmBibcode = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
 
                 case B:
@@ -218,10 +216,10 @@ public class SimbadData {
                 case r:
                 case i:
                 case z:
-                    if ( !((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()) {
+                    if (!((SavotTD) columns.getItemAt(columnIndex)).getContent().isEmpty()) {
                         SimbadFlux flux = new SimbadFlux(
                                 fields.get(columnIndex).name(),
-                                Double.parseDouble(((SavotTD)columns.getItemAt(columnIndex)).getContent())
+                                Double.parseDouble(((SavotTD) columns.getItemAt(columnIndex)).getContent())
                         );
                         fluxes.put(flux.getFilter(), flux);
                     }
@@ -240,7 +238,7 @@ public class SimbadData {
                 case FILTER_NAME_r:
                 case FILTER_NAME_i:
                 case FILTER_NAME_z:
-                    if ( !((SavotTD)columns.getItemAt(columnIndex)).getContent().isEmpty()) {
+                    if (!((SavotTD) columns.getItemAt(columnIndex)).getContent().isEmpty()) {
                         SimbadFlux flux = new SimbadFlux(columns, columnIndex);
                         fluxes.put(flux.getFilter(), flux);
                     }
@@ -249,21 +247,21 @@ public class SimbadData {
 
                 case plx:
                 case PLX_plx:
-                    parallaxValue = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    parallaxValue = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
                 case PLX_me:
-                    parallaxError = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    parallaxError = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
                 case PLX_R:
-                    parallaxObsCode = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    parallaxObsCode = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
                 case PLX_bibcode:
-                    parallaxBibcode = ((SavotTD)columns.getItemAt(columnIndex)).getContent();
+                    parallaxBibcode = ((SavotTD) columns.getItemAt(columnIndex)).getContent();
                     break;
 
                 default:
                     unassignedFields.add(fields.get(columnIndex));
-                    unassignedData.add(((SavotTD)columns.getItemAt(columnIndex)).getContent());
+                    unassignedData.add(((SavotTD) columns.getItemAt(columnIndex)).getContent());
 
             }
 
@@ -276,9 +274,7 @@ public class SimbadData {
 
     private void calculate_galactic_coords() {
 
-        if (AppConfig.DEBUG) {
-            log.debug("        Starting the calculation of galactic coordinates.");
-        }
+        log.debug("        Starting the calculation of galactic coordinates.");
 
         double ra_double;
         double dec_double;
@@ -288,7 +284,7 @@ public class SimbadData {
 
         // get RA and DEC
         try {
-            ra_double  = Double.parseDouble(this.ra);
+            ra_double = Double.parseDouble(this.ra);
             dec_double = Double.parseDouble(this.dec);
         } catch (NumberFormatException nfe) {
             log.error("Exception caught while calculating galactic coordinates (NumberFormatException): {}",
@@ -298,7 +294,7 @@ public class SimbadData {
 
         // get Proper Motion if possible, dont use it otherwise
         try {
-            pmra_double  = Double.parseDouble(this.pmra);
+            pmra_double = Double.parseDouble(this.pmra);
             pmdec_double = Double.parseDouble(this.pmdec);
         } catch (NumberFormatException nfe) {
             usePM = false;
@@ -307,13 +303,13 @@ public class SimbadData {
         // calculate galactic coordinates and store them
         double[] results = SkyAlgorithms.J2000toGal(ra_double / 15, dec_double, pmra_double, pmdec_double, usePM);
         galacticLongitude = results[0];
-        galacticLatitude  = results[1];
+        galacticLatitude = results[1];
     }
 
     /**
      * Encodes object’s ID into URL format
      *
-     * @return  URL encoded object’s ID
+     * @return URL encoded object’s ID
      */
     public String getMainIdUrlEncoded() {
         return URLEncoder.encode(mainID, StandardCharsets.UTF_8);
@@ -322,7 +318,7 @@ public class SimbadData {
     /**
      * Result from function is used for proper generation of links for CDS Portal.
      *
-     * @return  constructed URL for CDS Portal (with given object ID settings)
+     * @return constructed URL for CDS Portal (with given object ID settings)
      */
     public String getCDSPortalUrl() {
         return SimbadConstants.CDS_PORTAL_UrL + "?target=" + getMainIdUrlEncoded();
@@ -331,7 +327,7 @@ public class SimbadData {
     /**
      * Result from function is used for proper generation of links for Simbad object ID reference query.
      *
-     * @return  constructed URL for Simbad query by object ID reference (bibcode)
+     * @return constructed URL for Simbad query by object ID reference (bibcode)
      */
     public String getReferencesUrl() {
         return SimbadConstants.CONNECTION_URL + SimbadServices.SIMBAD_ID_REFERENCE +
@@ -341,7 +337,7 @@ public class SimbadData {
     /**
      * Result from function is used for proper generation of links for Simbad object Proper Motion reference query.
      *
-     * @return  constructed URL for Simbad query by object Proper Motion reference (bibcode)
+     * @return constructed URL for Simbad query by object Proper Motion reference (bibcode)
      */
     public String getPMBibcodeUrl() {
         return SimbadConstants.CONNECTION_URL + SimbadServices.SIMBAD_REFERENCE
@@ -351,7 +347,7 @@ public class SimbadData {
     /**
      * Result from function is used for proper generation of links for Simbad object parallax reference query.
      *
-     * @return  constructed URL for Simbad query by object Parallax reference (bibcode)
+     * @return constructed URL for Simbad query by object Parallax reference (bibcode)
      */
     public String getParallaxBibcodeUrl() {
         return SimbadConstants.CONNECTION_URL + SimbadServices.SIMBAD_REFERENCE
@@ -361,7 +357,7 @@ public class SimbadData {
     /**
      * Result from function is used for proper generation of links for Simbad ID query.
      *
-     * @return  constructed URL for Simbad query by object ID
+     * @return constructed URL for Simbad query by object ID
      */
     public String getQueryUrl() {
         return SimbadConstants.CONNECTION_URL + SimbadServices.SIMBAD_ID

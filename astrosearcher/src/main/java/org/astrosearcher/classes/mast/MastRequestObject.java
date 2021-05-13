@@ -1,20 +1,11 @@
 package org.astrosearcher.classes.mast;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gson.Gson;
-import org.astrosearcher.TomcatConfig;
 import org.astrosearcher.classes.PositionInput;
 import org.astrosearcher.classes.RequestObject;
-import org.astrosearcher.AppConfig;
-import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.constants.MASTConstants;
+import org.astrosearcher.classes.constants.messages.ExceptionMSG;
 import org.astrosearcher.classes.mast.services.caom.crossmatch.CaomCrossmatchInput;
 import org.astrosearcher.enums.mast.MastServices;
 import org.astrosearcher.models.SearchFormInput;
@@ -22,9 +13,16 @@ import org.astrosearcher.utilities.ConnectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Class represents request object which is used in URL request sent to Mast server.
- *
+ * <p>
  * Class provides basic properties for sending a request to MAST server
  * as well as main functionality for sending the given request by this web
  * application (implementation of abstract methods from abstract class RequestObject).
@@ -70,8 +68,8 @@ public class MastRequestObject extends RequestObject {
 
                 this.data = new CaomCrossmatchInput(input.getFile());
 
-                params.put(MASTConstants.RA_COLUMN, ((CaomCrossmatchInput)data).getFields().get(0).getName());
-                params.put(MASTConstants.DEC_COLUMN, ((CaomCrossmatchInput)data).getFields().get(1).getName());
+                params.put(MASTConstants.RA_COLUMN, ((CaomCrossmatchInput) data).getFields().get(0).getName());
+                params.put(MASTConstants.DEC_COLUMN, ((CaomCrossmatchInput) data).getFields().get(1).getName());
                 params.put(MASTConstants.RADIUS_COLUMN, input.getRadius());
 
                 break;
@@ -98,10 +96,7 @@ public class MastRequestObject extends RequestObject {
 
     @Override
     public String send() {
-        if ( AppConfig.DEBUG ) {
-            log.debug("    >>> Starting to query MAST...");
-        }
-
+        log.debug("    >>> Starting to query MAST...");
         return ConnectionUtils.sendRequest(this);
     }
 
@@ -112,11 +107,9 @@ public class MastRequestObject extends RequestObject {
 
     @Override
     public byte[] getParamsAsBytes() {
-        if (AppConfig.DEBUG) {
-            log.debug("                params: {}", MASTConstants.REQUEST_PARAMS_PREFIX + gson.toJson(this));
-            log.debug("                params (encoded): {}", MASTConstants.REQUEST_PARAMS_PREFIX +
-                    URLEncoder.encode(gson.toJson(this), StandardCharsets.UTF_8));
-        }
+        log.debug("                params: {}", MASTConstants.REQUEST_PARAMS_PREFIX + gson.toJson(this));
+        log.debug("                params (encoded): {}", MASTConstants.REQUEST_PARAMS_PREFIX +
+                URLEncoder.encode(gson.toJson(this), StandardCharsets.UTF_8));
 
         return (MASTConstants.REQUEST_PARAMS_PREFIX
                 + URLEncoder.encode(gson.toJson(this), StandardCharsets.UTF_8))
