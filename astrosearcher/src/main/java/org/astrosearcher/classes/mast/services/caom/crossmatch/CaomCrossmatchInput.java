@@ -36,8 +36,8 @@ public class CaomCrossmatchInput {
             String line = reader.readLine();
 
             if (AppConfig.DEBUG) {
-                log.debug("        Cross-match input file:\n");
-                log.debug("            {}\n", line);
+                log.debug("        Cross-match input file:");
+                log.debug("            {}", line);
             }
 
             // set fields for RA, DEC
@@ -52,13 +52,13 @@ public class CaomCrossmatchInput {
             // read data
             while ( (line = reader.readLine()) != null ) {
                 if (AppConfig.DEBUG) {
-                    log.debug("            {}\n", line);
+                    log.debug("            {}", line);
                 }
                 data.add(new Position(line));
             }
 
         } catch (IOException e) {
-            log.error("There has been a problem with file: {}, {}\n", file.getName(), e.getMessage());
+            log.error("There has been a problem with file: {}, {}", file.getName(), e.getMessage());
         }
     }
 }

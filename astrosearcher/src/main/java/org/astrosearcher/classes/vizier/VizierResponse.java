@@ -36,7 +36,7 @@ public class VizierResponse {
 
         int debug_progress_counter = 0;
         if (AppConfig.DEBUG) {
-            log.debug("        Parsing the response...\n");
+            log.debug("        Parsing the response...");
         }
 
         // load and check every resource in response
@@ -55,12 +55,12 @@ public class VizierResponse {
 
             if (AppConfig.DEBUG && resIndex >= (debug_progress_counter + 1) * resources.getItemCount() / 4) {
                 debug_progress_counter++;
-                log.debug("            [  " + debug_progress_counter * 25 + "% ] resources parsed!\n");
+                log.debug("            [  " + debug_progress_counter * 25 + "% ] resources parsed!");
             }
         }
 
         if (AppConfig.DEBUG) {
-            log.debug("            [ 100% ] resources parsed!\n");
+            log.debug("            [ 100% ] resources parsed!");
         }
 
     }

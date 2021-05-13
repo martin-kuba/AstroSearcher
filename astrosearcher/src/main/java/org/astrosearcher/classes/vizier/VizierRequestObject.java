@@ -73,7 +73,7 @@ public class VizierRequestObject extends RequestObject {
     @Override
     public String send() {
         if ( AppConfig.DEBUG ) {
-            log.debug("\n    >>> Starting to query VIZIER...\n");
+            log.debug("    >>> Starting to query VIZIER...");
         }
 
         return ConnectionUtils.sendRequest(this);

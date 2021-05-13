@@ -33,7 +33,7 @@ public class SesameRequestObject extends RequestObject {
     @Override
     public String send() {
         if ( AppConfig.DEBUG ) {
-            log.debug("\n    >>> Starting to query Sesame...\n");
+            log.debug("    >>> Starting to query Sesame...");
         }
 
         return ConnectionUtils.sendRequest(this);

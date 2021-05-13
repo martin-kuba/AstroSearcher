@@ -99,7 +99,7 @@ public class MastRequestObject extends RequestObject {
     @Override
     public String send() {
         if ( AppConfig.DEBUG ) {
-            log.debug("\n    >>> Starting to query MAST...\n");
+            log.debug("    >>> Starting to query MAST...");
         }
 
         return ConnectionUtils.sendRequest(this);
@@ -113,8 +113,8 @@ public class MastRequestObject extends RequestObject {
     @Override
     public byte[] getParamsAsBytes() {
         if (AppConfig.DEBUG) {
-            log.debug("                params: {}\n", MASTConstants.REQUEST_PARAMS_PREFIX + gson.toJson(this));
-            log.debug("                params (encoded): {}\n", MASTConstants.REQUEST_PARAMS_PREFIX +
+            log.debug("                params: {}", MASTConstants.REQUEST_PARAMS_PREFIX + gson.toJson(this));
+            log.debug("                params (encoded): {}", MASTConstants.REQUEST_PARAMS_PREFIX +
                     URLEncoder.encode(gson.toJson(this), StandardCharsets.UTF_8));
         }
 

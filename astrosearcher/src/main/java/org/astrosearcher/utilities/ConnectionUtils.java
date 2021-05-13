@@ -27,14 +27,14 @@ public class ConnectionUtils {
 
         try {
             if ( AppConfig.DEBUG ) {
-                log.debug("            Opening connection ( {} )...\n", obj.getConnectionURL().toString() );
+                log.debug("            Opening connection ( {} )...", obj.getConnectionURL().toString() );
             }
 
             HttpURLConnection connection = (HttpURLConnection) obj.getConnectionURL().openConnection();
             connection.setRequestMethod("POST");
 
             if ( AppConfig.DEBUG ) {
-                log.debug("            Sending parameters...\n");
+                log.debug("            Sending parameters...");
             }
 
             // set request parameters
@@ -47,8 +47,8 @@ public class ConnectionUtils {
             // Check response code
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 if (AppConfig.DEBUG) {
-                    log.debug("            RESPONSE CODE: {}\n ", connection.getResponseCode());
-                    log.debug("            RESPONSE MESSAGE: {}\n ", connection.getResponseMessage());
+                    log.debug("            RESPONSE CODE: {} ", connection.getResponseCode());
+                    log.debug("            RESPONSE MESSAGE: {} ", connection.getResponseMessage());
                 }
                 return null;
             }
@@ -58,7 +58,7 @@ public class ConnectionUtils {
             String inputLine;
 
             if ( AppConfig.DEBUG ) {
-                log.debug("            Reading response...\n");
+                log.debug("            Reading response...");
             }
 
             while ((inputLine = in.readLine()) != null) {

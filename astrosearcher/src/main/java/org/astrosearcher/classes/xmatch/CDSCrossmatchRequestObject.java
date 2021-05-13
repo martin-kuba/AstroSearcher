@@ -107,7 +107,7 @@ public class CDSCrossmatchRequestObject extends RequestObject {
             String inputLine;
 
             if ( AppConfig.DEBUG ) {
-                log.debug("            Reading response...\n");
+                log.debug("            Reading response...");
             }
 
             while ((inputLine = in.readLine()) != null) {
@@ -135,7 +135,7 @@ public class CDSCrossmatchRequestObject extends RequestObject {
         }
 
         if (AppConfig.DEBUG) {
-            log.debug("            params: {}\n", params);
+            log.debug("            params: {}", params);
         }
 
         return (params.toString()).getBytes();

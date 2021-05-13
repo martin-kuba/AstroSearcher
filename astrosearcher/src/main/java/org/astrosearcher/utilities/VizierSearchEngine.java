@@ -43,9 +43,9 @@ public class VizierSearchEngine {
         timeQuantumUsed = flag;
         if (AppConfig.DEBUG_SCHEDULE) {
             if (flag) {
-                log.debug("Time Quantum used\n");
+                log.debug("Time Quantum used");
             } else {
-                log.debug("Time Quantum freed\n");
+                log.debug("Time Quantum freed");
             }
         }
     }
@@ -72,7 +72,7 @@ public class VizierSearchEngine {
 
 //        if (AppConfig.DEBUG) {
             log.debug("        Checking resources count... ");
-            log.debug("{} resources found\n", vot.getResources().getItemCount());
+            log.debug("{} resources found", vot.getResources().getItemCount());
 //        }
 
         return vot.getResources().getItemCount() == 0;
@@ -85,7 +85,7 @@ public class VizierSearchEngine {
         }
 
         if (AppConfig.DEBUG) {
-            log.debug("        Initializing SavotPullParser...\n");
+            log.debug("        Initializing SavotPullParser...");
         }
 
         SavotPullParser parser = new SavotPullParser(new ByteArrayInputStream(response.getBytes()),

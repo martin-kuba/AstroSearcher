@@ -277,7 +277,7 @@ public class SimbadData {
     private void calculate_galactic_coords() {
 
         if (AppConfig.DEBUG) {
-            log.debug("        Starting the calculation of galactic coordinates.\n");
+            log.debug("        Starting the calculation of galactic coordinates.");
         }
 
         double ra_double;
@@ -291,7 +291,7 @@ public class SimbadData {
             ra_double  = Double.parseDouble(this.ra);
             dec_double = Double.parseDouble(this.dec);
         } catch (NumberFormatException nfe) {
-            log.error("Exception caught while calculating galactic coordinates (NumberFormatException): {}\n",
+            log.error("Exception caught while calculating galactic coordinates (NumberFormatException): {}",
                     nfe.getMessage());
             return;
         }

@@ -283,12 +283,12 @@ public class SearchEngine {
     public ResponseData process(SearchFormInput input) {
 
         if (AppConfig.DEBUG) {
-            log.debug("Resolving which type of query has been selected by user...\n");
+            log.debug("Resolving which type of query has been selected by user...");
         }
 
         if (SearchType.ID_NAME.equals(input.getSearchBy())) {
             if (AppConfig.DEBUG) {
-                log.debug("query by ID\n");
+                log.debug("query by ID");
             }
 
             // If user put coordinates into search bar but selected search by id/name...
@@ -304,7 +304,7 @@ public class SearchEngine {
 
         if (SearchType.POSITION.equals(input.getSearchBy())) {
             if (AppConfig.DEBUG) {
-                log.debug("query by POSITION\n");
+                log.debug("query by POSITION");
             }
 
             return findAllByPosition(input);
@@ -312,7 +312,7 @@ public class SearchEngine {
 
         if (SearchType.POSITION_CROSSMATCH.equals(input.getSearchBy())) {
             if (AppConfig.DEBUG) {
-                log.debug("CROSSMATCH query\n");
+                log.debug("CROSSMATCH query");
             }
 
             return findAllByPositionCrossmatch(input);

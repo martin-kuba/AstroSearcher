@@ -77,7 +77,7 @@ public class SimbadRequestObject extends RequestObject {
     @Override
     public String send() {
         if ( AppConfig.DEBUG ) {
-            log.debug("\n    >>> Starting to query SIMBAD...");
+            log.debug("    >>> Starting to query SIMBAD...");
         }
 
         return ConnectionUtils.sendRequest(this);
@@ -97,7 +97,7 @@ public class SimbadRequestObject extends RequestObject {
         }
 
         if (AppConfig.DEBUG && AppConfig.DEBUG_SIMBAD_REQUEST) {
-            log.debug("\n            Parameters = " + format + params.toString());
+            log.debug("            Parameters = " + format + params.toString());
         }
 
         return (format + params.toString()).getBytes();
