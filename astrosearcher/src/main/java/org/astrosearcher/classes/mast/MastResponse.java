@@ -28,7 +28,7 @@ import java.util.List;
 @Getter
 public class MastResponse {
 
-    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(MastResponse.class);
 
     private List<CaomFields> fields = new ArrayList<>();
 

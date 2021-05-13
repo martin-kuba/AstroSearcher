@@ -31,7 +31,7 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class VizierSearchEngine {
 
-    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(VizierSearchEngine.class);
 
     private static boolean timeQuantumUsed = false;
 
@@ -43,9 +43,9 @@ public class VizierSearchEngine {
         timeQuantumUsed = flag;
         if (AppConfig.DEBUG_SCHEDULE) {
             if (flag) {
-                log.debug("    {} ::: [ Vizier ]           : Time Quantum used\n", LocalTime.now());
+                log.debug("Time Quantum used\n");
             } else {
-                log.debug("    {} ::: [ Vizier ]           : Time Quantum freed\n", LocalTime.now());
+                log.debug("Time Quantum freed\n");
             }
         }
     }
@@ -70,10 +70,10 @@ public class VizierSearchEngine {
 
     private static boolean isEmptyResponse(SavotVOTable vot) {
 
-        if (AppConfig.DEBUG) {
+//        if (AppConfig.DEBUG) {
             log.debug("        Checking resources count... ");
             log.debug("{} resources found\n", vot.getResources().getItemCount());
-        }
+//        }
 
         return vot.getResources().getItemCount() == 0;
     }

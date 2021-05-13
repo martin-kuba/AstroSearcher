@@ -26,7 +26,7 @@ import java.util.List;
 @Getter
 public class VizierResponse {
 
-    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(VizierResponse.class);
 
     private VizierServices    type;
     private List<VizierTable> tables = new ArrayList<>();

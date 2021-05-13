@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class SimbadRequestObject extends RequestObject {
 
-    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(SimbadRequestObject.class);
 
     private SimbadServices service;
     private String          format = SimbadConstants.DEFAULT_FORMAT;

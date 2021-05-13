@@ -33,7 +33,7 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class MASTSearchEngine {
 
-    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(MASTSearchEngine.class);
 
     private static boolean timeQuantumUsed = false;
 
@@ -45,9 +45,9 @@ public class MASTSearchEngine {
         timeQuantumUsed = flag;
         if (AppConfig.DEBUG_SCHEDULE) {
             if (flag) {
-                log.debug("    {} ::: [ MAST ]             : Time Quantum used", LocalTime.now());
+                log.debug("Time Quantum used");
             } else {
-                log.debug("    {} ::: [ MAST ]             : Time Quantum freed", LocalTime.now());
+                log.debug("Time Quantum freed");
             }
         }
     }

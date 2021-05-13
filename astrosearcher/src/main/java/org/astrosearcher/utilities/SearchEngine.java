@@ -43,7 +43,7 @@ import java.util.concurrent.ExecutionException;
 @Service
 public class SearchEngine {
 
-    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(SearchEngine.class);
 
     @Autowired
     MASTSearchEngine mastSearchEngine;

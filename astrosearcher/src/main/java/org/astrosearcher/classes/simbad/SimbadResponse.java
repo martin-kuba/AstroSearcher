@@ -30,7 +30,7 @@ import java.util.List;
 @Getter
 public class SimbadResponse {
 
-    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(SimbadResponse.class);
 
     private SimbadServices     type;
     private List<SimbadFields> fields       = new ArrayList<>();

@@ -19,7 +19,7 @@ import java.net.HttpURLConnection;
  */
 public class ConnectionUtils {
 
-    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(ConnectionUtils.class);
 
     public static String sendRequest(RequestObject obj) {
 

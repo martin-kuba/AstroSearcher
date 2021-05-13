@@ -39,7 +39,7 @@ import java.util.List;
  */
 public class CDSCrossmatchRequestObject extends RequestObject {
 
-    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(CDSCrossmatchRequestObject.class);
 
     private SimbadServices service;
     private List<SimbadArg> args = new ArrayList<>();

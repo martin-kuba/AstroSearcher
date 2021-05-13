@@ -12,7 +12,7 @@ public final class AppConfig {
      * ***************************************************** */
 
     // Overall debug
-    public static final boolean DEBUG                        = false;
+    public static final boolean DEBUG                        = true;
 
     // Time schedule debugging - prints for notify and time windows changes
     public static final boolean DEBUG_SCHEDULE               = false;

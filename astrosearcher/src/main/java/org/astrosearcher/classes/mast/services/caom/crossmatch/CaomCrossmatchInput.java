@@ -24,7 +24,7 @@ import java.util.List;
 @Getter
 public class CaomCrossmatchInput {
 
-    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(CaomCrossmatchInput.class);
 
     private List<ArgType>  fields = new ArrayList<>();
     private List<Position> data   = new ArrayList<>();

@@ -26,7 +26,7 @@ import java.net.URL;
 @AllArgsConstructor
 public class SesameRequestObject extends RequestObject {
 
-    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(SesameRequestObject.class);
 
     private String id;
 

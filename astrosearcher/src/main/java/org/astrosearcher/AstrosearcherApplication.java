@@ -25,7 +25,7 @@ import java.util.concurrent.Executor;
 @SpringBootApplication
 public class AstrosearcherApplication {
 
-	private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+	private static final Logger log = LoggerFactory.getLogger(AstrosearcherApplication.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(AstrosearcherApplication.class, args);
@@ -40,7 +40,7 @@ public class AstrosearcherApplication {
 
 		synchronized (SearchEngine.class) {
 			if (AppConfig.DEBUG_SCHEDULE) {
-				log.debug("    {} ::: [ SearchEngine ]     : Notifying...", LocalTime.now());
+				log.debug("Notifying SearchEngine class...");
 			}
 			SearchEngine.class.notify();
 		}
@@ -56,7 +56,7 @@ public class AstrosearcherApplication {
 
 		synchronized (SearchEngine.class) {
 			if (AppConfig.DEBUG_SCHEDULE) {
-				log.debug("    {} ::: [ SearchEngine ]     : Notifying...", LocalTime.now());
+				log.debug("Notifying SearchEngine class...");
 			}
 			SearchEngine.class.notify();
 		}
@@ -71,7 +71,7 @@ public class AstrosearcherApplication {
 
 		synchronized (SearchEngine.class) {
 			if (AppConfig.DEBUG_SCHEDULE) {
-				log.debug("    {} ::: [ SearchEngine ]     : Notifying...", LocalTime.now());
+				log.debug("Notifying SearchEngine class...");
 			}
 			SearchEngine.class.notify();
 		}

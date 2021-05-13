@@ -34,7 +34,7 @@ import java.util.Map;
 @Setter
 public class SimbadData {
 
-    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(SimbadData.class);
 
     private String queried;
     private String mainID;

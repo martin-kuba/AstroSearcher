@@ -36,7 +36,7 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class SimbadSearchEngine {
 
-    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(SimbadSearchEngine.class);
 
     private static boolean timeQuantumUsed = false;
 
@@ -48,9 +48,9 @@ public class SimbadSearchEngine {
         timeQuantumUsed = flag;
         if (AppConfig.DEBUG_SCHEDULE) {
             if (flag) {
-                log.debug("    {} ::: [ SIMBAD ]           : Time Quantum used", LocalTime.now());
+                log.debug("Time Quantum used");
             } else {
-                log.debug("    {} ::: [ SIMBAD ]           : Time Quantum freed", LocalTime.now());
+                log.debug("Time Quantum freed");
             }
         }
     }

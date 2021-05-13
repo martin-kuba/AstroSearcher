@@ -37,7 +37,7 @@ import java.util.List;
 @Getter
 public class VizierRequestObject extends RequestObject {
 
-    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(VizierRequestObject.class);
 
     private String format = VizierConstants.FORMAT_VOTABLE;
     private List<VizierArg> args = new ArrayList<>();

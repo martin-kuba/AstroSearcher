@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
  */
 public class MastRequestObject extends RequestObject {
 
-    private static final Logger log = LoggerFactory.getLogger(TomcatConfig.class);
+    private static final Logger log = LoggerFactory.getLogger(MastRequestObject.class);
 
     @JsonIgnore
     private static final Gson gson = new Gson();
