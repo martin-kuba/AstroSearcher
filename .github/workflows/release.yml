@@ -42,6 +42,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: target/astrosearcher.jar
-          asset_name: astrosearcher.jar
+          asset_path: target/searcher.jar
+          asset_name: searcher.jar
           asset_content_type: application/x-webarchive
