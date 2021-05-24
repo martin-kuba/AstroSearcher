@@ -26,7 +26,7 @@ public class TomcatConfig {
     @Value("${server.tomcat.ajp.enabled:false}")
     private boolean enableAjp;
 
-    @Value("${server.tomcat.ajp.secretRequired:true}")
+    @Value("${server.tomcat.ajp.secretRequired:false}")
     private boolean secretRequired;
 
     @Value("${server.tomcat.ajp.secret:}")
@@ -35,7 +35,7 @@ public class TomcatConfig {
     @Value("${server.tomcat.ajp.tomcatAuthentication:false}")
     private boolean tomcatAuthentication;
 
-    @Value("${server.tomcat.ajp.port:8009}")
+    @Value("${server.tomcat.ajp.port:8010}")
     private int port;
 
     @Value("${server.tomcat.ajp.address:127.0.0.1}")
