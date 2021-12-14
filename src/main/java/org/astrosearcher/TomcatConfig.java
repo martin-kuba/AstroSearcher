@@ -15,7 +15,7 @@ import java.net.UnknownHostException;
  * Optional AJP connector configuration for the embedded Tomcat.
  * Activate with:
  * <pre>
- *     java -Dserver.tomcat.ajp.enabled=true -Dserver.tomcat.ajp.secret=5ecr3t -jar ...
+ *     java -Dserver.port=8009 -Dserver.tomcat.ajp.enabled=true -Dserver.tomcat.ajp.secret=5ecr3t -jar ...
  * </pre>
  */
 @Configuration
@@ -26,7 +26,7 @@ public class TomcatConfig {
     @Value("${server.tomcat.ajp.enabled:false}")
     private boolean enableAjp;
 
-    @Value("${server.tomcat.ajp.secretRequired:true}")
+    @Value("${server.tomcat.ajp.secretRequired:false}")
     private boolean secretRequired;
 
     @Value("${server.tomcat.ajp.secret:}")
@@ -34,9 +34,6 @@ public class TomcatConfig {
 
     @Value("${server.tomcat.ajp.tomcatAuthentication:false}")
     private boolean tomcatAuthentication;
-
-    @Value("${server.tomcat.ajp.port:8009}")
-    private int port;
 
     @Value("${server.tomcat.ajp.address:127.0.0.1}")
     private String address;
@@ -52,7 +49,6 @@ public class TomcatConfig {
         TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
         if (enableAjp) {
             tomcat.setProtocol("AJP/1.3");
-            tomcat.setPort(port);
             tomcat.getTomcatProtocolHandlerCustomizers().add(protocolHandler -> {
                 log.info("TomcatProtocolHandlerCustomizer protocolHandler={}", protocolHandler);
                 if (protocolHandler instanceof AjpNioProtocol) {

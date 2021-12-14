@@ -5,12 +5,12 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.4.5</version>
+		<version>2.5.7</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>org</groupId>
 	<artifactId>astrosearcher</artifactId>
-	<version>1.7.4k</version>
+	<version>1.7.5</version>
 	<name>astrosearcher</name>
 	<description>Spring Boot Project for searching in astronomic web-catalogues</description>
 	<properties>
@@ -125,10 +125,15 @@
 </dependencies>
 
 	<build>
+        <finalName>searcher</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<!-- https://docs.spring.io/spring-boot/docs/current/reference/html/deployment.html#deployment.installing -->
+					<executable>true</executable>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
