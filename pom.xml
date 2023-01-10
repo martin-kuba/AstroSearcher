@@ -92,7 +92,7 @@
 		<dependency>
 			<groupId>com.mks.api</groupId>
 			<artifactId>mksapi-jar</artifactId>
-			<version>4.10.9049</version>
+			<version>4.16.2671</version>
 		</dependency>
 
 		<dependency>
