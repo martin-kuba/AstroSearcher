@@ -5,6 +5,8 @@ import org.astrosearcher.classes.constants.Limits;
 import org.astrosearcher.classes.constants.cds.SimbadConstants;
 import org.astrosearcher.classes.constants.messages.ValidationMSG;
 import org.astrosearcher.classes.constants.cds.VizierConstants;
+import org.astrosearcher.enums.SearchType;
+import org.astrosearcher.enums.VizierCatalogueSearch;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.validation.constraints.*;
@@ -51,6 +53,24 @@ public class SearchFormInput {
     private boolean queryMast = true;
     private boolean queryVizier = true;
     private boolean querySimbad = true;
+
+    public SearchFormInput(SearchType searchtype, String searchInput) {
+        this(searchtype, searchInput, VizierCatalogueSearch.code.toString(), VizierConstants.DEFAULT_CATALOG);
+    }
+
+    public SearchFormInput(SearchType searchtype, String searchInput, String vizierCatalogueSearchBy, String vizierCat) {
+        this(
+                searchtype.toString(),
+                searchInput,
+                SimbadConstants.DEFAULT_FORMAT,
+                Limits.DEFAULT_RADIUS,
+                Limits.DEFAULT_PAGE, Limits.DEFAULT_PAGESIZE,
+                vizierCatalogueSearchBy,
+                vizierCat,
+                null,
+                true, true, true
+        );
+    }
 
     public String getVizierCat() {
         return vizierCat == null ? "" : vizierCat;

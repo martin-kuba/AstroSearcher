@@ -1,5 +1,7 @@
 package org.astrosearcher.controllers;
 
+import com.google.gson.Gson;
+import org.astrosearcher.utilities.ConnectionUtils;
 import org.astrosearcher.validators.FileValidator;
 import org.astrosearcher.classes.ResponseData;
 import org.astrosearcher.classes.constants.Limits;
@@ -13,10 +15,14 @@ import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.models.SearchFormInput;
 import org.astrosearcher.utilities.SearchEngine;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
@@ -126,6 +132,7 @@ public class ResultsController {
     public String getSearch(@RequestParam String id, Model model) {
 
         ResponseData responseData;
+
         try {
             responseData = engine.process(new SearchFormInput(
                     SearchType.ID_NAME.toString(),
@@ -146,5 +153,47 @@ public class ResultsController {
         }
 
         return processResponse(responseData, model);
+    }
+
+    @GetMapping("results/json")
+    public ResponseEntity<Object> getSearchJson(@RequestParam SearchFormInput searchFormInput) {
+        Gson gson = new Gson();
+        ResponseData responseData;
+
+        try {
+            responseData = engine.process(searchFormInput);
+        } catch (IllegalArgumentException iae) {
+            return new ResponseEntity<>(gson.toJson(iae.getMessage()), HttpStatus.BAD_REQUEST);
+        } catch (Exception e) {
+            return new ResponseEntity<>(gson.toJson(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        if (responseData.isEmpty()) {
+            return new ResponseEntity<>(gson.toJson(InformationMSG.NO_DATA_AT_ALL), HttpStatus.NO_CONTENT);
+        }
+
+        return ConnectionUtils.prepareJsonResponseEntity(responseData);
+    }
+
+    @GetMapping(value = "results/json", params = "id")
+    public ResponseEntity<Object> getSearchJson(@RequestParam String id) {
+        return getSearchJson(new SearchFormInput(SearchType.ID_NAME, id));
+    }
+
+    @GetMapping(value = "results/json", params = {"ra", "dec"})
+    public ResponseEntity<Object> getSearchJson(@RequestParam String ra, @RequestParam String dec) {
+        return getSearchJson(new SearchFormInput(SearchType.POSITION, ra + " " + dec));
+    }
+
+    @GetMapping(value = "results/json", params = {"id", "vizierInputType", "vizier"})
+    public ResponseEntity<Object> getSearchJson(@RequestParam String id,
+                                                @RequestParam String vizierInputType, @RequestParam String vizier) {
+        return getSearchJson(new SearchFormInput(SearchType.ID_NAME, id, vizierInputType, vizier));
+    }
+
+    @GetMapping(value = "results/json", params = {"ra", "dec", "vizierInputType", "vizier"})
+    public ResponseEntity<Object> getSearchJson(@RequestParam String ra, @RequestParam String dec,
+                                                @RequestParam String vizierInputType, @RequestParam String vizier) {
+        return getSearchJson(new SearchFormInput(SearchType.POSITION, ra + " " + dec, vizierInputType, vizier));
     }
 }
