@@ -7,7 +7,7 @@ import org.astrosearcher.classes.constants.messages.ValidationMSG;
 import org.astrosearcher.classes.constants.cds.VizierConstants;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.*;
+import jakarta.validation.constraints.*;
 
 /**
  * Class represents all the obtainable data from search form in the application
