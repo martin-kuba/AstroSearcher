@@ -1,5 +1,6 @@
 package org.astrosearcher.utilities;
 
+import lombok.Getter;
 import org.astrosearcher.classes.ResponseData;
 import org.astrosearcher.classes.constants.RegularExpressions;
 import org.astrosearcher.classes.constants.messages.ExceptionMSG;
@@ -39,6 +40,7 @@ import java.util.concurrent.ExecutionException;
 @EnableScheduling
 @EnableAsync
 @Service
+@Getter
 public class SearchEngine {
 
     private static final Logger log = LoggerFactory.getLogger(SearchEngine.class);
@@ -276,6 +278,40 @@ public class SearchEngine {
 
         SimbadSearchEngine.setTimeQuantumUsed(true);
         return SimbadSearchEngine.findAllMeasurementsById(input);
+    }
+
+    public ResponseData getVizierCatalogMetadataForObjectIdJson(String id){
+        ResponseData responseData = new ResponseData();
+
+        CompletableFuture<VizierResponse> vizierResponse = null;
+        boolean finished = false;
+
+        while (true) {
+
+            try {
+
+                // Vizier
+                if (VizierSearchEngine.isTimeQuantumFree()) {
+                    VizierSearchEngine.setTimeQuantumUsed(true);
+                    vizierResponse = vizierSearchEngine.getVizierCatalogMetadataForObjectId(id);
+                    finished = true;
+                }
+
+                if (finished) {
+                    storeResults(responseData, null, null, vizierResponse);
+                    break;
+                } else {
+                    synchronized (SearchEngine.class) {
+                        SearchEngine.class.wait();
+                    }
+                }
+            } catch (InterruptedException ie) {
+                break;
+            }
+
+        }
+
+        return responseData;
     }
 
     public ResponseData process(SearchFormInput input) {
