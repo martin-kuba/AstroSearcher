@@ -68,11 +68,11 @@ Simbad fragment => query by ID + query by coordinates
 <div th:fragment="Simbad" id="data-Simbad" class="tabcontent">
     <div class="alert alert-info display-6 text-center py-3" th:unless="${containsSimbad}" th:text="${simbadDataMSG}"></div>
     <th:block th:if="${#strings.equals(simbadType, 'SIMBAD_ID')}">
-        <div th:replace="results-data :: Simbad-id"></div>
+        <div th:replace="~{results-data :: Simbad-id}"></div>
     </th:block>
     <th:block th:if="${#strings.equals(simbadType, 'SIMBAD_COORDINATES')
                        || #strings.equals(simbadType, 'SIMBAD_CROSSMATCH')}">
-        <div th:replace="results-data :: Simbad-coord"></div>
+        <div th:replace="~{results-data :: Simbad-coord}"></div>
     </th:block>
 </div>
 
@@ -112,17 +112,17 @@ Simbad fragment => query by ID
     <th:block th:if="${containsSimbad}" th:with="data = ${simbadResponse.assignedData.get(0)}">
         <div class="container-fluid bg-black-03 text-white py-1 rounded-5 px-2 px-md-3 px-lg-4">
             <div class="row d-flex justify-content-around">
-                <div class="col-auto my-5"> <div th:replace="results-data :: Simbad-id-general-info"></div> </div>
-                <div class="col-auto my-5"> <div th:replace="results-data :: Simbad-id-coordinates"></div>  </div>
-                <div class="col-auto my-5"> <div th:replace="results-data :: Simbad-id-proper-motion"></div></div>
+                <div class="col-auto my-5"> <div th:replace="~{results-data :: Simbad-id-general-info}"></div> </div>
+                <div class="col-auto my-5"> <div th:replace="~{results-data :: Simbad-id-coordinates}"></div>  </div>
+                <div class="col-auto my-5"> <div th:replace="~{results-data :: Simbad-id-proper-motion}"></div></div>
             </div>
         </div>
 
         <div class="container-fluid bg-black-03 text-white py-1 mt-5 rounded-5 px-2 px-md-3 px-lg-4">
             <div class="row d-flex justify-content-around">
-                <div class="col-auto my-5"> <div th:replace="results-data :: Simbad-id-fluxes"></div>       </div>
-                <div class="col-auto my-5"> <div th:replace="results-data :: Simbad-id-parallax"></div>     </div>
-                <div class="col-auto my-5"> <div th:replace="results-data :: Simbad-id-further-info"></div> </div>
+                <div class="col-auto my-5"> <div th:replace="~{results-data :: Simbad-id-fluxes}"></div>       </div>
+                <div class="col-auto my-5"> <div th:replace="~{results-data :: Simbad-id-parallax}"></div>     </div>
+                <div class="col-auto my-5"> <div th:replace="~{results-data :: Simbad-id-further-info}"></div> </div>
             </div>
         </div>
     </th:block>
