@@ -68,6 +68,25 @@ public class VizierRequestObject extends RequestObject {
         args.add(new VizierArg(VizierArgType.OUTPUT_LIMIT, input.getPagesize()));
     }
 
+    public VizierRequestObject(String name, int radiusInSeconds, String metadataParameter, int outSize) {
+        args.add(new VizierArg(
+                VizierArgType.TARGET,
+                name)
+        );
+        args.add(new VizierArg(
+                VizierArgType.RADIUS_SECONDS,
+                radiusInSeconds
+        ));
+        args.add(new VizierArg(
+                VizierArgType.META,
+                metadataParameter
+        ));
+        args.add(new VizierArg(
+                VizierArgType.OUTPUT_LIMIT,
+                outSize
+        ));
+    }
+
     @Override
     public String send() {
         log.debug("    >>> Starting to query VIZIER...");
@@ -85,7 +104,6 @@ public class VizierRequestObject extends RequestObject {
         for (VizierArg arg : args) {
             params.append(arg.toString());
         }
-
         return params.toString().getBytes();
     }
 }

@@ -20,7 +20,7 @@
 
 <body>
 <header>
-    <nav th:replace="fragments :: navigation"></nav>
+    <nav th:replace="~{fragments :: navigation}"></nav>
 </header>
 <div class="h-90">
     <div class="tab w-95 bg-transparent overflow-hidden fw-bold fs-4 mt-3 mt-md-4 mt-lg-5 mb-0 mx-auto">
@@ -42,9 +42,9 @@
     </div>
 
     <!-- Tab content -->
-    <div th:replace="results-data :: Mast"></div>
-    <div th:replace="results-data :: Vizier"></div>
-    <div th:replace="results-data :: Simbad"></div>
+    <div th:replace="~{results-data :: Mast}"></div>
+    <div th:replace="~{results-data :: Vizier}"></div>
+    <div th:replace="~{results-data :: Simbad}"></div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"

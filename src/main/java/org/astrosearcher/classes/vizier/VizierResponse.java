@@ -45,6 +45,12 @@ public class VizierResponse {
             for (int tableIndex = 0; tableIndex < resource.getTableCount(); tableIndex++) {
                 SavotTable table = (SavotTable) resource.getTables().getItemAt(tableIndex);
 
+                // check if metadata were requested
+                if (service == VizierServices.VIZIER_META) {
+                    tables.add(new VizierTable(table, false));
+                    continue;
+                }
+
                 // if table is not empty, store it into: List<VizierTable> tables
                 if (!VotableUtils.isEmpty(table)) {
                     tables.add(new VizierTable(table));

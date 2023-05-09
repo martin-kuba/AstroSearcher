@@ -72,6 +72,22 @@ public class SearchFormInput {
         );
     }
 
+    public SearchFormInput(SearchType searchtype, String searchInput, boolean queryMast, boolean queryVizier, boolean querySimbad) {
+        this(
+                searchtype.toString(),
+                searchInput,
+                SimbadConstants.DEFAULT_FORMAT,
+                Limits.DEFAULT_RADIUS,
+                Limits.DEFAULT_PAGE, Limits.DEFAULT_PAGESIZE,
+                VizierCatalogueSearch.code.toString(),
+                VizierConstants.DEFAULT_CATALOG,
+                null,
+                queryMast,
+                queryVizier,
+                querySimbad
+        );
+    }
+
     public String getVizierCat() {
         return vizierCat == null ? "" : vizierCat;
     }

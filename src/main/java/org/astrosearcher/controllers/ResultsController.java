@@ -15,14 +15,12 @@ import org.astrosearcher.enums.SearchType;
 import org.astrosearcher.models.SearchFormInput;
 import org.astrosearcher.utilities.SearchEngine;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
-import org.springframework.util.MultiValueMap;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
@@ -175,6 +173,37 @@ public class ResultsController {
         return ConnectionUtils.prepareJsonResponseEntity(responseData);
     }
 
+    @GetMapping(value = "results/json", params = {"id", "queryMast", "queryVizier", "querySimbad"})
+    public ResponseEntity<Object> getSearchJson(@RequestParam String id, @RequestParam int queryMast,
+                                      @RequestParam int queryVizier, @RequestParam int querySimbad) {
+
+        ResponseData finalResponse;
+
+        // check if only metadata are requested from Vizier
+        if (queryVizier == 2) {
+            finalResponse = engine.process(new SearchFormInput(
+                    SearchType.ID_NAME,
+                    id,
+                    queryMast == 1,
+                    false,
+                    querySimbad == 1));
+            ResponseData vizierMetadata = engine.getVizierCatalogMetadataForObjectIdJson(id);
+
+            if (vizierMetadata.containsVizierResponse()) {
+                finalResponse.setVizierResponse(vizierMetadata.getVizierResponse());
+            }
+            return ConnectionUtils.prepareJsonResponseEntity(finalResponse);
+        }
+
+        return getSearchJson(new SearchFormInput(
+                SearchType.ID_NAME,
+                id,
+                queryMast == 1,
+                queryVizier == 1,
+                querySimbad == 1));
+
+    }
+
     @GetMapping(value = "results/json", params = "id")
     public ResponseEntity<Object> getSearchJson(@RequestParam String id) {
         return getSearchJson(new SearchFormInput(SearchType.ID_NAME, id));
@@ -195,5 +224,11 @@ public class ResultsController {
     public ResponseEntity<Object> getSearchJson(@RequestParam String ra, @RequestParam String dec,
                                                 @RequestParam String vizierInputType, @RequestParam String vizier) {
         return getSearchJson(new SearchFormInput(SearchType.POSITION, ra + " " + dec, vizierInputType, vizier));
+    }
+
+    @GetMapping(value = "results/vizier/cats", params = "id")
+    @ResponseBody
+    public ResponseData getVizierCatalogMetadataForObjectIdJson(@RequestParam String id) {
+        return engine.getVizierCatalogMetadataForObjectIdJson(id);
     }
 }

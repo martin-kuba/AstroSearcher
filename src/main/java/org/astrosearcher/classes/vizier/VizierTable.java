@@ -27,6 +27,10 @@ public class VizierTable {
     private List<List<String>> data = new ArrayList<>();
 
     public VizierTable(SavotTable table) {
+        this(table, true);
+    }
+
+    public VizierTable(SavotTable table, boolean storeData) {
         this.name        = table.getName();
         this.description = table.getDescription();
 
@@ -36,21 +40,22 @@ public class VizierTable {
             fields.add( ( (SavotField) fieldset.getItemAt(fieldIndex)).getName() );
         }
 
-        // get data (rows)
-        TRSet rows = table.getData().getTableData().getTRs();
-        for (int rowIndex = 0; rowIndex < rows.getItemCount(); rowIndex++) {
+        if (storeData) {
+            // get data (rows)
+            TRSet rows = table.getData().getTableData().getTRs();
+            for (int rowIndex = 0; rowIndex < rows.getItemCount(); rowIndex++) {
 
-            List<String> nextRow = new ArrayList<>();
-            TDSet columns = rows.getTDSet(rowIndex);
+                List<String> nextRow = new ArrayList<>();
+                TDSet columns = rows.getTDSet(rowIndex);
 
-            // For each column, get its content (data) and store it
-            for (int colIndex = 0; colIndex < columns.getItemCount(); colIndex++) {
-                nextRow.add(((SavotTD)columns.getItemAt(colIndex)).getContent());
+                // For each column, get its content (data) and store it
+                for (int colIndex = 0; colIndex < columns.getItemCount(); colIndex++) {
+                    nextRow.add(((SavotTD)columns.getItemAt(colIndex)).getContent());
+                }
+
+                this.data.add(nextRow);
             }
-
-            this.data.add(nextRow);
         }
-
     }
 
     public static boolean isEmpty(List<SavotField> responseFields, List<SavotTR> rows) {
