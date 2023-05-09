@@ -63,6 +63,12 @@ public class VizierSearchEngine {
         return processResponse(VizierServices.VIZIER_CROSSMATCH, response);
     }
 
+    @Async("threadPoolTaskExecutor")
+    public CompletableFuture<VizierResponse> getVizierCatalogMetadataForObjectId(String id) {
+        String response = new VizierRequestObject(id, 5, "ap", 1).send();
+        return processResponse(VizierServices.VIZIER_META, response);
+    }
+
     private static boolean isEmptyResponse(SavotVOTable vot) {
         log.debug("        Checking resources count... ");
         log.debug("{} resources found", vot.getResources().getItemCount());
