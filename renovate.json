@@ -3,6 +3,13 @@
   "extends": [
     "config:recommended"
   ],
+  "ignoreDeps": [
+    "cds.savot.common:common",
+    "cds.savot.model:model",
+    "cds.savot.pull:pull",
+    "kxml2-min:kxml2-min",
+    "astrocc:astroCC"
+  ],
   "packageRules": [
     {
       "matchUpdateTypes": [
